@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3216df-28fc-405a-8e6b-031a250d08a3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Phase_1/CSVScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Phase_1/CSVParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Phase_1/CSVParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testData.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testData2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testData2.csv" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,15 +16,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="CSVScanner.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVScanner.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="CSVParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state relative-caret-position="522">
+              <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#105#115#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,6 +51,7 @@
         <option value="$PROJECT_DIR$/src/Phase_1/CSVReader.java" />
         <option value="$PROJECT_DIR$/src/Phase_1/CSVScaner.java" />
         <option value="$PROJECT_DIR$/src/Phase_1/CSVScanner.java" />
+        <option value="$PROJECT_DIR$/src/Phase_1/CSVParser.java" />
       </list>
     </option>
   </component>
@@ -75,7 +76,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -98,8 +101,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -198,7 +199,8 @@
       <updated>1532052981572</updated>
       <workItem from="1532052985621" duration="611000" />
       <workItem from="1532053637034" duration="131000" />
-      <workItem from="1532053784201" duration="3215000" />
+      <workItem from="1532053784201" duration="3995000" />
+      <workItem from="1532067959556" duration="2099000" />
     </task>
     <task id="LOCAL-00001" summary="Created project">
       <created>1532053290660</created>
@@ -207,38 +209,52 @@
       <option name="project" value="LOCAL" />
       <updated>1532053290660</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Starting work on csv parser">
+      <created>1532057755071</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1532057755071</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Working on csv parser">
+      <created>1532058253648</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1532058253648</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3957000" />
+    <option name="totallyTimeSpent" value="6836000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="815" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="bottom" id="TODO" order="9" />
-      <window_info anchor="bottom" id="Messages" weight="0.32900944" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32879376" />
       <window_info anchor="right" id="Palette&#9;" order="1" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.50069445" side_tool="true" weight="0.32900944" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.32900944" />
       <window_info anchor="right" id="Version Control" internal_type="SLIDING" order="9" type="SLIDING" weight="0.21428572" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49930555" visible="true" weight="0.27140078" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.20833333" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15214723" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06458333" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
@@ -281,24 +297,33 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created project" />
+    <MESSAGE value="Starting work on csv parser" />
+    <MESSAGE value="Working on csv parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on csv parser" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../1.0. Semester 1/SENG201/Assignment/SENG201_Assignment/src/com/sambrose/swing_game/Team.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-121" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testData">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVScanner.java">
+    <entry file="file://$PROJECT_DIR$/testData" />
+    <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="522">
+          <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#105#115#0" expanded="true" />
           </folding>
         </state>
       </provider>
