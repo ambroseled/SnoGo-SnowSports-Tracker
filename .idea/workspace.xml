@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c3216df-28fc-405a-8e6b-031a250d08a3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Phase_1/CSVParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Phase_1/CSVParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testData.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testData2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testData2.csv" afterDir="false" />
-    </list>
+    <list default="true" id="7c3216df-28fc-405a-8e6b-031a250d08a3" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +15,8 @@
       <file leaf-file-name="CSVParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
+            <state relative-caret-position="756">
+              <caret line="70" column="44" lean-forward="true" selection-start-line="70" selection-start-column="44" selection-end-line="70" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -200,7 +195,7 @@
       <workItem from="1532052985621" duration="611000" />
       <workItem from="1532053637034" duration="131000" />
       <workItem from="1532053784201" duration="3995000" />
-      <workItem from="1532067959556" duration="2099000" />
+      <workItem from="1532067959556" duration="2202000" />
     </task>
     <task id="LOCAL-00001" summary="Created project">
       <created>1532053290660</created>
@@ -223,11 +218,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532058253648</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Working on csv parser, added functionality to split data into separate activities">
+      <created>1532070280814</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532070280814</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6836000" />
+    <option name="totallyTimeSpent" value="6939000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -243,7 +245,7 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="right" id="Version Control" internal_type="SLIDING" order="9" type="SLIDING" weight="0.21428572" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49930555" visible="true" weight="0.27140078" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49930555" weight="0.27140078" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.20833333" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -299,7 +301,8 @@
     <MESSAGE value="Created project" />
     <MESSAGE value="Starting work on csv parser" />
     <MESSAGE value="Working on csv parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on csv parser" />
+    <MESSAGE value="Working on csv parser, added functionality to split data into separate activities" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on csv parser, added functionality to split data into separate activities" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
@@ -320,8 +323,8 @@
     <entry file="file://$PROJECT_DIR$/testData" />
     <entry file="file://$PROJECT_DIR$/src/Phase_1/CSVParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
+        <state relative-caret-position="756">
+          <caret line="70" column="44" lean-forward="true" selection-start-line="70" selection-start-column="44" selection-end-line="70" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
