@@ -57,13 +57,6 @@ public class CSVParser {
             }
         return activities;
     }
-    /**
-     * Takes the activity data and then calculates distance traveled......
-     * @param activityData
-     * @return
-     */
-    private ArrayList<ArrayList<String[]>> calulateInfo(ArrayList<ArrayList<String[]>> activityData) {
-    }
     public static void main(String[] args) {
         CSVParser test = new CSVParser();
         ArrayList<String[]> testArray = test.readFile("testData.csv");
