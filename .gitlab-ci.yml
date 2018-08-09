@@ -1,0 +1,11 @@
+junit:
+ stage: test
+ script:
+ - mvn -B clean test
+generate_artifacts:
+ stage: deploy
+ script:
+ - mvn -B clean site package
+ artifacts:
+ paths:
+ - target/s202*.jar
