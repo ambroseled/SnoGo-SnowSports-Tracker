@@ -7,5 +7,7 @@ generate_artifacts:
     script:
         - cd Fittness-Tracker-App mvn -B clean site package
     artifacts:
+        script:
+            - pwd
         paths:
             - /Fittness-Tracker-App/target/Fittness-Tracker-App-*.jar
