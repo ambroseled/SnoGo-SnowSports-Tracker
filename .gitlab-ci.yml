@@ -8,4 +8,4 @@ generate_artifacts:
         - cd Fittness-Tracker-App mvn -B clean site package
     artifacts:
         paths:
-            - target/Fittness*.jar
+            - Fittness-Tracker-App/target/Fittness*.jar
