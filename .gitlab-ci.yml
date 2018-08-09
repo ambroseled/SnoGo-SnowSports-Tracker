@@ -1,11 +1,11 @@
 junit:
     stage: test
     script:
-        - cd Fittness-Tracker-App mvn -B clean test
+        - cd FittnessTrackerApp mvn -B clean test
 generate_artifacts:
     stage: deploy
     script:
-        - cd Fittness-Tracker-App mvn -B clean package
+        - cd FittnessTrackerApp mvn -B clean package
     artifacts:
         paths:
-            - Fittness-Tracker-App/target/Fittness*.jar
+            - FittnessTrackerApp/target/Fittness*.jar
