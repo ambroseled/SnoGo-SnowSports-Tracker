@@ -9,8 +9,5 @@
         <module name="Fittness-Tracker-App" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Fittness-Tracker-App" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>
