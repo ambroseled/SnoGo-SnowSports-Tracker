@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6aa3d45-2fa2-4594-91b9-cff15759cef7" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Fittness-Tracker-App.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -220,7 +222,7 @@
       <workItem from="1533245572848" duration="13000" />
       <workItem from="1533337482938" duration="784000" />
       <workItem from="1533338423925" duration="130000" />
-      <workItem from="1533850335390" duration="193000" />
+      <workItem from="1533850335390" duration="241000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed CSVParser">
       <created>1533338253642</created>
@@ -229,11 +231,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533338253642</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed CSVParser">
+      <created>1533850536149</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1533850536149</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1496000" />
+    <option name="totallyTimeSpent" value="1544000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1682" height="1043" extended-state="4" />
