@@ -10,4 +10,4 @@ generate_artifacts:
         - mvn -B clean package
     artifacts:
         paths:
-            - Fitness-Tracker-App/target/Fittness*.jar
+            - Fitness-Tracker-App/target/Fitness*.jar
