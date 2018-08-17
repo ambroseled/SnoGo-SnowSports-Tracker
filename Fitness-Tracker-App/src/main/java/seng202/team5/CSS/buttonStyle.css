@@ -2,7 +2,7 @@
 
 
 .round-blue {
-    -fx-background-color: blue;
+    -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-background-radius: 16px;
 }
