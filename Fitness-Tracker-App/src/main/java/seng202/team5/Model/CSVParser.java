@@ -1,4 +1,4 @@
-package seng202.team5;
+package seng202.team5.Model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -57,6 +57,8 @@ public class CSVParser {
             }
         return activities;
     }
+
+
     public static void main(String[] args) {
         CSVParser test = new CSVParser();
         ArrayList<String[]> testArray = test.readFile("testData.csv");
