@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+
 /**
  * This class parsers activity data from a csv file. .......
  * This class parses activity data from a .csv file. It first reads
@@ -14,7 +16,11 @@ import java.util.ArrayList;
  */
 public class CSVParser {
 
-
+    /**
+     * 
+     * @param filePath
+     * @return
+     */
     private ArrayList<String[]> readFile(String filePath) {
         ArrayList<String[]> initialData = new ArrayList();
 
@@ -33,6 +39,8 @@ public class CSVParser {
 
         return initialData;
     }
+
+
     /**
      * The data read in readFile() is further processed into separate array lists
      * for each activity.
