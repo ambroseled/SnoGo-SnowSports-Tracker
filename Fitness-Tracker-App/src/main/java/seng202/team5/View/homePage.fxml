@@ -12,8 +12,8 @@
 <?import javafx.scene.text.Text?>
 
 <SplitPane dividerPositions="0.19732441471571907" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to top, #0121C1, #398BF7);">
+   <items>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to top, #0121C1, #398BF7);">
          <children>
             <Line fx:id="topDivider" endX="100.0" layoutX="13.0" layoutY="85.0" startX="-13.0" stroke="#1100ff" strokeWidth="6.0" />
             <Button fx:id="dataButton" layoutX="3.0" layoutY="182.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Data">
@@ -51,9 +51,9 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to top, #0121C1, #398BF7);">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to top, #0121C1, #398BF7);">
          <children>
             <HBox prefHeight="60.0" prefWidth="476.0" />
          </children></AnchorPane>
-  </items>
+   </items>
 </SplitPane>
