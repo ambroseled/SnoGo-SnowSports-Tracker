@@ -1,4 +1,4 @@
-package Control;
+package seng202.team5.Control;
 
 public class homeController {
 
@@ -7,7 +7,7 @@ public class homeController {
      * Handles when the dataButton is pressed
      */
     public void dataButtonPress() {
-        println("Data button pressed");
+        System.out.println("Data button pressed");
     }
 
 

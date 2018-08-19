@@ -1,11 +1,12 @@
 package seng202.team5.Model;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class test {
+public class test extends Application {
 
 
 
@@ -17,7 +18,6 @@ public class test {
     }
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }
