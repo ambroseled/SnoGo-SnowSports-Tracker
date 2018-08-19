@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class test {
 
 
-    @Override
+
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
         primaryStage.setTitle("SnoGo");
