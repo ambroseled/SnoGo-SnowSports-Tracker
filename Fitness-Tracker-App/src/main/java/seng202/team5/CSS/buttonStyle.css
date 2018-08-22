@@ -2,7 +2,15 @@
 
 
 .round-blue {
-    -fx-background-color: blue;
+    -fx-background-color: #004DFF;
     -fx-text-fill: white;
     -fx-background-radius: 16px;
+}
+
+.trans-round {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px;
+    -fx-border-color: #0C00FF;
+    -fx-border-radius: 30;
 }

@@ -46,7 +46,7 @@ public class homeController {
     /**
      * Handles when the profileButton is pressed
      */
-    public void profileButtonPress() {
+    public void profButtonPress() {
 
     }
 }
