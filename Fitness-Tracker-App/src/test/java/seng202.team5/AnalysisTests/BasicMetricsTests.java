@@ -7,7 +7,7 @@ import seng202.team5.Model.DataAnalysis.BasicMetrics;
 
 import static org.junit.Assert.*;
 
-public class BasicMetricsOneDistTests {
+public class BasicMetricsTests {
 
     @Before
     public void setUp() throws Exception {
@@ -87,6 +87,40 @@ public class BasicMetricsOneDistTests {
      */
     @Test
     public void testLatitude() {
+
+    }
+
+
+    @Test
+    public void testAppendDistance() {
+
+    }
+
+
+
+    @Test
+    public void testOneSpeed() {
+
+    }
+
+
+
+    @Test
+    public void testCalcAvgHeart() {
+
+    }
+
+
+
+    @Test
+    public void testOneAlt() {
+
+    }
+
+
+
+    @Test
+    public void testCalcVertical() {
 
     }
 

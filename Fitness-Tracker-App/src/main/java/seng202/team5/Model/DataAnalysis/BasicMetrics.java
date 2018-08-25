@@ -4,8 +4,8 @@ import seng202.team5.Model.Activity;
 import java.lang.Math;
 
 /**
- * This class performs calculations on the raw data uploaded into the application.
- * The metrics calculated are: Speed, Distance.......
+ * This is a class of static methods that are used to
+ * assist the DataAnalyser class. In the analysis of raw data.x
  */
 public class BasicMetrics {
 
@@ -17,7 +17,7 @@ public class BasicMetrics {
      * @param lat The latitude value.
      * @return A double array holding the cartesian product.
      */
-    public static double[] cartesian(double alt, double longitude, double lat) {
+    private static double[] cartesian(double alt, double longitude, double lat) {
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
         double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
@@ -30,9 +30,9 @@ public class BasicMetrics {
      * in the format (longitude, latitude, altitude).
      * @param point1 First location point.
      * @param point2 Second location point.
-     * @return Double holding the distance bewtwwen teh two points.
+     * @return A double holding the distance bewtwwen teh two points.
      */
-    public static double oneDist(double[] point1, double[] point2) {
+    private static double oneDist(double[] point1, double[] point2) {
         double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
         double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
@@ -62,9 +62,9 @@ public class BasicMetrics {
      * @param dist2 The current distance of the second data point.
      * @param time1 The current time of the first data point.
      * @param time2 The current time of the second data point.
-     * @return Double holding the current speed.
+     * @return A double holding the current speed.
      */
-    public static double oneSpeed(double dist1, double dist2, double time1, double time2) {
+    private static double oneSpeed(double dist1, double dist2, double time1, double time2) {
         double distance = dist2 - dist1;
         double time = time2 - time1;
         double speed = distance / time;
@@ -75,14 +75,47 @@ public class BasicMetrics {
     /**
      * Calculates the average heart rate from a given array of heart rates.
      * @param heartRates An array holding a range of heart rates.
-     * @return The average heart rate found.
+     * @return A double holding the average heart rate found.
      */
     public static double calcAvgHeart(double[] heartRates) {
-        double resting = 0;
+        double avg = 0;
         for (double rate : heartRates) {
-            resting += rate;
+            avg += rate;
         }
-        resting = resting/(heartRates.length);
-        return resting;
+        avg = avg/(heartRates.length);
+        return avg;
+    }
+
+
+    /**
+     * Calculates the difference in altitude between two altitude values.
+     * @param alt1 The first altitude value
+     * @param alt2 The second altitude value
+     * @return A double the difference between the two passed values.
+     */
+    private static double oneAlt(double alt1, double alt2) {
+        double diff = alt2 - alt1;
+        if (diff < 0) {
+            return diff * -1;
+        } else {
+            return diff;
+        }
+    }
+
+
+    /**
+     * Calculates the total vertical distance traveled over a given list
+     * of altitude values.
+     * @param altitudes A list holding all the altitude values to be considered
+     * @return The vertical distance traveled.
+     */
+    public static double calcVertical(double[] altitudes) {
+        double vertical = 0;
+        double previous = altitudes[0];
+        for(int i = 1; i < altitudes.length; i ++) {
+            vertical += oneAlt(previous, altitudes[i]);
+            previous = altitudes[i];
+        }
+        return vertical;
     }
 }
