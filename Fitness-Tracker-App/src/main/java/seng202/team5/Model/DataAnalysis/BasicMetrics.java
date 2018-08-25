@@ -15,7 +15,13 @@ public class BasicMetrics {
     private double avgHeartRate;
 
 
-
+    /**
+     * Calculating the cartesian product of a passed location point.
+     * @param alt The altitude
+     * @param longitude The longitude value
+     * @param lat The latitude value.
+     * @return A double array holding the cartesian product.
+     */
     private double[] cartesian(double alt, double longitude, double lat) {
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
