@@ -9,11 +9,6 @@ import java.lang.Math;
  */
 public class BasicMetrics {
 
-    private double topSpeed;
-    private double distanceTraveled;
-    private double[] speeds;
-    private double avgHeartRate;
-
 
     /**
      * Calculating the cartesian product of a passed location point.
@@ -22,7 +17,7 @@ public class BasicMetrics {
      * @param lat The latitude value.
      * @return A double array holding the cartesian product.
      */
-    private double[] cartesian(double alt, double longitude, double lat) {
+    public static double[] cartesian(double alt, double longitude, double lat) {
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
         double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
@@ -37,7 +32,7 @@ public class BasicMetrics {
      * @param point2 Second location point.
      * @return Double holding the distance bewtwwen teh two points.
      */
-    private double oneDist(double[] point1, double[] point2) {
+    public static double oneDist(double[] point1, double[] point2) {
         double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
         double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
@@ -47,13 +42,42 @@ public class BasicMetrics {
         return distance;
     }
 
+    // Will need to implement after activity is implemented
+
+    /**
+     * Calculates the total distance traveled at each data point in the passed activity
+     * and appends this distance value to the data point.
+     * @param activity The activity to perform calculations on
+     * @return **Add later**
+     */
+    public static void appendDistance(Activity activity) {
+
+    }
+
+
+    /**
+     * Takes the distance and time values of two data points and calculates the current
+     * speed.
+     * @param dist1 The current distance of the first data point.
+     * @param dist2 The current distance of the second data point.
+     * @param time1 The current time of the first data point.
+     * @param time2 The current time of the second data point.
+     * @return Double holding the current speed.
+     */
+    public static double oneSpeed(double dist1, double dist2, double time1, double time2) {
+        double distance = dist2 - dist1;
+        double time = time2 - time1;
+        double speed = distance / time;
+        return speed;
+    }
+
 
     /**
      * Calculates the average heart rate from a given array of heart rates.
      * @param heartRates An array holding a range of heart rates.
      * @return The average heart rate found.
      */
-    private double calcAvgHeart(double[] heartRates) {
+    public static double calcAvgHeart(double[] heartRates) {
         double resting = 0;
         for (double rate : heartRates) {
             resting += rate;
