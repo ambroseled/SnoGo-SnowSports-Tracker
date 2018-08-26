@@ -9,7 +9,6 @@ import java.lang.Math;
  */
 public class BasicMetrics {
 
-
     /**
      * Calculating the cartesian product of a passed location point.
      * @param alt The altitude
@@ -58,17 +57,28 @@ public class BasicMetrics {
     /**
      * Takes the distance and time values of two data points and calculates the current
      * speed.
-     * @param dist1 The current distance of the first data point.
-     * @param dist2 The current distance of the second data point.
-     * @param time1 The current time of the first data point.
-     * @param time2 The current time of the second data point.
-     * @return A double holding the current speed.
+     * @param dist1 The current distance of the first data point in meters.
+     * @param dist2 The current distance of the second data point in meters.
+     * @param time1 The current time of the first data point in seconds.
+     * @param time2 The current time of the second data point in seconds.
+     * @return A double holding the current speed in m/s.
      */
-    private static double oneSpeed(double dist1, double dist2, double time1, double time2) {
+    public static double oneSpeed(double dist1, double dist2, double time1, double time2) {
+        // Calculating the change in distance
         double distance = dist2 - dist1;
+        // Calculating the change in time
         double time = time2 - time1;
-        double speed = distance / time;
-        return speed;
+        if (time == 0) {
+            // The time change is zero so the speed is zero
+            return 0;
+        } else if (distance == 0) {
+            // The distance change is zero so the speed is zero
+            return 0;
+        } else {
+            // The speed is above zero and will be calculated
+            double speed = distance / time;
+            return speed;
+        }
     }
 
 
@@ -89,11 +99,11 @@ public class BasicMetrics {
 
     /**
      * Calculates the difference in altitude between two altitude values.
-     * @param alt1 The first altitude value
-     * @param alt2 The second altitude value
+     * @param alt1 The first altitude value in meters.
+     * @param alt2 The second altitude value in meters.
      * @return A double the difference between the two passed values.
      */
-    private static double oneAlt(double alt1, double alt2) {
+    public static double oneAlt(double alt1, double alt2) {
         double diff = alt2 - alt1;
         if (diff < 0) {
             return diff * -1;

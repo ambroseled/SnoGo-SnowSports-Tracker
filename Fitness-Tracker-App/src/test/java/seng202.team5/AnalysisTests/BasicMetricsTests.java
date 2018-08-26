@@ -31,7 +31,7 @@ public class BasicMetricsTests {
      * passed correspond to no movement.
      */
     @Test
-    public void testZero() {
+    public void testOneDistZero() {
 
     }
 
@@ -42,7 +42,7 @@ public class BasicMetricsTests {
      * passed correspond to movement backwards.
      */
     @Test
-    public void testBackwards() {
+    public void testOneDistBackward() {
 
     }
 
@@ -52,7 +52,7 @@ public class BasicMetricsTests {
      * passed correspond to movement forwards.
      */
     @Test
-    public void testForwards() {
+    public void testOneDistForward() {
 
     }
 
@@ -63,7 +63,7 @@ public class BasicMetricsTests {
      * passed have change only in their altitude values.
      */
     @Test
-    public void testAltitude() {
+    public void testOneDistAlt() {
 
     }
 
@@ -74,7 +74,7 @@ public class BasicMetricsTests {
      * passed have change only in their longitude values.
      */
     @Test
-    public void testLongitude() {
+    public void testOneDistLong() {
 
     }
 
@@ -86,7 +86,7 @@ public class BasicMetricsTests {
      * passed have change only in their latitude values.
      */
     @Test
-    public void testLatitude() {
+    public void testOneDistLat() {
 
     }
 
@@ -97,10 +97,31 @@ public class BasicMetricsTests {
     }
 
 
-
+    /**
+     * Testing the oneSpeed function. The test checks that
+     * the function operates correctly with normal data.
+     */
     @Test
     public void testOneSpeed() {
+        double result = BasicMetrics.oneSpeed(10.0, 15.0, 10.0, 15.0);
+        assertEquals(1, result, 0.0);
 
+    }
+
+
+    /**
+     * Testing the oneSpeed function. The test checks that
+     * the function operates correctly when the data relates to
+     * a speed of zero.
+     */
+    @Test
+    public void testOneSpeedZero() {
+        // Getting the result of the speed when the distance change is zero
+        double result = BasicMetrics.oneSpeed(10.0, 10.0, 34.0, 35.0);
+        // Getting the result of the speed when the time change is zero
+        double result2 = BasicMetrics.oneSpeed(10.0, 15.0, 34.0, 34.0);
+        assertEquals(0.0, result, 0.0);
+        assertEquals(0.0, result2, 0.0);
     }
 
 
@@ -111,10 +132,38 @@ public class BasicMetricsTests {
     }
 
 
-
+    /**
+     * Testing the oneAlt function. Test checks that the function
+     * operates correctly when normal data is passed.
+     */
     @Test
     public void testOneAlt() {
+        double result = BasicMetrics.oneAlt(10, 15);
+        assertEquals(5, result, 0.0);
+    }
 
+
+    /**
+     * Testing the oneAlt function. Test checks that the function
+     * operates correctly when data that gives a negative value is passed.
+     */
+    @Test
+    public void testOneAltNeg() {
+        double result = BasicMetrics.oneAlt(15, 10);
+        assertEquals(5, result, 0.0);
+    }
+
+
+
+    /**
+     * Testing the oneAlt function. Test checks that the function
+     * operates correctly when data that gives no change in altitude
+     * is passed.
+     */
+    @Test
+    public void testOneAltZero() {
+        double result = BasicMetrics.oneAlt(15, 15);
+        assertEquals(0, result, 0.0);
     }
 
 
