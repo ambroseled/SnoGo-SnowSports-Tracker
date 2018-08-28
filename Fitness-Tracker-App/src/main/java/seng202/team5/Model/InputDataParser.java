@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import sun.print.resources.serviceui;
+
 import java.util.ArrayList;
 
 
@@ -47,18 +53,25 @@ public class InputDataParser {
     			activities.add(activity);
     		}
     		else {
-    			int heartRate = Integer.parseInt(lineValues[2]);
-    			double latitude = Double.parseDouble(lineValues[3]);
-    			double longitude = Double.parseDouble(lineValues[4]);
-    			double elevation = Double.parseDouble(lineValues[5]);
-    			
-    			DataPoint dataPoint = new DataPoint(heartRate, latitude, longitude, elevation);
-    			
-    			activities.get(activities.size() -1).getDataSet().addDataPoint(dataPoint);
+    			try {
+	    			DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+	    			Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
+	    			
+	    			int heartRate = Integer.parseInt(lineValues[2]);
+	    			double latitude = Double.parseDouble(lineValues[3]);
+	    			double longitude = Double.parseDouble(lineValues[4]);
+	    			double elevation = Double.parseDouble(lineValues[5]);
+	    			
+	    			DataPoint dataPoint = new DataPoint(dateTime, heartRate, latitude, longitude, elevation);
+	    			activities.get(activities.size() -1).getDataSet().addDataPoint(dataPoint);
+    			}
+    			catch (Exception e) {
+    				e.printStackTrace();
+    			}
     		}
     		
     	}
-    	//System.out.println(activities);
+    	System.out.println(activities);
     	return activities;
     }
 	
