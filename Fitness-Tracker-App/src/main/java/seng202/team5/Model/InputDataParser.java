@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import sun.print.resources.serviceui;
-
 import java.util.ArrayList;
 
 
@@ -71,7 +68,7 @@ public class InputDataParser {
     		}
     		
     	}
-    	System.out.println(activities);
+//    	System.out.println(activities);
     	return activities;
     }
 	
