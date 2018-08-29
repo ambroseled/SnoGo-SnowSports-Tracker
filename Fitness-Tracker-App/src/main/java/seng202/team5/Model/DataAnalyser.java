@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class DataAnalyser {
 
     /**
-     *
-     * @param activity
+     * Performs analysis on a passed activity.
+     * @param activity The activity to analyse.
      */
     public void analyseActivity(Activity activity) {
         DataSet dataSet = activity.getDataSet();
@@ -40,12 +40,12 @@ public class DataAnalyser {
     /**
      * Looping over all DataPoints in a passed list and using checkInactive as
      * a helper function to mark each DataPoint as active or inactive.
-     * @param dataPoints
+     * @param dataPoints A list of the DataPoints to mark active or inactive.
      */
     private void markActive(ArrayList<DataPoint> dataPoints) {
         for (int i = 0; i < dataPoints.size(); i++) {
             String active = checkInactive(i, dataPoints);
-            if (active == "Inactive") {
+            if (active.equals("Inactive")) {
                 // Loop until no alt increase
                 DataPoint previous = dataPoints.get(i++);
                 previous.setActive(false);
@@ -213,8 +213,8 @@ public class DataAnalyser {
     private double calcAvgHeart(DataSet dataSet) {
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double avg = 0;
-        for (int i = 0; i < dataPoints.size(); i++) {
-            avg += dataPoints.get(i).getHeartRate();
+        for (DataPoint point : dataPoints) {
+            avg += point.getHeartRate();
         }
         avg = avg/(dataPoints.size());
         return avg;
