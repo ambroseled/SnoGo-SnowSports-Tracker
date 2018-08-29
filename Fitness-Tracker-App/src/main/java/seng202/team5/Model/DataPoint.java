@@ -9,6 +9,8 @@ public class DataPoint {
     private double latitude;
     private double longitude;
     private double elevation;
+    private double distance;
+    private double speed;
 
     public DataPoint(Date newDateTime, int newHeartRate, double newLatitude, double newLongitude, double newElevation) {
     	dateTime = newDateTime;
@@ -34,9 +36,25 @@ public class DataPoint {
     public void setElevation(double newElevation) {
         elevation = newElevation;
     }
+    public void setDistance(double newDistance) {
+        distance = newDistance;
+    }
+    public void setSpeed(double newSpeed) {
+        speed = newSpeed;
+    }
+
+    // Getters for the parameters of a DataPoint
+    public Date getDateTime() { return dateTime; }
+    public double getHeartRate() { return heartRate; }
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
+    public double getElevation() { return elevation; }
+    public double getDistance() { return  distance; }
+    public double getSpeed() { return speed; }
 
     public String toString() {
-        return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation;
+        return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
+                ", Distance: "+distance+", Speed: "+speed;
     }
 
 

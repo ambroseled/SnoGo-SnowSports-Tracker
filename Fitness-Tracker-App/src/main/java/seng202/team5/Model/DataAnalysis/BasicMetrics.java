@@ -1,13 +1,42 @@
 package seng202.team5.Model.DataAnalysis;
 
+
 import seng202.team5.Model.Activity;
+import seng202.team5.Model.DataPoint;
+import seng202.team5.Model.DataSet;
+
 import java.lang.Math;
+import java.util.ArrayList;
 
 /**
  * This is a class of static methods that are used to
  * assist the DataAnalyser class. In the analysis of raw data.x
  */
 public class BasicMetrics {
+
+
+    /**
+     * Performs analysis on a passed activity and appends the results to the
+     * activity.
+     * @param activity The activity to be analysed.
+     */
+    public void analyseActivity(Activity activity) {
+        DataSet dataSet = activity.getDataSet();
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+        DataPoint previous = dataPoints.get(0);
+        previous.setSpeed(0);
+        previous.setDistance(0);
+        for (int i = 1; i < dataPoints.size(); i++) {
+            DataPoint current = dataPoints.get(i);
+            appendDistance(current, previous);
+            appendSpeed(current, previous);
+            previous = dataPoints.get(i);
+        }
+        dataSet.setVerticalDistance(calcVertical(dataSet));
+        dataSet.setTotalDistance(previous.getDistance());
+        dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
+
+    }
 
     /**
      * Calculating the cartesian product of a passed location point.
@@ -16,7 +45,7 @@ public class BasicMetrics {
      * @param lat The latitude value.
      * @return A double array holding the cartesian product.
      */
-    private static double[] cartesian(double alt, double longitude, double lat) {
+    private double[] cartesian(double alt, double longitude, double lat) {
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
         double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
@@ -31,7 +60,7 @@ public class BasicMetrics {
      * @param point2 Second location point.
      * @return A double holding the distance bewtwwen teh two points.
      */
-    private static double oneDist(double[] point1, double[] point2) {
+    private double oneDist(double[] point1, double[] point2) {
         double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
         double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
@@ -41,17 +70,20 @@ public class BasicMetrics {
         return distance;
     }
 
-    // Will need to implement after activity is implemented
-
     /**
-     * Calculates the total distance traveled at each data point in the passed activity
-     * and appends this distance value to the data point.
-     * @param activity The activity to perform calculations on
-     * @return **Add later**
+     * Calculates the total distance traveled at each data point in the passed activity * and appends
+     * this distance value to the data point.
+     * @param current The data point to append a distance to.
+     * @param previous The previous data point.
      */
-    public static void appendDistance(Activity activity) {
-
+    private void appendDistance(DataPoint current, DataPoint previous) {
+          double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
+          double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
+          double distance = oneDist(point1, point2);
+          current.setDistance(distance);
     }
+
+
 
 
     /**
@@ -63,7 +95,7 @@ public class BasicMetrics {
      * @param time2 The current time of the second data point in seconds.
      * @return A double holding the current speed in m/s.
      */
-    public static double oneSpeed(double dist1, double dist2, double time1, double time2) {
+    private double oneSpeed(double dist1, double dist2, long time1, long time2) {
         // Calculating the change in distance
         double distance = dist2 - dist1;
         // Calculating the change in time
@@ -83,16 +115,34 @@ public class BasicMetrics {
 
 
     /**
+     * Calculates the current speed at a passed DataPoint and appends the speed
+     * to the data point.
+     * @param current The DataPoint to calculate the speed of.
+     * @param previous The previous DataPoint.
+     */
+    private void appendSpeed(DataPoint current, DataPoint previous) {
+        double distance1 = current.getDistance();
+        long time1 = current.getDateTime().getTime();
+        double distance2 = previous.getDistance();
+        long time2 = previous.getDateTime().getTime();
+
+        double speed = oneSpeed(distance1, distance2, time1, time2);
+        current.setSpeed(speed);
+    }
+
+
+    /**
      * Calculates the average heart rate from a given array of heart rates.
-     * @param heartRates An array holding a range of heart rates.
+     * @param dataSet The DataSet of the activity being analysed.
      * @return A double holding the average heart rate found.
      */
-    public static double calcAvgHeart(double[] heartRates) {
+    private double calcAvgHeart(DataSet dataSet) {
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double avg = 0;
-        for (double rate : heartRates) {
-            avg += rate;
+        for (int i = 0; i < dataPoints.size(); i++) {
+            avg += dataPoints.get(i).getHeartRate();
         }
-        avg = avg/(heartRates.length);
+        avg = avg/(dataPoints.size());
         return avg;
     }
 
@@ -103,10 +153,10 @@ public class BasicMetrics {
      * @param alt2 The second altitude value in meters.
      * @return A double the difference between the two passed values.
      */
-    public static double oneAlt(double alt1, double alt2) {
+    private double oneAlt(double alt1, double alt2) {
         double diff = alt2 - alt1;
         if (diff < 0) {
-            return diff * -1;
+            return diff;
         } else {
             return diff;
         }
@@ -116,16 +166,34 @@ public class BasicMetrics {
     /**
      * Calculates the total vertical distance traveled over a given list
      * of altitude values.
-     * @param altitudes A list holding all the altitude values to be considered
+     * @param dataSet The DataSet of the activity being analysed.
      * @return The vertical distance traveled.
      */
-    public static double calcVertical(double[] altitudes) {
+    private double calcVertical(DataSet dataSet) {
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double vertical = 0;
-        double previous = altitudes[0];
-        for(int i = 1; i < altitudes.length; i ++) {
-            vertical += oneAlt(previous, altitudes[i]);
-            previous = altitudes[i];
+        double previous = dataPoints.get(0).getElevation();
+        for(int i = 1; i < dataPoints.size(); i++) {
+            vertical += oneAlt(previous, dataPoints.get(i).getElevation());
+            previous = dataPoints.get(i).getElevation();
         }
         return vertical;
+    }
+
+    /**
+     * Finds the top speed of a given DataSet.
+     * @param dataSet The DataSet to find the top speed for.
+     * @return A double holding the top speed.
+     */
+    private double topSpeed(DataSet dataSet) {
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+        double top = 0;
+        for(DataPoint point : dataPoints) {
+            double speed = point.getSpeed();
+            if (speed > top) {
+                top = speed;
+            }
+        }
+        return top;
     }
 }
