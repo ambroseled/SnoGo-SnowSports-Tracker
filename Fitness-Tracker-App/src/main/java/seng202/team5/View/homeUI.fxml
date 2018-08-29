@@ -50,7 +50,7 @@
             </Button>
             <ImageView fitHeight="77.0" fitWidth="74.0" layoutX="21.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../res/logo.png" />
+                  <Image url="@../../../../res/logo.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1100ff" height="407.0" layoutX="120.0" stroke="#1100ff" strokeType="INSIDE" width="11.0" />

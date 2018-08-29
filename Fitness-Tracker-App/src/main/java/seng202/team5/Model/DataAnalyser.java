@@ -13,23 +13,35 @@ public class DataAnalyser {
      * @param activity The activity to analyse.
      */
     public void analyseActivity(Activity activity) {
+        // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
+        // Getting the data points out of the dataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+        // Marking the activities as active or inactive
         markActive(dataPoints);
+        // Setting the previous data point to the first point
         DataPoint previous = dataPoints.get(0);
+        // Setting the speed and distance traveled of the first data point
         previous.setSpeed(0);
         previous.setDistance(0);
+        // Looping over the remaining dataPoints
         for (int i = 1; i < dataPoints.size(); i++) {
+            // Getting the current dataPoint
             DataPoint current = dataPoints.get(i);
             if (current.isActive()) {
+                // The dataPoint is active so data is calculated
                 appendDistance(current, previous);
                 appendSpeed(current, previous);
             } else {
+                // The dataPoint is inactive so no new data is calculated
                 current.setSpeed(0);
                 current.setDistance(previous.getDistance());
             }
+            // Setting the previous point to the last current point
             previous = dataPoints.get(i);
         }
+        // Getting information that was found in the above loop and
+        // adding it to the dataSet
         dataSet.setVerticalDistance(calcVertical(dataSet));
         dataSet.setTotalDistance(previous.getDistance());
         dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
@@ -43,23 +55,16 @@ public class DataAnalyser {
      * @param dataPoints A list of the DataPoints to mark active or inactive.
      */
     private void markActive(ArrayList<DataPoint> dataPoints) {
+        // Looping over all dataPoints
         for (int i = 0; i < dataPoints.size(); i++) {
+            // Checking if the dataPoint is active
             String active = checkInactive(i, dataPoints);
             if (active.equals("Inactive")) {
-                // Loop until no alt increase
+                // Marking the dataPoint as inactive
                 DataPoint previous = dataPoints.get(i++);
                 previous.setActive(false);
-                double altChange;
-                for (; i < dataPoints.size(); i++) {
-                    altChange = oneAlt(previous.getElevation(), dataPoints.get(i).getElevation());
-                    if (altChange > 0) {
-                        // User is no longer on a lift or moving up
-                        break;
-                    } else {
-                        dataPoints.get(i).setActive(false);
-                    }
-                }
             } else {
+                // Marking the dataPoint as active
                 dataPoints.get(i).setActive(true);
             }
         }
@@ -79,22 +84,27 @@ public class DataAnalyser {
      * @return A string holding if the passed DataPoint is active or not.
      */
     private String checkInactive(int index, ArrayList<DataPoint> dataPoints) {
+        // Getting the location information out of the dataPoint to check
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
         double[] start = {startLong, startLat, startAlt};
-
+        // Getting the location information out of the dataPoint 60 seconds on
         double endLat = dataPoints.get(index + 60).getLatitude();
         double endLong = dataPoints.get(index + 60).getLongitude();
         double endAlt = dataPoints.get(index + 60).getElevation();
         double[] end = {endLong, endLat, endAlt};
 
-
+        // Getting the altitude change over the two points
         double vertChange = oneAlt(startAlt, endAlt);
-
+        // Checking if the activity is active or not
         if (vertChange < 1) {
+            // As there has been a very small positive change or large negative change
+            // inactive is returned as the user is either not moving or going up the mountain
             return "Inactive";
         } else {
+            // As there has been a positive change in altitude it is assumed that the user
+            // is active
             return "Active";
         }
     }
@@ -257,4 +267,5 @@ public class DataAnalyser {
         }
         return top;
     }
+
 }

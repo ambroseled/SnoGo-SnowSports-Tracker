@@ -78,6 +78,8 @@ public class InputDataParser {
 		
 		return activities;
 	}
+
+
 	
 	public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
