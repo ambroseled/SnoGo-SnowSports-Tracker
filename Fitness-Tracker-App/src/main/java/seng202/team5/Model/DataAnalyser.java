@@ -1,42 +1,104 @@
-package seng202.team5.Model.DataAnalysis;
-
+package seng202.team5.Model;
 
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
-import java.lang.Math;
 import java.util.ArrayList;
 
-/**
- * This is a class of static methods that are used to
- * assist the DataAnalyser class. In the analysis of raw data.x
- */
-public class BasicMetrics {
-
+public class DataAnalyser {
 
     /**
-     * Performs analysis on a passed activity and appends the results to the
-     * activity.
-     * @param activity The activity to be analysed.
+     *
+     * @param activity
      */
     public void analyseActivity(Activity activity) {
         DataSet dataSet = activity.getDataSet();
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+        markActive(dataPoints);
         DataPoint previous = dataPoints.get(0);
         previous.setSpeed(0);
         previous.setDistance(0);
         for (int i = 1; i < dataPoints.size(); i++) {
             DataPoint current = dataPoints.get(i);
-            appendDistance(current, previous);
-            appendSpeed(current, previous);
+            if (current.isActive()) {
+                appendDistance(current, previous);
+                appendSpeed(current, previous);
+            } else {
+                current.setSpeed(0);
+                current.setDistance(previous.getDistance());
+            }
             previous = dataPoints.get(i);
         }
         dataSet.setVerticalDistance(calcVertical(dataSet));
         dataSet.setTotalDistance(previous.getDistance());
         dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
-
+        dataSet.setTopSpeed(topSpeed(dataSet));
     }
+
+
+    /**
+     * Looping over all DataPoints in a passed list and using checkInactive as
+     * a helper function to mark each DataPoint as active or inactive.
+     * @param dataPoints
+     */
+    private void markActive(ArrayList<DataPoint> dataPoints) {
+        for (int i = 0; i < dataPoints.size(); i++) {
+            String active = checkInactive(i, dataPoints);
+            if (active == "Inactive") {
+                // Loop until no alt increase
+                DataPoint previous = dataPoints.get(i++);
+                previous.setActive(false);
+                double altChange;
+                for (; i < dataPoints.size(); i++) {
+                    altChange = oneAlt(previous.getElevation(), dataPoints.get(i).getElevation());
+                    if (altChange > 0) {
+                        // User is no longer on a lift or moving up
+                        break;
+                    } else {
+                        dataPoints.get(i).setActive(false);
+                    }
+                }
+            } else {
+                dataPoints.get(i).setActive(true);
+            }
+        }
+    }
+
+
+    /**
+     * Checks if a passed DataPoint is active or not. The check is done by
+     * calculating the change in vertical distance over 1 minute. If this change
+     * is negative then it is assumed the user is on a lift or hiking hence "Inactive"
+     * is returned. If the change is less than 1 it is also assumed that the user is
+     * inactive either being in a cafe or standing still so "Inactive is also returned.
+     * If neither of these conditions are meet then it is assumed the user is active and
+     * hence "active" is returned.
+     * @param index An index pointing to the DataPoint to check the activity of.
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return A string holding if the passed DataPoint is active or not.
+     */
+    private String checkInactive(int index, ArrayList<DataPoint> dataPoints) {
+        double startLat = dataPoints.get(index).getLatitude();
+        double startLong = dataPoints.get(index).getLongitude();
+        double startAlt = dataPoints.get(index).getElevation();
+        double[] start = {startLong, startLat, startAlt};
+
+        double endLat = dataPoints.get(index + 60).getLatitude();
+        double endLong = dataPoints.get(index + 60).getLongitude();
+        double endAlt = dataPoints.get(index + 60).getElevation();
+        double[] end = {endLong, endLat, endAlt};
+
+
+        double vertChange = oneAlt(startAlt, endAlt);
+
+        if (vertChange < 1) {
+            return "Inactive";
+        } else {
+            return "Active";
+        }
+    }
+
 
     /**
      * Calculating the cartesian product of a passed location point.
@@ -52,6 +114,7 @@ public class BasicMetrics {
         double[] cart = {x, y, z};
         return cart;
     }
+
 
     /**
      * Calculates the distance traveled between two data points,
@@ -70,6 +133,7 @@ public class BasicMetrics {
         return distance;
     }
 
+
     /**
      * Calculates the total distance traveled at each data point in the passed activity * and appends
      * this distance value to the data point.
@@ -77,13 +141,23 @@ public class BasicMetrics {
      * @param previous The previous data point.
      */
     private void appendDistance(DataPoint current, DataPoint previous) {
-          double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
-          double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
-          double distance = oneDist(point1, point2);
-          current.setDistance(distance);
+        double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
+        double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
+        double distance = oneDist(point1, point2);
+        current.setDistance(distance);
     }
 
 
+    /**
+     * Calculates the difference in altitude between two altitude values.
+     * @param alt1 The first altitude value in meters.
+     * @param alt2 The second altitude value in meters.
+     * @return A double the difference between the two passed values.
+     */
+    private double oneAlt(double alt1, double alt2) {
+        double diff = alt2 - alt1;
+        return diff;
+    }
 
 
     /**
@@ -148,22 +222,6 @@ public class BasicMetrics {
 
 
     /**
-     * Calculates the difference in altitude between two altitude values.
-     * @param alt1 The first altitude value in meters.
-     * @param alt2 The second altitude value in meters.
-     * @return A double the difference between the two passed values.
-     */
-    private double oneAlt(double alt1, double alt2) {
-        double diff = alt2 - alt1;
-        if (diff < 0) {
-            return diff;
-        } else {
-            return diff;
-        }
-    }
-
-
-    /**
      * Calculates the total vertical distance traveled over a given list
      * of altitude values.
      * @param dataSet The DataSet of the activity being analysed.
@@ -174,11 +232,14 @@ public class BasicMetrics {
         double vertical = 0;
         double previous = dataPoints.get(0).getElevation();
         for(int i = 1; i < dataPoints.size(); i++) {
-            vertical += oneAlt(previous, dataPoints.get(i).getElevation());
+            if (dataPoints.get(i).isActive()) {
+                vertical += oneAlt(previous, dataPoints.get(i).getElevation());
+            }
             previous = dataPoints.get(i).getElevation();
         }
         return vertical;
     }
+
 
     /**
      * Finds the top speed of a given DataSet.
