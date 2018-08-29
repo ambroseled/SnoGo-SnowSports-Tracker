@@ -118,10 +118,12 @@ public class DataAnalyser {
      * @return A double array holding the cartesian product.
      */
     private double[] cartesian(double alt, double longitude, double lat) {
+        // Forming the elements of the cartesian product of the passed point
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
         double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
         double[] cart = {x, y, z};
+        // Returning the cartesian product
         return cart;
     }
 
@@ -134,11 +136,14 @@ public class DataAnalyser {
      * @return A double holding the distance bewtwwen teh two points.
      */
     private double oneDist(double[] point1, double[] point2) {
+        // Getting the cartesian product of the two points passed
         double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
         double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
+        // Using the cartesian products to get the arguments for the Euclidean formula
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
         double arg2 = Math.pow((cart2[1] - cart1[1]), 2);
         double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
+        // Calculating the distance using the Euclidean formula
         double distance = Math.sqrt(arg1 + arg2 + arg3);
         return distance;
     }
@@ -151,8 +156,10 @@ public class DataAnalyser {
      * @param previous The previous data point.
      */
     private void appendDistance(DataPoint current, DataPoint previous) {
+        // Forming the two points to be passed to calculate the distance
         double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
         double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
+        // Calculating the distance traveled
         double distance = oneDist(point1, point2);
         current.setDistance(distance);
     }
@@ -165,6 +172,7 @@ public class DataAnalyser {
      * @return A double the difference between the two passed values.
      */
     private double oneAlt(double alt1, double alt2) {
+        // Calculating the change in altitude
         double diff = alt2 - alt1;
         return diff;
     }
@@ -205,11 +213,12 @@ public class DataAnalyser {
      * @param previous The previous DataPoint.
      */
     private void appendSpeed(DataPoint current, DataPoint previous) {
+        // Getting the distance and time out of the two dataPoints
         double distance1 = current.getDistance();
         long time1 = current.getDateTime().getTime();
         double distance2 = previous.getDistance();
         long time2 = previous.getDateTime().getTime();
-
+        // Calculating the speed
         double speed = oneSpeed(distance1, distance2, time1, time2);
         current.setSpeed(speed);
     }
@@ -221,11 +230,14 @@ public class DataAnalyser {
      * @return A double holding the average heart rate found.
      */
     private double calcAvgHeart(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double avg = 0;
+        // Looping through all DataPoints to find the average heart rate
         for (DataPoint point : dataPoints) {
             avg += point.getHeartRate();
         }
+        // Calculating the average heart rate
         avg = avg/(dataPoints.size());
         return avg;
     }
@@ -238,11 +250,14 @@ public class DataAnalyser {
      * @return The vertical distance traveled.
      */
     private double calcVertical(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double vertical = 0;
         double previous = dataPoints.get(0).getElevation();
+        // Looping over DataPoints to calculate the vertical distance traveled
         for(int i = 1; i < dataPoints.size(); i++) {
             if (dataPoints.get(i).isActive()) {
+                // The DataPoint is marked as active so the vertical distance is recorded
                 vertical += oneAlt(previous, dataPoints.get(i).getElevation());
             }
             previous = dataPoints.get(i).getElevation();
@@ -257,11 +272,14 @@ public class DataAnalyser {
      * @return A double holding the top speed.
      */
     private double topSpeed(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double top = 0;
+        // Looping over DataPoints to find the top speed
         for(DataPoint point : dataPoints) {
             double speed = point.getSpeed();
             if (speed > top) {
+                // A new top speed is found
                 top = speed;
             }
         }
