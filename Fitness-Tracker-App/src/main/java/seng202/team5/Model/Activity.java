@@ -19,6 +19,10 @@ public class Activity {
     	return name + "\n" + dataSet;
     }
 
+    public void setDataSet(DataSet dataSet) {
+        this.dataSet = dataSet;
+    }
+
 
 
 }
