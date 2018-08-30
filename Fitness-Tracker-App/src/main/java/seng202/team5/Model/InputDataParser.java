@@ -1,5 +1,7 @@
 package seng202.team5.Model;
 
+import seng202.team5.Control.TableController;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -68,26 +70,28 @@ public class InputDataParser {
     		}
     		
     	}
-//    	System.out.println(activities);
+		//updateTable(activities);
     	return activities;
     }
 	
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
-		
+
 		return activities;
 	}
-
-
-	
+	/*
+	private void updateTable(ArrayList<Activity> activities) {
+		TableController tableController = new TableController(activities);
+	} */
+	/*
 	public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
         
         ArrayList<String> lines = test.readFile("testData.csv");
         test.createActivitiesFromLines(lines);
         
-    }
+    } */
 
 		
 	
