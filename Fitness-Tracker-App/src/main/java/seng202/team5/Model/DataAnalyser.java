@@ -89,23 +89,46 @@ public class DataAnalyser {
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
         double[] start = {startLong, startLat, startAlt};
-        // Getting the location information out of the dataPoint 60 seconds on
-        double endLat = dataPoints.get(index + 60).getLatitude();
-        double endLong = dataPoints.get(index + 60).getLongitude();
-        double endAlt = dataPoints.get(index + 60).getElevation();
-        double[] end = {endLong, endLat, endAlt};
 
-        // Getting the altitude change over the two points
-        double vertChange = oneAlt(startAlt, endAlt);
-        // Checking if the activity is active or not
-        if (vertChange < 1) {
-            // As there has been a very small positive change or large negative change
-            // inactive is returned as the user is either not moving or going up the mountain
-            return "Inactive";
+
+        Boolean flag = false;
+        int endIndex = 60;
+        int len = dataPoints.size();
+        if ((index + endIndex) > len) {
+            endIndex = len - 1;
+            flag = true;
+        }
+        if (endIndex == index) {
+            if (dataPoints.get(index - 1).isActive()) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
         } else {
-            // As there has been a positive change in altitude it is assumed that the user
-            // is active
-            return "Active";
+            // Getting the location information out of the dataPoint 60 seconds on
+            double endLat = dataPoints.get(endIndex).getLatitude();
+            double endLong = dataPoints.get(endIndex).getLongitude();
+            double endAlt = dataPoints.get(endIndex).getElevation();
+            double[] end = new double[] {endLong, endLat, endAlt};
+
+
+            // Getting the altitude change over the two points
+            double movement = oneDist(start, end);
+            double condition;
+            if (flag) {
+                condition = 0.2 * (dataPoints.size() - index);
+            } else{
+                condition = 1;
+            }
+            // Checking if the activity is active or not
+            if (movement < condition) {
+                return "Inactive";
+            } else {
+                if ((startAlt - endAlt) < 0) {
+                    return "Inactive";
+                }
+                return "Active";
+            }
         }
     }
 
@@ -167,14 +190,14 @@ public class DataAnalyser {
 
     /**
      * Calculates the difference in altitude between two altitude values.
-     * @param alt1 The first altitude value in meters.
-     * @param alt2 The second altitude value in meters.
+     * @param current The first altitude value in meters.
+     * @param previous The second altitude value in meters.
      * @return A double the difference between the two passed values.
      */
-    private double oneAlt(double alt1, double alt2) {
+    private double oneAlt(double current, double previous) {
         // Calculating the change in altitude
-        double diff = alt2 - alt1;
-        return diff;
+        double diff = current - previous;
+        return -1*diff;
     }
 
 
@@ -258,7 +281,7 @@ public class DataAnalyser {
         for(int i = 1; i < dataPoints.size(); i++) {
             if (dataPoints.get(i).isActive()) {
                 // The DataPoint is marked as active so the vertical distance is recorded
-                vertical += oneAlt(previous, dataPoints.get(i).getElevation());
+                vertical += oneAlt(dataPoints.get(i).getElevation(), previous);
             }
             previous = dataPoints.get(i).getElevation();
         }

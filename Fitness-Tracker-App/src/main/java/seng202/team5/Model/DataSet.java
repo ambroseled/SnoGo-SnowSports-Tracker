@@ -47,8 +47,8 @@ public class DataSet {
     public void setTotalDistance(double distance) {
         totalDistance = distance;
     }
-    public void setVerticalDistance(double vetical) {
-        verticalDistance = verticalDistance;
+    public void setVerticalDistance(double vertical) {
+        verticalDistance = vertical;
     }
     public void setAvgHeartRate(double rate) {
         avgHeartRate = rate;
