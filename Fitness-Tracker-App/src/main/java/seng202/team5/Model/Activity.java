@@ -14,6 +14,7 @@ public class Activity {
     public DataSet getDataSet() {
     	return dataSet;
     }
+    public String getName() { return name;}
     
     public String toString() {
     	return name + "\n" + dataSet;
@@ -22,7 +23,4 @@ public class Activity {
     public void setDataSet(DataSet dataSet) {
         this.dataSet = dataSet;
     }
-
-
-
 }

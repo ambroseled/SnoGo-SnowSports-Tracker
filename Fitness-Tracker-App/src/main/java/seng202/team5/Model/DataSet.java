@@ -47,6 +47,8 @@ public class DataSet {
     public double getVerticalDistance() {
         return verticalDistance;
     }
+    public Date getFirstDateTime() {return dataPoints[0].getDateTime}
+
     // Setters
 
     public void setTotalDistance(double distance) {
