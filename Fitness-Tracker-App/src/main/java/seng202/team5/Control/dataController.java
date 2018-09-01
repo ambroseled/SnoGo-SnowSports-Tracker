@@ -13,11 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
+import seng202.team5.Model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-
+/*
 public class dataController {
     private User user;
 
@@ -44,3 +45,4 @@ public class dataController {
     private ObservableList<DataPoint> getDataPointsList() {
     }
 }
+*/
