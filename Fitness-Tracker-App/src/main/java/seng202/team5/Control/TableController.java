@@ -16,6 +16,7 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -88,7 +89,10 @@ public class TableController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("TableTab.fxml"));
+        Class c = getClass();
+        String filename = "TableTab.fxml";
+        URL value1 = c.getResource(filename);
+        Parent root = FXMLLoader.load(value1);
 
         Scene scene = new Scene(root);
 
