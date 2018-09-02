@@ -75,4 +75,4 @@ public class CSVParser {
             System.out.println(i.get(0)[0] + " " + i.get(0)[1]);
         }
     }
-        }
+}

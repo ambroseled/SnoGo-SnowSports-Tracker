@@ -3,6 +3,8 @@ package seng202.team5.Control;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -60,12 +62,19 @@ public class TableController extends Application {
     public ObservableList<DataPoint> getDataPointsList() {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
-        for (Activity activity: activities) {
+        DataSet dataSet = activities.get(0).getDataSet();
+        dataPointsList.addAll(dataSet.getDataPoints());
+      /*  for (Activity activity: activities) {
             DataSet dataSet = activity.getDataSet();
-            dataPointsList.addAll(dataSet.getDataPoints());
+            for (DataPoint dataPoint : dataSet.getDataPoints()) {
+                System.out.println(dataPoint);
+            }
+            //dataPointsList.addAll(dataSet.getDataPoints());
         }
+        System.out.println();
+        //System.out.println(dataPointsList);
+       */
         System.out.println(dataPointsList);
-
         return dataPointsList;
     }
     public static void main(String args[]) {
@@ -79,21 +88,33 @@ public class TableController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
-        TableController tableController = new TableController();
+        Parent root = FXMLLoader.load(getClass().getResource("TableTab.fxml"));
 
-        tableController.setActivities(inputActivities);
-        tableController.initialise();
-        tableController.getDataPointsList();
+        Scene scene = new Scene(root);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+
+/*        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+
+        this.setActivities(inputActivities);
+        this.initialise();
+        this.getDataPointsList();
 
         window = primaryStage;
 
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll();
+        Parent root = null;
 
-        Scene scene = new Scene(vbox);
+        root = FXMLLoader.load(getClass().getResource("TableTab.fxml"));
+        Scene scene = new Scene(root);
         window.setScene(scene);
-        window.show();
+        window.show();*/
+
+
+//        VBox vbox = new VBox();
+//        vbox.getChildren().addAll();
+
     }
 }
