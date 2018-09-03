@@ -27,7 +27,7 @@ public class homeController extends Application {
      * Handles when the mapButton is pressed
      */
     public void mapButtonPress() {
-
+        System.out.println("Map button pressed");
     }
 
 
@@ -35,7 +35,7 @@ public class homeController extends Application {
      * Handles when the goalButton is pressed
      */
     public void goalButtonPress() {
-
+        System.out.println("Goal button pressed");
     }
 
 
@@ -43,7 +43,7 @@ public class homeController extends Application {
      * Handles when the calendarButton is pressed
      */
     public void calButtonPress() {
-
+        System.out.println("Calender button pressed");
     }
 
 
@@ -51,7 +51,7 @@ public class homeController extends Application {
      * Handles when the alertButton is pressed
      */
     public void alertButtonPress() {
-
+        System.out.println("Alert button pressed");
     }
 
 
@@ -59,7 +59,7 @@ public class homeController extends Application {
      * Handles when the profileButton is pressed
      */
     public void profButtonPress() {
-
+        System.out.println("Profile button pressed");
     }
 
     public void start(Stage primaryStage) throws Exception {

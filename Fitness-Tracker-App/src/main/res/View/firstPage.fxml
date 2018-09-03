@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="blue-grad" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="grad-radius-3" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.homeController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,32 +25,32 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="dataButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <Button fx:id="dataButton" mnemonicParsing="false" onAction="#dataButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font name="Copperplate Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="mapButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="mapButton" mnemonicParsing="false" onAction="#mapButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <font>
             <Font name="Copperplate Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="goalButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Goals" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <Button fx:id="goalButton" mnemonicParsing="false" onAction="#goalButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Goals" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font name="Copperplate Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="calendarButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Calendar" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#calButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Calendar" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <font>
             <Font name="Copperplate" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="alertsButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Alerts" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <Button fx:id="alertsButton" mnemonicParsing="false" onAction="#alertButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Alerts" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font name="Copperplate Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Profile" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="profileButton" mnemonicParsing="false" onAction="#profButtonPress" prefHeight="45.0" prefWidth="160.0" styleClass="trans-round" stylesheets="@../CSS/buttonStyle.css" text="Profile" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <font>
             <Font name="Copperplate Bold" size="25.0" />
          </font>
