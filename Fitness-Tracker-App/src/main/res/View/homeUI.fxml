@@ -10,27 +10,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="blue-grad" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.View.homeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="blue-grad" stylesheets="@seng202/team5/CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.View.homeController">
    <children>
       <AnchorPane prefHeight="408.0" prefWidth="133.0">
          <children>
             <Line fx:id="topDivider" endX="105.0" layoutX="15.0" layoutY="90.0" startX="-13.0" stroke="#1100ff" strokeWidth="6.0" />
-            <Button fx:id="dataButton" layoutX="4.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Data">
+            <Button fx:id="dataButton" layoutX="4.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Data">
                <font>
                   <Font name="Impact" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="mapButton" layoutX="4.0" layoutY="228.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Map">
+            <Button fx:id="mapButton" layoutX="4.0" layoutY="228.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Map">
                <font>
                   <Font name="Copperplate Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="goalButton" layoutX="4.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Goals">
+            <Button fx:id="goalButton" layoutX="4.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Goals">
                <font>
                   <Font name="Chalkboard" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="calendarButton" layoutX="5.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Calendar">
+            <Button fx:id="calendarButton" layoutX="5.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Calendar">
                <font>
                   <Font name="Chalkduster" size="11.0" />
                </font>
@@ -38,19 +38,19 @@
             <Line fx:id="secondDivider" endX="105.0" layoutX="13.0" layoutY="176.0" startX="-13.0" stroke="#1100ff" strokeWidth="6.0" />
             <Circle fx:id="avatarCircle" fill="DODGERBLUE" layoutX="57.0" layoutY="125.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
             <Text fx:id="userText" layoutX="20.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fred Bloggs" />
-            <Button fx:id="alertsButton" layoutX="5.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Alerts">
+            <Button fx:id="alertsButton" layoutX="5.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Alerts">
                <font>
                   <Font name="Kefa Regular" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="profileButton" layoutX="5.0" layoutY="377.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Profile">
+            <Button fx:id="profileButton" layoutX="5.0" layoutY="377.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="round-blue" stylesheets="@seng202/team5/CSS/buttonStyle.css" text="Profile">
                <font>
                   <Font name="Charter Bold" size="12.0" />
                </font>
             </Button>
             <ImageView fitHeight="77.0" fitWidth="74.0" layoutX="21.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../res/logo.png" />
+                  <Image url="@logo.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1100ff" height="407.0" layoutX="120.0" stroke="#1100ff" strokeType="INSIDE" width="11.0" />
