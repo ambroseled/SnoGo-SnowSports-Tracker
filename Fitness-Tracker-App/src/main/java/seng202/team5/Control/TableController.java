@@ -90,9 +90,10 @@ public class TableController extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Class c = getClass();
-        String filename = "TableTab.fxml";
+        String filename = "/View/TableTab.fxml";
+        FXMLLoader loader = new FXMLLoader();
         URL value1 = c.getResource(filename);
-        Parent root = FXMLLoader.load(value1);
+        Parent root = loader.load(value1);
 
         Scene scene = new Scene(root);
 

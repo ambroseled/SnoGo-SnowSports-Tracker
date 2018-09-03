@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class CSVParser {
 
     /**
-     *
      * @param filePath
      * @return
      */
