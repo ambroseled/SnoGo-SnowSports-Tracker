@@ -1,14 +1,10 @@
 package seng202.team5.Control;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
-public class alertController {
+public class dataController {
 
     private FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();

@@ -16,18 +16,11 @@ import java.net.URL;
 public class homeController {
 
     private FXMLLoader loader = new FXMLLoader();
-    Class c = getClass();
+    private Class c = getClass();
 
 
 
-    public void changeScene(String filename) throws IOException {
-        Stage appStage = appController.getAppStage();
-        URL page = c.getResource(filename);
-        Parent dataParent = loader.load(page);
-        Scene dataScene = new Scene(dataParent);
-        appStage.setScene(dataScene);
-        appStage.show();
-    }
+
 
 
     /**
@@ -35,7 +28,7 @@ public class homeController {
      */
     public void dataButtonPress() throws IOException {
         System.out.println("Data button pressed");
-        changeScene("/View/dataView.fxml");
+        appController.changeScene("/View/dataView.fxml", c);
     }
 
 
@@ -44,7 +37,7 @@ public class homeController {
      */
     public void mapButtonPress() throws IOException {
         System.out.println("Map button pressed");
-        changeScene("/View/mapView.fxml");
+        appController.changeScene("/View/mapView.fxml", c);
     }
 
 
@@ -53,7 +46,7 @@ public class homeController {
      */
     public void goalButtonPress() throws IOException {
         System.out.println("Goal button pressed");
-        changeScene("/View/goalView.fxml");
+        appController.changeScene("/View/goalView.fxml", c);
     }
 
 
@@ -62,7 +55,7 @@ public class homeController {
      */
     public void calButtonPress() throws IOException {
         System.out.println("Calender button pressed");
-        changeScene("/View/calView.fxml");
+        appController.changeScene("/View/calView.fxml", c);
     }
 
 
@@ -71,7 +64,7 @@ public class homeController {
      */
     public void alertButtonPress() throws IOException {
         System.out.println("Alert button pressed");
-        changeScene("/View/alertView.fxml");
+        appController.changeScene("/View/alertView.fxml", c);
     }
 
 
@@ -80,7 +73,7 @@ public class homeController {
      */
     public void profButtonPress() throws IOException {
         System.out.println("Profile button pressed");
-        changeScene("/View/profView.fxml");
+        appController.changeScene("/View/profView.fxml", c);
     }
 
 

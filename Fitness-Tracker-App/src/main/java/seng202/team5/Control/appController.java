@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 
@@ -16,22 +17,29 @@ import java.net.URL;
 public class appController extends Application {
 
     private static Stage appStage;
+    private static FXMLLoader loader = new FXMLLoader();
+    private Class c = getClass();
 
 
     public static Stage getAppStage() {
         return  appStage;
     }
 
+    public static void changeScene(String filename, Class c) throws IOException {
+        Stage appStage = appController.getAppStage();
+        URL page = c.getResource(filename);
+        Parent dataParent = loader.load(page);
+        Scene dataScene = new Scene(dataParent);
+        appStage.setScene(dataScene);
+        appStage.show();
+    }
+
 
     public void start(Stage primaryStage) throws Exception {
-        Class c = getClass();
         String filename = "/View/firstPage.fxml";
-        FXMLLoader loader = new FXMLLoader();
         URL value1 = c.getResource(filename);
         Parent root = loader.load(value1);
-
         Scene scene = new Scene(root);
-
         primaryStage.setScene(scene);
         primaryStage.show();
 
