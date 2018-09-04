@@ -3,61 +3,73 @@ package seng202.team5.Control;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class TableController extends Application {
-    private TableView table = new TableView();
-    private ArrayList<Activity> activities;
-    private Stage window;
 
-    TableColumn<DataPoint, Date> dateTimeCol;
-    TableColumn<DataPoint, Integer> heartRateCol;
-    TableColumn<DataPoint, Double> latitudeCol;
-    TableColumn<DataPoint, Double> longitudeCol;
-    TableColumn<DataPoint, Double> elevationCol;
+    @FXML
+    private TableView<DataPoint> table;
+
+    private TableColumn<DataPoint, Date> dateTimeCol;
+    private TableColumn<DataPoint, Integer> heartRateCol;
+    private TableColumn<DataPoint, Double> latitudeCol;
+    private TableColumn<DataPoint, Double> longitudeCol;
+    private TableColumn<DataPoint, Double> elevationCol;
+    private TableColumn<DataPoint, Double> distanceCol;
+    private TableColumn<DataPoint, Double> speedCol;
+
+    private ArrayList<Activity> activities;
 
     public TableController() {}
 
     private void initialise() {
-
         // date and time column
-        dateTimeCol = new TableColumn("Date Time");
-        dateTimeCol.setCellValueFactory(new PropertyValueFactory<DataPoint, Date>("dateTime"));
+        dateTimeCol = new TableColumn("Date and Time");
+        dateTimeCol.setCellValueFactory(new PropertyValueFactory("dateTime"));
 
         //heart rate column
         heartRateCol = new TableColumn("Heart Rate");
-        heartRateCol.setCellValueFactory(new PropertyValueFactory<DataPoint, Integer>("heartRate"));
+        heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
 
         //latitude column
         latitudeCol = new TableColumn("Latitude");
-        latitudeCol.setCellValueFactory(new PropertyValueFactory<DataPoint, Double>("latitude"));
+        latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
 
         //longitude column
         longitudeCol = new TableColumn("Longitude");
-        longitudeCol.setCellValueFactory(new PropertyValueFactory<DataPoint, Double>("longitude"));
+        longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
 
         //elevation column
         elevationCol = new TableColumn("Elevation");
-        elevationCol.setCellValueFactory(new PropertyValueFactory<DataPoint, Double>("elevation"));
+        elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
 
+        //distance column
+        distanceCol = new TableColumn("Distance");
+        distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
+
+        //speed column
+        speedCol = new TableColumn("Speed");
+        speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
+
+
+        table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
         table.setItems(getDataPointsList());
-        table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol);
+
     }
 
     public ObservableList<DataPoint> getDataPointsList() {
@@ -75,10 +87,9 @@ public class TableController extends Application {
         System.out.println();
         //System.out.println(dataPointsList);
        */
-        System.out.println(dataPointsList);
         return dataPointsList;
     }
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         launch(args);
 
     }
@@ -89,37 +100,23 @@ public class TableController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Class c = getClass();
-        String filename = "/View/TableTab.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        URL value1 = c.getResource(filename);
-        Parent root = loader.load(value1);
-
-        Scene scene = new Scene(root);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
 
-/*        InputDataParser inputDataParser = new InputDataParser();
+        InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
 
-        this.setActivities(inputActivities);
-        this.initialise();
-        this.getDataPointsList();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/tableTab.fxml"));
+        Parent root = loader.load();
+        TableController controller = loader.getController();
+        controller.setActivities(inputActivities);
+        //this.initialise();
 
-        window = primaryStage;
 
-        Parent root = null;
-
-        root = FXMLLoader.load(getClass().getResource("TableTab.fxml"));
+        controller.initialise();
+        //Parent root = FXMLLoader.load(getClass().getResource("/View/tableTab.fxml"));
         Scene scene = new Scene(root);
-        window.setScene(scene);
-        window.show();*/
-
-
-//        VBox vbox = new VBox();
-//        vbox.getChildren().addAll();
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 }
