@@ -16,6 +16,7 @@ import java.net.URL;
 
 public class appController extends Application {
 
+    private dataBaseController dbContoller = new dataBaseController();
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
