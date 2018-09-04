@@ -131,4 +131,16 @@ public class DataAnalyserTest {
         double vertical = 1802.69 - 1792.66;
         assertEquals(vertical, dataSet.getVerticalDistance(), 0);
     }
+
+
+    @Test
+    public void testSpeed() {
+        Activity activity = activities.get(1);
+        dataAnalyser.analyseActivity(activity);
+        // Getting the dataSet out of the activity
+        DataSet dataSet = activity.getDataSet();
+        /**
+         * Will implement once double formatting is working
+         */
+    }
 }

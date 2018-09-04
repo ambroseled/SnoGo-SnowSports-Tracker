@@ -4,7 +4,10 @@ import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static jdk.nashorn.internal.objects.NativeMath.round;
 
 public class DataAnalyser {
 
@@ -168,6 +171,9 @@ public class DataAnalyser {
         double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
         // Calculating the distance using the Euclidean formula
         double distance = Math.sqrt(arg1 + arg2 + arg3);
+        /**
+         * Need to format this too
+         */
         return distance;
     }
 
@@ -183,7 +189,7 @@ public class DataAnalyser {
         double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
         double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
         // Calculating the distance traveled
-        double distance = oneDist(point1, point2);
+        double distance = oneDist(point1, point2) + previous.getDistance();
         current.setDistance(distance);
     }
 
@@ -212,9 +218,9 @@ public class DataAnalyser {
      */
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
         // Calculating the change in distance
-        double distance = dist2 - dist1;
+        double distance = dist1 - dist2;
         // Calculating the change in time
-        double time = time2 - time1;
+        double time = time1 - time2;
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -222,8 +228,13 @@ public class DataAnalyser {
             // The distance change is zero so the speed is zero
             return 0;
         } else {
+           // System.out.println(distance);
+            //System.out.println(time);
             // The speed is above zero and will be calculated
             double speed = distance / time;
+            /**
+             * Need to format this to say 2 decimal places but i cant seem to get that working.
+             */
             return speed;
         }
     }
