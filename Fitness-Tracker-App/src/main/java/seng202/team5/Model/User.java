@@ -12,6 +12,37 @@ public class User {
     private int id; // Need to add a hanlder for this
     private ArrayList<Activity> activities;
 
+
+    /*
+    Need another constructor here
+     */
+
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities){
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.activities = activities;
+    }
+
+    /**
+     * Overloaded version of constructor used when user is created from the dataBase
+     * @param name
+     * @param age
+     * @param height
+     * @param weight
+     * @param activities
+     * @param id
+     */
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id){
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.id = id;
+        this.activities = activities;
+    }
+
     //getters
     public String getName() {return name;}
     public Date getBirthDate() {return birthDate;}
