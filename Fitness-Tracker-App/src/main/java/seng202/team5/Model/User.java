@@ -8,6 +8,7 @@ public class User {
     private Date birthDate;
     private double height;
     private double weight;
+    private double age;
     private ArrayList<Activity> activities;
 
     //getters
