@@ -1,59 +1,40 @@
 package seng202.team5.Model;
 
-public class User {
+import java.util.ArrayList;
+import java.util.Date;
 
-    private String firstName;
-    private String lastName;
-    private int age;
+public class User {
+    private String name;
+    private Date birthDate;
     private double height;
     private double weight;
+    private int age;
+    private ArrayList<Activity> activities;
 
-
-    public User(String fist, String last, int age, double height, double weight) {
-        firstName = fist;
-        lastName = last;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
+    //getters
+    public String getName() {return name;}
+    public Date getBirthDate() {return birthDate;}
+    public double getHeight() {return height;}
+    public double getWeight() {return weight;}
+    public ArrayList<Activity> getActivities() {return activities;}
 
     public int getAge() {
         return age;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    //setters
+    public void setName(String tempName) {name = tempName;}
+    public void setBirthDate(Date tempDate) {birthDate = tempDate;}
+    public void setHeight(double tempHeight) {height = tempHeight;}
+    public void setWeight(double tempWeight) {weight = tempWeight;}
 
-    public String getLastName() {
-        return lastName;
+    public void setAge(int age) {
+        this.age = age;
     }
+    /*
+    //Adds activities from CSV to user's list of activities
+    public void addActivities(String fileName) {
+        ArrayList<Activity> activitiesToAdd = InputDataParser.parseCSVToActivities(String fileName);
+        activities.addAll(activitiesToAdd);
+    } */
 }
