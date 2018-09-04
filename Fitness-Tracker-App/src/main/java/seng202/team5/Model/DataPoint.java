@@ -23,7 +23,7 @@ public class DataPoint {
 
     //These setter methods will come in handy when we have to implement editing point manually
     public void setDateTime(Date newDateTime) {
-    	dateTime = newDateTime;
+        dateTime = newDateTime;
     }
     public void setHeartRate(int newHeartRate) {
         heartRate = newHeartRate;
@@ -43,10 +43,10 @@ public class DataPoint {
     public void setSpeed(double newSpeed) {
         speed = newSpeed;
     }
-
     public void setActive(boolean newActive) {
         active = newActive;
     }
+
 
     // Getters for the parameters of a DataPoint
     public Date getDateTime() {
@@ -71,10 +71,4 @@ public class DataPoint {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
                 ", Distance: "+distance+", Speed: "+speed;
     }
-
-
-
-
-
-
 }
