@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.mapController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.mapController">
    <children>
       <Text layoutX="230.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Map tab" />
       <Button fx:id="homeButton" layoutX="75.0" layoutY="331.0" mnemonicParsing="false" onAction="#homeButtonPress" text="home" />

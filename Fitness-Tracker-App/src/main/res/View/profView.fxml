@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.profController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.profController">
    <children>
       <Text layoutX="242.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile view" />
       <Button fx:id="homeButton" layoutX="52.0" layoutY="276.0" mnemonicParsing="false" onAction="#homeButtonPress" text="home" />
