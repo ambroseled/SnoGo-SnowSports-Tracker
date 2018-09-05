@@ -41,11 +41,7 @@
          </image>
       </ImageView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This window will get replaced by the tables stuff thats viktor and hayden are doing I assume" GridPane.rowIndex="2" />
-      <Button maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Button>
+      <Button maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>
       <Button layoutX="193.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Statistics" GridPane.columnIndex="2" GridPane.valignment="TOP" />
       <Button maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#mapButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnIndex="3" GridPane.valignment="TOP" />
       <Button layoutX="559.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#calendarButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Calendar" GridPane.columnIndex="4" GridPane.valignment="TOP" />
