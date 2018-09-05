@@ -15,7 +15,7 @@ public class DataSet {
     private double topSpeed;
     private double totalDistance;
     private double verticalDistance;
-    private double avgHeartRate;
+    private int avgHeartRate;
     private int id;
     // Need to add a slopeTime variable
 
@@ -24,7 +24,7 @@ public class DataSet {
     }
 
 
-    public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, double avgHeartRate, ArrayList<DataPoint> dataPoints) {
+    public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate, ArrayList<DataPoint> dataPoints) {
         this.id = id;
         this.topSpeed = topSpeed;
         this.totalDistance = totalDistance;
@@ -57,7 +57,7 @@ public class DataSet {
     public double getTotalDistance() {
         return totalDistance;
     }
-    public double getAvgHeartRate() {
+    public int getAvgHeartRate() {
         return avgHeartRate;
     }
     public double getVerticalDistance() {
@@ -71,7 +71,7 @@ public class DataSet {
     public void setVerticalDistance(double vetical) {
         verticalDistance = verticalDistance;
     }
-    public void setAvgHeartRate(double rate) {
+    public void setAvgHeartRate(int rate) {
         avgHeartRate = rate;
     }
     public void setTopSpeed(double speed) {

@@ -180,12 +180,12 @@ public class dataBaseController {
      * It is assumed that all users passed to this have an id value as this will only be used once a user has
      * been grabbed from the database
      * @param toAdd
-     * @param toAddto
+     * @param userId
      */
-    public void addActivity(Activity toAdd, User toAddto) {
+    public void addActivity(Activity toAdd, int userId) {
         try {
             Statement stmt = con.createStatement();
-            String query = String.format("INSERT INTO Activity (Name, User) VALUES ('%s', %d)", toAdd.getName(), toAddto.getId());
+            String query = String.format("INSERT INTO Activity (Name, User) VALUES ('%s', %d)", toAdd.getName(), userId);
             stmt.executeUpdate(query);
         } catch (SQLException e) {
             System.out.println("Error when adding user: " + e.getLocalizedMessage());
@@ -214,7 +214,7 @@ public class dataBaseController {
         try {
             Statement stmt = con.createStatement();
             String query = String.format("INSERT INTO DataPoint (DataTime, HeartRate, Latitude, Longitude, " +
-                            "Elevation, Distance, Speed, Active, DataSet) VALUES ('%s', %d, %f, %f, %f, %f, %f,  %b, " +
+                            "Elevation, Distance, Speed, Active, DataSet) VALUES ('%s', %d, %f, %f, %f, %f,  %b, " +
                             "%d)", toAdd.getDateTime(), toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
                     toAdd.getElevation(), toAdd.getSpeed(), setId);
             stmt.executeUpdate(query);
@@ -226,8 +226,9 @@ public class dataBaseController {
 
     public static void main(String[] args) {
         InputDataParser parser = new InputDataParser();
+        dataBaseController db = new dataBaseController();
         ArrayList<Activity> activities = parser.parseCSVToActivities("dataBaseTest.csv");
-        System.out.println(activities.get(0).getName());
+        db.addDataPoint(activities.get(0).getDataSet().getDataPoints().get(0), 1);
      //   dataBaseController db = new dataBaseController();
      //   User toAdd = new User("John Jones", 25, 1.8, 75.8);
      //   db.addNewUser(toAdd);
