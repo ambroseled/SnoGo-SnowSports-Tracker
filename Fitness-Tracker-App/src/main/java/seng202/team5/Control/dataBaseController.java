@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class dataBaseController {
 
     Connection con = null;
-    Statement stmt = null;
 
 
     public dataBaseController() {
@@ -20,7 +19,6 @@ public class dataBaseController {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
             System.out.println("Connected to dataBase");
-            getUsers();
         } catch (Exception e) {
             System.out.println("Error: " + e.getLocalizedMessage());
         }
@@ -34,7 +32,7 @@ public class dataBaseController {
         }
     }
 
-    public void getUsers() {
+    public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
         try {
             Statement stmt = con.createStatement();
@@ -55,13 +53,15 @@ public class dataBaseController {
             System.out.println("Error: " + e.getLocalizedMessage());
         }
         System.out.println(users.get(0).getName());
+        return users;
     }
 
     public ArrayList<Activity> getActivities(int UserId) {
         ArrayList<Activity> activities = new ArrayList<>();
         try {
             Statement stmt = con.createStatement();
-            ResultSet set = stmt.executeQuery("SELECT * FROM Activity WHERE User=UserId");
+            String query = "SELECT * FROM Activity WHERE User=" + UserId;
+            ResultSet set = stmt.executeQuery(query);
             Activity newAct;
 
             while (set.next()) {
@@ -86,7 +86,8 @@ public class dataBaseController {
         DataSet dataSet;
         try {
             Statement stmt = con.createStatement();
-            ResultSet set = stmt.executeQuery("SELECT * FROM DataSet WHERE Activity=actId");
+            String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
+            ResultSet set = stmt.executeQuery(query);
 
             int setId = set.getInt("ID");
             double topSpeed = set.getInt("TopSpeed");
@@ -108,7 +109,8 @@ public class dataBaseController {
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
         try {
             Statement stmt = con.createStatement();
-            ResultSet set = stmt.executeQuery("SELECT * FROM DataPoint WHERE DataSet=setId");
+            String query = "SELECT * FROM DataPoint WHERE DataSet=" + setID;
+            ResultSet set = stmt.executeQuery(query);
             DataPoint newPoint;
 
             while (set.next()) {
@@ -128,5 +130,22 @@ public class dataBaseController {
             System.out.println("Error: " + e.getLocalizedMessage());
         }
         return dataPoints;
+    }
+
+    public void addNewUser(User toAdd) {
+        try {
+            Statement stmt = con.createStatement();
+            String query = "INSERT INTO User (Name, Height, Weight, Age) VALUES (" + toAdd.getName() + toAdd.getHeight() + toAdd.getWeight() + toAdd.getAge() + ")";
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    public static void main(String[] args) {
+        dataBaseController db = new dataBaseController();
+        User toAdd = new User("John Jones", 25, 1.8, 75.8);
+        db.addNewUser(toAdd);
     }
 }

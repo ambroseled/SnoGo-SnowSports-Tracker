@@ -25,6 +25,14 @@ public class User {
         this.activities = activities;
     }
 
+
+    public User(String name, int age, double height, double weight) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+    }
+
     /**
      * Overloaded version of constructor used when user is created from the dataBase
      * @param name
