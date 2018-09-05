@@ -105,7 +105,7 @@ public class TableController extends Application {
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/tableTab.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TableTab.fxml"));
         Parent root = loader.load();
         TableController controller = loader.getController();
         controller.setActivities(inputActivities);
