@@ -14,7 +14,10 @@ public class dataBaseController {
 
     Connection con = null;
 
-
+    /**
+     * Tries to get a connection to the applications database. If this fails and error
+     * message is output.
+     */
     public dataBaseController() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -25,6 +28,10 @@ public class dataBaseController {
         }
     }
 
+
+    /**
+     * Closes the connection to the database.
+     */
     public void closeConnection() {
         try {
             con.close();
@@ -33,6 +40,11 @@ public class dataBaseController {
         }
     }
 
+
+    /**
+     * Gets a list of all the users in the database.
+     * @return
+     */
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
         try {
@@ -57,6 +69,12 @@ public class dataBaseController {
         return users;
     }
 
+
+    /**
+     * Gets a list of all the activities in the database that are for a passed user.
+     * @param UserId
+     * @return
+     */
     public ArrayList<Activity> getActivities(int UserId) {
         ArrayList<Activity> activities = new ArrayList<>();
         try {
@@ -83,6 +101,12 @@ public class dataBaseController {
         return activities;
     }
 
+
+    /**
+     * Gets the DataSet from the database that is for a passed activity.
+     * @param actID
+     * @return
+     */
     public DataSet getDataSet(int actID) {
         DataSet dataSet;
         try {
@@ -106,6 +130,11 @@ public class dataBaseController {
     }
 
 
+    /**
+     * Gets a list of dataPoints from the database that are for a passed dataSet.
+     * @param setID
+     * @return
+     */
     public ArrayList<DataPoint> getDataPoints(int setID) {
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
         try {
@@ -133,15 +162,64 @@ public class dataBaseController {
         return dataPoints;
     }
 
+
+    /**
+     * Stores a passed user into the database.
+     * @param toAdd
+     */
     public void addNewUser(User toAdd) {
         try {
             Statement stmt = con.createStatement();
-            String name = toAdd.getName();
-            double height = toAdd.getHeight();
-            double weight = toAdd.getWeight();
-            int age = toAdd.getAge();
-            Date birth = toAdd.getBirthDate();
-            String query = String.format("INSERT INTO User (Name, Height, Weight, Age) VALUES ('%s', %.2f, %.2f, %d)", name, height, weight, age);
+            String query = String.format("INSERT INTO User (Name, Height, Weight, Age, BirthDate) VALUES ('%s', %.2f, " +
+                    "%.2f, %d)", toAdd.getName(), toAdd.getHeight(), toAdd.getWeight(), toAdd.getAge(), toAdd.getBirthDate());
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * It is assumed that all users passed to this have an id value as this will only be used once a user has
+     * been grabbed from the database
+     * @param toAdd
+     * @param toAddto
+     */
+    public void addActivity(Activity toAdd, User toAddto) {
+        try {
+            Statement stmt = con.createStatement();
+            String query = String.format("INSERT INTO Activity (Name, User) VALUES ('%s', %d)", toAdd.getName(), toAddto.getId());
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Stores a passed dataSet in the dataBase.
+     * @param toAdd
+     * @param actId
+     */
+    public void addDataSet(DataSet toAdd, int actId) {
+        try {
+            Statement stmt = con.createStatement();
+            String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
+                    "Activity) VALUES (%f, %f, %d, %f, %d)", toAdd.getTopSpeed(), toAdd.getTotalDistance(),
+                    toAdd.getAvgHeartRate(), toAdd.getVerticalDistance(), actId);
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    public void addDataPoint(DataPoint toAdd, int setId) {
+        try {
+            Statement stmt = con.createStatement();
+            String query = String.format("INSERT INTO DataPoint (DataTime, HeartRate, Latitude, Longitude, " +
+                            "Elevation, Distance, Speed, Active, DataSet) VALUES ('%s', %d, %f, %f, %f, %f, %f,  %b, " +
+                            "%d)", toAdd.getDateTime(), toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
+                    toAdd.getElevation(), toAdd.getSpeed(), setId);
             stmt.executeUpdate(query);
         } catch (SQLException e) {
             System.out.println("Error when adding user: " + e.getLocalizedMessage());
@@ -150,6 +228,7 @@ public class dataBaseController {
 
 
     public static void main(String[] args) {
+
      //   dataBaseController db = new dataBaseController();
      //   User toAdd = new User("John Jones", 25, 1.8, 75.8);
      //   db.addNewUser(toAdd);

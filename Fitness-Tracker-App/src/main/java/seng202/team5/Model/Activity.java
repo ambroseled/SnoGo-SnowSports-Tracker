@@ -35,6 +35,10 @@ public class Activity {
         this.dataSet = dataSet;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
 
 }

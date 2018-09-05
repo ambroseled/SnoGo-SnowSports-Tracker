@@ -9,7 +9,7 @@ public class User {
     private double height;
     private double weight;
     private int age;
-    private int id; // Need to add a hanlder for this
+    private int id = -1; // Need to add a hanlder for this
     private ArrayList<Activity> activities;
 
 
@@ -60,6 +60,10 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    public int getId() {
+        return id;
     }
 
     //setters
