@@ -171,10 +171,7 @@ public class DataAnalyser {
         double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
         // Calculating the distance using the Euclidean formula
         double distance = Math.sqrt(arg1 + arg2 + arg3);
-        /**
-         * Need to format this too
-         */
-        return distance;
+        return roundNum(distance);
     }
 
 
@@ -203,7 +200,7 @@ public class DataAnalyser {
     private double oneAlt(double current, double previous) {
         // Calculating the change in altitude
         double diff = current - previous;
-        return -1*diff;
+        return roundNum(-1*diff);
     }
 
 
@@ -220,7 +217,7 @@ public class DataAnalyser {
         // Calculating the change in distance
         double distance = dist1 - dist2;
         // Calculating the change in time
-        double time = time1 - time2;
+        double time = (time1 - time2)/1000;
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -232,10 +229,7 @@ public class DataAnalyser {
             //System.out.println(time);
             // The speed is above zero and will be calculated
             double speed = distance / time;
-            /**
-             * Need to format this to say 2 decimal places but i cant seem to get that working.
-             */
-            return speed;
+            return roundNum(speed);
         }
     }
 
@@ -296,7 +290,7 @@ public class DataAnalyser {
             }
             previous = dataPoints.get(i).getElevation();
         }
-        return vertical;
+        return roundNum(vertical);
     }
 
 
@@ -322,14 +316,27 @@ public class DataAnalyser {
 
 
     /**
-     *
-     * @param height
-     * @param weight
-     * @return
+     * Calculates the bmi using the passed information about a user.
+     * @param height The height of the user.
+     * @param weight The weight of the user.
+     * @return The BMI of the user.
      */
     public static double calcBMI(double height, double weight) {
         double bmi = (weight / height) / height;
-        return bmi;
+        return roundNum(bmi);
     }
+
+
+    /**
+     * Rounds a passed double to 2 decimal places.
+     * @param toRound The double to be rounded.
+     * @return The rounded value.
+     */
+    public static double roundNum(double toRound) {
+        double rounded = Math.round(toRound * 100.0);
+        return rounded / 100.0;
+    }
+
+
 
 }

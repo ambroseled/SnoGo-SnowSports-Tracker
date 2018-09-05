@@ -128,30 +128,35 @@ public class DataAnalyserTest {
         dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
-        double vertical = 1802.69 - 1792.66;
+        double vertical = DataAnalyser.roundNum(1802.69 - 1792.66);
         assertEquals(vertical, dataSet.getVerticalDistance(), 0);
     }
 
 
+    /**
+     * Testing te speed calculating functions of the DataAnalyser class.
+     * This is done by checking that the correct top speed is found over an
+     * activity.
+     */
     @Test
     public void testSpeed() {
         Activity activity = activities.get(1);
         dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
-        /**
-         * Will implement once double formatting is working
-         */
+        assertEquals(2.0, dataSet.getTopSpeed(), 0.0);
     }
 
 
+    /**
+     * Testing the calcBMI() function.
+     */
     @Test
     public void testBMI() {
         double height = 1.75;
         double weight = 70;
-        /**
-         * Will implement when i have rounding doubles working
-         */
+        double bmi = dataAnalyser.calcBMI(height, weight);
+        assertEquals(22.86, bmi, 0.0);
     }
 
 }
