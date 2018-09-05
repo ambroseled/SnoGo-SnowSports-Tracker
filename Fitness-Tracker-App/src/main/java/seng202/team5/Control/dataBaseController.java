@@ -7,6 +7,7 @@ import seng202.team5.Model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class dataBaseController {
@@ -135,8 +136,13 @@ public class dataBaseController {
     public void addNewUser(User toAdd) {
         try {
             Statement stmt = con.createStatement();
-            String query = "INSERT INTO User (Name, Height, Weight, Age) VALUES (" + toAdd.getName() + toAdd.getHeight() + toAdd.getWeight() + toAdd.getAge() + ")";
-            stmt.executeQuery(query);
+            String name = toAdd.getName();
+            double height = toAdd.getHeight();
+            double weight = toAdd.getWeight();
+            int age = toAdd.getAge();
+            Date birth = toAdd.getBirthDate();
+            String query = String.format("INSERT INTO User (Name, Height, Weight, Age) VALUES ('%s', %.2f, %.2f, %d)", name, height, weight, age);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             System.out.println("Error when adding user: " + e.getLocalizedMessage());
         }
@@ -144,8 +150,12 @@ public class dataBaseController {
 
 
     public static void main(String[] args) {
-        dataBaseController db = new dataBaseController();
-        User toAdd = new User("John Jones", 25, 1.8, 75.8);
-        db.addNewUser(toAdd);
+     //   dataBaseController db = new dataBaseController();
+     //   User toAdd = new User("John Jones", 25, 1.8, 75.8);
+     //   db.addNewUser(toAdd);
     }
+
+    /**
+     * read: https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html
+     */
 }
