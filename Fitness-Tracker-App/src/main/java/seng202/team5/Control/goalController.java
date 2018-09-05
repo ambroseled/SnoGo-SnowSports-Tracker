@@ -11,6 +11,6 @@ public class goalController {
 
     public void homeButtonPress() throws IOException {
         System.out.println("Home button pressed");
-        appController.changeScene("/View/firstPage.fxml", c);
+        appController.changeScene("/View/mainPage.fxml", c);
     }
 }
