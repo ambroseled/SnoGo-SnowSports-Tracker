@@ -226,7 +226,8 @@ public class dataBaseController {
 
     public static void main(String[] args) {
         InputDataParser parser = new InputDataParser();
-        ArrayList<Activity> activities = parser.parseCSVToActivities("");
+        ArrayList<Activity> activities = parser.parseCSVToActivities("dataBaseTest.csv");
+        System.out.println(activities.get(0).getName());
      //   dataBaseController db = new dataBaseController();
      //   User toAdd = new User("John Jones", 25, 1.8, 75.8);
      //   db.addNewUser(toAdd);

@@ -84,14 +84,14 @@ public class InputDataParser {
 	private void updateTable(ArrayList<Activity> activities) {
 		TableController tableController = new TableController(activities);
 	} */
-	/*
+
 	public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
 
         ArrayList<String> lines = test.readFile("testData.csv");
         test.createActivitiesFromLines(lines);
 
-    } */
+    }
 
 
 
