@@ -19,6 +19,9 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,7 +32,7 @@
   </rowConstraints>
    <children>
       <Button fx:id="homeButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#homeButtonPress" prefHeight="79.0" prefWidth="120.0" text="Home" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-      <ImageView fx:id="logo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
             <Image url="@../logo.png" />
          </image>
@@ -47,5 +50,16 @@
       </TableView>
       <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="TOP" />
       <Button mnemonicParsing="false" text="View Alert" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+       <Button maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+           <GridPane.margin>
+               <Insets />
+           </GridPane.margin>
+       </Button>
+       <Button layoutX="193.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Statistics" GridPane.columnIndex="2" GridPane.valignment="TOP" />
+       <Button maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#mapButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnIndex="3" GridPane.valignment="TOP" />
+       <Button layoutX="559.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#calendarButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Calendar" GridPane.columnIndex="4" GridPane.valignment="TOP" />
+       <Button layoutX="742.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#goalsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Goals" GridPane.columnIndex="5" GridPane.valignment="TOP" />
+       <Button layoutX="925.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#profileButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Profile" GridPane.columnIndex="6" GridPane.valignment="TOP" />
+       <Button layoutX="970.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#alertsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Alerts" GridPane.columnIndex="7" GridPane.valignment="TOP" />
    </children>
 </GridPane>
