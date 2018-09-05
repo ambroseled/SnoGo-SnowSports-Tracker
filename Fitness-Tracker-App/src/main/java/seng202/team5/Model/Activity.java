@@ -3,7 +3,7 @@ package seng202.team5.Model;
 public class Activity {
 
     private String name;
-    private DataSet dataSet;
+    private DataSet dataSet = new DataSet();
     private int id;
     //private date
 

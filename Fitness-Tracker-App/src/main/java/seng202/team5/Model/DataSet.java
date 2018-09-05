@@ -9,7 +9,7 @@ import java.util.*;
 
 public class DataSet {
 
-    private ArrayList<DataPoint> dataPoints = new ArrayList<>();
+    private ArrayList<DataPoint> dataPoints;
 
     //Where the thing calculated by analysis are stored
     private double topSpeed;
@@ -19,6 +19,10 @@ public class DataSet {
     private int id;
     // Need to add a slopeTime variable
 
+    public DataSet() {
+        dataPoints = new ArrayList<>();
+    }
+
 
     public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, double avgHeartRate, ArrayList<DataPoint> dataPoints) {
         this.id = id;
@@ -27,6 +31,7 @@ public class DataSet {
         this.verticalDistance = verticalDistance;
         this.avgHeartRate = avgHeartRate;
         this.dataPoints = dataPoints;
+        dataPoints = new ArrayList<>();
     }
 
     public void addDataPoint(DataPoint dataPoint) {

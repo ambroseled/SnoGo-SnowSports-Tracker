@@ -88,8 +88,9 @@ public class InputDataParser {
     public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
 
-        ArrayList<String> lines = test.readFile("testData.csv");
-        test.createActivitiesFromLines(lines);
+
+        ArrayList<Activity> activities = test.parseCSVToActivities("testData.csv");
+        System.out.println(activities.get(0).getName());
     }
 
 
