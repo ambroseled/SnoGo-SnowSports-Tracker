@@ -1,9 +1,6 @@
 package seng202.team5.Control;
 
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
+import seng202.team5.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -228,7 +225,8 @@ public class dataBaseController {
 
 
     public static void main(String[] args) {
-
+        InputDataParser parser = new InputDataParser();
+        ArrayList<Activity> activities = parser.parseCSVToActivities("");
      //   dataBaseController db = new dataBaseController();
      //   User toAdd = new User("John Jones", 25, 1.8, 75.8);
      //   db.addNewUser(toAdd);

@@ -17,6 +17,10 @@ public class Activity {
         this.id = id;
     }
 
+    public Activity(String newName) {
+        name = newName;
+    }
+
     public Activity(int id, String name, DataSet dataSet) {
         this.id = id;
         this.name = name;
