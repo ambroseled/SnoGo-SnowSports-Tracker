@@ -320,4 +320,9 @@ public class DataAnalyser {
         return top;
     }
 
+
+    public void calcBMI(User toCalc) {
+        double bmi = (toCalc.get)
+    }
+
 }
