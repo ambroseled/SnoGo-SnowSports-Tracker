@@ -143,4 +143,15 @@ public class DataAnalyserTest {
          * Will implement once double formatting is working
          */
     }
+
+
+    @Test
+    public void testBMI() {
+        double height = 1.75;
+        double weight = 70;
+        /**
+         * Will implement when i have rounding doubles working
+         */
+    }
+
 }

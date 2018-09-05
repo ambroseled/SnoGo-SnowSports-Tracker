@@ -321,8 +321,15 @@ public class DataAnalyser {
     }
 
 
-    public void calcBMI(User toCalc) {
-        double bmi = (toCalc.get)
+    /**
+     *
+     * @param height
+     * @param weight
+     * @return
+     */
+    public static double calcBMI(double height, double weight) {
+        double bmi = (weight / height) / height;
+        return bmi;
     }
 
 }
