@@ -89,7 +89,7 @@ public class InputDataParser {
         InputDataParser test = new InputDataParser();
 
 
-        ArrayList<Activity> activities = test.parseCSVToActivities("testData.csv");
+        ArrayList<Activity> activities = test.parseCSVToActivities("dataBaseTest.csv");
         System.out.println(activities.get(0).getName());
     }
 
