@@ -51,14 +51,7 @@
         <Button layoutX="742.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#goalsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Goals" GridPane.columnIndex="5" GridPane.valignment="TOP" />
         <Button layoutX="925.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#profileButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Profile" GridPane.columnIndex="6" GridPane.valignment="TOP" />
         <Button layoutX="970.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#alertButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Alerts" GridPane.columnIndex="7" GridPane.valignment="TOP" />
-      <Accordion prefHeight="144.0" prefWidth="746.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
-        <panes>
-          <TitledPane fx:id="dropdown1" animated="true">
-               <content>
-                   <TableView fx:id="table" layoutX="22.0" layoutY="93.0" />
-               </content>
-            </TitledPane>
-        </panes>
+      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
       </Accordion>
     </children>
 </GridPane>

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
@@ -25,63 +26,59 @@ import java.util.Date;
 public class TableController extends Application {
 
     @FXML
-    private TableView<DataPoint> table;
-
-    @FXML
-    private TitledPane dropdown1;
-
-    private TableColumn<DataPoint, Date> dateTimeCol;
-    private TableColumn<DataPoint, Integer> heartRateCol;
-    private TableColumn<DataPoint, Double> latitudeCol;
-    private TableColumn<DataPoint, Double> longitudeCol;
-    private TableColumn<DataPoint, Double> elevationCol;
-    private TableColumn<DataPoint, Double> distanceCol;
-    private TableColumn<DataPoint, Double> speedCol;
+    private Accordion accordion;
 
     private ArrayList<Activity> activities;
 
     public TableController() {}
 
     private void initialise() {
+        int numActivities = activities.size();
+        for (int i = 0; i < (numActivities - 1); i += 1) {
+            addActivityPanels(i);
+        }
+
+    }
+
+    private void createTable(TableView table, int index) {
         // date and time column
-        dateTimeCol = new TableColumn("Date and Time");
+        TableColumn<DataPoint, Date> dateTimeCol = new TableColumn("Date and Time");
         dateTimeCol.setCellValueFactory(new PropertyValueFactory("dateTime"));
 
         //heart rate column
-        heartRateCol = new TableColumn("Heart Rate");
+        TableColumn<DataPoint, Integer> heartRateCol = new TableColumn("Heart Rate");
         heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
 
         //latitude column
-        latitudeCol = new TableColumn("Latitude");
+        TableColumn<DataPoint, Double> latitudeCol = new TableColumn("Latitude");
         latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
 
         //longitude column
-        longitudeCol = new TableColumn("Longitude");
+        TableColumn<DataPoint, Double> longitudeCol = new TableColumn("Longitude");
         longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
 
         //elevation column
-        elevationCol = new TableColumn("Elevation");
+        TableColumn<DataPoint, Double> elevationCol = new TableColumn("Elevation");
         elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
 
         //distance column
-        distanceCol = new TableColumn("Distance");
+        TableColumn<DataPoint, Double> distanceCol = new TableColumn("Distance");
         distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
 
         //speed column
-        speedCol = new TableColumn("Speed");
+        TableColumn<DataPoint, Double> speedCol = new TableColumn("Speed");
         speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
 
 
         table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
-        table.setItems(getDataPointsList());
-        setDropdown();
+        table.setItems(getDataPointsList(index));
 
     }
 
-    public ObservableList<DataPoint> getDataPointsList() {
+    public ObservableList<DataPoint> getDataPointsList(int index) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
-        DataSet dataSet = activities.get(0).getDataSet();
+        DataSet dataSet = activities.get(index).getDataSet();
         dataPointsList.addAll(dataSet.getDataPoints());
       /*  for (Activity activity: activities) {
             DataSet dataSet = activity.getDataSet();
@@ -96,15 +93,30 @@ public class TableController extends Application {
         return dataPointsList;
     }
 
-    public void setDropdown() {
+    public void setDropdown(TitledPane titledPane, int index) {
         String dropdownText;
-        Activity activity = activities.get(0);
+        Activity activity = activities.get(index);
         String name = activity.getName();
         Date startDateTime = activity.getDataSet().getDateTime(0);
         Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
         dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
-        dropdown1.setText(dropdownText);
+        titledPane.setText(dropdownText);
     }
+
+    public void addActivityPanels(int index) {
+        TitledPane titledPane = new TitledPane();
+        setDropdown(titledPane, index);
+        titledPane.setAnimated(true);
+        titledPane.setCollapsible(true);
+
+        //Add table, remove as fxml
+        TableView<DataPoint> table = new TableView();
+        createTable(table, index);
+
+        titledPane.setContent(table);
+        accordion.getPanes().add(titledPane);
+    }
+
     public static void main(String[] args) {
         launch(args);
 
