@@ -34,6 +34,8 @@ public class appController extends Application {
         appStage.show();
     }
 
+   // public static void clearButtons()
+
 
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/mainPage.fxml";
