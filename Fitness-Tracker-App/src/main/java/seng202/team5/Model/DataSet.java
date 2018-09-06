@@ -47,9 +47,10 @@ public class DataSet {
     public double getVerticalDistance() {
         return verticalDistance;
     }
-    public Date getFirstDateTime() {
-        return dataPoints.get(0).getDateTime();
+    public Date getDateTime(int index) {
+        return dataPoints.get(index).getDateTime();
     }
+
 
     // Setters
 

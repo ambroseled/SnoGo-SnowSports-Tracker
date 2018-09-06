@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
@@ -16,6 +17,7 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +26,9 @@ public class TableController extends Application {
 
     @FXML
     private TableView<DataPoint> table;
+
+    @FXML
+    private TitledPane dropdown1;
 
     private TableColumn<DataPoint, Date> dateTimeCol;
     private TableColumn<DataPoint, Integer> heartRateCol;
@@ -69,6 +74,7 @@ public class TableController extends Application {
 
         table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
         table.setItems(getDataPointsList());
+        setDropdown();
 
     }
 
@@ -88,6 +94,16 @@ public class TableController extends Application {
         //System.out.println(dataPointsList);
        */
         return dataPointsList;
+    }
+
+    public void setDropdown() {
+        String dropdownText;
+        Activity activity = activities.get(0);
+        String name = activity.getName();
+        Date startDateTime = activity.getDataSet().getDateTime(0);
+        Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
+        dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+        dropdown1.setText(dropdownText);
     }
     public static void main(String[] args) {
         launch(args);
@@ -109,14 +125,52 @@ public class TableController extends Application {
         Parent root = loader.load();
         TableController controller = loader.getController();
         controller.setActivities(inputActivities);
-        //this.initialise();
-
 
         controller.initialise();
-        //Parent root = FXMLLoader.load(getClass().getResource("/View/tableTab.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
 
+    }
+
+    //Methods to run top bar buttons
+    public void homeButtonPress() throws IOException {
+        System.out.println("Home button pressed");
+        //appController.changeScene("/View/mainPage.fxml", c);
+    }
+
+    public void statsButtonPress() throws IOException {
+        System.out.println("Stats button pressed");
+        //appController.changeScene("/View/mainPage.fxml", c);
+    }
+
+    public void mapButtonPress() throws IOException {
+        System.out.println("Map button pressed");
+        //appController.changeScene("/View/mapView.fxml", c);
+    }
+
+    public void calendarButtonPress() throws IOException {
+        System.out.println("Calendar button pressed");
+        //appController.changeScene("/View/calView.fxml", c);
+    }
+
+    public void goalsButtonPress() throws IOException {
+        System.out.println("Goals button pressed");
+        //appController.changeScene("/View/goalView.fxml", c);
+    }
+
+    public void profileButtonPress() throws IOException {
+        System.out.println("Profile button pressed");
+        //appController.changeScene("/View/profView.fxml", c);
+    }
+
+    public void dataButtonPress() throws IOException {
+        System.out.println("Data button pressed");
+        //appController.changeScene("/View/dataView.fxml", c);
+    }
+
+    public void alertButtonPress() throws IOException {
+        System.out.println("Alert button pressed");
+        //appController.changeScene("/View/dataView.fxml", c);
     }
 }
