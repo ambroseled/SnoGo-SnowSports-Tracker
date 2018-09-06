@@ -4,7 +4,10 @@ import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static jdk.nashorn.internal.objects.NativeMath.round;
 
 public class DataAnalyser {
 
@@ -89,23 +92,46 @@ public class DataAnalyser {
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
         double[] start = {startLong, startLat, startAlt};
-        // Getting the location information out of the dataPoint 60 seconds on
-        double endLat = dataPoints.get(index + 60).getLatitude();
-        double endLong = dataPoints.get(index + 60).getLongitude();
-        double endAlt = dataPoints.get(index + 60).getElevation();
-        double[] end = {endLong, endLat, endAlt};
 
-        // Getting the altitude change over the two points
-        double vertChange = oneAlt(startAlt, endAlt);
-        // Checking if the activity is active or not
-        if (vertChange < 1) {
-            // As there has been a very small positive change or large negative change
-            // inactive is returned as the user is either not moving or going up the mountain
-            return "Inactive";
+
+        Boolean flag = false;
+        int endIndex = 60;
+        int len = dataPoints.size();
+        if ((index + endIndex) > len) {
+            endIndex = len - 1;
+            flag = true;
+        }
+        if (endIndex == index) {
+            if (dataPoints.get(index - 1).isActive()) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
         } else {
-            // As there has been a positive change in altitude it is assumed that the user
-            // is active
-            return "Active";
+            // Getting the location information out of the dataPoint 60 seconds on
+            double endLat = dataPoints.get(endIndex).getLatitude();
+            double endLong = dataPoints.get(endIndex).getLongitude();
+            double endAlt = dataPoints.get(endIndex).getElevation();
+            double[] end = new double[] {endLong, endLat, endAlt};
+
+
+            // Getting the altitude change over the two points
+            double movement = oneDist(start, end);
+            double condition;
+            if (flag) {
+                condition = 0.2 * (dataPoints.size() - index);
+            } else{
+                condition = 1;
+            }
+            // Checking if the activity is active or not
+            if (movement < condition) {
+                return "Inactive";
+            } else {
+                if ((startAlt - endAlt) < 0) {
+                    return "Inactive";
+                }
+                return "Active";
+            }
         }
     }
 
@@ -118,10 +144,12 @@ public class DataAnalyser {
      * @return A double array holding the cartesian product.
      */
     private double[] cartesian(double alt, double longitude, double lat) {
+        // Forming the elements of the cartesian product of the passed point
         double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
         double y = alt * Math.sin(Math.toRadians(lat));
         double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
         double[] cart = {x, y, z};
+        // Returning the cartesian product
         return cart;
     }
 
@@ -134,13 +162,16 @@ public class DataAnalyser {
      * @return A double holding the distance bewtwwen teh two points.
      */
     private double oneDist(double[] point1, double[] point2) {
+        // Getting the cartesian product of the two points passed
         double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
         double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
+        // Using the cartesian products to get the arguments for the Euclidean formula
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
         double arg2 = Math.pow((cart2[1] - cart1[1]), 2);
         double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
+        // Calculating the distance using the Euclidean formula
         double distance = Math.sqrt(arg1 + arg2 + arg3);
-        return distance;
+        return roundNum(distance);
     }
 
 
@@ -151,22 +182,25 @@ public class DataAnalyser {
      * @param previous The previous data point.
      */
     private void appendDistance(DataPoint current, DataPoint previous) {
+        // Forming the two points to be passed to calculate the distance
         double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
         double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
-        double distance = oneDist(point1, point2);
+        // Calculating the distance traveled
+        double distance = oneDist(point1, point2) + previous.getDistance();
         current.setDistance(distance);
     }
 
 
     /**
      * Calculates the difference in altitude between two altitude values.
-     * @param alt1 The first altitude value in meters.
-     * @param alt2 The second altitude value in meters.
+     * @param current The first altitude value in meters.
+     * @param previous The second altitude value in meters.
      * @return A double the difference between the two passed values.
      */
-    private double oneAlt(double alt1, double alt2) {
-        double diff = alt2 - alt1;
-        return diff;
+    private double oneAlt(double current, double previous) {
+        // Calculating the change in altitude
+        double diff = current - previous;
+        return roundNum(-1*diff);
     }
 
 
@@ -181,9 +215,9 @@ public class DataAnalyser {
      */
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
         // Calculating the change in distance
-        double distance = dist2 - dist1;
+        double distance = dist1 - dist2;
         // Calculating the change in time
-        double time = time2 - time1;
+        double time = (time1 - time2)/1000;
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -191,9 +225,11 @@ public class DataAnalyser {
             // The distance change is zero so the speed is zero
             return 0;
         } else {
+           // System.out.println(distance);
+            //System.out.println(time);
             // The speed is above zero and will be calculated
             double speed = distance / time;
-            return speed;
+            return roundNum(speed);
         }
     }
 
@@ -205,11 +241,12 @@ public class DataAnalyser {
      * @param previous The previous DataPoint.
      */
     private void appendSpeed(DataPoint current, DataPoint previous) {
+        // Getting the distance and time out of the two dataPoints
         double distance1 = current.getDistance();
         long time1 = current.getDateTime().getTime();
         double distance2 = previous.getDistance();
         long time2 = previous.getDateTime().getTime();
-
+        // Calculating the speed
         double speed = oneSpeed(distance1, distance2, time1, time2);
         current.setSpeed(speed);
     }
@@ -221,11 +258,14 @@ public class DataAnalyser {
      * @return A double holding the average heart rate found.
      */
     private double calcAvgHeart(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double avg = 0;
+        // Looping through all DataPoints to find the average heart rate
         for (DataPoint point : dataPoints) {
             avg += point.getHeartRate();
         }
+        // Calculating the average heart rate
         avg = avg/(dataPoints.size());
         return avg;
     }
@@ -238,16 +278,19 @@ public class DataAnalyser {
      * @return The vertical distance traveled.
      */
     private double calcVertical(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double vertical = 0;
         double previous = dataPoints.get(0).getElevation();
+        // Looping over DataPoints to calculate the vertical distance traveled
         for(int i = 1; i < dataPoints.size(); i++) {
             if (dataPoints.get(i).isActive()) {
-                vertical += oneAlt(previous, dataPoints.get(i).getElevation());
+                // The DataPoint is marked as active so the vertical distance is recorded
+                vertical += oneAlt(dataPoints.get(i).getElevation(), previous);
             }
             previous = dataPoints.get(i).getElevation();
         }
-        return vertical;
+        return roundNum(vertical);
     }
 
 
@@ -257,15 +300,43 @@ public class DataAnalyser {
      * @return A double holding the top speed.
      */
     private double topSpeed(DataSet dataSet) {
+        // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
         double top = 0;
+        // Looping over DataPoints to find the top speed
         for(DataPoint point : dataPoints) {
             double speed = point.getSpeed();
             if (speed > top) {
+                // A new top speed is found
                 top = speed;
             }
         }
         return top;
     }
+
+
+    /**
+     * Calculates the bmi using the passed information about a user.
+     * @param height The height of the user.
+     * @param weight The weight of the user.
+     * @return The BMI of the user.
+     */
+    public static double calcBMI(double height, double weight) {
+        double bmi = (weight / height) / height;
+        return roundNum(bmi);
+    }
+
+
+    /**
+     * Rounds a passed double to 2 decimal places.
+     * @param toRound The double to be rounded.
+     * @return The rounded value.
+     */
+    public static double roundNum(double toRound) {
+        double rounded = Math.round(toRound * 100.0);
+        return rounded / 100.0;
+    }
+
+
 
 }
