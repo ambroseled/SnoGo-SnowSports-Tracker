@@ -35,9 +35,7 @@ public class Activity {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
+
 
     public String toString() {
         return name + "\n" + dataSet;
