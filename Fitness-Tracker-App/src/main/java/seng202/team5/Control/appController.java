@@ -38,7 +38,7 @@ public class appController extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        String filename = "/View/mainPage.fxml";
+        String filename = "/View/mainPage2.fxml";
         URL value1 = c.getResource(filename);
         System.out.println(value1);
         Parent root = loader.load(value1);
