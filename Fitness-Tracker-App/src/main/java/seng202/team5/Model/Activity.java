@@ -3,7 +3,7 @@ package seng202.team5.Model;
 public class Activity {
 
     private String name;
-    private DataSet dataSet;
+    private DataSet dataSet = new DataSet();
     private int id;
     //private date
 
@@ -15,6 +15,10 @@ public class Activity {
     public Activity(int id, String newName) {
         name = newName;
         this.id = id;
+    }
+
+    public Activity(String newName) {
+        name = newName;
     }
 
     public Activity(int id, String name, DataSet dataSet) {
@@ -41,6 +45,10 @@ public class Activity {
 
     public void setDataSet(DataSet dataSet) {
         this.dataSet = dataSet;
+    }
+
+    public String getName() {
+        return name;
     }
 
 
