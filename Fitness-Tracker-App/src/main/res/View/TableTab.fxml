@@ -42,8 +42,6 @@
                 <Font size="42.0" />
             </font>
         </Text>
-        
-
         <Button layoutX="0.000" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#dataButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnIndex="1" GridPane.valignment="TOP" />
         <Button layoutX="193.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#statsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Statistics" GridPane.columnIndex="2" GridPane.valignment="TOP" />
         <Button layoutX="368.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#mapButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnIndex="3" GridPane.valignment="TOP" />

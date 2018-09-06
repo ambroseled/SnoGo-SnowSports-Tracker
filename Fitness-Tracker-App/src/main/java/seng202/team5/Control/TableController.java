@@ -40,6 +40,11 @@ public class TableController extends Application {
 
     }
 
+    /**
+     * Populates the given table with the data from a specific activity
+     * @param table an empty TableView object
+     * @param index refers to an activity in the list "activities"
+     */
     private void createTable(TableView table, int index) {
         // date and time column
         TableColumn<DataPoint, Date> dateTimeCol = new TableColumn("Date and Time");
@@ -75,24 +80,25 @@ public class TableController extends Application {
 
     }
 
+    /**
+     * Retrieves all dataPoint objects from a specific activity
+     * @param index refers to an activity in the list "activities"
+     * @return an ObservableList containing all dataPoints retrieved
+     */
     public ObservableList<DataPoint> getDataPointsList(int index) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
         DataSet dataSet = activities.get(index).getDataSet();
         dataPointsList.addAll(dataSet.getDataPoints());
-      /*  for (Activity activity: activities) {
-            DataSet dataSet = activity.getDataSet();
-            for (DataPoint dataPoint : dataSet.getDataPoints()) {
-                System.out.println(dataPoint);
-            }
-            //dataPointsList.addAll(dataSet.getDataPoints());
-        }
-        System.out.println();
-        //System.out.println(dataPointsList);
-       */
         return dataPointsList;
     }
 
+    /**
+     * Sets the text in the TitledPane object given, in the format:
+     * [activity name], [date time of first dataPoint] - [date time of last dataPoint]
+     * @param titledPane an empty TitledPane object
+     * @param index refers to an activity in the list "activities"
+     */
     public void setDropdown(TitledPane titledPane, int index) {
         String dropdownText;
         Activity activity = activities.get(index);
@@ -103,6 +109,12 @@ public class TableController extends Application {
         titledPane.setText(dropdownText);
     }
 
+    /**
+     * Creates a new TitledPane for the activity referred to by "index"
+     * TitledPane will house a TableView object
+     * Adds new TitledPane object to accordion
+     * @param index refers to an activity in the list "activities"
+     */
     public void addActivityPanels(int index) {
         TitledPane titledPane = new TitledPane();
         setDropdown(titledPane, index);
@@ -119,7 +131,6 @@ public class TableController extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
