@@ -62,6 +62,10 @@ public class User {
         return age;
     }
 
+    public int getId() {
+        return id;
+    }
+
     //setters
     public void setName(String tempName) {name = tempName;}
     public void setBirthDate(Date tempDate) {birthDate = tempDate;}

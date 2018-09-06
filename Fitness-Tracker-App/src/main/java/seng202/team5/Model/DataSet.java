@@ -58,6 +58,10 @@ public class DataSet {
     public double getVerticalDistance() {
         return verticalDistance;
     }
+
+    public int getId() {
+        return id;
+    }
     // Setters
 
     public void setTotalDistance(double distance) {

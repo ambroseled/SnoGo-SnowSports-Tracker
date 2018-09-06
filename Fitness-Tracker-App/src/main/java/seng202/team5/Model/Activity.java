@@ -27,6 +27,14 @@ public class Activity {
         return dataSet;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public String toString() {
         return name + "\n" + dataSet;
     }
