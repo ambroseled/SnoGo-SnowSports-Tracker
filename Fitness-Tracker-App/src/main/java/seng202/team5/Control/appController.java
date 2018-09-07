@@ -34,7 +34,7 @@ public class appController extends Application {
         appStage.setScene(dataScene);
         appStage.show();
     }
-
+/*
     public void showDataView() {
         try
         {
@@ -45,6 +45,7 @@ public class appController extends Application {
             io.printStackTrace();
         }
     }
+    */
 
     // public static void clearButtons()
 
@@ -63,7 +64,7 @@ public class appController extends Application {
 
         appStage = primaryStage;
 
-        showDataView();
+        //showDataView();
     }
 
     public static void main(String[] args) {
