@@ -37,10 +37,6 @@ public class appController extends Application {
         appStage.show();
     }
 
-    @FXML
-    public void showDataView() {
-        table.show();
-    }
 
    // public static void clearButtons()
 
