@@ -4,10 +4,7 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -23,6 +20,8 @@ public class TableController {
 
     @FXML
     private Accordion accordion;
+    @FXML
+    private Button viewButton;
 
     private ArrayList<Activity> activities;
 
@@ -37,6 +36,7 @@ public class TableController {
 
     @FXML
     public void viewData() {
+        viewButton.setDisable(true);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
         setActivities(inputActivities);

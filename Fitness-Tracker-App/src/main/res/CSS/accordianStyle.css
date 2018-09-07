@@ -1,0 +1,28 @@
+.titled-pane .title {
+    -fx-alignment: center-left;
+    -fx-cursor: "hand";
+    -fx-focus-color: #555555;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.titled-pane:expanded {
+    -fx-text-fill: white;
+}
+
+.titled-pane:expanded > .title {
+    -fx-base: #555555;
+    -fx-text-fill: white;
+}
+
+.titled-pane:hover > .title {
+    -fx-base: #555555;
+}
+
+.titled-pane:hover {
+    -fx-text-fill: white;
+}
+
+.titled-pane .arrow {
+    -fx-opacity: 1;
+}

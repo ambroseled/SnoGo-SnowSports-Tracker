@@ -27,9 +27,9 @@
       <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" stylesheets="@../CSS/accordianStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
       </Accordion>
-      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="57.0" prefWidth="169.0" text="View Data" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="57.0" prefWidth="169.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Data" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Activities" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="38.0" />

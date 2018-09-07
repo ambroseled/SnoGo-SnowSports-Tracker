@@ -10,6 +10,7 @@
     -fx-background-color: #FFFFFF;
     -fx-focus-color: white;
     -fx-faint-focus-color: transparent;
+    -fx-text-fill: ladder(background, blue 49%, black 50%);
 }
 
 
