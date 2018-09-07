@@ -40,9 +40,23 @@ public class appController extends Application {
         appStage.show();
     }
 
+    public void showDataView() {
+        try
+        {
+            table.show(appStage, loader);
+        } catch(IOException io)
 
+        {
+            io.printStackTrace();
+        }
+    }
+
+<<<<<<< HEAD
 
    // public static void clearButtons()
+=======
+    // public static void clearButtons()
+>>>>>>> 8f9fd1ef8e781e9a9a1f85939436125b4d513a4d
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -58,6 +72,8 @@ public class appController extends Application {
       //  primaryStage.setResizable(false);
 
         appStage = primaryStage;
+
+        showDataView();
     }
 
     public static void main(String[] args) {

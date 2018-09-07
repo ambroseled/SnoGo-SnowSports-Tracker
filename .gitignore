@@ -2,6 +2,7 @@
 Fitness-Tracker-App/.idea/
 *.iml
 *.iws
+*.idea
 
 
 # Maven

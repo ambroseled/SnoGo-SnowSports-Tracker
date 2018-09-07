@@ -138,6 +138,23 @@ public class TableController extends Application {
         activities = inputActivities;
     }
 
+    public void show(Stage primaryStage, FXMLLoader loader) throws IOException {
+        System.out.println(loader);
+
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+
+        Parent root = loader.load();
+        TableController controller = loader.getController();
+        controller.setActivities(inputActivities);
+
+        controller.initialise();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
