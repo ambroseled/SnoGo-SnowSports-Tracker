@@ -24,7 +24,8 @@ public class appController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private TableController table = new TableController();
-    private User currentUser;
+    private User currentUser = new User("John Jones", 21, 1.75, 85);
+    private profController profile = new profController();
 
 
     public static Stage getAppStage() {
@@ -52,8 +53,10 @@ public class appController extends Application {
     }
     */
 
-
-
+    @FXML
+    public void profileTab() {
+        //profile.displayUser(currentUser);
+    }
 
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";
