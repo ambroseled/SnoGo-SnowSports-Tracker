@@ -52,12 +52,7 @@ public class appController extends Application {
     }
     */
 
-<<<<<<< HEAD
 
-   // public static void clearButtons()
-=======
-    // public static void clearButtons()
->>>>>>> 8f9fd1ef8e781e9a9a1f85939436125b4d513a4d
 
 
     public void start(Stage primaryStage) throws Exception {
