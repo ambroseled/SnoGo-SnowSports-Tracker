@@ -2,6 +2,7 @@ package seng202.team5.Model;
 
 import seng202.team5.Control.TableController;
 
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -77,7 +78,9 @@ public class InputDataParser {
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
-
+		for (Activity activity : activities) {
+			analyser.analyseActivity(activity);
+		}
 		return activities;
 	}
 

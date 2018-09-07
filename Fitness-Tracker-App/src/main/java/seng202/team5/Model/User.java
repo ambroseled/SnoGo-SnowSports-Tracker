@@ -39,12 +39,11 @@ public class User {
     }
 
 
-    public User(String name, int age, double height, double weight, Date birthDate) {
+    public User(String name, int age, double height, double weight) {
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
-        this.birthDate = birthDate;
         bmi = DataAnalyser.calcBMI(height, weight);
     }
 

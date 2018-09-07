@@ -26,25 +26,7 @@ public class appController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private TableController table = new TableController();
-
-    ///////////////
-    //Testing
-    public static Date getDate(String date) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date yourDate = sdf.parse(date);
-            return yourDate;
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
-
-
-
-    ///////////
-
-    private static User currentUser = new User("John Jones", 21, 1.75, 85, getDate("1992-07-26"));
+    private static User currentUser = new User("John Jones", 21, 1.75, 85);
     private profController profile = new profController();
 
 

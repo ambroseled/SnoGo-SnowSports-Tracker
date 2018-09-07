@@ -1,37 +1,31 @@
 package seng202.team5.Control;
 
-import javafx.application.Application;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class TableController extends Application {
+public class TableController {
 
     @FXML
     private Accordion accordion;
 
     private ArrayList<Activity> activities;
-    private FXMLLoader loader = new FXMLLoader();
 
-    public TableController() {}
 
     private void initialise() {
         int numActivities = activities.size();
@@ -39,6 +33,15 @@ public class TableController extends Application {
             addActivityPanels(i);
         }
 
+    }
+
+    @FXML
+    public void viewData() {
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        setActivities(inputActivities);
+
+        initialise();
     }
 
     /**
@@ -130,58 +133,8 @@ public class TableController extends Application {
         accordion.getPanes().add(titledPane);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
-
-    public void show(Stage primaryStage, FXMLLoader loader) throws IOException {
-        System.out.println(loader);
-
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
-
-        Parent root = loader.load();
-        TableController controller = loader.getController();
-        controller.setActivities(inputActivities);
-
-        controller.initialise();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TableTab.fxml"));
-        Parent root = loader.load();
-        TableController controller = loader.getController();
-        controller.setActivities(inputActivities);
-
-        controller.initialise();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
-
-    public void show() {
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
-        TableController controller = loader.getController();
-        controller.setActivities(inputActivities);
-
-        controller.initialise();
-    }
-
 }
