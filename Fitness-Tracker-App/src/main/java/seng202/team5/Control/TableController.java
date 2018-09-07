@@ -29,6 +29,7 @@ public class TableController extends Application {
     private Accordion accordion;
 
     private ArrayList<Activity> activities;
+    private FXMLLoader loader = new FXMLLoader();
 
     public TableController() {}
 
@@ -156,44 +157,14 @@ public class TableController extends Application {
 
     }
 
-    //Methods to run top bar buttons
-    public void homeButtonPress() throws IOException {
-        System.out.println("Home button pressed");
-        //appController.changeScene("/View/mainPage.fxml", c);
+
+    public void show() {
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        TableController controller = loader.getController();
+        controller.setActivities(inputActivities);
+
+        controller.initialise();
     }
 
-    public void statsButtonPress() throws IOException {
-        System.out.println("Stats button pressed");
-        //appController.changeScene("/View/mainPage.fxml", c);
-    }
-
-    public void mapButtonPress() throws IOException {
-        System.out.println("Map button pressed");
-        //appController.changeScene("/View/mapView.fxml", c);
-    }
-
-    public void calendarButtonPress() throws IOException {
-        System.out.println("Calendar button pressed");
-        //appController.changeScene("/View/calView.fxml", c);
-    }
-
-    public void goalsButtonPress() throws IOException {
-        System.out.println("Goals button pressed");
-        //appController.changeScene("/View/goalView.fxml", c);
-    }
-
-    public void profileButtonPress() throws IOException {
-        System.out.println("Profile button pressed");
-        //appController.changeScene("/View/profView.fxml", c);
-    }
-
-    public void dataButtonPress() throws IOException {
-        System.out.println("Data button pressed");
-        //appController.changeScene("/View/dataView.fxml", c);
-    }
-
-    public void alertButtonPress() throws IOException {
-        System.out.println("Alert button pressed");
-        //appController.changeScene("/View/dataView.fxml", c);
-    }
 }

@@ -3,6 +3,8 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +21,7 @@ public class appController extends Application {
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
+    private TableController table = new TableController();
 
 
     public static Stage getAppStage() {
@@ -32,6 +35,11 @@ public class appController extends Application {
         Scene dataScene = new Scene(dataParent);
         appStage.setScene(dataScene);
         appStage.show();
+    }
+
+    @FXML
+    public void showDataView() {
+        table.show();
     }
 
    // public static void clearButtons()
