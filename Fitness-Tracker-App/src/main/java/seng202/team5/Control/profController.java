@@ -1,12 +1,9 @@
 package seng202.team5.Control;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import seng202.team5.Model.User;
 
-import java.io.IOException;
 
 public class profController {
     @FXML
@@ -19,19 +16,32 @@ public class profController {
     TextField weightText;
     @FXML
     TextField bmiText;
+    @FXML
+    TextField dateText;
+    User currentUser;
+
+
 
     @FXML
-    public void test() {
-        ageText.setText("Bean");
-        System.out.println(nameText.getText());
+    public void viewProfile() {
+        currentUser = appController.getCurrentUser();
+        nameText.setText(currentUser.getName());
+        ageText.setText(Integer.toString(currentUser.getAge()));
+        heightText.setText(Double.toString(currentUser.getHeight()));
+        weightText.setText(Double.toString(currentUser.getWeight()));
+        bmiText.setText(Double.toString(currentUser.getBmi()));
+       // dateText.setText(currentUser.getBirthDate().toString());
+        dateText.setText("NEED TO FIX");
     }
 
 
+    ///////////
+    // WIll get James to do as he is already doing user stuff
+    ////////
+    @FXML
+    public void updateProfile() {
 
-    public void displayUser(User user) {
-        nameText.setText(user.getName());
     }
-
 
 
 }

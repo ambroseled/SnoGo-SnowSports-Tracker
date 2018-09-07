@@ -39,11 +39,12 @@ public class User {
     }
 
 
-    public User(String name, int age, double height, double weight) {
+    public User(String name, int age, double height, double weight, Date birthDate) {
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
+        this.birthDate = birthDate;
         bmi = DataAnalyser.calcBMI(height, weight);
     }
 
@@ -72,6 +73,10 @@ public class User {
     public double getHeight() {return height;}
     public double getWeight() {return weight;}
     public ArrayList<Activity> getActivities() {return activities;}
+
+    public double getBmi() {
+        return bmi;
+    }
 
     public int getAge() {
         return age;
