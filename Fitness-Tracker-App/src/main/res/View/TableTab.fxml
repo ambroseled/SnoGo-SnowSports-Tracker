@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
@@ -12,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.TableController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.TableController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,27 +34,16 @@
         <RowConstraints maxHeight="311.0" minHeight="10.0" prefHeight="229.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button fx:id="homeButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#homeButtonPress" prefHeight="79.0" prefWidth="120.0" text="Home" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-        <ImageView fx:id="logo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <image>
-                <Image url="@../logo.png" />
-            </image>
-        </ImageView>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Activities" GridPane.columnIndex="1" GridPane.rowSpan="2">
             <font>
                 <Font size="42.0" />
             </font>
         </Text>
-        <Button layoutX="0.000" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#dataButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Data" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-        <Button layoutX="193.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#statsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Statistics" GridPane.columnIndex="2" GridPane.valignment="TOP" />
-        <Button layoutX="368.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#mapButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Map" GridPane.columnIndex="3" GridPane.valignment="TOP" />
-        <Button layoutX="559.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#calendarButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Calendar" GridPane.columnIndex="4" GridPane.valignment="TOP" />
-        <Button layoutX="742.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#goalsButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Goals" GridPane.columnIndex="5" GridPane.valignment="TOP" />
-        <Button layoutX="925.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#profileButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Profile" GridPane.columnIndex="6" GridPane.valignment="TOP" />
-        <Button layoutX="970.0" layoutY="10.0" maxHeight="72.0" maxWidth="1000.0" mnemonicParsing="false" onAction="#alertButtonPress" prefHeight="72.0" prefWidth="160.0" styleClass="tab-button" stylesheets="@../CSS/buttonStyle.css" text="Alerts" GridPane.columnIndex="7" GridPane.valignment="TOP" />
-      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
       </Accordion>
     </children>
 </GridPane>

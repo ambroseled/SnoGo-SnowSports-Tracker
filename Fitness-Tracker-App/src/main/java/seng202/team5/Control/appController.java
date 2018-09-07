@@ -3,11 +3,15 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
+import seng202.team5.Model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +24,7 @@ public class appController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private TableController table = new TableController();
+    private User currentUser;
 
 
     public static Stage getAppStage() {
@@ -34,6 +39,7 @@ public class appController extends Application {
         appStage.setScene(dataScene);
         appStage.show();
     }
+
 
 
    // public static void clearButtons()
