@@ -2,7 +2,45 @@
 
 
 .round-blue {
-    -fx-background-color: blue;
+    -fx-background-color: #004DFF;
     -fx-text-fill: white;
     -fx-background-radius: 16px;
 }
+
+.trans-round {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px;
+    -fx-border-color: #0C00FF;
+    -fx-border-radius: 30;
+}
+
+.tab-button {
+    -fx-background-color: #1386d8;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-border-width: 0px 2px 0px 2px;
+    -fx-border-color: #0c5c96;
+}
+
+.tab-button:pressed {
+    -fx-background-color: #0c5c96;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+.tab-button:hover {
+    -fx-background-color: #0c5c96;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+.tab-button:focused {
+    -fx-background-color: #0c5c96;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+
+
+
