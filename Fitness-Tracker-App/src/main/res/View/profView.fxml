@@ -27,43 +27,53 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateProfile" prefHeight="70.0" prefWidth="262.0" text="Save changes to profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-      <TextField fx:id="nameText" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateProfile" prefHeight="70.0" prefWidth="262.0" text="Save changes to profile" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <TextField fx:id="nameText" editable="false" GridPane.rowIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="ageText" editable="false" prefHeight="27.0" prefWidth="256.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AGE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <TextField fx:id="ageText" editable="false" prefHeight="27.0" prefWidth="256.0" GridPane.rowIndex="2" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AGE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="heightText" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <TextField fx:id="heightText" editable="false" GridPane.rowIndex="3" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="weightText" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <TextField fx:id="weightText" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BMI" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BMI" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="bmiText" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewProfile" prefHeight="70.0" prefWidth="262.0" text="View current profile" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-      <TextField fx:id="dateText" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="bmiText" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewProfile" prefHeight="70.0" prefWidth="262.0" text="View current profile" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <TextField fx:id="dateText" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Will have editing profile here" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Text>
    </children>
 </GridPane>
