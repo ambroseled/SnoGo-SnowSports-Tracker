@@ -1,0 +1,33 @@
+.tab {
+
+    -fx-background-color: blue;
+    -fx-pref-width: 200;
+}
+
+
+.tab:hover, .tab:selected {
+
+    -fx-background-color: white;
+
+}
+
+
+.tab-label {
+
+    background: black;
+
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+
+}
+
+
+.tab-label:hover, .tab:selected > .tab-container > .tab-label {
+
+    background: black;
+
+    -fx-text-fill: ladder(background, blue 49%, black 50%);
+}
+
+.tab-header-background {
+    -fx-background-color: linear-gradient(to top, #FFFFFF, #0051FF) ;
+}

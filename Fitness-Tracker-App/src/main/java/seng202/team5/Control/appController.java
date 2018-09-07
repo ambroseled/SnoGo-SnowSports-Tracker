@@ -3,8 +3,6 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,13 +40,16 @@ public class appController extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        String filename = "/View/mainPage3.fxml";
+        String filename = "/View/tabMain.fxml";
         URL value1 = c.getResource(filename);
         System.out.println(value1);
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setMinHeight(720);
+        primaryStage.setMinWidth(1280);
+      //  primaryStage.setResizable(false);
 
         appStage = primaryStage;
     }

@@ -12,6 +12,7 @@ public class User {
     private int id = -1; // Need to add a hanlder for this
     private double bmi;
     private ArrayList<Activity> activities;
+    private ArrayList<Alert> alerts;
 
 
     /*
@@ -19,6 +20,16 @@ public class User {
      */
 
     public User(String name, int age, double height, double weight, ArrayList<Activity> activities){
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.activities = activities;
+        bmi = DataAnalyser.calcBMI(height, weight);
+    }
+
+    public User(int id, String name, int age, double height, double weight, ArrayList<Activity> activities){
+        this.id = id;
         this.name = name;
         this.age = age;
         this.height = height;
