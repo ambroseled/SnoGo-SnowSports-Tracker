@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class profController {
 
-    @FXML
-    private TableView<User> userTable;
+
 
 }
