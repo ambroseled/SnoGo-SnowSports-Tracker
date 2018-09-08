@@ -1,42 +1,50 @@
 package seng202.team5.Control;
 
-import javafx.fxml.FXMLLoader;
 
-import java.io.IOException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team5.Model.*;
+
+import java.util.Date;
+
 
 public class goalController {
 
-    private FXMLLoader loader = new FXMLLoader();
-    private Class c = getClass();
+    @FXML
+    private TableView goalTable;
+    @FXML
+    private TableColumn<Goal, String> nameCol;
+    @FXML
+    private TableColumn<Goal, String> metricCol;
+    @FXML
+    private TableColumn<Goal, Double> valueCol;
+    @FXML
+    private TableColumn<Goal, Date> dateCol;
+    @FXML
+    private TableColumn<Goal, Boolean> compCol;
+    @FXML
+    private Button viewButton;
 
-    public void homeButtonPress() throws IOException {
-        System.out.println("Home button pressed");
-        appController.changeScene("/View/mainPage.fxml", c);
+    private ObservableList<Goal> goals = FXCollections.observableArrayList();
+
+
+    @FXML
+    public void viewData() {
+        viewButton.setVisible(false);
+
+        Goal goal = new Goal("test", "Top speed", 20, "04/03/2019", false);
+        goals.add(goal);
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
+        metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
+        valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, Date>("completionDate"));
+        compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
+
+        goalTable.setItems(goals);
     }
-
-    public void mapButtonPress() throws IOException {
-        System.out.println("Map button pressed");
-        appController.changeScene("/View/mapView.fxml", c);
-    }
-
-    public void calendarButtonPress() throws IOException {
-        System.out.println("Calendar button pressed");
-        appController.changeScene("/View/calView.fxml", c);
-    }
-
-    public void dataButtonPress() throws IOException {
-        System.out.println("Data button pressed");
-        appController.changeScene("/View/dataView.fxml", c);
-    }
-
-    public void profileButtonPress() throws IOException {
-        System.out.println("profile button pressed");
-        appController.changeScene("/View/profView.fxml", c);
-    }
-
-    public void alertsButtonPress() throws IOException {
-        System.out.println("Alerts button pressed");
-        appController.changeScene("/View/alertView.fxml", c);
-    }
-
 }

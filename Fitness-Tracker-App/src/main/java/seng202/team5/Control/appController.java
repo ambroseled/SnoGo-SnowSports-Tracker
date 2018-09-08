@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.control.TableColumn;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng202.team5.Model.User;
 

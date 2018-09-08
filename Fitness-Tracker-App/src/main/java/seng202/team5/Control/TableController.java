@@ -33,13 +33,12 @@ public class TableController {
         for (int i = 0; i < (numActivities - 1); i += 1) {
             addActivityPanels(i);
         }
-
     }
 
     @FXML
     public void viewData() {
-        viewButton.setDisable(true);
         resetButton.setDisable(false);
+        viewButton.setVisible(false);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
         setActivities(inputActivities);
@@ -95,7 +94,6 @@ public class TableController {
 
         table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
         table.setItems(getDataPointsList(index));
-
     }
 
     /**
