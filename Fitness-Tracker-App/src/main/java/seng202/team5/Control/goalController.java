@@ -23,7 +23,7 @@ public class goalController {
     @FXML
     private TableColumn<Goal, Double> valueCol;
     @FXML
-    private TableColumn<Goal, Date> dateCol;
+    private TableColumn<Goal, String> dateCol;
     @FXML
     private TableColumn<Goal, Boolean> compCol;
     @FXML
@@ -33,6 +33,9 @@ public class goalController {
 
 
     @FXML
+    /**
+     * Fills the TableView with all of the uses goals.
+     */
     public void viewData() {
         viewButton.setVisible(false);
 
@@ -42,7 +45,7 @@ public class goalController {
         nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
         metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
         valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, Date>("completionDate"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("dateString"));
         compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
 
         goalTable.setItems(goals);

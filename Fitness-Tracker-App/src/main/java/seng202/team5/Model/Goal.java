@@ -1,6 +1,7 @@
 package seng202.team5.Model;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class Goal {
     private double metricGoal;
     private String name;
     private boolean completed;
+    private String dateString;
 
 
     public Goal(String name, String metric, double metricGoal, String date, boolean completed) {
@@ -25,6 +27,7 @@ public class Goal {
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
+        this.dateString = date;
     }
 
 

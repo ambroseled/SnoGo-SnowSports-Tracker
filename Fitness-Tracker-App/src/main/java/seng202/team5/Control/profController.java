@@ -23,6 +23,9 @@ public class profController {
 
 
     @FXML
+    /**
+     * Displays all the information about the current user.
+     */
     public void viewProfile() {
         currentUser = appController.getCurrentUser();
         nameText.setText(currentUser.getName());

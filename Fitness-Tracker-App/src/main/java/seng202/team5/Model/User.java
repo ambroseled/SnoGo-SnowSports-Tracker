@@ -9,7 +9,7 @@ public class User {
     private double height;
     private double weight;
     private int age;
-    private int id = -1; // Need to add a hanlder for this
+    private int id = -1; // Need to add a handler for this
     private double bmi;
     private ArrayList<Activity> activities;
     private ArrayList<Alert> alerts;
@@ -19,6 +19,14 @@ public class User {
     Need another constructor here
      */
 
+    /**
+     *
+     * @param name
+     * @param age
+     * @param height
+     * @param weight
+     * @param activities
+     */
     public User(String name, int age, double height, double weight, ArrayList<Activity> activities){
         this.name = name;
         this.age = age;
@@ -28,6 +36,16 @@ public class User {
         bmi = DataAnalyser.calcBMI(height, weight);
     }
 
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @param age
+     * @param height
+     * @param weight
+     * @param activities
+     */
     public User(int id, String name, int age, double height, double weight, ArrayList<Activity> activities){
         this.id = id;
         this.name = name;
@@ -38,7 +56,13 @@ public class User {
         bmi = DataAnalyser.calcBMI(height, weight);
     }
 
-
+    /**
+     *
+     * @param name
+     * @param age
+     * @param height
+     * @param weight
+     */
     public User(String name, int age, double height, double weight) {
         this.name = name;
         this.age = age;
@@ -86,10 +110,18 @@ public class User {
     }
 
     //setters
-    public void setName(String tempName) {name = tempName;}
-    public void setBirthDate(Date tempDate) {birthDate = tempDate;}
-    public void setHeight(double tempHeight) {height = tempHeight;}
-    public void setWeight(double tempWeight) {weight = tempWeight;}
+    public void setName(String tempName) {
+        name = tempName;
+    }
+    public void setBirthDate(Date tempDate) {
+        birthDate = tempDate;
+    }
+    public void setHeight(double tempHeight) {
+        height = tempHeight;
+    }
+    public void setWeight(double tempWeight) {
+        weight = tempWeight;
+    }
 
     public void setAge(int age) {
         this.age = age;

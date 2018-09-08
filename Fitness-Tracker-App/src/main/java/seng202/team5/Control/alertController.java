@@ -1,42 +1,54 @@
 package seng202.team5.Control;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team5.Model.Alert;
+import seng202.team5.Model.Goal;
 
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class alertController {
 
-    private FXMLLoader loader = new FXMLLoader();
-    private Class c = getClass();
+    @FXML
+    private Button viewButton;
+    @FXML
+    TableColumn<Alert, String> nameCol;
+    @FXML
+    TableColumn<Alert, Date> dateCol;
+    @FXML
+    TableColumn<Alert, String> desCol;
+    @FXML
+    TableColumn<Alert, String> webCol;
+    @FXML
+    TableView alertTable;
+    private ObservableList<Alert> alerts = FXCollections.observableArrayList();
 
-    public void homeButtonPress() throws IOException {
-        System.out.println("Home button pressed");
-        appController.changeScene("/View/mainPage.fxml", c);
-    }
+    @FXML
+    /**
+     * Fills the TableView with all of the uses alerts.
+     */
+    public void viewData() {
+        viewButton.setVisible(false);
 
-    public void mapButtonPress() throws IOException {
-        System.out.println("Map button pressed");
-        appController.changeScene("/View/mapView.fxml", c);
-    }
+        Alert alert = new Alert("04/02/2020", "www.bean.com", "Health issue detected", "Health issue");
+        alerts.add(alert);
 
-    public void calendarButtonPress() throws IOException {
-        System.out.println("Calendar button pressed");
-        appController.changeScene("/View/calView.fxml", c);
-    }
+        nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
+        desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
+        webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Alert, Date>("dateTime"));
 
-    public void goalsButtonPress() throws IOException {
-        System.out.println("Goals button pressed");
-        appController.changeScene("/View/goalView.fxml", c);
-    }
 
-    public void profileButtonPress() throws IOException {
-        System.out.println("profile button pressed");
-        appController.changeScene("/View/profView.fxml", c);
-    }
-
-    public void dataButtonPress() throws IOException {
-        System.out.println("Data button pressed");
-        appController.changeScene("/View/dataView.fxml", c);
+        alertTable.setItems(alerts);
     }
 
 }
