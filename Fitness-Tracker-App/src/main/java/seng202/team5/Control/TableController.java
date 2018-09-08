@@ -31,7 +31,6 @@ public class TableController {
         for (int i = 0; i < (numActivities - 1); i += 1) {
             addActivityPanels(i);
         }
-
     }
 
     @FXML
@@ -81,7 +80,6 @@ public class TableController {
 
         table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
         table.setItems(getDataPointsList(index));
-
     }
 
     /**
