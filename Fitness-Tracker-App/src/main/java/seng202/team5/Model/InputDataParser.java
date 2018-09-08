@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class InputDataParser {
 
+    private DataAnalyser analyser = new DataAnalyser();
+
     private ArrayList<String> readFile(String filePath) {
         ArrayList<String> lines = new ArrayList<>();
 
@@ -91,20 +93,6 @@ public class InputDataParser {
         InputDataParser test = new InputDataParser();
         
         ArrayList<Activity> activities = test.parseCSVToActivities("testData.csv");
-        
+
     }
-
-
-        ArrayList<Activity> activities = test.parseCSVToActivities("dataBaseTest.csv");
-        System.out.println(activities.get(0).getName());
-    }
-
-
-
-
-
-
-
-
-
 }
