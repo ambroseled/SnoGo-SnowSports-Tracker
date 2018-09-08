@@ -22,6 +22,8 @@ public class TableController {
     private Accordion accordion;
     @FXML
     private Button viewButton;
+    @FXML
+    private Button resetButton;
 
     private ArrayList<Activity> activities;
 
@@ -37,6 +39,18 @@ public class TableController {
     @FXML
     public void viewData() {
         viewButton.setDisable(true);
+        resetButton.setDisable(false);
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        setActivities(inputActivities);
+
+        initialise();
+    }
+
+    @FXML
+    public void resetData() {
+        accordion.getPanes().clear();
+
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
         setActivities(inputActivities);
