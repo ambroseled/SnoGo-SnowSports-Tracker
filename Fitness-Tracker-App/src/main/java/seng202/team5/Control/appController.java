@@ -10,17 +10,19 @@ import javafx.stage.Stage;
 import seng202.team5.Model.User;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class appController extends Application {
 
-    private dataBaseController dbContoller = new dataBaseController();
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
+
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = new User("John Jones", 21, 1.75, 85);
+    private static User currentUser = getUser();
+    private static dataBaseController dbControl = new dataBaseController();
     ////////////
 
     public static Stage getAppStage() {
@@ -28,13 +30,10 @@ public class appController extends Application {
     }
 
 
-    public static void changeScene(String filename, Class c) throws IOException {
-        Stage appStage = appController.getAppStage();
-        URL page = c.getResource(filename);
-        Parent dataParent = loader.load(page);
-        Scene dataScene = new Scene(dataParent);
-        appStage.setScene(dataScene);
-        appStage.show();
+    public static User getUser() {
+        ArrayList<User> users = dbControl.getUsers();
+        User user = users.get(0);
+        return user;
     }
 
 

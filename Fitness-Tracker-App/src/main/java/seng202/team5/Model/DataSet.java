@@ -64,6 +64,11 @@ public class DataSet {
         return verticalDistance;
     }
 
+    public Date getDateTime(int index) {
+        DataPoint point = dataPoints.get(index);
+        return point.getDateTime();
+    }
+
     public int getId() {
         return id;
     }
@@ -81,8 +86,5 @@ public class DataSet {
     public void setTopSpeed(double speed) {
         topSpeed = speed;
     }
-
-
-
 
 }

@@ -37,9 +37,9 @@ public class profController {
         weightText.setText(Double.toString(currentUser.getWeight()));
         bmiText.setText(Double.toString(currentUser.getBmi()));
         // Displaying date not working
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = formatter.format(currentUser.getBirthDate());
-        dateText.setText(dateString);
+       // Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+        //String dateString = formatter.format(currentUser.getBirthDate());
+        dateText.setText("Need to fix");
     }
 
 

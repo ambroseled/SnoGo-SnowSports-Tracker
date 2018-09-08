@@ -257,10 +257,10 @@ public class DataAnalyser {
      * @param dataSet The DataSet of the activity being analysed.
      * @return A double holding the average heart rate found.
      */
-    private double calcAvgHeart(DataSet dataSet) {
+    private int calcAvgHeart(DataSet dataSet) {
         // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
-        double avg = 0;
+        int avg = 0;
         // Looping through all DataPoints to find the average heart rate
         for (DataPoint point : dataPoints) {
             avg += point.getHeartRate();
