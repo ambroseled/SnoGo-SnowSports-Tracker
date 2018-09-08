@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team5.Model.User;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+
 
 public class profController {
     @FXML
@@ -33,8 +36,10 @@ public class profController {
         heightText.setText(Double.toString(currentUser.getHeight()));
         weightText.setText(Double.toString(currentUser.getWeight()));
         bmiText.setText(Double.toString(currentUser.getBmi()));
-       // dateText.setText(currentUser.getBirthDate().toString());
-        dateText.setText("NEED TO FIX");
+        // Displaying date not working
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(currentUser.getBirthDate());
+        dateText.setText(dateString);
     }
 
 

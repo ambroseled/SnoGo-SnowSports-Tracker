@@ -37,6 +37,7 @@ public class TableController {
 
     @FXML
     public void viewData() {
+        resetButton.setVisible(true);
         resetButton.setDisable(false);
         viewButton.setVisible(false);
         InputDataParser inputDataParser = new InputDataParser();
