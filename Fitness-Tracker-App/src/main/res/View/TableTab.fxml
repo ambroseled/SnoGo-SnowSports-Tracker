@@ -2,13 +2,15 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.TableController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.TableController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="267.0" />
@@ -20,20 +22,29 @@
         <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="178.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="96.0"  vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="188.0" minHeight="0.0"  prefHeight="178.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="311.0" minHeight="10.0" prefHeight="166.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="350.0" minHeight="10.0" prefHeight="199.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <Accordion fx:id="accordion" prefHeight="144.0" prefWidth="746.0" stylesheets="@../CSS/accordianStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
-      </Accordion>
-      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="57.0" prefWidth="169.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Data" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Activities" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="38.0" />
          </font>
       </Text>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="72.0" prefWidth="221.0" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+         <content>
+            <AnchorPane prefHeight="600.0" prefWidth="806.0">
+               <children>
+                  <Accordion fx:id="accordion" maxHeight="-Infinity" prefHeight="488.0" prefWidth="807.0" stylesheets="@../CSS/accordianStyle.css">
+                  </Accordion>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Button fx:id="viewButton"  mnemonicParsing="false" onAction="#viewData"  prefHeight="57.0" prefWidth="169.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Data"  GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetData" prefHeight="30.0" prefWidth="100.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Reset Data" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" disable="true"/>
     </children>
 </GridPane>
