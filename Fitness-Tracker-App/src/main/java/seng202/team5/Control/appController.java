@@ -3,6 +3,7 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,10 +19,12 @@ public class appController extends Application {
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
+    @FXML
+    private mapController mapController;
 
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser;
+    private static User currentUser = new User("Test", 35, 1.75, 84);
 
     ////////////
 
@@ -30,6 +33,10 @@ public class appController extends Application {
     }
 
 
+    @FXML
+    public void mapTabSelected() {
+        System.out.println("bean");
+    }
 
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";
@@ -39,7 +46,7 @@ public class appController extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setMinHeight(720);
+        primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
 
         appStage = primaryStage;

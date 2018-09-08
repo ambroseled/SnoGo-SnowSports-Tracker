@@ -28,6 +28,8 @@ public class goalController {
     private TableColumn<Goal, Boolean> compCol;
     @FXML
     private Button viewButton;
+    @FXML
+    private Button refreshButton;
 
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
 
@@ -38,7 +40,9 @@ public class goalController {
      */
     public void viewData() {
         viewButton.setVisible(false);
-
+        viewButton.setDisable(true);
+        refreshButton.setVisible(true);
+        refreshButton.setDisable(false);
         Goal goal = new Goal("test", "Top speed", 20, "04/03/2019", false);
         goals.add(goal);
 
@@ -49,5 +53,11 @@ public class goalController {
         compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
 
         goalTable.setItems(goals);
+    }
+
+
+    @FXML
+    public void refreshData() {
+
     }
 }

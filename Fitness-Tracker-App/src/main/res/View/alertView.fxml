@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.alertController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.alertController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="130.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="234.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="141.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="145.0" />
-      <ColumnConstraints maxWidth="172.0" minWidth="142.0" prefWidth="142.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="144.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="197.0" />
+      <ColumnConstraints maxWidth="172.0" minWidth="112.0" prefWidth="112.0" />
       <ColumnConstraints maxWidth="187.0" minWidth="158.0" prefWidth="158.0" />
       <ColumnConstraints maxWidth="189.0" minWidth="146.0" prefWidth="146.0" />
       <ColumnConstraints maxWidth="143.0" minWidth="10.0" prefWidth="143.0" />
@@ -37,6 +37,7 @@
             <TableColumn fx:id="webCol" minWidth="9.0" prefWidth="302.0" text="Web Link" />
         </columns>
       </TableView>
-      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="52.0" prefWidth="114.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Button" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="52.0" prefWidth="161.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Health Alerts" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="refreshButton" disable="true" mnemonicParsing="false" onAction="#refreshData" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Health Alerts" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>

@@ -21,15 +21,17 @@ public class alertController {
     @FXML
     private Button viewButton;
     @FXML
-    TableColumn<Alert, String> nameCol;
+    private TableColumn<Alert, String> nameCol;
     @FXML
-    TableColumn<Alert, Date> dateCol;
+    private TableColumn<Alert, Date> dateCol;
     @FXML
-    TableColumn<Alert, String> desCol;
+    private TableColumn<Alert, String> desCol;
     @FXML
-    TableColumn<Alert, String> webCol;
+    private TableColumn<Alert, String> webCol;
     @FXML
-    TableView alertTable;
+    private TableView alertTable;
+    @FXML
+    private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
 
     @FXML
@@ -38,6 +40,9 @@ public class alertController {
      */
     public void viewData() {
         viewButton.setVisible(false);
+        viewButton.setDisable(true);
+        refreshButton.setVisible(true);
+        refreshButton.setDisable(false);
 
         Alert alert = new Alert("04/02/2020", "www.bean.com", "Health issue detected", "Health issue");
         alerts.add(alert);
@@ -49,6 +54,12 @@ public class alertController {
 
 
         alertTable.setItems(alerts);
+    }
+
+
+    @FXML
+    public void refreshData() {
+
     }
 
 }

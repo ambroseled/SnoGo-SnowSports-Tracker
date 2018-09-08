@@ -10,17 +10,19 @@ import java.text.SimpleDateFormat;
 
 public class profController {
     @FXML
-    TextField nameText;
+    private  TextField nameText;
     @FXML
-    TextField ageText;
+    private  TextField ageText;
     @FXML
-    TextField heightText;
+    private  TextField heightText;
     @FXML
-    TextField weightText;
+    private TextField weightText;
     @FXML
-    TextField bmiText;
+    private TextField bmiText;
     @FXML
-    TextField dateText;
+    private TextField dateText;
+    @FXML
+    private Button viewButton;
     User currentUser;
 
 
@@ -30,6 +32,8 @@ public class profController {
      * Displays all the information about the current user.
      */
     public void viewProfile() {
+        viewButton.setDisable(true);
+        viewButton.setVisible(false);
         currentUser = appController.getCurrentUser();
         nameText.setText(currentUser.getName());
         ageText.setText(Integer.toString(currentUser.getAge()));
