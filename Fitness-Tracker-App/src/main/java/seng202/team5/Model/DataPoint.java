@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class DataPoint {
 
-	private Date dateTime;
+    private Date dateTime;
+    private int id;
     private int heartRate;
     private double latitude;
     private double longitude;
@@ -14,11 +15,23 @@ public class DataPoint {
     private boolean active;
 
     public DataPoint(Date newDateTime, int newHeartRate, double newLatitude, double newLongitude, double newElevation) {
-    	dateTime = newDateTime;
+        dateTime = newDateTime;
         heartRate = newHeartRate;
         latitude = newLatitude;
         longitude = newLongitude;
         elevation = newElevation;
+    }
+
+
+    public DataPoint(int id, Date newDateTime, int newHeartRate, double newLatitude, double newLongitude, double newElevation, double speed, boolean active) {
+        dateTime = newDateTime;
+        heartRate = newHeartRate;
+        latitude = newLatitude;
+        longitude = newLongitude;
+        elevation = newElevation;
+        this.id = id;
+        this.speed = speed;
+        this.active = active;
     }
 
     //These setter methods will come in handy when we have to implement editing point manually
