@@ -1,15 +1,14 @@
 package seng202.team5.Model;
 
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
-
 public class DataAnalyser {
+
+
+
+    private double distance_a = 6378137;
+    private double distance_b = 6356752.314245;
+    private double distance_e = 1 - (distance_b*distance_b/distance_a*distance_a);
 
     /**
      * Performs analysis on a passed activity.
@@ -116,7 +115,7 @@ public class DataAnalyser {
 
 
             // Getting the altitude change over the two points
-            double movement = oneDist(start, end);
+            double movement = oneDist(startLat, startLong, endLat, endLong);
             double condition;
             if (flag) {
                 condition = 0.2 * (dataPoints.size() - index);
@@ -137,42 +136,28 @@ public class DataAnalyser {
 
 
     /**
-     * Calculating the cartesian product of a passed location point.
-     * @param alt The altitude
-     * @param longitude The longitude value
-     * @param lat The latitude value.
-     * @return A double array holding the cartesian product.
+     * Calculates the distance traveled between two passed polar points
+     * @param lat1 The latitude of the first point
+     * @param long1 The longitude of the first point
+     * @param lat2 The latitude of the second point
+     * @param long2 The longitude of the second point
+     * @return A double holding the distance between the two points
      */
-    private double[] cartesian(double alt, double longitude, double lat) {
-        // Forming the elements of the cartesian product of the passed point
-        double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
-        double y = alt * Math.sin(Math.toRadians(lat));
-        double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
-        double[] cart = {x, y, z};
-        // Returning the cartesian product
-        return cart;
+    private double oneDist(double lat1, double long1, double lat2, double long2) {
+        // Getting the change in latitude and longitude
+        double delLon = Math.toRadians(long2 - long1);
+        double delLat = Math.toRadians(lat2 - lat1);
+        // Setting the radius of the earth
+        final double rad = 6371000;
+
+        // Using the haversine formula to find the distance between the two points
+        double temp = Math.pow(Math.sin(delLat / 2), 2) + Math.pow(Math.sin(delLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+        double temp2 = 2 * Math.asin(Math.sqrt(temp));
+
+        // Returning the distance traveled
+        return roundNum(temp2 * rad);
     }
 
-
-    /**
-     * Calculates the distance traveled between two data points,
-     * in the format (longitude, latitude, altitude).
-     * @param point1 First location point.
-     * @param point2 Second location point.
-     * @return A double holding the distance bewtwwen teh two points.
-     */
-    private double oneDist(double[] point1, double[] point2) {
-        // Getting the cartesian product of the two points passed
-        double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
-        double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
-        // Using the cartesian products to get the arguments for the Euclidean formula
-        double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
-        double arg2 = Math.pow((cart2[1] - cart1[1]), 2);
-        double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
-        // Calculating the distance using the Euclidean formula
-        double distance = Math.sqrt(arg1 + arg2 + arg3);
-        return roundNum(distance);
-    }
 
 
     /**
@@ -186,8 +171,9 @@ public class DataAnalyser {
         double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
         double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
         // Calculating the distance traveled
-        double distance = oneDist(point1, point2) + previous.getDistance();
-        current.setDistance(distance);
+        double distance = oneDist(previous.getLatitude(), previous.getLongitude(), current.getLatitude(), current.getLongitude());
+        distance += previous.getDistance();
+        current.setDistance(roundNum(distance));
     }
 
 
@@ -218,6 +204,8 @@ public class DataAnalyser {
         double distance = dist1 - dist2;
         // Calculating the change in time in seconds
         double time = (time1 - time2)/1000;
+
+        //System.out.println("Distance: " + distance);
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -225,8 +213,6 @@ public class DataAnalyser {
             // The distance change is zero so the speed is zero
             return 0;
         } else {
-           // System.out.println(distance);
-            //System.out.println(time);
             // The speed is above zero and will be calculated
             double speed = distance / time;
             return roundNum(speed);

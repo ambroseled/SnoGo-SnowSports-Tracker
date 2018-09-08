@@ -73,20 +73,26 @@ public class InputDataParser {
         //updateTable(activities);
         return activities;
     }
+	
+	public ArrayList<Activity> parseCSVToActivities(String fileName) {
+		ArrayList<String> lines = readFile(fileName);
+		ArrayList<Activity> activities = createActivitiesFromLines(lines);
+		for (Activity activity : activities) {
+            analyser.analyseActivity(activity);
+		}
+		return activities;
+	}
+	/*
+	private void updateTable(ArrayList<Activity> activities) {
+		TableController tableController = new TableController(activities);
+	} */
 
-    public ArrayList<Activity> parseCSVToActivities(String fileName) {
-        ArrayList<String> lines = readFile(fileName);
-        ArrayList<Activity> activities = createActivitiesFromLines(lines);
-
-        return activities;
-    }
-  /*
-  private void updateTable(ArrayList<Activity> activities) {
-  	TableController tableController = new TableController(activities);
-  } */
-
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
+        
+        ArrayList<Activity> activities = test.parseCSVToActivities("testData.csv");
+        
+    }
 
 
         ArrayList<Activity> activities = test.parseCSVToActivities("dataBaseTest.csv");

@@ -144,7 +144,7 @@ public class DataAnalyserTest {
         dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
-        assertEquals(2.0, dataSet.getTopSpeed(), 0.0);
+        assertEquals(10.84, dataSet.getTopSpeed(), 0.0);
     }
 
 
