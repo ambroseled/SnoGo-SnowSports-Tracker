@@ -26,12 +26,16 @@ public class goalController {
     private TableColumn<Goal, Date> dateCol;
     @FXML
     private TableColumn<Goal, Boolean> compCol;
+    @FXML
+    private Button viewButton;
 
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
-    
+
 
     @FXML
     public void viewData() {
+        viewButton.setVisible(false);
+
         Goal goal = new Goal("test", "Top speed", 20, "04/03/2019", false);
         goals.add(goal);
 

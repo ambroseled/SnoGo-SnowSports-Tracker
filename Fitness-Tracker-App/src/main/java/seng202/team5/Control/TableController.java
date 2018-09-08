@@ -35,7 +35,7 @@ public class TableController {
 
     @FXML
     public void viewData() {
-        viewButton.setDisable(true);
+        viewButton.setVisible(false);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
         setActivities(inputActivities);
