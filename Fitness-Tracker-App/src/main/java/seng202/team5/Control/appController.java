@@ -21,20 +21,14 @@ public class appController extends Application {
 
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = getUser();
-    private static dataBaseController dbControl = new dataBaseController();
+    private static User currentUser;
+
     ////////////
 
     public static Stage getAppStage() {
         return  appStage;
     }
 
-
-    public static User getUser() {
-        ArrayList<User> users = dbControl.getUsers();
-        User user = users.get(0);
-        return user;
-    }
 
 
     public void start(Stage primaryStage) throws Exception {
