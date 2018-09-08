@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.alertController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" styleClass="linear-grad-to-top" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.alertController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="130.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="234.0" />
@@ -29,12 +29,12 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="alertTable" prefHeight="95.0" prefWidth="397.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
+      <TableView fx:id="alertTable" prefHeight="95.0" prefWidth="397.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="119.0" text="Alert" />
           <TableColumn fx:id="dateCol" prefWidth="225.0" text="Date" />
             <TableColumn fx:id="desCol" prefWidth="344.0" text="Description" />
-            <TableColumn fx:id="webCol" minWidth="9.0" prefWidth="302.0" text="Web Link" />
+            <TableColumn fx:id="webCol" minWidth="9.0" prefWidth="312.0" text="Web Link" />
         </columns>
       </TableView>
       <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="52.0" prefWidth="161.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Health Alerts" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />

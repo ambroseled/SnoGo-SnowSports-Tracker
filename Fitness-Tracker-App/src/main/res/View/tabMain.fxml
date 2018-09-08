@@ -27,6 +27,7 @@
       </Tab>
       <Tab text="Calendar">
          <content>
+             <fx:include fx:id="calTab" source="calView.fxml" />
          </content>
       </Tab>
       <Tab text="Alerts">

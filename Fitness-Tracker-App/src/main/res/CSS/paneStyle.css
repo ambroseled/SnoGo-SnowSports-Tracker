@@ -10,3 +10,11 @@
 .grad-radius-3{
     -fx-background-color: radial-gradient(center 50% 50% , radius 60% , #FFFFFF, #0C00FF);
 }
+
+.linear-grad-to-top{
+    -fx-background-color: linear-gradient(to top, #002BFF, #00C1FF);
+}
+
+.linear-grad-to-bottom{
+    -fx-background-color: linear-gradient(to bottom, #002BFF, #00C1FF);
+}

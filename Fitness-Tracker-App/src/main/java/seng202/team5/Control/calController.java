@@ -6,9 +6,6 @@ import java.io.IOException;
 
 public class calController {
 
-    private FXMLLoader loader = new FXMLLoader();
-    private Class c = getClass();
-
 
 
 }

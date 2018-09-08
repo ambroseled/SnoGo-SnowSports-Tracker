@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.goalController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" styleClass="linear-grad-to-top" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.goalController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="223.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="205.0" />
@@ -33,13 +33,13 @@
   </rowConstraints>
    <children>
       <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewData" prefHeight="61.0" prefWidth="133.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Goals" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-      <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+      <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="174.0" text="Goal Name" />
           <TableColumn fx:id="metricCol" prefWidth="122.0" text="Goal Metric" />
-            <TableColumn fx:id="valueCol" prefWidth="118.0" text="Goal Metric Value" />
-            <TableColumn fx:id="dateCol" prefWidth="257.0" text="Goal Completion Date" />
-            <TableColumn fx:id="compCol" prefWidth="81.0" text="Achieved" />
+            <TableColumn fx:id="valueCol" prefWidth="138.0" text="Goal Metric Value" />
+            <TableColumn fx:id="dateCol" prefWidth="224.0" text="Goal Completion Date" />
+            <TableColumn fx:id="compCol" prefWidth="94.0" text="Achieved" />
         </columns>
       </TableView>
       <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="147.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Goal" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />

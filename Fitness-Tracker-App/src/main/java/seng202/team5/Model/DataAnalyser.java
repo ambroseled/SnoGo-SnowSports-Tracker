@@ -216,7 +216,7 @@ public class DataAnalyser {
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
         // Calculating the change in distance
         double distance = dist1 - dist2;
-        // Calculating the change in time
+        // Calculating the change in time in seconds
         double time = (time1 - time2)/1000;
         if (time == 0) {
             // The time change is zero so the speed is zero
