@@ -11,6 +11,12 @@ import static jdk.nashorn.internal.objects.NativeMath.round;
 
 public class DataAnalyser {
 
+
+
+    private double distance_a = 6378137;
+    private double distance_b = 6356752.314245;
+    private double distance_e = 1 - (distance_b*distance_b/distance_a*distance_a);
+
     /**
      * Performs analysis on a passed activity.
      * @param activity The activity to analyse.
@@ -145,12 +151,25 @@ public class DataAnalyser {
      */
     private double[] cartesian(double alt, double longitude, double lat) {
         // Forming the elements of the cartesian product of the passed point
-        double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
-        double y = alt * Math.sin(Math.toRadians(lat));
-        double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
+        double x = alt * Math.cos(Math.toRadians(longitude)) * Math.sin(Math.toRadians(90 - lat));
+        double y = alt * Math.sin(Math.toRadians(longitude)) * Math.sin(Math.toRadians(90 - lat));
+        double z = alt * Math.cos(Math.toRadians(90 - lat));
         double[] cart = {x, y, z};
         // Returning the cartesian product
         return cart;
+    }
+
+    private double[] cart(double alt, double longitude, double lat) {
+        alt += 6370000;
+        double x = (cart_helper(lat) + alt) * (Math.cos(lat) * Math.cos(longitude));
+        double y = (cart_helper(lat) + alt) * (Math.cos(lat)) * Math.sin(longitude);
+        double z = ((Math.pow(distance_b, 2)/Math.pow(distance_a, 2)) * cart_helper(lat) + alt) * Math.sin(lat);
+        double[] result = {x, y, z};
+        return result;
+    }
+
+    private double cart_helper(double x) {
+        return distance_a / (Math.sqrt(1 - distance_e * Math.pow(Math.sin(x), 2)));
     }
 
 
@@ -163,8 +182,8 @@ public class DataAnalyser {
      */
     private double oneDist(double[] point1, double[] point2) {
         // Getting the cartesian product of the two points passed
-        double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
-        double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
+        double[] cart1 = cart(point1[2], point1[0], point1[1]);
+        double[] cart2 = cart(point2[2], point2[0], point2[1]);
         // Using the cartesian products to get the arguments for the Euclidean formula
         double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
         double arg2 = Math.pow((cart2[1] - cart1[1]), 2);
@@ -218,6 +237,7 @@ public class DataAnalyser {
         double distance = dist1 - dist2;
         // Calculating the change in time
         double time = (time1 - time2)/1000;
+
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -225,10 +245,11 @@ public class DataAnalyser {
             // The distance change is zero so the speed is zero
             return 0;
         } else {
-           // System.out.println(distance);
-            //System.out.println(time);
+            System.out.println("Time: " + time);
+            System.out.println("Distance: " + distance);
             // The speed is above zero and will be calculated
             double speed = distance / time;
+            System.out.println("Speed: " + roundNum(speed));
             return roundNum(speed);
         }
     }
