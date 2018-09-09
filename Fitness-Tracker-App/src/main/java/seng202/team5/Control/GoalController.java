@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.*;
 
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 
@@ -93,6 +93,7 @@ public class GoalController {
         }
 
         goalTable.setItems(goals);
+
     }
 
 
