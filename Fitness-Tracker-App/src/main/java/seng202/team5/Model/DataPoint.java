@@ -5,7 +5,7 @@ import java.util.Date;
 public class DataPoint {
 
     private Date dateTime;
-    private int id;
+    private int id = -1;
     private int heartRate;
     private double latitude;
     private double longitude;
@@ -78,6 +78,10 @@ public class DataPoint {
         return speed; }
     public boolean isActive() {
         return active;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String toString() {
