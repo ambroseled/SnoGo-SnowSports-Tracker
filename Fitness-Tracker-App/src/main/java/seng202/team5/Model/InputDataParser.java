@@ -74,6 +74,12 @@ public class InputDataParser {
 		return activities;
 	}
 
+
+	/**
+	 * 
+	 * @param fileName
+	 * @return
+	 */
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
