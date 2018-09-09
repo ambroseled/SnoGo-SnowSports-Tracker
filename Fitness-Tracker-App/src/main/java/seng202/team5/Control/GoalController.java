@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.*;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -42,7 +45,7 @@ public class GoalController {
     @FXML
     private ComboBox<String> metricCombo;
     @FXML
-    private DatePicker dateEntry;
+    private TextField dateEntry;
     @FXML
     private CheckBox dateCheck;
     @FXML
@@ -108,9 +111,6 @@ public class GoalController {
         if (metricCombo.getItems().size() == 0) {
             fillCombo();
         }
-        // Until date entry is fixed
-        dateCheck.setSelected(true);
-        ////////
 
         checkChecks();
     }
@@ -130,7 +130,7 @@ public class GoalController {
             metricCheck.setSelected(true);
             fillValueCombo(metricCombo.getSelectionModel().getSelectedItem());
         } else {
-            metricCheck.setSelected(true);
+            metricCheck.setSelected(false);
         }
         checkChecks();
     }
@@ -138,7 +138,14 @@ public class GoalController {
 
     @FXML
     public void checkDate() {
-
+        String text = dateEntry.getText();
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+            Date date = dateTimeFormat.parse(text);
+            dateCheck.setSelected(true);
+        } catch (ParseException e) {
+            dateCheck.setSelected(false);
+        }
     }
 
 
@@ -167,11 +174,12 @@ public class GoalController {
 
     @FXML
     public void checkValueCombo() {
+
         boolean selected = valueCombo.getSelectionModel().isEmpty();
         if (!selected) {
             valueCheck.setSelected(true);
         } else {
-            valueCheck.setSelected(true);
+            valueCheck.setSelected(false);
         }
         checkChecks();
     }
@@ -185,6 +193,15 @@ public class GoalController {
         metric = getMetric(metric);
         Goal newGoal = new Goal(name, metric, value, "04/08/2019 07:45:00", false);
         currentUser.addGoal(newGoal);
+
+        nameCheck.setSelected(false);
+        metricCheck.setSelected(false);
+        dateCheck.setSelected(false);
+        valueCheck.setSelected(false);
+        goalName.clear();
+        metricCombo.getItems().clear();
+        dateEntry.clear();
+        valueCombo.getItems().clear();
     }
 
 

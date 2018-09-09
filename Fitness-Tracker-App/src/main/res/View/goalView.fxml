@@ -45,16 +45,15 @@
               <Label text="Press Button to View Goals" />
           </placeholder>
         <columns>
-          <TableColumn fx:id="nameCol" prefWidth="174.0" text="Goal Name" />
-          <TableColumn fx:id="metricCol" prefWidth="122.0" text="Goal Metric" />
-            <TableColumn fx:id="valueCol" prefWidth="138.0" text="Goal Metric Value" />
-            <TableColumn fx:id="dateCol" prefWidth="224.0" text="Goal Completion Date" />
-            <TableColumn fx:id="compCol" prefWidth="94.0" text="Achieved" />
+          <TableColumn fx:id="nameCol" prefWidth="159.0" text="Goal Name" />
+          <TableColumn fx:id="metricCol" prefWidth="152.0" text="Goal Metric" />
+            <TableColumn fx:id="valueCol" prefWidth="158.0" text="Goal Metric Value" />
+            <TableColumn fx:id="dateCol" prefWidth="198.0" text="Goal Completion Date" />
+            <TableColumn fx:id="compCol" prefWidth="85.0" text="Achieved" />
         </columns>
       </TableView>
       <Button fx:id="createButton" disable="true" mnemonicParsing="false" onAction="#createGoal" prefHeight="59.0" prefWidth="147.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Goal" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
       <Button fx:id="refreshButton" disable="true" mnemonicParsing="false" onAction="#refreshData" prefHeight="61.0" prefWidth="133.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Goals" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-      <DatePicker fx:id="dateEntry" onAction="#checkDate" promptText="Enter Completion Date" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <ComboBox fx:id="metricCombo" onAction="#checkMetricCombo" prefHeight="27.0" prefWidth="183.0" promptText="Select Goal Metric" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Completion Date" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
@@ -87,5 +86,6 @@
             <Font size="30.0" />
          </font>
       </Text>
+      <TextField fx:id="dateEntry" onKeyReleased="#checkDate" promptText="dd/mm/yyy hh:mm:ss" GridPane.columnIndex="4" GridPane.rowIndex="3" />
    </children>
 </GridPane>
