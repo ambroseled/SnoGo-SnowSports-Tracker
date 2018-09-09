@@ -265,6 +265,7 @@ public class dataBaseController {
                 String query = String.format("INSERT INTO Activity (Name, User) Values ('%s', %d)",
                         toAdd.getName(), userId);
                 stmt.executeUpdate(query);
+                storeDataSet(toAdd.getDataSet(), findId("Activity"));
                 // Returning true as the activity was stored in the database
                 return true;
             }
@@ -287,7 +288,7 @@ public class dataBaseController {
     public boolean storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
-            // Checking that the DataSet is not already in the database and tha the activity passed is in the database
+            // Checking that the DataSet is not already in the database and that the activity passed is in the database
             int id = toAdd.getId();
             if (checkId("DataSet", id)) {
                 // Return false as user was not stored in the database
@@ -301,6 +302,43 @@ public class dataBaseController {
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
                                 "Activity) Values (%f, %f, %d, %f, %d)", toAdd.getTopSpeed(), toAdd.getTotalDistance(),
                         toAdd.getAvgHeartRate(), toAdd.getVerticalDistance(), actId);
+                stmt.executeUpdate(query);
+                // Returning true as the
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Return false as user was not stored in the database
+            return false;
+        }
+    }
+
+
+    /**
+     * Not working as i dont know how to pass the date object
+     * @param toAdd
+     * @param setId
+     * @return
+     */
+    public boolean storeDatePoint(DataPoint toAdd, int setId) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the DataPoint is not already in the database and tha the activity passed is in the database
+            int id = toAdd.getId();
+            if (checkId("DataSet", id)) {
+                // Return false as user was not stored in the database
+                return false;
+            } else if(!checkId("DateSet", setId)) {
+                // Return false as user was not stored in the database
+                return false;
+            } else {
+                // Creating a statement and executing an update to store the DataSet
+                Statement stmt = connection.createStatement();
+                String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
+                                "Elevation, Speed, Active, DataSet) Values (******, %d, %f, %f, %f, %f, %b, %d)",
+                        toAdd.getDateTime(), toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
+                        toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId);
                 stmt.executeUpdate(query);
                 // Returning true as the
                 return true;
