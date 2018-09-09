@@ -3,17 +3,15 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.InputDataParser;
 import seng202.team5.Model.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class mapController {
+public class MapController {
 
     private ArrayList<Activity> activities;
     private User currentUser;
@@ -32,7 +30,7 @@ public class mapController {
         selectButton.setVisible(true);
         loadButton.setVisible(false);
         loadButton.setDisable(true);
-        currentUser = appController.getCurrentUser();
+        currentUser = AppController.getCurrentUser();
        // activities = currentUser.getActivities();
         activities = parser.parseCSVToActivities("testData.csv");
 
@@ -42,6 +40,10 @@ public class mapController {
         }
     }
 
+
+    public void printBean() {
+        System.out.println("Bean");
+    }
     @FXML
     public void selectButtonPress() {
         String name = activityCombo.getValue();

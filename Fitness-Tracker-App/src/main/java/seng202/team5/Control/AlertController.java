@@ -16,7 +16,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class alertController {
+public class AlertController {
 
     @FXML
     private Button viewButton;
@@ -44,8 +44,10 @@ public class alertController {
         refreshButton.setVisible(true);
         refreshButton.setDisable(false);
 
-        Alert alert = new Alert("04/02/2020", "www.bean.com", "Health issue detected", "Health issue");
+
+        Alert alert = new Alert("04/02/2020 11:30:00", "www.bean.com", "Health issue detected", "Health issue");
         alerts.add(alert);
+
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
         desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
@@ -59,6 +61,13 @@ public class alertController {
 
     @FXML
     public void refreshData() {
+        alertTable.getItems().clear();
+
+        Alert alert = new Alert("04/02/2020 11:30:00", "www.beep.com", "Health issue detected", "Health issue");
+        alerts.add(alert);
+
+
+        alertTable.setItems(alerts);
 
     }
 

@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Goal {
 
-    private Date completionData;
+    private Date completionDate;
     private String metric;
     private double metricGoal;
     private String name;
@@ -22,8 +22,8 @@ public class Goal {
         this.metricGoal = metricGoal;
         this.completed = completed;
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
-            this.completionData = dateTimeFormat.parse(date);
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+            this.completionDate = dateTimeFormat.parse(date);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
@@ -31,8 +31,8 @@ public class Goal {
     }
 
 
-    public Date getCompletionData() {
-        return completionData;
+    public Date getCompletionDate() {
+        return completionDate;
     }
 
     public double getMetricGoal() {
@@ -52,7 +52,7 @@ public class Goal {
     }
 
     public void setCompletionData(Date completionData) {
-        this.completionData = completionData;
+        this.completionDate = completionData;
     }
 
     public void setMetric(String metric) {

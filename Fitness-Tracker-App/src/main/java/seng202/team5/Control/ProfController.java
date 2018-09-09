@@ -8,7 +8,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 
-public class profController {
+public class ProfController {
     @FXML
     private  TextField nameText;
     @FXML
@@ -34,15 +34,17 @@ public class profController {
     public void viewProfile() {
         viewButton.setDisable(true);
         viewButton.setVisible(false);
-        currentUser = appController.getCurrentUser();
+        currentUser = AppController.getCurrentUser();
         nameText.setText(currentUser.getName());
         ageText.setText(Integer.toString(currentUser.getAge()));
         heightText.setText(Double.toString(currentUser.getHeight()));
         weightText.setText(Double.toString(currentUser.getWeight()));
         bmiText.setText(Double.toString(currentUser.getBmi()));
         // Displaying date not working
+
        // Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        //String dateString = formatter.format(currentUser.getBirthDate());
+       // String dateString = formatter.format(currentUser.getBirthDate());
+
         dateText.setText("Need to fix");
     }
 

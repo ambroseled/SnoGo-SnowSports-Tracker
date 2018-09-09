@@ -9,18 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.team5.Model.User;
-import java.io.IOException;
+
 import java.net.URL;
-import java.util.ArrayList;
 
 
-public class appController extends Application {
+public class AppController extends Application {
 
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     @FXML
-    private mapController mapController;
+    private MapController mapController = new MapController();
+    @FXML
+    private AlertController alertController = new AlertController();
 
     ////////////
     // Used for testing will later be the actual current user.
@@ -32,11 +33,6 @@ public class appController extends Application {
         return  appStage;
     }
 
-
-    @FXML
-    public void mapTabSelected() {
-        System.out.println("bean");
-    }
 
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";

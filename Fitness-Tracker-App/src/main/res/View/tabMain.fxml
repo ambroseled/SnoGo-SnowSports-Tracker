@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.appController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.AppController">
   <tabs>
     <Tab fx:id="dataTab" text="Data View">
          <content>
@@ -20,7 +14,7 @@
          <content>
          </content>
     </Tab>
-      <Tab fx:id="mapTabView" onSelectionChanged="#mapTabSelected" text="Map">
+      <Tab fx:id="mapTabView" text="Map">
          <content>
              <fx:include fx:id="mapTab" source="mapView.fxml" />
          </content>
@@ -30,7 +24,7 @@
              <fx:include fx:id="calTab" source="calView.fxml" />
          </content>
       </Tab>
-      <Tab text="Alerts">
+      <Tab fx:id="alertTab" text="Alerts">
           <content>
               <fx:include source="alertView.fxml" />
           </content>

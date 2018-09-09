@@ -21,7 +21,7 @@ public class Alert {
         this.name = name;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
             this.dateTime = dateTimeFormat.parse(date);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());

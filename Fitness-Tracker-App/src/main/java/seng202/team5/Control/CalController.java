@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
-public class calController {
+public class CalController {
 
 
 
