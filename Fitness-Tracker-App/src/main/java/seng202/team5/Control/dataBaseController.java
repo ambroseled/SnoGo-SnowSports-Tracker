@@ -1,9 +1,6 @@
 package seng202.team5.Control;
 
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
+import seng202.team5.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -353,6 +350,32 @@ public class dataBaseController {
 
 
 
+    public ArrayList<Goal> getGoals(int userId) {
+        ArrayList<Goal> goals = new ArrayList<>();
+        try {
+            // Creating a statement to execute the query
+            Statement stmt = connection.createStatement();
+            // Executing the query to get the goals
+            String query = "SELECT * FROM Goal WHERE User=" + userId;
+            ResultSet set = stmt.executeQuery(query);
+            while (set.next()) {
+                String name = set.getString("Name");
+                String metric = set.getString("Metric");
+                double metricGoal = set.getDouble("MetricGoal");
+                boolean completed = set.getBoolean("Completed");
+                int id = set.getInt("ID");
+                //Date date = set.getDate("CompletionDate");
+                Goal newGoal = new Goal(name, metric, metricGoal, "04/07/2019 08:45:00", completed, id);
+                goals.add(newGoal);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting goals: " + e.getLocalizedMessage());
+        }
+        return goals;
+    }
+
+
+
     /**
      * Finds the latest id in the database of a passed table.
      * @param table The table to find the id for.
@@ -418,9 +441,8 @@ public class dataBaseController {
 
     public static void main(String[] args) {
         dataBaseController db = new dataBaseController();
-        User toAdd = new User("John Jones", 25, 1.8, 75.8);
-        boolean success = db.storeNewUser(toAdd);
-        System.out.println(success);
+        ArrayList<Goal> goals = db.getGoals(1);
+        System.out.println(goals.get(0).getName());
     }
 
     /**
