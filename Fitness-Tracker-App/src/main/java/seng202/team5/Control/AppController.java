@@ -18,10 +18,7 @@ public class AppController extends Application {
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
-    @FXML
-    private MapController mapController = new MapController();
-    @FXML
-    private AlertController alertController = new AlertController();
+
 
     ////////////
     // Used for testing will later be the actual current user.

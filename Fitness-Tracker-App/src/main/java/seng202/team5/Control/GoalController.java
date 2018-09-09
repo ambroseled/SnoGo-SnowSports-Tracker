@@ -51,6 +51,7 @@ public class GoalController {
     private CheckBox valueCheck;
 
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
+    private User currentUser = AppController.getCurrentUser();
 
 
     @FXML
@@ -63,7 +64,11 @@ public class GoalController {
         refreshButton.setVisible(true);
         refreshButton.setDisable(false);
         Goal goal = new Goal("test", "Top speed", 20, "04/03/2019 09:47:00", false);
-        goals.add(goal);
+        currentUser.addGoal(goal);
+        for (Goal i : currentUser.getGoals()) {
+            goals.add(i);
+        }
+
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
         metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
@@ -82,8 +87,10 @@ public class GoalController {
     public void refreshData() {
         goalTable.getItems().clear();
 
-        Goal goal = new Goal("beep", "Top speed", 20, "04/03/2019 09:47:00", false);
-        goals.add(goal);
+
+        for (Goal i : currentUser.getGoals()) {
+            goals.add(i);
+        }
 
         goalTable.setItems(goals);
     }
@@ -100,6 +107,10 @@ public class GoalController {
         if (metricCombo.getItems().size() == 0) {
             fillCombo();
         }
+        // Until date entry is fixed
+        dateCheck.setSelected(true);
+        ////////
+
         checkChecks();
     }
 
@@ -162,6 +173,29 @@ public class GoalController {
             valueCheck.setSelected(true);
         }
         checkChecks();
+    }
+
+
+    @FXML
+    public void createGoal() {
+        String name = goalName.getText();
+        String metric = metricCombo.getSelectionModel().getSelectedItem();
+        double value = valueCombo.getSelectionModel().getSelectedItem();
+        metric = getMetric(metric);
+        Goal newGoal = new Goal(name, metric, value, "04/08/2019 07:45:00", false);
+        currentUser.addGoal(newGoal);
+    }
+
+
+    private String getMetric(String metric) {
+        int index = 0;
+        for (int i = 0; i < metric.length(); i++) {
+            if (metric.charAt(i) == ',') {
+                index = i;
+                break;
+            }
+        }
+        return metric.substring(0, index);
     }
 
 

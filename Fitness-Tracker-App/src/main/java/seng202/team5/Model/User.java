@@ -13,6 +13,7 @@ public class User {
     private double bmi;
     private ArrayList<Activity> activities;
     private ArrayList<Alert> alerts;
+    private ArrayList<Goal> goals = new ArrayList<>();
 
 
     /*
@@ -71,24 +72,6 @@ public class User {
         bmi = DataAnalyser.calcBMI(height, weight);
     }
 
-    /**
-     * Overloaded version of constructor used when user is created from the dataBase
-     * @param name
-     * @param age
-     * @param height
-     * @param weight
-     * @param activities
-     * @param id
-     */
-    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id){
-        this.name = name;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-        this.id = id;
-        this.activities = activities;
-        bmi = DataAnalyser.calcBMI(height, weight);
-    }
 
     //getters
     public String getName() {return name;}
@@ -107,6 +90,10 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public ArrayList<Goal> getGoals() {
+        return goals;
     }
 
     //setters
@@ -133,6 +120,10 @@ public class User {
 
     public void setBmi(double bmi) {
         this.bmi = bmi;
+    }
+
+    public void addGoal(Goal toAdd) {
+        goals.add(toAdd);
     }
 
     /*
