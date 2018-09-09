@@ -26,3 +26,21 @@
 }
 
 
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #004DFF;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .track{
+    -fx-background-color: #0078FF;
+    -fx-padding: 0px;
+}
+
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+
+}
+

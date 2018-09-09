@@ -36,7 +36,7 @@
 }
 
 .backGround-grad{
-    -fx-background-color: linear-gradient(to top, #00FFDC, #00B9FF);
+    -fx-background-color: linear-gradient(to top, #00FFEC, #00B9FF);
 }
 
 
@@ -75,7 +75,7 @@
 }
 
 .scroll-bar .track{
-    -fx-background-color: linear-gradient(to top, #00FFDC, #00B9FF);
+    -fx-background-color: linear-gradient(to top, #00FFEC, #00B9FF);
     -fx-padding: 0px;
 }
 
@@ -83,6 +83,7 @@
 .scroll-bar .decrement-button {
     -fx-background-radius : 0.0em;
     -fx-padding :0.0 10.0 0.0 0.0;
+
 }
 
 .scroll-bar .increment-arrow,
