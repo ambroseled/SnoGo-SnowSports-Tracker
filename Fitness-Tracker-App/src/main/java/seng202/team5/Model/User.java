@@ -47,7 +47,7 @@ public class User {
      * @param weight
      * @param activities
      */
-    public User(int id, String name, int age, double height, double weight, ArrayList<Activity> activities){
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id){
         this.id = id;
         this.name = name;
         this.age = age;

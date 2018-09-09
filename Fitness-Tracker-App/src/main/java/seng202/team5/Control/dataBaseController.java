@@ -441,8 +441,8 @@ public class dataBaseController {
 
     public static void main(String[] args) {
         dataBaseController db = new dataBaseController();
-        ArrayList<Goal> goals = db.getGoals(1);
-        System.out.println(goals.get(0).getName());
+        ArrayList<User> user = db.getUsers();
+        System.out.println(user.get(0).getName());
     }
 
     /**

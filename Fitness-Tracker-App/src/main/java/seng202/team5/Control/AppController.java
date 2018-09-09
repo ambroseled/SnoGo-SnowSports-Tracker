@@ -3,7 +3,6 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,11 +17,12 @@ public class AppController extends Application {
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
+    private static dataBaseController db = new dataBaseController();
 
 
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = new User("Test", 35, 1.75, 84);
+    private static User currentUser = db.getUsers().get(0);
 
     ////////////
 
