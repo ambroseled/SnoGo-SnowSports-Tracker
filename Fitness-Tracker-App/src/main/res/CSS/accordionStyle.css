@@ -28,11 +28,6 @@
     -fx-opacity: 1;
 }
 
-.backGround{
-    -fx-background-color: blue;
-    -fx-text-fill: white;
-}
-
 .linear-grad-to-bottom{
     -fx-background-color: linear-gradient(to bottom, #002BFF, #00C1FF);
 }

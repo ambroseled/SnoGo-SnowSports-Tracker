@@ -34,6 +34,7 @@ public class AlertController {
     private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
 
+
     @FXML
     /**
      * Fills the TableView with all of the uses alerts.

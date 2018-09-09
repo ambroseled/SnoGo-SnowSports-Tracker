@@ -18,6 +18,7 @@ public class AppController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static dataBaseController db = new dataBaseController();
+    private AlertController alertTab = new AlertController();
 
 
     ////////////
@@ -34,13 +35,17 @@ public class AppController extends Application {
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";
         URL value1 = c.getResource(filename);
-        System.out.println(value1);
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
+
+        //
+        currentUser.setGoals(db.getGoals(currentUser.getId()));
+        //
+
 
         appStage = primaryStage;
     }

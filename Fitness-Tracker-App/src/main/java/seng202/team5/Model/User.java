@@ -110,6 +110,10 @@ public class User {
         weight = tempWeight;
     }
 
+    public void setGoals(ArrayList<Goal> goals) {
+        this.goals = goals;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }

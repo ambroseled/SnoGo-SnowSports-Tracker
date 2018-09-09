@@ -66,8 +66,7 @@ public class GoalController {
         viewButton.setDisable(true);
         refreshButton.setVisible(true);
         refreshButton.setDisable(false);
-        Goal goal = new Goal("test", "Top speed", 20, "04/03/2019 09:47:00", false);
-        currentUser.addGoal(goal);
+
         for (Goal i : currentUser.getGoals()) {
             goals.add(i);
         }
