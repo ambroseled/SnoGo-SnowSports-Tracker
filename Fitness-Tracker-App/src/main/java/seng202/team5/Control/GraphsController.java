@@ -3,6 +3,7 @@ package seng202.team5.Control;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,19 +18,28 @@ import seng202.team5.Model.InputDataParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GraphsController extends Application{
 
     private ArrayList<Activity> activities;
 
-    @Override public void start(Stage stage) throws IOException {
-        stage.setTitle("Speed graph");
+    @FXML
+    LineChart<Number,Number> lineChart;
+
+    @FXML
+    NumberAxis xAxis;
+
+    @FXML
+    NumberAxis yAxis;
+
+    private XYChart.Series createGraph() {
+
         //defining the axes
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
+
         xAxis.setLabel("Time");
+        yAxis.setLabel("Speed");
         //creating the chart
-        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 
         lineChart.setTitle("Speed graph");
         //defining a series
@@ -37,9 +47,32 @@ public class GraphsController extends Application{
         series.setName("Speed");
         //populating the series with data
 
+        return series;
+    }
+
+    private void populateGraph(XYChart.Series series) {
+        for (int i = 0; i < activities.size(); i++) {
 
 
+             //Need to set lower and upper bounds, but this command isn't working
 
+//            xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
+//            ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
+//            xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
+
+            for (DataPoint dataPoint : getDataPointsList(i)) {
+                long timeVal = dataPoint.getDateTime().getTime();
+                double speedVal = dataPoint.getSpeed();
+                series.getData().add(new XYChart.Data(timeVal, speedVal));
+            }
+        }
+
+        lineChart.getData().add(series);
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        stage.setTitle("Speed graph");
 
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
@@ -47,22 +80,13 @@ public class GraphsController extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
         Parent root = loader.load();
         GraphsController controller = loader.getController();
+
         controller.setActivities(inputActivities);
+        XYChart.Series series = controller.createGraph();
+        controller.populateGraph(series);
+
 
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-
-
-        for (int i = 0; i < activities.size(); i++) {
-            for (DataPoint dataPoint : controller.getDataPointsList(i)) {
-                series.getData().add(new XYChart.Data(dataPoint.getSpeed(), dataPoint.getDateTime()));
-            }
-        }
-
-        lineChart.getData().add(series);
-
         stage.setScene(scene);
         stage.show();
     }
