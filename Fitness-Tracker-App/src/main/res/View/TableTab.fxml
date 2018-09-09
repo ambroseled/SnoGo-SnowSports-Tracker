@@ -4,15 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="linear-grad-to-top" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.TableController">
     <columnConstraints>
@@ -38,11 +29,11 @@
             <Font size="38.0" />
          </font>
       </Text>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="72.0" prefWidth="221.0" vbarPolicy="ALWAYS" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="72.0" prefWidth="221.0" styleClass="backGround-grad" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
          <content>
-            <AnchorPane prefHeight="485.0" prefWidth="757.0">
+            <AnchorPane prefHeight="485.0" prefWidth="757.0" styleClass="backGround-grad" stylesheets="@../CSS/accordionStyle.css">
                <children>
-                  <Accordion fx:id="accordion" maxHeight="-Infinity" prefHeight="488.0" prefWidth="752.0" styleClass="linear-grad-to-top" stylesheets="@../CSS/accordionStyle.css">
+                  <Accordion fx:id="accordion" maxHeight="-Infinity" prefHeight="488.0" prefWidth="752.0" styleClass="backGround-grad" stylesheets="@../CSS/accordionStyle.css">
                   </Accordion>
                </children>
             </AnchorPane>

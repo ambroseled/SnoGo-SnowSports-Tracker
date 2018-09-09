@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * This class is used to interact with the applications database
  */
-public class dataBaseController {
+public class DataBaseController {
 
     Connection connection = null;
 
@@ -17,7 +17,7 @@ public class dataBaseController {
     /**
      * Tries to establish a connection wih the applications database.
      */
-    public dataBaseController() {
+    public DataBaseController() {
         // Try-catch is used to catch any exceptions that throw while creating connection to the database
         try {
             Class.forName("org.sqlite.JDBC");
@@ -376,6 +376,31 @@ public class dataBaseController {
 
 
 
+    public ArrayList<Alert> getAlerts(int userId) {
+        ArrayList<Alert> alerts = new ArrayList<>();
+        try {
+            // Creating a statement to execute the query
+            Statement stmt = connection.createStatement();
+            // Executing the query to get the alerts
+            String query = "SELECT * FROM Alert WHERE User=" + userId;
+            ResultSet set = stmt.executeQuery(query);
+            while (set.next()) {
+                String name = set.getString("Name");
+                String message = set.getString("Message");
+                String webLink = set.getString("WebLink");
+                int id = set.getInt("ID");
+               // Date date = set.getDate("DateTime");
+                Alert alert = new Alert("04/07/2019 08:45:00", webLink, message, id, name);
+                alerts.add(alert);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting alerts: " + e.getLocalizedMessage());
+        }
+        return alerts;
+    }
+
+
+
     /**
      * Finds the latest id in the database of a passed table.
      * @param table The table to find the id for.
@@ -440,7 +465,7 @@ public class dataBaseController {
 
 
     public static void main(String[] args) {
-        dataBaseController db = new dataBaseController();
+        DataBaseController db = new DataBaseController();
         ArrayList<User> user = db.getUsers();
         System.out.println(user.get(0).getName());
     }

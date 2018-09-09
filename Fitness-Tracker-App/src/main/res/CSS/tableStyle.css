@@ -21,4 +21,8 @@
 
 }
 
+.table-view {
+    -fx-border-radius: 16px;
+}
+
 

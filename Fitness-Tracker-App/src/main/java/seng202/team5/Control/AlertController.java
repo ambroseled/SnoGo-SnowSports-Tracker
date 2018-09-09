@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;
+import seng202.team5.Model.User;
 
 import java.io.IOException;
 import java.text.Format;
@@ -33,6 +34,7 @@ public class AlertController {
     @FXML
     private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
+    private User currentUser = AppController.getCurrentUser();
 
 
     @FXML
@@ -46,8 +48,9 @@ public class AlertController {
         refreshButton.setDisable(false);
 
 
-        Alert alert = new Alert("04/02/2020 11:30:00", "www.bean.com", "Health issue detected", "Health issue");
-        alerts.add(alert);
+        for (Alert alert : currentUser.getAlerts()) {
+            alerts.add(alert);
+        }
 
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
@@ -64,8 +67,9 @@ public class AlertController {
     public void refreshData() {
         alertTable.getItems().clear();
 
-        Alert alert = new Alert("04/02/2020 11:30:00", "www.beep.com", "Health issue detected", "Health issue");
-        alerts.add(alert);
+        for (Alert alert : currentUser.getAlerts()) {
+            alerts.add(alert);
+        }
 
 
         alertTable.setItems(alerts);

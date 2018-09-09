@@ -17,7 +17,7 @@ public class AppController extends Application {
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
-    private static dataBaseController db = new dataBaseController();
+    private static DataBaseController db = new DataBaseController();
     private AlertController alertTab = new AlertController();
 
 
@@ -44,6 +44,7 @@ public class AppController extends Application {
 
         //
         currentUser.setGoals(db.getGoals(currentUser.getId()));
+        currentUser.setAlerts(db.getAlerts(currentUser.getId()));
         //
 
 

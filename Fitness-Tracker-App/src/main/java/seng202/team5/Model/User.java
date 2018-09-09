@@ -12,7 +12,7 @@ public class User {
     private int id = -1; // Need to add a handler for this
     private double bmi;
     private ArrayList<Activity> activities;
-    private ArrayList<Alert> alerts;
+    private ArrayList<Alert> alerts = new ArrayList<>();
     private ArrayList<Goal> goals = new ArrayList<>();
 
 
@@ -114,6 +114,10 @@ public class User {
         this.goals = goals;
     }
 
+    public void setAlerts(ArrayList<Alert> alerts) {
+        this.alerts = alerts;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -128,6 +132,10 @@ public class User {
 
     public void addGoal(Goal toAdd) {
         goals.add(toAdd);
+    }
+
+    public ArrayList<Alert> getAlerts() {
+        return alerts;
     }
 
     /*
