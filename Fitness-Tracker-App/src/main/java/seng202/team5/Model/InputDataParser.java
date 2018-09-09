@@ -86,7 +86,7 @@ public class InputDataParser {
 	}
 	/*
 	private void updateTable(ArrayList<Activity> activities) {
-		TableController tableController = new TableController(activities);
+		//TableController tableController = new TableController(activities);
 	} */
 
 	public static void main(String[] args) {
