@@ -1,3 +1,12 @@
 .blue-grad{
-    -fx-background-color: linear-gradient(to top, #0121C1, #016CF9);
+    -fx-background-color: linear-gradient(to top, #0C00FF, #0051FF);
+}
+
+.grad-radius-6{
+    -fx-background-color: radial-gradient(center 50% 50% , radius 250px , #0C00FF, #FFFFFF);
+}
+
+
+.grad-radius-3{
+    -fx-background-color: radial-gradient(center 50% 50% , radius 60% , #FFFFFF, #0C00FF);
 }

@@ -16,6 +16,7 @@ public class Activity {
     public DataSet getDataSet() {
     	return dataSet;
     }
+    public String getName() { return name;}
     
     public String toString() {
     	return name + "\n" + dataSet;
@@ -37,7 +38,5 @@ public class Activity {
     	
     	return (activityStart <= otherActivityFinish && otherActivityStart <= activityFinish);    	
     }
-
-
 
 }
