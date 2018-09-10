@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 
-
 public class InputDataParser {
 
     private DataAnalyser analyser = new DataAnalyser();
@@ -72,7 +71,6 @@ public class InputDataParser {
     		}
     		
     	}
-		//updateTable(activities);
     	return activities;
     }
 	

@@ -51,7 +51,7 @@ public class DataPoint {
     // Getters for the parameters of a DataPoint
     public Date getDateTime() {
         return dateTime; }
-    public double getHeartRate() {
+    public int getHeartRate() {
         return heartRate; }
     public double getLatitude() {
         return latitude; }
