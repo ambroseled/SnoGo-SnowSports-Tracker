@@ -83,7 +83,9 @@ public class InputDataParser {
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
-
+		for (Activity activity : activities) {
+			analyser.analyseActivity(activity);
+		}
 		return activities;
 	}
 
