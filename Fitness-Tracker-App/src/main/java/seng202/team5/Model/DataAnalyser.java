@@ -10,15 +10,15 @@ public class DataAnalyser {
 
 
 
-    private double distance_a = 6378137;
-    private double distance_b = 6356752.314245;
-    private double distance_e = 1 - (distance_b*distance_b/distance_a*distance_a);
 
     /**
      * Performs analysis on a passed activity.
      * @param activity The activity to analyse.
      */
+
+    // Add a user that is passed here once user loading is working in the app
     public void analyseActivity(Activity activity) {
+        System.out.println(activity.getName());
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         // Getting the data points out of the dataSet
@@ -52,6 +52,12 @@ public class DataAnalyser {
         dataSet.setTotalDistance(previous.getDistance());
         dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
         dataSet.setTopSpeed(topSpeed(dataSet));
+        dataSet.setSlopeTime(slopeTime(dataSet));
+
+        /**
+         * Uncomment when user loading is working in the app
+         */
+        //  dataSet.setCaloriesBurned(calcCalBurned(dataSet, user.getWeight()));
     }
 
 
@@ -94,7 +100,6 @@ public class DataAnalyser {
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
-        double[] start = {startLong, startLat, startAlt};
 
 
         Boolean flag = false;
@@ -115,7 +120,6 @@ public class DataAnalyser {
             double endLat = dataPoints.get(endIndex).getLatitude();
             double endLong = dataPoints.get(endIndex).getLongitude();
             double endAlt = dataPoints.get(endIndex).getElevation();
-            double[] end = new double[] {endLong, endLat, endAlt};
 
 
             // Getting the altitude change over the two points
@@ -171,9 +175,6 @@ public class DataAnalyser {
      * @param previous The previous data point.
      */
     private void appendDistance(DataPoint current, DataPoint previous) {
-        // Forming the two points to be passed to calculate the distance
-        double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
-        double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
         // Calculating the distance traveled
         double distance = oneDist(previous.getLatitude(), previous.getLongitude(), current.getLatitude(), current.getLongitude());
         distance += previous.getDistance();
@@ -325,5 +326,40 @@ public class DataAnalyser {
     public static double roundNum(double toRound) {
         double rounded = Math.round(toRound * 100.0);
         return rounded / 100.0;
+    }
+
+
+    /**
+     * Calculates the calories burned by a user during a passed DataSet.
+     * @param dataSet The DataSet to calculate calories burned on.
+     * @param weight The wieght of the user.
+     * @return The amount of calories burned.
+     */
+    private double calcCalBurned(DataSet dataSet, double weight) {
+        double MET = 7.0;
+        double perMin = (MET * 3.5 * weight) / 200;
+        double startTime = dataSet.getDataPoints().get(0).getDateTime().getTime();
+        double endTime = dataSet.getDataPoints().get(dataSet.getDataPoints().size() - 1).getDateTime().getTime();
+        double timeMilli = endTime - startTime;
+        double timeMin = (timeMilli / 1000.0) / 60.0;
+        return roundNum(perMin * timeMin);
+    }
+
+
+    /**
+     * Calculates the time the user spends on the slopes.
+     * @param dataSet The DataSet to calculate slope time over.
+     * @return The slope time calculated.
+     */
+    private double slopeTime(DataSet dataSet) {
+        double time = 0.0;
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+
+        for (int i = 1; i < dataSet.getDataPoints().size(); i++) {
+            if (dataPoints.get(i).isActive()) {
+                time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i).getDateTime().getTime();
+            }
+        }
+        return time;
     }
 }

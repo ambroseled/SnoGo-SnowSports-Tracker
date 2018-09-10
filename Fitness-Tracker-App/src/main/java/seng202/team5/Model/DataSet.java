@@ -16,7 +16,8 @@ public class DataSet {
     private double verticalDistance;
     private int avgHeartRate;
     private int id;
-    // Need to add a slopeTime variable
+    private double caloriesBurned;
+    private double slopeTime;
 
     /**
      *
@@ -35,13 +36,16 @@ public class DataSet {
      * @param avgHeartRate
      * @param dataPoints
      */
-    public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate, ArrayList<DataPoint> dataPoints) {
+    public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate,
+                   ArrayList<DataPoint> dataPoints, double caloriesBurned, double slopeTime) {
         this.id = id;
         this.topSpeed = topSpeed;
         this.totalDistance = totalDistance;
         this.verticalDistance = verticalDistance;
         this.avgHeartRate = avgHeartRate;
         this.dataPoints = dataPoints;
+        this.caloriesBurned = caloriesBurned;
+        this.slopeTime = slopeTime;
     }
 
 
@@ -114,6 +118,14 @@ public class DataSet {
 
     /**
      *
+     * @return
+     */
+    public double getCaloriesBurned() {
+        return caloriesBurned;
+    }
+
+    /**
+     *
      * @param index
      * @return
      */
@@ -131,6 +143,14 @@ public class DataSet {
         return id;
     }
 
+
+    /**
+     *
+     * @return
+     */
+    public double getSlopeTime() {
+        return slopeTime;
+    }
 
     /**
      *
@@ -167,4 +187,21 @@ public class DataSet {
         topSpeed = speed;
     }
 
+
+    /**
+     *
+     * @param caloriesBurned
+     */
+    public void setCaloriesBurned(double caloriesBurned) {
+        this.caloriesBurned = caloriesBurned;
+    }
+
+
+    /**
+     *
+     * @param slopeTime
+     */
+    public void setSlopeTime(double slopeTime) {
+        this.slopeTime = slopeTime;
+    }
 }

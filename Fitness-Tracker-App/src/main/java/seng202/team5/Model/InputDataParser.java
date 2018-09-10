@@ -19,6 +19,10 @@ public class InputDataParser {
     private DataAnalyser analyser = new DataAnalyser();
 
 
+    //As user is used in the calculations
+    private static User currentUser;
+
+
     /**
      *
      * @param filePath
@@ -102,6 +106,12 @@ public class InputDataParser {
 	private void updateTable(ArrayList<Activity> activities) {
 		//TableController tableController = new TableController(activities);
 	} */
+
+
+
+	public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
 
 	public static void main(String[] args) {
         InputDataParser test = new InputDataParser();
