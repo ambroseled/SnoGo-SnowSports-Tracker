@@ -31,7 +31,6 @@ public class DataSet {
         this.verticalDistance = verticalDistance;
         this.avgHeartRate = avgHeartRate;
         this.dataPoints = dataPoints;
-        dataPoints = new ArrayList<>();
     }
 
     public void addDataPoint(DataPoint dataPoint) {
