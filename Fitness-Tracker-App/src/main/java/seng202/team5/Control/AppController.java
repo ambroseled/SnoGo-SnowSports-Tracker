@@ -65,3 +65,8 @@ public class AppController extends Application {
         launch(args);
     }
 }
+
+
+/**
+ * Need some kind of on exit method here to close the database connection
+ */

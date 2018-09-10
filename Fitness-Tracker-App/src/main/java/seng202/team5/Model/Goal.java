@@ -18,6 +18,7 @@ public class Goal {
     private String name;
     private boolean completed;
     private int id = -1;
+    private String dateString;
 
 
     /**
@@ -25,20 +26,21 @@ public class Goal {
      * @param name
      * @param metric
      * @param metricGoal
-     * @param date
+     * @param dateString
      * @param completed
      */
-    public Goal(String name, String metric, double metricGoal, String date, boolean completed) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
         this.completed = completed;
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-            this.completionDate = dateTimeFormat.parse(date);
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            this.completionDate = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
+        this.dateString = dateString;
 
     }
 
@@ -48,22 +50,23 @@ public class Goal {
      * @param name
      * @param metric
      * @param metricGoal
-     * @param date
+     * @param dateString
      * @param completed
      * @param id
      */
-    public Goal(String name, String metric, double metricGoal, String date, boolean completed, int id) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
         this.completed = completed;
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-            this.completionDate = dateTimeFormat.parse(date);
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            this.completionDate = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
         this.id = id;
+        this.dateString = dateString;
     }
 
 
@@ -131,6 +134,15 @@ public class Goal {
         return name;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+
+    public String getDateString() {
+        return dateString;
+    }
 
     /**
      *

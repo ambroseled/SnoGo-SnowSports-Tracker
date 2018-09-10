@@ -13,72 +13,57 @@ import java.util.Date;
 public class Alert {
 
 
-    private Date dateTime;
+    private Date date;
     private String webLink;
     private String message;
     private String name;
     private int id = -1;
+    private String dateString;
 
 
     /**
      *
-     * @param date
+     * @param dateString
      * @param webLink
      * @param message
      * @param name
      */
-    public Alert(String date, String webLink, String message, String name) {
+    public Alert(String dateString, String webLink, String message, String name) {
         this.webLink = webLink;
         this.message = message;
         this.name = name;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-            this.dateTime = dateTimeFormat.parse(date);
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
-
+        this.dateString = dateString;
     }
 
 
     /**
      *
-     * @param date
+     * @param dateString
      * @param webLink
      * @param message
      * @param id
      * @param name
      */
-    public Alert(Date date, String webLink, String message, int id, String name) {
-        this.dateTime = dateTime;
-        this.webLink = webLink;
-        this.message = message;
-        this.id = id;
-        this.name = name;
-    }
-
-
-    /**
-     *
-     * @param date
-     * @param webLink
-     * @param message
-     * @param id
-     * @param name
-     */
-    public Alert(String date, String webLink, String message, int id, String name) {
+    public Alert(String dateString, String webLink, String message, int id, String name) {
         this.webLink = webLink;
         this.message = message;
         this.name = name;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-            this.dateTime = dateTimeFormat.parse(date);
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
         this.id = id;
+        this.dateString = dateString;
     }
 
 
@@ -86,8 +71,8 @@ public class Alert {
      *
      * @return
      */
-    public Date getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return date;
     }
 
 
@@ -115,5 +100,23 @@ public class Alert {
      */
     public String getName() {
         return name;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public String getDateString() {
+        return dateString;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public int getId() {
+        return id;
     }
 }

@@ -28,7 +28,7 @@ public class GoalController {
     @FXML
     private TableColumn<Goal, Double> valueCol;
     @FXML
-    private TableColumn<Goal, Date> dateCol;
+    private TableColumn<Goal, String> dateCol;
     @FXML
     private TableColumn<Goal, Boolean> compCol;
     @FXML
@@ -76,7 +76,7 @@ public class GoalController {
         nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
         metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
         valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, Date>("completionDate"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("dateString"));
         compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
 
         goalTable.setItems(goals);
@@ -152,7 +152,7 @@ public class GoalController {
     public void checkDate() {
         String text = dateEntry.getText();
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
             Date date = dateTimeFormat.parse(text);
             dateCheck.setSelected(true);
         } catch (ParseException e) {
@@ -212,8 +212,9 @@ public class GoalController {
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
         double value = valueCombo.getSelectionModel().getSelectedItem();
+        String dateString = dateEntry.getText();
         metric = getMetric(metric);
-        Goal newGoal = new Goal(name, metric, value, "04/08/2019 07:45:00", false);
+        Goal newGoal = new Goal(name, metric, value, dateString, false);
         currentUser.addGoal(newGoal);
 
         nameCheck.setSelected(false);

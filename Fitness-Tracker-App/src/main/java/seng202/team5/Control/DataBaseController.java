@@ -144,9 +144,11 @@ public class DataBaseController {
             int heart = set.getInt("AvgHeartRate");
             double vert = set.getInt("VerticalDist"); // NEED TO FIX IN THE DATABASE
             ArrayList<DataPoint> dataPoints = getDataPoints(setId);
+            double calories = set.getDouble("Calories");
+            double slopeTime = set.getDouble("SlopeTime");
 
             // Creating the DataSet
-            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints);
+            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime);
             // Returning the DataSet
             return dataSet;
         } catch (SQLException e) {
@@ -350,6 +352,58 @@ public class DataBaseController {
 
 
 
+    public void storeGoal(Goal toAdd, int userId) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the DataPoint is not already in the database and tha the activity passed is in the database
+            int id = toAdd.getId();
+            if (!checkId("Goal", id) && checkId("User", userId)) {
+                // Creating a statement and executing an update to store the DataSet
+                String query = String.format("INSERT INTO Goal (Metric, MetricGoal, Name, Completed, CompletionDate," +
+                        "User) Values (?, ?, ?, ?, ?, ?)");
+                PreparedStatement pStmt = connection.prepareStatement(query);
+                pStmt.setString(1, toAdd.getMetric());
+                pStmt.setDouble(2, toAdd.getMetricGoal());
+                pStmt.setString(3, toAdd.getName());
+                pStmt.setBoolean(4, toAdd.isCompleted());
+                pStmt.setString(5, toAdd.getDateString());
+                pStmt.setInt(6, userId);
+                pStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+        }
+    }
+
+
+
+    public void storeAlert(Alert toAdd, int userId) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the DataPoint is not already in the database and tha the activity passed is in the database
+            int id = toAdd.getId();
+            if (!checkId("Goal", id) && checkId("User", userId)) {
+                // Creating a statement and executing an update to store the DataSet
+                String query = String.format("INSERT INTO Alert (Name, Message, WebLink, Date, User) " +
+                        "Values (?, ?, ?, ?, ?)");
+                PreparedStatement pStmt = connection.prepareStatement(query);
+                pStmt.setString(1, toAdd.getName());
+                pStmt.setString(2, toAdd.getMessage());
+                pStmt.setString(3, toAdd.getWebLink());
+                pStmt.setString(4, toAdd.getDateString());
+                pStmt.setInt(5, userId);
+                pStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+        }
+    }
+
+
+
+
     public ArrayList<Goal> getGoals(int userId) {
         ArrayList<Goal> goals = new ArrayList<>();
         try {
@@ -364,8 +418,8 @@ public class DataBaseController {
                 double metricGoal = set.getDouble("MetricGoal");
                 boolean completed = set.getBoolean("Completed");
                 int id = set.getInt("ID");
-                //Date date = set.getDate("CompletionDate");
-                Goal newGoal = new Goal(name, metric, metricGoal, "04/07/2019 08:45:00", completed, id);
+                String dateString = set.getString("CompletionDate");
+                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id);
                 goals.add(newGoal);
             }
         } catch (SQLException e) {
@@ -389,8 +443,9 @@ public class DataBaseController {
                 String message = set.getString("Message");
                 String webLink = set.getString("WebLink");
                 int id = set.getInt("ID");
-               // Date date = set.getDate("DateTime");
-                Alert alert = new Alert("04/07/2019 08:45:00", webLink, message, id, name);
+                String dateString = set.getString("Date");
+                System.out.println(dateString);
+                Alert alert = new Alert(dateString, webLink, message, id, name);
                 alerts.add(alert);
             }
         } catch (SQLException e) {
@@ -466,8 +521,6 @@ public class DataBaseController {
 
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
-        ArrayList<User> user = db.getUsers();
-        System.out.println(user.get(0).getName());
     }
 
     /**

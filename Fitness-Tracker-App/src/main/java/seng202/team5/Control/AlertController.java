@@ -24,7 +24,7 @@ public class AlertController {
     @FXML
     private TableColumn<Alert, String> nameCol;
     @FXML
-    private TableColumn<Alert, Date> dateCol;
+    private TableColumn<Alert, String> dateCol;
     @FXML
     private TableColumn<Alert, String> desCol;
     @FXML
@@ -48,15 +48,13 @@ public class AlertController {
         refreshButton.setDisable(false);
 
 
-        for (Alert alert : currentUser.getAlerts()) {
-            alerts.add(alert);
-        }
+        alerts.addAll(currentUser.getAlerts());
 
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
         desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
         webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Alert, Date>("dateTime"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
 
 
         alertTable.setItems(alerts);
@@ -67,9 +65,7 @@ public class AlertController {
     public void refreshData() {
         alertTable.getItems().clear();
 
-        for (Alert alert : currentUser.getAlerts()) {
-            alerts.add(alert);
-        }
+        alerts.addAll(currentUser.getAlerts());
 
 
         alertTable.setItems(alerts);
