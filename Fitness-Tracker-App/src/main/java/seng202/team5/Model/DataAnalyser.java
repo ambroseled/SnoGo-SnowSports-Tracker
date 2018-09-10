@@ -2,6 +2,10 @@ package seng202.team5.Model;
 
 import java.util.ArrayList;
 
+
+/**
+ * This class performs analytics on the data uploaded into the application by the user.
+ */
 public class DataAnalyser {
 
 
@@ -322,7 +326,4 @@ public class DataAnalyser {
         double rounded = Math.round(toRound * 100.0);
         return rounded / 100.0;
     }
-
-
-
 }

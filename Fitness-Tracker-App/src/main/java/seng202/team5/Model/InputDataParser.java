@@ -11,11 +11,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 
-
+/**
+ *
+ */
 public class InputDataParser {
 
     private DataAnalyser analyser = new DataAnalyser();
 
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
     private ArrayList<String> readFile(String filePath) {
         ArrayList<String> lines = new ArrayList<>();
 
@@ -75,7 +83,13 @@ public class InputDataParser {
         //updateTable(activities);
         return activities;
     }
-	
+
+
+    /**
+     *
+     * @param fileName
+     * @return
+     */
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);

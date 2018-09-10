@@ -1,12 +1,11 @@
 package seng202.team5.Model;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-
 import java.util.*;
 
+
+/**
+ *
+ */
 public class DataSet {
 
     private ArrayList<DataPoint> dataPoints;
@@ -19,11 +18,23 @@ public class DataSet {
     private int id;
     // Need to add a slopeTime variable
 
+    /**
+     *
+     */
     public DataSet() {
         dataPoints = new ArrayList<>();
     }
 
 
+    /**
+     *
+     * @param id
+     * @param topSpeed
+     * @param totalDistance
+     * @param verticalDistance
+     * @param avgHeartRate
+     * @param dataPoints
+     */
     public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate, ArrayList<DataPoint> dataPoints) {
         this.id = id;
         this.topSpeed = topSpeed;
@@ -33,11 +44,20 @@ public class DataSet {
         this.dataPoints = dataPoints;
     }
 
+
+    /**
+     *
+     * @param dataPoint
+     */
     public void addDataPoint(DataPoint dataPoint) {
         dataPoints.add(dataPoint);
     }
 
 
+    /**
+     *
+     * @return
+     */
     public String toString() {
         String dataPointsString = "";
         for (DataPoint dataPoint : dataPoints) {
@@ -46,42 +66,103 @@ public class DataSet {
         return dataPointsString;
     }
 
-    // Getters
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
     }
+
+
+    /**
+     *
+     * @return
+     */
     public double getTopSpeed() {
         return topSpeed;
     }
+
+
+    /**
+     *
+     * @return
+     */
     public double getTotalDistance() {
         return totalDistance;
     }
+
+
+    /**
+     *
+     * @return
+     */
     public int getAvgHeartRate() {
         return avgHeartRate;
     }
+
+
+    /**
+     *
+     * @return
+     */
     public double getVerticalDistance() {
         return verticalDistance;
     }
 
+
+    /**
+     *
+     * @param index
+     * @return
+     */
     public Date getDateTime(int index) {
         DataPoint point = dataPoints.get(index);
         return point.getDateTime();
     }
 
+
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
-    // Setters
 
+
+    /**
+     *
+     * @param distance
+     */
     public void setTotalDistance(double distance) {
         totalDistance = distance;
     }
+
+
+    /**
+     *
+     * @param vetical
+     */
     public void setVerticalDistance(double vetical) {
         verticalDistance = verticalDistance;
     }
+
+
+    /**
+     *
+     * @param rate
+     */
     public void setAvgHeartRate(int rate) {
         avgHeartRate = rate;
     }
+
+
+    /**
+     *
+     * @param speed
+     */
     public void setTopSpeed(double speed) {
         topSpeed = speed;
     }

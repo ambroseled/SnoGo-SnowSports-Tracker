@@ -8,10 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.team5.Model.User;
-
 import java.net.URL;
 
 
+/**
+ *
+ */
 public class AppController extends Application {
 
     private static Stage appStage;
@@ -26,6 +28,7 @@ public class AppController extends Application {
     private static User currentUser = db.getUsers().get(0);
 
     ////////////
+
 
     public static Stage getAppStage() {
         return  appStage;

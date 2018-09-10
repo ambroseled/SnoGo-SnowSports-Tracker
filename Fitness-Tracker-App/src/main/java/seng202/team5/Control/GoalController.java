@@ -8,14 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.Model.*;
-
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+/**
+ *
+ */
 public class GoalController {
 
     @FXML
@@ -100,6 +101,9 @@ public class GoalController {
 
 
     @FXML
+    /**
+     *
+     */
     public void nameEntry() {
         String text = goalName.getText();
         if (text.length() > 4 && text.length() < 25) {
@@ -115,6 +119,9 @@ public class GoalController {
     }
 
 
+    /**
+     *
+     */
     private void fillCombo() {
         ObservableList<String> metrics = FXCollections.observableArrayList();
         metrics.addAll("Top Speed, (m/s)", "Distance Traveled, (km)", "Vertical Distance, (km)", "Average Heart Rate, (bpm)");
@@ -123,6 +130,9 @@ public class GoalController {
 
 
     @FXML
+    /**
+     *
+     */
     public void checkMetricCombo() {
         boolean selected = metricCombo.getSelectionModel().isEmpty();
         if (!selected) {
@@ -136,6 +146,9 @@ public class GoalController {
 
 
     @FXML
+    /**
+     *
+     */
     public void checkDate() {
         String text = dateEntry.getText();
         try {
@@ -148,6 +161,10 @@ public class GoalController {
     }
 
 
+    /**
+     *
+     * @param metric
+     */
     private void fillValueCombo(String metric) {
         valueCombo.setDisable(false);
         valueCombo.getItems().clear();
@@ -172,6 +189,9 @@ public class GoalController {
 
 
     @FXML
+    /**
+     *
+     */
     public void checkValueCombo() {
 
         boolean selected = valueCombo.getSelectionModel().isEmpty();
@@ -185,6 +205,9 @@ public class GoalController {
 
 
     @FXML
+    /**
+     *
+     */
     public void createGoal() {
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
@@ -204,6 +227,11 @@ public class GoalController {
     }
 
 
+    /**
+     *
+     * @param metric
+     * @return
+     */
     private String getMetric(String metric) {
         int index = 0;
         for (int i = 0; i < metric.length(); i++) {
@@ -216,6 +244,9 @@ public class GoalController {
     }
 
 
+    /**
+     *
+     */
     private void checkChecks() {
         if (valueCheck.isSelected() && metricCheck.isSelected() && dateCheck.isSelected() && nameCheck.isSelected()) {
             createButton.setDisable(false);

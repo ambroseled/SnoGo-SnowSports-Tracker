@@ -6,6 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ *
+ */
 public class Goal {
 
     private Date completionDate;
@@ -16,7 +20,14 @@ public class Goal {
     private int id = -1;
 
 
-
+    /**
+     *
+     * @param name
+     * @param metric
+     * @param metricGoal
+     * @param date
+     * @param completed
+     */
     public Goal(String name, String metric, double metricGoal, String date, boolean completed) {
         this.name = name;
         this.metric = metric;
@@ -32,6 +43,15 @@ public class Goal {
     }
 
 
+    /**
+     *
+     * @param name
+     * @param metric
+     * @param metricGoal
+     * @param date
+     * @param completed
+     * @param id
+     */
     public Goal(String name, String metric, double metricGoal, String date, boolean completed, int id) {
         this.name = name;
         this.metric = metric;
@@ -46,6 +66,16 @@ public class Goal {
         this.id = id;
     }
 
+
+    /**
+     *
+     * @param name
+     * @param metric
+     * @param metricGoal
+     * @param date
+     * @param completed
+     * @param id
+     */
     public Goal(String name, String metric, double metricGoal, Date date, boolean completed, int id) {
         this.name = name;
         this.metric = metric;
@@ -57,34 +87,73 @@ public class Goal {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public Date getCompletionDate() {
         return completionDate;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public double getMetricGoal() {
         return metricGoal;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public String getMetric() {
         return metric;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public boolean isCompleted() {
         return completed;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+
+    /**
+     *
+     * @param completionData
+     */
     public void setCompletionData(Date completionData) {
         this.completionDate = completionData;
     }
 
+
+    /**
+     *
+     * @param metric
+     */
     public void setMetric(String metric) {
         this.metric = metric;
     }
 
+
+    /**
+     *
+     * @param metricGoal
+     */
     public void setMetricGoal(double metricGoal) {
         this.metricGoal = metricGoal;
     }

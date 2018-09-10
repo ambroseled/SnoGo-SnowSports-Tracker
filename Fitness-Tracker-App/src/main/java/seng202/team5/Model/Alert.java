@@ -6,6 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ * This class holds an alert that is displayed in the application
+ */
 public class Alert {
 
 
@@ -15,6 +19,14 @@ public class Alert {
     private String name;
     private int id = -1;
 
+
+    /**
+     *
+     * @param date
+     * @param webLink
+     * @param message
+     * @param name
+     */
     public Alert(String date, String webLink, String message, String name) {
         this.webLink = webLink;
         this.message = message;
@@ -30,6 +42,14 @@ public class Alert {
     }
 
 
+    /**
+     *
+     * @param date
+     * @param webLink
+     * @param message
+     * @param id
+     * @param name
+     */
     public Alert(Date date, String webLink, String message, int id, String name) {
         this.dateTime = dateTime;
         this.webLink = webLink;
@@ -39,6 +59,14 @@ public class Alert {
     }
 
 
+    /**
+     *
+     * @param date
+     * @param webLink
+     * @param message
+     * @param id
+     * @param name
+     */
     public Alert(String date, String webLink, String message, int id, String name) {
         this.webLink = webLink;
         this.message = message;
@@ -54,18 +82,37 @@ public class Alert {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public Date getDateTime() {
         return dateTime;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public String getWebLink() {
         return webLink;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
