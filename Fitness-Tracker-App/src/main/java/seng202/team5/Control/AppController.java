@@ -60,6 +60,11 @@ public class AppController extends Application {
     }
 
 
+    public static DataBaseController getDb() {
+        return db;
+    }
+
+
     public static void main(String[] args) {
 
         launch(args);

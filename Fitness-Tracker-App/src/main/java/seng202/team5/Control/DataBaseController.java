@@ -3,6 +3,8 @@ package seng202.team5.Control;
 import seng202.team5.Model.*;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -206,15 +208,12 @@ public class DataBaseController {
      * @param toAdd The user to be stored in the database.
      * @return A boolean holding if the user was successfully stored in the database.
      */
-    public boolean storeNewUser(User toAdd) {
+    public void storeNewUser(User toAdd) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking if the user is already in the database
             int id = toAdd.getId();
-            if (checkId("User", id)) {
-                // Returning false as the use was not stored in the database
-                return false;
-            } else {
+            if (!checkId("User", id)) {
                 // The user is not in the database and will now be stored
                 // Creating a statement
                 Statement stmt = connection.createStatement();
@@ -228,15 +227,10 @@ public class DataBaseController {
                 String query = String.format("INSERT INTO User (Name, Height, Weight, Age) VALUES ('%s', %.2f, %.2f, " +
                         "%d)", name, height, weight, age);
                 stmt.executeUpdate(query);
-                // Returning true as the user was stored in the database
-                return true;
             }
-
         } catch (SQLException e) {
             // Printing an error message
             System.out.println("Error when adding user: " + e.getLocalizedMessage());
-            // Returning false as the user was not stored in the database
-            return false;
         }
     }
 
@@ -247,33 +241,22 @@ public class DataBaseController {
      * @param userId The related user for the activity being stored.
      * @return A boolean holding if the store operation was successful.
      */
-    public boolean storeActivity(Activity toAdd, int userId) {
+    public void storeActivity(Activity toAdd, int userId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking if activity is already in teh database or the related us is not in the database
             int id = toAdd.getId();
-            if (checkId("Activity", id)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else if (!checkId("User", userId)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else {
+            if (!checkId("DataPoint", id) && checkId("Activity", userId)) {
                 // Creating a statement and executing an update to store the activity
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO Activity (Name, User) Values ('%s', %d)",
                         toAdd.getName(), userId);
                 stmt.executeUpdate(query);
                 storeDataSet(toAdd.getDataSet(), findId("Activity"));
-                // Returning true as the activity was stored in the database
-                return true;
             }
-
         } catch (SQLException e) {
             // Printing an error message
             System.out.println("Error when adding activity: " + e.getLocalizedMessage());
-            // Returning false as the activity was not stored in the database
-            return false;
         }
     }
 
@@ -284,32 +267,21 @@ public class DataBaseController {
      * @param actId The related activty for the DataSet being stored.
      * @return A boolean holding if the store operation was successful.
      */
-    public boolean storeDataSet(DataSet toAdd, int actId) {
+    public void storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataSet is not already in the database and that the activity passed is in the database
             int id = toAdd.getId();
-            if (checkId("DataSet", id)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else if(!checkId("Activity", actId)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else {
+            if (!checkId("DataPoint", id) && checkId("Activity", actId)) {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
                                 "Activity) Values (%f, %f, %d, %f, %d)", toAdd.getTopSpeed(), toAdd.getTotalDistance(),
                         toAdd.getAvgHeartRate(), toAdd.getVerticalDistance(), actId);
                 stmt.executeUpdate(query);
-                // Returning true as the
-                return true;
             }
-
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
-            // Return false as user was not stored in the database
-            return false;
         }
     }
 
@@ -320,38 +292,33 @@ public class DataBaseController {
      * @param setId
      * @return
      */
-    public boolean storeDatePoint(DataPoint toAdd, int setId) {
+    public void storeDatePoint(DataPoint toAdd, int setId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
-            // Checking that the DataPoint is not already in the database and tha the activity passed is in the database
+            // Checking that the DataPoint is not already in the database and the the DataSet id passed is in the database
             int id = toAdd.getId();
-            if (checkId("DataSet", id)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else if(!checkId("DateSet", setId)) {
-                // Return false as user was not stored in the database
-                return false;
-            } else {
+            if (!checkId("DataPoint", id) && checkId("DataSet", setId)) {
                 // Creating a statement and executing an update to store the DataSet
+                DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+                String dateString = dateTimeFormat.format(toAdd.getDateTime());
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
-                                "Elevation, Speed, Active, DataSet) Values (******, %d, %f, %f, %f, %f, %b, %d)",
-                        toAdd.getDateTime(), toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
+                                "Elevation, Speed, Active, DataSet) Values ('%s', %d, %f, %f, %f, %f, %b, %d)",
+                        dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
                         toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId);
                 stmt.executeUpdate(query);
-                // Returning true as the
-                return true;
             }
-
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
-            // Return false as user was not stored in the database
-            return false;
         }
     }
 
 
-
+    /**
+     * Stores a passed Goal into the database.
+     * @param toAdd The Goal to be stored in the database.
+     * @param userId The is of the User related to the Goal.
+     */
     public void storeGoal(Goal toAdd, int userId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
@@ -370,14 +337,17 @@ public class DataBaseController {
                 pStmt.setInt(6, userId);
                 pStmt.executeUpdate();
             }
-
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
         }
     }
 
 
-
+    /**
+     * Stores a passed Alert into the database.
+     * @param toAdd The Alert to store.
+     * @param userId The id of the User that the Alert is related to.
+     */
     public void storeAlert(Alert toAdd, int userId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
@@ -395,15 +365,18 @@ public class DataBaseController {
                 pStmt.setInt(5, userId);
                 pStmt.executeUpdate();
             }
-
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
         }
     }
 
 
-
-
+    /**
+     * Gets an ArrayList of Goals from the database that are related to a passed
+     * user id.
+     * @param userId The user id to find goals for.
+     * @return An ArrayList holding all the found Goals.
+     */
     public ArrayList<Goal> getGoals(int userId) {
         ArrayList<Goal> goals = new ArrayList<>();
         try {
@@ -429,7 +402,12 @@ public class DataBaseController {
     }
 
 
-
+    /**
+     * Gets an ArrayList of Alerts from the database that are related to a passed
+     * user id.
+     * @param userId The user id to find alerts for.
+     * @return An ArrayList holding all the found Alerts.
+     */
     public ArrayList<Alert> getAlerts(int userId) {
         ArrayList<Alert> alerts = new ArrayList<>();
         try {
@@ -444,7 +422,6 @@ public class DataBaseController {
                 String webLink = set.getString("WebLink");
                 int id = set.getInt("ID");
                 String dateString = set.getString("Date");
-                System.out.println(dateString);
                 Alert alert = new Alert(dateString, webLink, message, id, name);
                 alerts.add(alert);
             }
@@ -521,9 +498,9 @@ public class DataBaseController {
 
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
+        User user = new User("Beth Yode", 26, 1.57, 56);
+        db.storeNewUser(user);
     }
 
-    /**
-     * read: https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html
-     */
+    
 }
