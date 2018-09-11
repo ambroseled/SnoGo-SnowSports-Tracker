@@ -6,12 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -74,6 +76,16 @@ public class TableController {
         initialise();
     }
 
+    @FXML
+
+    public void loadFile() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load CSV File");
+        File f = fileChooser.showOpenDialog(null);
+        System.out.println(f.getAbsolutePath());
+
+    }
     /**
      * Populates the given table with the data from a specific activity
      * @param table an empty TableView object
