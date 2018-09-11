@@ -3,6 +3,10 @@ package seng202.team5.Model;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ *
+ */
 public class User {
     private String name;
     private Date birthDate;
@@ -16,9 +20,6 @@ public class User {
     private ArrayList<Goal> goals = new ArrayList<>();
 
 
-    /*
-    Need another constructor here
-     */
 
     /**
      *

@@ -2,6 +2,7 @@ package seng202.team5.Control;
 
 
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ public class GoalController {
 
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
+    private DataBaseController db = AppController.getDb();
 
 
     @FXML
@@ -217,6 +219,12 @@ public class GoalController {
         Goal newGoal = new Goal(name, metric, value, dateString, false);
         currentUser.addGoal(newGoal);
 
+        // Store the goal into the database
+        /*
+        db.storeGoal(newGoal, currentUser.getId());
+        */
+
+
         nameCheck.setSelected(false);
         metricCheck.setSelected(false);
         dateCheck.setSelected(false);
@@ -226,6 +234,8 @@ public class GoalController {
         dateEntry.clear();
         valueCombo.getItems().clear();
     }
+
+
 
 
     /**
