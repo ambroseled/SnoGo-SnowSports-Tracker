@@ -33,17 +33,26 @@ public class GraphsController extends Application{
     @FXML
     NumberAxis yAxis;
 
+
     private XYChart.Series createGraph() {
 
         //defining the axes
+//        long lowerBound = getDataPointsList(0).get(0).getDateTime().getTime();
+//        System.out.println(lowerBound/1000);
+//        NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
+//        xAxis.setLowerBound(lowerBound);
 
         xAxis.setLabel("Time");
+        xAxis.setForceZeroInRange(false);
+
+        //Defining the y axis
         yAxis.setLabel("Speed");
         //creating the chart
 
         lineChart.setTitle("Speed graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
+        series.getData();
         series.setName("Speed");
         //populating the series with data
 
@@ -56,17 +65,18 @@ public class GraphsController extends Application{
 
              //Need to set lower and upper bounds, but this command isn't working
 
-//            xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
-//            ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
-//            xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
+
 
             for (DataPoint dataPoint : getDataPointsList(i)) {
-                long timeVal = dataPoint.getDateTime().getTime();
+                long timeVal = (dataPoint.getDateTime().getTime())/1000;
                 double speedVal = dataPoint.getSpeed();
                 series.getData().add(new XYChart.Data(timeVal, speedVal));
             }
         }
 
+//        xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
+//        ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
+//        xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
         lineChart.getData().add(series);
     }
 
@@ -74,8 +84,10 @@ public class GraphsController extends Application{
     public void start(Stage stage) throws IOException {
         stage.setTitle("Speed graph");
 
+
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
         Parent root = loader.load();
