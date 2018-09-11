@@ -16,7 +16,7 @@ import java.util.Date;
 
 
 /**
- *
+ * This class handles controlling the goal view of the application.
  */
 public class GoalController {
 
@@ -62,7 +62,8 @@ public class GoalController {
 
     @FXML
     /**
-     * Fills the TableView with all of the uses goals.
+     * Called by a press of the viewButton, this method fills the goal table
+     * with all of the users goals.
      */
     public void viewData() {
         viewButton.setVisible(false);
@@ -87,7 +88,8 @@ public class GoalController {
 
     @FXML
     /**
-     * Refreshes the data in the TableView.
+     * Called by a press of the refreshButton, this method clears and then refills
+     * the goal table with all of the users goals.
      */
     public void refreshData() {
         goalTable.getItems().clear();

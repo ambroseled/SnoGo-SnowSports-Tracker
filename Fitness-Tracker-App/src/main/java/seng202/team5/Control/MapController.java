@@ -11,6 +11,10 @@ import seng202.team5.Model.User;
 
 import java.util.ArrayList;
 
+
+/**
+ * This class handles the controls of the map view
+ */
 public class MapController {
 
     private ArrayList<Activity> activities;
@@ -41,9 +45,7 @@ public class MapController {
     }
 
 
-    public void printBean() {
-        System.out.println("Bean");
-    }
+    
     @FXML
     public void selectButtonPress() {
         String name = activityCombo.getValue();

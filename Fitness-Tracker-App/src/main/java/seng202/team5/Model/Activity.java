@@ -12,9 +12,9 @@ public class Activity {
 
 
     /**
-     *
-     * @param newName
-     * @param dataSet
+     * A constructor for an activity. This is used for a new blank activity.
+     * @param newName The name of the new Activity.
+     * @param dataSet The DataSet for the new Activity.
      */
     public Activity(String newName, DataSet dataSet) {
         name = newName;
@@ -23,19 +23,19 @@ public class Activity {
 
 
     /**
-     *
-     * @param id
-     * @param newName
+     * This constructor is used for when an activity is read from the database.
+     * @param id The id from the database of the activity.
+     * @param name The name of the activity.
      */
-    public Activity(int id, String newName) {
-        name = newName;
+    public Activity(int id, String name) {
+        this.name = name;
         this.id = id;
     }
 
 
     /**
-     *
-     * @param newName
+     * Another constructor that is used for making a new blank activity.
+     * @param newName The name of the new Activity.
      */
     public Activity(String newName) {
         name = newName;
@@ -43,10 +43,11 @@ public class Activity {
 
 
     /**
-     *
-     * @param id
-     * @param name
-     * @param dataSet
+     * An overloaded version of the constructor that is used when an activity
+     * is read from the database.
+     * @param id The id from the database of the activity.
+     * @param name The name of the activity.
+     * @param dataSet The DataSet for the Activity.
      */
     public Activity(int id, String name, DataSet dataSet) {
         this.id = id;
@@ -56,8 +57,8 @@ public class Activity {
 
 
     /**
-     *
-     * @return
+     * Gets the activities DataSet.
+     * @return The activities DataSet.
      */
     public DataSet getDataSet() {
         return dataSet;
@@ -65,8 +66,8 @@ public class Activity {
 
 
     /**
-     *
-     * @return
+     * Gets the activities id.
+     * @return The activities id.
      */
     public int getId() {
         return id;
@@ -74,8 +75,8 @@ public class Activity {
 
 
     /**
-     *
-     * @return
+     * Gets the string representation of the activity
+     * @return A string showing the activity.
      */
     public String toString() {
         return name + "\n" + dataSet;
@@ -83,8 +84,8 @@ public class Activity {
 
 
     /**
-     *
-     * @param dataSet
+     * Sets the DataSet of the activity.
+     * @param dataSet The new DataSet to be added to the activity.
      */
     public void setDataSet(DataSet dataSet) {
         this.dataSet = dataSet;
@@ -92,8 +93,8 @@ public class Activity {
 
 
     /**
-     *
-     * @return
+     * Gets the name of the activity.
+     * @return The name of the activity.
      */
     public String getName() {
         return name;

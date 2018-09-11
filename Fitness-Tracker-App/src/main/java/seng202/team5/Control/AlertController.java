@@ -17,6 +17,9 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class is used to control the alerts view of the application.
+ */
 public class AlertController {
 
     @FXML
@@ -39,7 +42,8 @@ public class AlertController {
 
     @FXML
     /**
-     * Fills the TableView with all of the uses alerts.
+     * Called by a button press of the viewButton. It
+     * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
         viewButton.setVisible(false);
@@ -62,6 +66,10 @@ public class AlertController {
 
 
     @FXML
+    /**
+     * Called byt a button press of the refreshButton. It clears the current
+     * contents of the table and refills it with all of the users alerts.
+     */
     public void refreshData() {
         alertTable.getItems().clear();
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 /**
- *
+ * THis class is used to hold one line of information out of an uploaded csv file.
  */
 public class DataPoint {
 
@@ -77,24 +77,24 @@ public class DataPoint {
     }
 
     /**
-     *
-     * @param newLatitude
+     * Sets the value of the latitude of the DataPoint.
+     * @param newLatitude THe new latitude value.
      */
     public void setLatitude(double newLatitude) {
         latitude = newLatitude;
     }
 
     /**
-     *
-     * @param newLongitude
+     * Sets the value of the longitude of the DataPoint.
+     * @param newLongitude The new longitude value.
      */
     public void setLongitude(double newLongitude) {
         longitude = newLongitude;
     }
 
     /**
-     *
-     * @param newElevation
+     * Sets the value of the elevation of the DatPoint.
+     * @param newElevation THe new elevation value.
      */
     public void setElevation(double newElevation) {
         elevation = newElevation;
@@ -102,8 +102,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @param newDistance
+     * Sets the value of the distance of the DataPoint.
+     * @param newDistance The new distance value.
      */
     public void setDistance(double newDistance) {
         distance = newDistance;
@@ -111,8 +111,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @param newSpeed
+     * Sets the value of the speed of the DataPoint.
+     * @param newSpeed The new speed value.
      */
     public void setSpeed(double newSpeed) {
         speed = newSpeed;
@@ -120,8 +120,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @param newActive
+     * Sets if the DataPoint is active or not.
+     * @param newActive Flag holding if the DataPoint is active or not.
      */
     public void setActive(boolean newActive) {
         active = newActive;
@@ -129,8 +129,8 @@ public class DataPoint {
 
 
     /**
-     * \
-     * @return
+     * Gets the Date of the DataPoint
+     * @return The Data of the DataPoint.
      */
     public Date getDateTime() {
         return dateTime;
@@ -138,8 +138,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the value of the heart rate of the DataPoint.
+     * @return The heart rate of the DataPoint.
      */
     public double getHeartRate() {
         return heartRate;

@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+/**
+ * This class hanldes the controls for the data view tab of the application. It
+ * handles the display of raw data as well as the loading of files.
+ */
 public class TableController {
 
     @FXML
@@ -28,6 +32,9 @@ public class TableController {
     private ArrayList<Activity> activities;
 
 
+    /**
+     *
+     */
     private void initialise() {
         int numActivities = activities.size();
         for (int i = 0; i < (numActivities - 1); i += 1) {
@@ -36,10 +43,15 @@ public class TableController {
     }
 
     @FXML
+    /**
+     * Called by a press of the viewButton, this method displays the users current
+     * activities in the application.
+     */
     public void viewData() {
         resetButton.setVisible(true);
         resetButton.setDisable(false);
         viewButton.setVisible(false);
+        viewButton.setDisable(true);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
         setActivities(inputActivities);
@@ -48,6 +60,10 @@ public class TableController {
     }
 
     @FXML
+    /**
+     * Called by a press of the resetButton, this method clears and then refills the display
+     * of the users activities.
+     */
     public void resetData() {
         accordion.getPanes().clear();
 
@@ -146,7 +162,10 @@ public class TableController {
         accordion.getPanes().add(titledPane);
     }
 
-
+    /**
+     * Sets the activities ArrayList to the passed ArrayList of activities.
+     * @param inputActivities The new ArrayList of activities.
+     */
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }

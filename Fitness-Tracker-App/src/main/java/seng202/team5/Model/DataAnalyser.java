@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 /**
  * This class performs analytics on the data uploaded into the application by the user.
+ * The results of these calculations are then added to the DataSet and DataPoints of the
+ * passed Activity.
  */
 public class DataAnalyser {
 

@@ -8,6 +8,9 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 
+/**
+ * THis class handles the controls of the profile viewing tab of the application.
+ */
 public class ProfController {
     @FXML
     private  TextField nameText;
@@ -29,7 +32,8 @@ public class ProfController {
 
     @FXML
     /**
-     * Displays all the information about the current user.
+     * Called by a press to the viewButton, this method displays all of the users
+     * personal information.
      */
     public void viewProfile() {
         viewButton.setDisable(true);
