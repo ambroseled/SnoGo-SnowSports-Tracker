@@ -496,12 +496,11 @@ public class DataBaseController {
 
     }
 
-
+/*
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
-        User user = new User("Beth Yode", 26, 1.57, 56);
-        db.storeNewUser(user);
     }
+*/
 
 
 }
