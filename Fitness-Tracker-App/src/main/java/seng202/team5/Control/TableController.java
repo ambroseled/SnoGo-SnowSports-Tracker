@@ -39,7 +39,7 @@ public class TableController {
      */
     private void initialise() {
         int numActivities = activities.size();
-        for (int i = 0; i < (numActivities - 1); i += 1) {
+        for (int i = 0; i < (numActivities); i += 1) {
             addActivityPanels(i);
         }
     }
@@ -55,7 +55,7 @@ public class TableController {
         viewButton.setVisible(false);
         viewButton.setDisable(true);
         InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
         setActivities(inputActivities);
 
         initialise();
@@ -87,7 +87,7 @@ public class TableController {
         accordion.getPanes().clear();
 
         InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
         setActivities(inputActivities);
 
         initialise();
