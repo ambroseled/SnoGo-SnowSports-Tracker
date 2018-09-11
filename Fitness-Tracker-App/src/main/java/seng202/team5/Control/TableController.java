@@ -78,12 +78,16 @@ public class TableController {
 
     @FXML
 
-    public void loadFile() {
+    public File loadFile() {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV", "*.csv")
+        );
         File f = fileChooser.showOpenDialog(null);
-        System.out.println(f.getAbsolutePath());
+
+        return f;
 
     }
     /**
