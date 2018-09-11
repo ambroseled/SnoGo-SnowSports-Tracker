@@ -1,5 +1,9 @@
 package seng202.team5.Model;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,6 +22,7 @@ public class User {
     private ArrayList<Activity> activities;
     private ArrayList<Alert> alerts = new ArrayList<>();
     private ArrayList<Goal> goals = new ArrayList<>();
+    DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
 
 
 
@@ -29,13 +34,14 @@ public class User {
      * @param weight
      * @param activities
      */
-    public User(String name, int age, double height, double weight, ArrayList<Activity> activities){
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, Date birthDate){
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
         this.activities = activities;
         bmi = DataAnalyser.calcBMI(height, weight);
+        this.birthDate = birthDate;
     }
 
 
@@ -48,7 +54,7 @@ public class User {
      * @param weight
      * @param activities
      */
-    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id){
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id, String dateString){
         this.id = id;
         this.name = name;
         this.age = age;
@@ -56,6 +62,12 @@ public class User {
         this.weight = weight;
         this.activities = activities;
         bmi = DataAnalyser.calcBMI(height, weight);
+        try {
+            birthDate = dateTimeFormat.parse(dateString);
+        } catch (ParseException e) {
+
+        }
+
     }
 
     /**
@@ -65,12 +77,13 @@ public class User {
      * @param height
      * @param weight
      */
-    public User(String name, int age, double height, double weight) {
+    public User(String name, int age, double height, double weight, Date birthDate) {
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
         bmi = DataAnalyser.calcBMI(height, weight);
+        this.birthDate = birthDate;
     }
 
 

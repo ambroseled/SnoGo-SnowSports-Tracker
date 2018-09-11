@@ -69,9 +69,10 @@ public class DataBaseController {
                 double weight = set.getDouble("Weight");
                 double height = set.getDouble("Height");
                 int age = set.getInt("Age");
+                String birth = set.getString("BirthDate");
                 ArrayList<Activity> activities = getActivities(id);
                 // Creating the user
-                newUser = new User(name, age, height, weight, activities, id);
+                newUser = new User(name, age, height, weight, activities, id, birth);
                 // Adding the user to the ArrayList
                 users.add(newUser);
             }

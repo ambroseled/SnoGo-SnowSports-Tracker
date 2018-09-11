@@ -20,7 +20,6 @@ public class DataAnalyser {
 
     // Add a user that is passed here once user loading is working in the app
     public void analyseActivity(Activity activity) {
-        System.out.println(activity.getName());
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         // Getting the data points out of the dataSet
