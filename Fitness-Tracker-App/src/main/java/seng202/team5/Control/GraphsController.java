@@ -68,7 +68,11 @@ public class GraphsController extends Application{
 
 
             for (DataPoint dataPoint : getDataPointsList(i)) {
-                long timeVal = (dataPoint.getDateTime().getTime())/1000;
+                long timeVal = (dataPoint.getDateTime().getTime());
+//                if ((timeVal/1000) > 1451000889) {
+//                    System.out.println(dataPoint);
+//                }
+
                 double speedVal = dataPoint.getSpeed();
                 series.getData().add(new XYChart.Data(timeVal, speedVal));
             }
