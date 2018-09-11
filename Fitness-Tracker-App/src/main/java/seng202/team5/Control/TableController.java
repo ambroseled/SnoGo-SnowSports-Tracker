@@ -63,6 +63,23 @@ public class TableController {
 
     @FXML
     /**
+     * Called by a press of the viewButton, this method displays the users current
+     * activities in the application.
+     */
+    public void viewData(String filePath) {
+        resetButton.setVisible(true);
+        resetButton.setDisable(false);
+        viewButton.setVisible(false);
+        viewButton.setDisable(true);
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+        setActivities(inputActivities);
+
+        initialise();
+    }
+
+    @FXML
+    /**
      * Called by a press of the resetButton, this method clears and then refills the display
      * of the users activities.
      */
@@ -78,7 +95,7 @@ public class TableController {
 
     @FXML
 
-    public File loadFile() {
+    public void loadFile() {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CSV File");
@@ -86,8 +103,7 @@ public class TableController {
                 new FileChooser.ExtensionFilter("CSV", "*.csv")
         );
         File f = fileChooser.showOpenDialog(null);
-
-        return f;
+        viewData(f.getAbsolutePath());
 
     }
     /**
