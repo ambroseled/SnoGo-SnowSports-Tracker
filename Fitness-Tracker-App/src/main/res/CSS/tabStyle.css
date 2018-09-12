@@ -14,11 +14,12 @@
 }
 
 
-.tab-label {
+.tab-label{
 
-    background: black;
+    -fx-alignment: center;
     -fx-font-size: 18px;
-    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
 }
 
 
