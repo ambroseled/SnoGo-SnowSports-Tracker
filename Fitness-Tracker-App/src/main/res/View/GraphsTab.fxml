@@ -21,43 +21,46 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                   <RowConstraints />
               </rowConstraints>
                <children>
-                  <LineChart fx:id="speedChart" prefWidth="308.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                  <LineChart fx:id="speedChart" prefWidth="308.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <xAxis>
-                      <NumberAxis side="BOTTOM" fx:id="xAxis" />
+                      <NumberAxis side="BOTTOM"/>
                     </xAxis>
                     <yAxis>
-                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                      <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="distanceChart" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                  <LineChart fx:id="distanceChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
                      <xAxis>
-                        <NumberAxis side="BOTTOM" fx:id="xAxis1" />
+                        <NumberAxis side="BOTTOM"/>
                      </xAxis>
                      <yAxis>
-                        <NumberAxis fx:id="yAxis1" side="LEFT" />
+                        <NumberAxis side="LEFT" />
                      </yAxis>
                   </LineChart>
-                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
                      <xAxis>
-                        <NumberAxis side="BOTTOM" fx:id="xAxis2" />
+                        <NumberAxis side="BOTTOM"/>
                      </xAxis>
                      <yAxis>
-                        <NumberAxis fx:id="yAxis2" side="LEFT" />
+                        <NumberAxis side="LEFT" />
                      </yAxis>
                   </LineChart>
-                  <LineChart fx:id="caloriesChart" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                  <LineChart fx:id="caloriesChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
                      <xAxis>
-                        <NumberAxis side="BOTTOM" fx:id="xAxis21" />
+                        <NumberAxis side="BOTTOM"/>
                      </xAxis>
                      <yAxis>
-                        <NumberAxis fx:id="yAxis21" side="LEFT" />
+                        <NumberAxis side="LEFT" />
                      </yAxis>
                   </LineChart>
                </children>
@@ -70,6 +73,6 @@
          </font>
       </Label>
       <Label layoutX="72.0" layoutY="41.0" text="For Activity" />
-      <ChoiceBox layoutX="146.0" layoutY="37.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="activityChoice" layoutX="146.0" layoutY="37.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

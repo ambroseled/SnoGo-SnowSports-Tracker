@@ -28,20 +28,26 @@ public class GraphsController extends Application{
     LineChart<Number,Number> speedChart;
 
     @FXML
-    NumberAxis xAxis;
+    LineChart<Number,Number> distanceChart;
 
     @FXML
-    NumberAxis yAxis;
+    LineChart<Number,Number> heartRateChart;
+
+    @FXML
+    LineChart<Number,Number> caloriesChart;
 
 
-    private XYChart.Series createGraph() {
+
+    private XYChart.Series createGraph(LineChart lineChart) {
+        NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Time");
         xAxis.setForceZeroInRange(false); //Stops the chart starting at (0,0) every time
 
         //Defining the y axis
+        NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
         yAxis.setLabel("Speed");
 
-        speedChart.setTitle("Speed graph");
+        lineChart.setTitle("Speed graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
