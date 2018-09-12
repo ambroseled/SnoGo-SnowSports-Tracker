@@ -1,17 +1,16 @@
 .tab {
 
-    -fx-background-color: blue;
+    -fx-background-color: #1da5f9;
     -fx-pref-width: 178;
-    -fx-border-radius: 16px;
+    -fx-border-radius: 0px;
 }
 
 
 .tab:hover, .tab:selected {
 
-    -fx-background-color: #FFFFFF;
-    -fx-focus-color: white;
+    -fx-background-color: #0077c1;
+    -fx-focus-color: #0077c1;
     -fx-faint-focus-color: transparent;
-    -fx-text-fill: ladder(background, blue 49%, black 50%);
 }
 
 
@@ -20,26 +19,19 @@
     background: black;
     -fx-font-size: 18px;
     -fx-text-fill: ladder(background, white 49%, black 50%);
-
 }
 
 
-.tab-label:hover, .tab:selected > .tab-container > .tab-label {
-
-    background: black;
-
-    -fx-text-fill: ladder(background, blue 49%, black 50%);
-}
 
 .tab-header-background {
     -fx-background-color: linear-gradient(to top, #00C1FF, #002BFF) ;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab {
-    -fx-background-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
-    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
+    /*-fx-background-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
+    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;*/
 }
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
+    -fx-border-radius: 0px;
 }
