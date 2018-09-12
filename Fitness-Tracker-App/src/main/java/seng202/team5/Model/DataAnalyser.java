@@ -54,6 +54,7 @@ public class DataAnalyser {
         dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
         dataSet.setTopSpeed(topSpeed(dataSet));
         dataSet.setSlopeTime(slopeTime(dataSet));
+        dataSet.setAvgSpeed(calcAvgSpeed(dataSet));
 
         /**
          * Uncomment when user loading is working in the app
@@ -362,5 +363,23 @@ public class DataAnalyser {
             }
         }
         return time;
+    }
+
+
+    /**
+     * Calculates the average speed of the user over their active DataPoints
+     * @param dataSet The DaraSet to find the average speed for.
+     * @return The found average speed.
+     */
+    private double calcAvgSpeed(DataSet dataSet) {
+        double avg = 0.0;
+        int count = 0;
+        for (DataPoint x : dataSet.getDataPoints()) {
+            if (x.isActive()) {
+                count++;
+                avg += x.getSpeed();
+            }
+        }
+        return roundNum(avg / count);
     }
 }

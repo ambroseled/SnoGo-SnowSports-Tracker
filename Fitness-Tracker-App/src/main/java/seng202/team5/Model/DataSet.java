@@ -15,9 +15,10 @@ public class DataSet {
     private double totalDistance;
     private double verticalDistance;
     private int avgHeartRate;
-    private int id;
+    private int id = -1;
     private double caloriesBurned;
     private double slopeTime;
+    private double avgSpeed;
 
     /**
      *
@@ -37,7 +38,7 @@ public class DataSet {
      * @param dataPoints
      */
     public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate,
-                   ArrayList<DataPoint> dataPoints, double caloriesBurned, double slopeTime) {
+                   ArrayList<DataPoint> dataPoints, double caloriesBurned, double slopeTime, double avgSpeed) {
         this.id = id;
         this.topSpeed = topSpeed;
         this.totalDistance = totalDistance;
@@ -46,6 +47,7 @@ public class DataSet {
         this.dataPoints = dataPoints;
         this.caloriesBurned = caloriesBurned;
         this.slopeTime = slopeTime;
+        this.avgSpeed = avgSpeed;
     }
 
 
@@ -134,6 +136,20 @@ public class DataSet {
         return point.getDateTime();
     }
 
+
+    public double getAvgSpeed() {
+        return avgSpeed;
+    }
+
+
+    public void setAvgSpeed(double avgSpeed) {
+        this.avgSpeed = avgSpeed;
+    }
+
+
+    public void setDataPoints(ArrayList<DataPoint> dataPoints) {
+        this.dataPoints = dataPoints;
+    }
 
     /**
      *

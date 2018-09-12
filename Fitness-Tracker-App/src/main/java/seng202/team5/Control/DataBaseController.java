@@ -150,9 +150,10 @@ public class DataBaseController {
             ArrayList<DataPoint> dataPoints = getDataPoints(setId);
             double calories = set.getDouble("Calories");
             double slopeTime = set.getDouble("SlopeTime");
+            double avgSpeed = set.getDouble("AvgSpeed");
 
             // Creating the DataSet
-            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime);
+            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
             // Returning the DataSet
             return dataSet;
         } catch (SQLException e) {
@@ -163,6 +164,9 @@ public class DataBaseController {
     }
 
 
+
+
+    //TODO: Change format of dateTime so it actually works
     /**
      * Gets all the DataPoints out of the database that are related to a passed DataSet id.
      * @param setID The DataSet id to find DataPoints for.
@@ -278,8 +282,9 @@ public class DataBaseController {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
-                                "Activity) Values (%f, %f, %d, %f, %d)", toAdd.getTopSpeed(), toAdd.getTotalDistance(),
-                        toAdd.getAvgHeartRate(), toAdd.getVerticalDistance(), actId);
+                                "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f)",
+                        toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
+                        toAdd.getVerticalDistance(), actId, toAdd.getSlopeTime(), toAdd.getAvgSpeed());
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {
@@ -288,8 +293,10 @@ public class DataBaseController {
     }
 
 
+
+    //TODO: Change dateTime format
     /**
-     * Not working as i dont know how to pass the date object
+     *
      * @param toAdd
      * @param setId
      * @return

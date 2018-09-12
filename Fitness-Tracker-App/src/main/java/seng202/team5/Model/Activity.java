@@ -8,7 +8,7 @@ public class Activity {
 
     private String name;
     private DataSet dataSet = new DataSet();
-    private int id;
+    private int id = -1;
 
 
     /**

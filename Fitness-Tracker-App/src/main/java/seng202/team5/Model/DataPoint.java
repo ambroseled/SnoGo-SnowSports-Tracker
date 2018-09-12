@@ -20,7 +20,7 @@ public class DataPoint {
 
 
     /**
-     *
+     * The constructor used to make a new DataPoint when the data is being parsed from a csv file.
      * @param newDateTime
      * @param newHeartRate
      * @param newLatitude
@@ -37,7 +37,7 @@ public class DataPoint {
 
 
     /**
-     *
+     * This constructor is used when a DataPoint is read from the database.
      * @param id
      * @param newDateTime
      * @param newHeartRate
