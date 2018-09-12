@@ -235,6 +235,7 @@ public class GoalController {
         metricCombo.getItems().clear();
         dateEntry.clear();
         valueCombo.getItems().clear();
+        refreshData();
     }
 
 
@@ -263,6 +264,7 @@ public class GoalController {
     private void checkChecks() {
         if (valueCheck.isSelected() && metricCheck.isSelected() && dateCheck.isSelected() && nameCheck.isSelected()) {
             createButton.setDisable(false);
+            createButton.setOpacity(0.7);
         } else {
             createButton.setDisable(true);
         }
