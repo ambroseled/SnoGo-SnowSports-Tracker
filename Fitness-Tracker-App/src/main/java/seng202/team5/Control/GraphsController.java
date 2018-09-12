@@ -67,7 +67,7 @@ public class GraphsController extends Application{
 
 
 
-            for (DataPoint dataPoint : getDataPointsList(i)) {
+            for (DataPoint dataPoint : getDataPointsList(5)) {
                 long timeVal = (dataPoint.getDateTime().getTime());
 //                if ((timeVal/1000) > 1451000889) {
 //                    System.out.println(dataPoint);
@@ -90,7 +90,7 @@ public class GraphsController extends Application{
 
 
         InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
