@@ -58,6 +58,14 @@ public class GraphsController extends Application{
              //Need to set lower and upper bounds, but this command isn't working
 
 
+            /////////////////
+            /**
+             * You should save the time of the first dataPoint and then set it to zero,
+             * and then for all other DataPoints minus the time of the first dataPoint to
+             * get their relative time value.
+             */
+            /////////////////
+
 
             for (DataPoint dataPoint : getDataPointsList(3)) {
                 long timeVal = (dataPoint.getDateTime().getTime());
