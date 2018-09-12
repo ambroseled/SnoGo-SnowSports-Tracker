@@ -25,7 +25,7 @@ public class GraphsController extends Application{
     private ArrayList<Activity> activities;
 
     @FXML
-    LineChart<Number,Number> lineChart;
+    LineChart<Number,Number> speedChart;
 
     @FXML
     NumberAxis xAxis;
@@ -35,25 +35,17 @@ public class GraphsController extends Application{
 
 
     private XYChart.Series createGraph() {
-
-        //defining the axes
-//        long lowerBound = getDataPointsList(0).get(0).getDateTime().getTime();
-//        System.out.println(lowerBound/1000);
-//        NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
-//        xAxis.setLowerBound(lowerBound);
-
         xAxis.setLabel("Time");
-        xAxis.setForceZeroInRange(false);
+        xAxis.setForceZeroInRange(false); //Stops the chart starting at (0,0) every time
 
         //Defining the y axis
         yAxis.setLabel("Speed");
-        //creating the chart
 
-        lineChart.setTitle("Speed graph");
+        speedChart.setTitle("Speed graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
-        series.setName("Speed");
+        series.setName("Speed"); //
         //populating the series with data
 
         return series;
@@ -67,7 +59,7 @@ public class GraphsController extends Application{
 
 
 
-            for (DataPoint dataPoint : getDataPointsList(5)) {
+            for (DataPoint dataPoint : getDataPointsList(3)) {
                 long timeVal = (dataPoint.getDateTime().getTime());
 //                if ((timeVal/1000) > 1451000889) {
 //                    System.out.println(dataPoint);
@@ -81,7 +73,7 @@ public class GraphsController extends Application{
 //        xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
 //        ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
 //        xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
-        lineChart.getData().add(series);
+        speedChart.getData().add(series);
     }
 
     @Override
