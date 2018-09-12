@@ -18,3 +18,9 @@
 .linear-grad-to-bottom{
     -fx-background-color: linear-gradient(to bottom, #002BFF, #00C1FF);
 }
+
+.grid-pane {
+
+    -fx-background-color: white;
+}
+
