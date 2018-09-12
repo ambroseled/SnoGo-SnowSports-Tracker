@@ -1,6 +1,6 @@
 .tab {
 
-    -fx-background-color: #0077c1;
+    -fx-background-color: #005e99;
     -fx-pref-width: 178;
     -fx-border-radius: 0px;
 }
@@ -25,7 +25,7 @@
 
 .tab-header-background {
     /*-fx-background-color: linear-gradient(to top, #00C1FF, #002BFF) ;*/
-    -fx-background-color: #0077c1;
+    -fx-background-color: #005e99;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab {

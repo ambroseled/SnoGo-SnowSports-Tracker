@@ -21,6 +21,15 @@
 
 .grid-pane {
 
-    -fx-background-color: white;
+    -fx-background-color: rgba(0, 119, 193, 0.7);
+}
+
+.root {
+
+    -fx-background-image: url("background3.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1280 720;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
