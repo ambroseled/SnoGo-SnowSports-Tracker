@@ -172,6 +172,7 @@ public class GoalController {
     private void fillValueCombo(String metric) {
         valueCombo.setDisable(false);
         valueCombo.getItems().clear();
+        valueCombo.setOpacity(0.8);
         ObservableList<Double> values = FXCollections.observableArrayList();
         if (metric.equals("Top Speed, (m/s)")) {
             for (double i = 10.0; i < 34.0; i += 0.5) {

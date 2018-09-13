@@ -15,6 +15,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+
+//TODO: Fix scroll pane, Needs to scroll for expanded activity
+
+
+
+
+
 /**
  * This class hanldes the controls for the data view tab of the application. It
  * handles the display of raw data as well as the loading of files.
@@ -65,7 +72,6 @@ public class TableController {
      * Called by a press of the viewButton, this method displays the users current
      * activities in the application.
      */
-
     public void viewData(String filePath) {
         resetButton.setVisible(true);
         resetButton.setDisable(false);

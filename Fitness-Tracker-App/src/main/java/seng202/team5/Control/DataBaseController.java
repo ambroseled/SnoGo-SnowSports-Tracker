@@ -502,6 +502,10 @@ public class DataBaseController {
 
     }
 
+
+
+    //TODO: Delete methods for all tables
+
 /*
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
