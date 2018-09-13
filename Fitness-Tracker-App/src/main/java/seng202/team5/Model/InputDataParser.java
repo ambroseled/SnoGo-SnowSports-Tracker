@@ -108,15 +108,8 @@ public class InputDataParser {
 	} */
 
 
-
 	public static void setCurrentUser(User user) {
         currentUser = user;
     }
 
-	public static void main(String[] args) {
-        InputDataParser test = new InputDataParser();
-        
-        ArrayList<Activity> activities = test.parseCSVToActivities("testData.csv");
-
-    }
 }
