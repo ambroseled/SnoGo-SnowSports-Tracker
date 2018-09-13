@@ -71,9 +71,8 @@ public class GoalController {
         refreshButton.setVisible(true);
         refreshButton.setDisable(false);
 
-        for (Goal i : currentUser.getGoals()) {
-            goals.add(i);
-        }
+
+        goals.addAll(db.getGoals(currentUser.getId()));
 
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
@@ -95,9 +94,7 @@ public class GoalController {
         goalTable.getItems().clear();
 
 
-        for (Goal i : currentUser.getGoals()) {
-            goals.add(i);
-        }
+        goals.addAll(db.getGoals(currentUser.getId()));
 
         goalTable.setItems(goals);
 
@@ -110,7 +107,7 @@ public class GoalController {
      */
     public void nameEntry() {
         String text = goalName.getText();
-        if (text.length() > 4 && text.length() < 25) {
+        if (text.length() > 4 && text.length() < 30) {
             nameCheck.setSelected(true);
         } else {
             nameCheck.setSelected(false);
@@ -223,9 +220,7 @@ public class GoalController {
         currentUser.addGoal(newGoal);
 
         // Store the goal into the database
-        /*
         db.storeGoal(newGoal, currentUser.getId());
-        */
 
 
         nameCheck.setSelected(false);

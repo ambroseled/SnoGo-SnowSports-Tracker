@@ -453,7 +453,8 @@ public class DataBaseController {
             Statement stmt = connection.createStatement();
             String query = "SELECT ID FROM " + table;
             ResultSet set = stmt.executeQuery(query);
-
+            ArrayList<Integer> ids = new ArrayList<>();
+            // TODO: add things to list and get max
             // Looping over the results to find the last id
             while (set.next()) {
                 id = set.getInt("ID");

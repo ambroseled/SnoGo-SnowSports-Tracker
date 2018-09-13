@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.team5.Model.User;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -66,7 +68,6 @@ public class AppController extends Application {
 
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }

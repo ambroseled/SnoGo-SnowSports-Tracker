@@ -38,6 +38,7 @@ public class AlertController {
     private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
+    private DataBaseController db = new DataBaseController();
 
 
     @FXML
@@ -52,7 +53,7 @@ public class AlertController {
         refreshButton.setDisable(false);
 
 
-        alerts.addAll(currentUser.getAlerts());
+        alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
@@ -73,7 +74,7 @@ public class AlertController {
     public void refreshData() {
         alertTable.getItems().clear();
 
-        alerts.addAll(currentUser.getAlerts());
+        alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
         alertTable.setItems(alerts);
