@@ -164,9 +164,6 @@ public class DataBaseController {
     }
 
 
-
-
-    //TODO: Change format of dateTime so it actually works
     /**
      * Gets all the DataPoints out of the database that are related to a passed DataSet id.
      * @param setID The DataSet id to find DataPoints for.
@@ -187,7 +184,7 @@ public class DataBaseController {
             while (set.next()) {
                 // Getting all the information on the DataPoint
                 int pointId = set.getInt("ID");
-                Date dateTime = set.getDate("DateTime");
+                String date = set.getString("DateTime");
                 int heart = set.getInt("HeartRate");
                 double lat = set.getDouble("Latitude");
                 double lon = set.getDouble("Longitude");
@@ -196,7 +193,7 @@ public class DataBaseController {
                 boolean active = set.getBoolean("Active");
 
                 // Creating the Datapoint
-                newPoint = new DataPoint(pointId, dateTime, heart, lat, lon, elev, speed, active);
+                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, speed, active);
                 // Adding the DataPoint to the ArrayList
                 dataPoints.add(newPoint);
             }
@@ -212,7 +209,6 @@ public class DataBaseController {
     /**
      * Stores a passed user in the dataBase.
      * @param toAdd The user to be stored in the database.
-     * @return A boolean holding if the user was successfully stored in the database.
      */
     public void storeNewUser(User toAdd) {
         // Try-catch is used to catch any exception that are throw wile executing the update
@@ -245,20 +241,21 @@ public class DataBaseController {
      * Stores a passed activity in the database.
      * @param toAdd The activity to be stored.
      * @param userId The related user for the activity being stored.
-     * @return A boolean holding if the store operation was successful.
      */
     public void storeActivity(Activity toAdd, int userId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking if activity is already in teh database or the related us is not in the database
             int id = toAdd.getId();
-            if (!checkId("DataPoint", id) && checkId("Activity", userId)) {
+            if (!checkId("Activity", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the activity
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO Activity (Name, User) Values ('%s', %d)",
                         toAdd.getName(), userId);
                 stmt.executeUpdate(query);
                 storeDataSet(toAdd.getDataSet(), findId("Activity"));
+                int actId = findId("Activity");
+                storeDataSet(toAdd.getDataSet(), actId);
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -271,21 +268,24 @@ public class DataBaseController {
      * Stores a passed DataSet into the database.
      * @param toAdd The DataSet to be stored.
      * @param actId The related activty for the DataSet being stored.
-     * @return A boolean holding if the store operation was successful.
      */
     public void storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataSet is not already in the database and that the activity passed is in the database
             int id = toAdd.getId();
-            if (!checkId("DataPoint", id) && checkId("Activity", actId)) {
+            if (!checkId("DataSet", id) && checkId("Activity", actId)) {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
-                                "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f)",
+                                "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f %f)",
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
                         toAdd.getVerticalDistance(), actId, toAdd.getSlopeTime(), toAdd.getAvgSpeed());
                 stmt.executeUpdate(query);
+                int setId = findId("DataSet");
+                for (DataPoint x : toAdd.getDataPoints()) {
+                    storeDatePoint(x, setId);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -294,12 +294,10 @@ public class DataBaseController {
 
 
 
-    //TODO: Change dateTime format
     /**
-     *
-     * @param toAdd
-     * @param setId
-     * @return
+     * Stores a passed DataPoint in the database.
+     * @param toAdd The DataPoint to be stored
+     * @param setId The DataSet that the passed DataPoint belongs to.
      */
     public void storeDatePoint(DataPoint toAdd, int setId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
@@ -504,11 +502,17 @@ public class DataBaseController {
 
     }
 
-/*
+
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
+        InputDataParser parser = new InputDataParser();
+        ArrayList<Activity> activities = parser.parseCSVToActivities("huttTestData.csv");
+        db.storeDataSet(activities.get(0).getDataSet(), 1);
+        db.storeDataSet(activities.get(1).getDataSet(), 2);
+        db.storeDataSet(activities.get(2).getDataSet(), 3);
+        db.storeDataSet(activities.get(3).getDataSet(), 4);
     }
-*/
+
 
 
 }

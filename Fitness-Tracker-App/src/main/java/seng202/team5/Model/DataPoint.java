@@ -1,5 +1,8 @@
 package seng202.team5.Model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -39,7 +42,7 @@ public class DataPoint {
     /**
      * This constructor is used when a DataPoint is read from the database.
      * @param id
-     * @param newDateTime
+     * @param date
      * @param newHeartRate
      * @param newLatitude
      * @param newLongitude
@@ -47,8 +50,7 @@ public class DataPoint {
      * @param speed
      * @param active
      */
-    public DataPoint(int id, Date newDateTime, int newHeartRate, double newLatitude, double newLongitude, double newElevation, double speed, boolean active) {
-        dateTime = newDateTime;
+    public DataPoint(int id, String date, int newHeartRate, double newLatitude, double newLongitude, double newElevation, double speed, boolean active) {
         heartRate = newHeartRate;
         latitude = newLatitude;
         longitude = newLongitude;
@@ -56,6 +58,13 @@ public class DataPoint {
         this.id = id;
         this.speed = speed;
         this.active = active;
+
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+            this.dateTime = dateTimeFormat.parse(date);
+        } catch (ParseException e) {
+            System.out.println("Error parsing date: " + e.getLocalizedMessage());
+        }
     }
 
 
