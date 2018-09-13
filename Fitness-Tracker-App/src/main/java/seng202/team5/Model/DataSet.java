@@ -182,7 +182,7 @@ public class DataSet {
      * @param vetical
      */
     public void setVerticalDistance(double vetical) {
-        verticalDistance = verticalDistance;
+        verticalDistance = vetical;
     }
 
 

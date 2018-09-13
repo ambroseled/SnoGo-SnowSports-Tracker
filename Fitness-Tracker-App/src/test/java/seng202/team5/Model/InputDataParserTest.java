@@ -6,6 +6,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 
+
+
+//TODO: Make corrupt and invalid test files to be tested
+//TODO: More tests to check the functionality of the parser
+
 public class InputDataParserTest {
 
 
