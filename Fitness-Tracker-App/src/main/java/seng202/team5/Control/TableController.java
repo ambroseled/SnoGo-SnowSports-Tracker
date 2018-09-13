@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.InputDataParser;
+import seng202.team5.Model.*;
 
 
 import java.io.File;
@@ -33,6 +30,9 @@ public class TableController {
 
     private ArrayList<Activity> activities;
 
+    private DataBaseController db = AppController.getDb();
+    private User currentUser = AppController.getCurrentUser();
+
 
     /**
      *
@@ -54,8 +54,7 @@ public class TableController {
         resetButton.setDisable(false);
         viewButton.setVisible(false);
         viewButton.setDisable(true);
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
+        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
 
         initialise();
@@ -66,6 +65,7 @@ public class TableController {
      * Called by a press of the viewButton, this method displays the users current
      * activities in the application.
      */
+
     public void viewData(String filePath) {
         resetButton.setVisible(true);
         resetButton.setDisable(false);
@@ -86,8 +86,7 @@ public class TableController {
     public void resetData() {
         accordion.getPanes().clear();
 
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
+        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
 
         initialise();

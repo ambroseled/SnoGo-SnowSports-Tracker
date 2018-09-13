@@ -502,15 +502,11 @@ public class DataBaseController {
 
     }
 
-
+/*
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
-        ArrayList<DataPoint> points = db.getDataPoints(2);
-        for (DataPoint x : points) {
-            System.out.println(x.toString());
-        }
     }
-
+*/
 
 
 }
