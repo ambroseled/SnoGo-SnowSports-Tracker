@@ -278,9 +278,9 @@ public class DataBaseController {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
-                                "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f %f)",
+                                "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f, %f)",
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
-                        toAdd.getVerticalDistance(), actId, toAdd.getSlopeTime(), toAdd.getAvgSpeed());
+                        toAdd.getVerticalDistance(), actId, toAdd.getCaloriesBurned(), toAdd.getSlopeTime(), toAdd.getAvgSpeed());
                 stmt.executeUpdate(query);
                 int setId = findId("DataSet");
                 for (DataPoint x : toAdd.getDataPoints()) {
@@ -505,12 +505,10 @@ public class DataBaseController {
 
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
-        InputDataParser parser = new InputDataParser();
-        ArrayList<Activity> activities = parser.parseCSVToActivities("huttTestData.csv");
-        db.storeDataSet(activities.get(0).getDataSet(), 1);
-        db.storeDataSet(activities.get(1).getDataSet(), 2);
-        db.storeDataSet(activities.get(2).getDataSet(), 3);
-        db.storeDataSet(activities.get(3).getDataSet(), 4);
+        ArrayList<DataPoint> points = db.getDataPoints(2);
+        for (DataPoint x : points) {
+            System.out.println(x.toString());
+        }
     }
 
 

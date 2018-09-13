@@ -16,7 +16,7 @@ public class DataSet {
     private double verticalDistance;
     private int avgHeartRate;
     private int id = -1;
-    private double caloriesBurned;
+    private double caloriesBurned = 0;
     private double slopeTime;
     private double avgSpeed;
 

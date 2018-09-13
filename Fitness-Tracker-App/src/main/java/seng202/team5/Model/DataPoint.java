@@ -150,7 +150,7 @@ public class DataPoint {
      * Gets the value of the heart rate of the DataPoint.
      * @return The heart rate of the DataPoint.
      */
-    public double getHeartRate() {
+    public int getHeartRate() {
         return heartRate;
     }
 
