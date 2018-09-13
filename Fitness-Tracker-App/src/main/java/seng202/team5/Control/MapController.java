@@ -1,66 +1,69 @@
+
 package seng202.team5.Control;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.InputDataParser;
-import seng202.team5.Model.User;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import seng202.team5.Model.Position;
+import seng202.team5.Model.Route;
 
-import java.util.ArrayList;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-
-/**
- * This class handles the controls of the map view
- */
-public class MapController {
-
-    private ArrayList<Activity> activities;
-    private User currentUser;
-    private InputDataParser parser = new InputDataParser();
+public class MapController implements Initializable {
+    @FXML
+    private ToggleGroup routeSelection;
+    @FXML
+    private RadioButton routeARadioButton;
 
     @FXML
-    private ComboBox<String> activityCombo;
-    @FXML
-    private Button selectButton;
-    @FXML
-    private Button loadButton;
-    private ObservableList<String> names = FXCollections.observableArrayList();
+    private WebView webView;
 
-    @FXML
-    public void displayActivities() {
-        selectButton.setVisible(true);
-        loadButton.setVisible(false);
-        loadButton.setDisable(true);
-        currentUser = AppController.getCurrentUser();
-       // activities = currentUser.getActivities();
-        activities = parser.parseCSVToActivities("testData.csv");
+    private WebEngine webEngine;
 
-        if (activities != null) {
-            fillList(activities);
-            activityCombo.setItems(names);
-        }
+    private FXMLLoader loader = new FXMLLoader();
+    private Class c = getClass();
+
+
+    private Route routeA = new Route(
+            new Position(37.772, -122.214),
+            new Position(21.291, -157.821),
+            new Position(-18.142, 178.431),
+            new Position(-27.467, 153.027)
+    );
+
+    private Route routeB = new Route(
+            new Position(-33.946111, 151.177222),
+            new Position(-43.489444, 172.532222)
+    );
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initMap();
+
+        routeSelection.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == routeARadioButton) {
+                displayRoute(routeA);
+            } else {
+                displayRoute(routeB);
+            }
+        });
     }
 
-
-    
-    @FXML
-    public void selectButtonPress() {
-        String name = activityCombo.getValue();
-        System.out.println(name);
-        /**
-         * This needs to get the activity out of the list
-         */
+    private void initMap() {
+        webEngine = webView.getEngine();
+        webEngine.load(MapController.class.getResource("/View/map.html").toExternalForm());
     }
 
-
-    private void fillList(ArrayList<Activity> activities) {
-        for (Activity activity : activities) {
-            names.add(activity.getName());
-        }
+    private void displayRoute(Route newRoute) {
+        String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
+        webEngine.executeScript(scriptToExecute);
     }
+
 
 
 }
