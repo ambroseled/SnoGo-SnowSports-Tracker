@@ -20,7 +20,7 @@ public class InputDataParserTest {
     @BeforeClass
     public static void beforeAll() {
         InputDataParser parser = new InputDataParser();
-        activities = parser.parseCSVToActivities("TestFiles/parserTestData.csv");
+        activities = parser.parseCSVToActivities("TestFiles/dataAnalysisTests.csv");
     }
 
 
