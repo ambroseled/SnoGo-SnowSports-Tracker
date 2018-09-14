@@ -2,9 +2,17 @@
 
 
 .round-blue {
-    -fx-background-color: #004DFF;
+    -fx-background-color: #0C00FF;
     -fx-text-fill: white;
     -fx-background-radius: 16px;
+}
+
+.round-blue:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #0C00FF;
+    -fx-border-color: #0C00FF;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
 }
 
 .trans-round {
@@ -16,11 +24,9 @@
 }
 
 .tab-button {
-    -fx-background-color: #1386d8;
+    -fx-background-color: #0C00FF;
     -fx-text-fill: white;
     -fx-background-radius: 0;
-    -fx-border-width: 0px 2px 0px 2px;
-    -fx-border-color: #0c5c96;
 }
 
 .tab-button:pressed {

@@ -7,48 +7,70 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
+import seng202.team5.Model.User;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
-
-public class appController extends Application {
+/**
+ *
+ */
+public class AppController extends Application {
 
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
+    private static DataBaseController db = new DataBaseController();
+
+
+    ////////////
+    // Used for testing will later be the actual current user.
+    private static User currentUser = db.getUsers().get(0);
+    ////////////
 
 
     public static Stage getAppStage() {
         return  appStage;
     }
 
-    public static void changeScene(String filename, Class c) throws IOException {
-        Stage appStage = appController.getAppStage();
-        URL page = c.getResource(filename);
-        Parent dataParent = loader.load(page);
-        Scene dataScene = new Scene(dataParent);
-        appStage.setScene(dataScene);
-        appStage.show();
-    }
-
-   // public static void clearButtons()
-
 
     public void start(Stage primaryStage) throws Exception {
-        String filename = "/View/mainPage3.fxml";
+        String filename = "/View/tabMain.fxml";
         URL value1 = c.getResource(filename);
-        System.out.println(value1);
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setMinHeight(750);
+        primaryStage.setMinWidth(1280);
+
+        //
+        currentUser.setGoals(db.getGoals(currentUser.getId()));
+        currentUser.setAlerts(db.getAlerts(currentUser.getId()));
+        //
+
 
         appStage = primaryStage;
     }
 
-    public static void main(String[] args) {
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+
+    public static DataBaseController getDb() {
+        return db;
+    }
+
+
+    public static void main(String[] args) {
         launch(args);
     }
 }
+
+
+/**
+ * Need some kind of on exit method here to close the database connection
+ */

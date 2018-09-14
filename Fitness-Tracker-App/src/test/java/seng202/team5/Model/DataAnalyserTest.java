@@ -31,7 +31,6 @@ public class DataAnalyserTest {
     @Test
     public void testAllInactive() {
         Activity activity = activities.get(0);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         // Getting the data points out of the dataSet
@@ -53,7 +52,6 @@ public class DataAnalyserTest {
     @Test
     public void testAllActive() {
         Activity activity = activities.get(1);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         // Getting the data points out of the dataSet
@@ -75,7 +73,6 @@ public class DataAnalyserTest {
     @Test
     public void testAvgHeartAllSame() {
         Activity activity = activities.get(2);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         assertEquals(132, dataSet.getAvgHeartRate(), 0.0);
@@ -89,16 +86,15 @@ public class DataAnalyserTest {
     @Test
     public void testAvgHeartDiff() {
         Activity activity = activities.get(1);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         double[] rates = {132, 156, 154, 151, 146, 139, 141, 149, 154, 149, 146, 142, 138};
-        double average = 0;
+        int average = 0;
         for (int i = 0; i < rates.length; i++){
             average += rates[i];
         }
         average = average / rates.length;
         DataSet dataSet = activity.getDataSet();
-        assertEquals(average, dataSet.getAvgHeartRate(), 0.5);
+        assertEquals(average, dataSet.getAvgHeartRate());
     }
 
 
@@ -110,7 +106,6 @@ public class DataAnalyserTest {
     @Test
     public void testVerticalUp() {
         Activity activity = activities.get(0);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         assertEquals(0, dataSet.getVerticalDistance(), 0);
@@ -125,7 +120,6 @@ public class DataAnalyserTest {
     @Test
     public void testVerticalDown() {
         Activity activity = activities.get(1);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
         double vertical = DataAnalyser.roundNum(1802.69 - 1792.66);
@@ -134,22 +128,32 @@ public class DataAnalyserTest {
 
 
     /**
-     * Testing te speed calculating functions of the DataAnalyser class.
-     * This is done by checking that the correct top speed is found over an
-     * activity.
+     * Testing the topSpeed function. This also tests the appendSpeed and
+     * oneSpeed functions as they are used prior to the topSpeed function.
      */
     @Test
-    public void testSpeed() {
+    public void testTopSpeed() {
         Activity activity = activities.get(1);
-        dataAnalyser.analyseActivity(activity);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
-        assertEquals(2.0, dataSet.getTopSpeed(), 0.0);
+        assertEquals(10.84, dataSet.getTopSpeed(), 0.0);
     }
+
+  @Test
+  /**
+   * Testing the calcAvgSpeed function. This also tests the appendSpeed and
+   * oneSpeed functions as they are used prior to the calcAvgSpeed function.
+   */
+     public void testAvgSpeed() {
+         Activity activity = activities.get(1);
+        // Getting the dataSet out of the activity
+         DataSet dataSet = activity.getDataSet();
+         assertEquals(7.35, dataSet.getAvgSpeed(), 0.0);
+     }
 
 
     /**
-     * Testing the calcBMI() function.
+     * Testing the calcBMI function.
      */
     @Test
     public void testBMI() {
@@ -157,6 +161,13 @@ public class DataAnalyserTest {
         double weight = 70;
         double bmi = dataAnalyser.calcBMI(height, weight);
         assertEquals(22.86, bmi, 0.0);
+    }
+
+
+    //TODO: Implement once slope time is fixed
+
+    @Test
+    public void testSlopeTime() {
     }
 
 }

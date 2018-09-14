@@ -1,20 +1,24 @@
 package seng202.team5.Model;
 
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
 
+/**
+ * This class performs analytics on the data uploaded into the application by the user.
+ * The results of these calculations are then added to the DataSet and DataPoints of the
+ * passed Activity.
+ */
 public class DataAnalyser {
+
+
+
 
     /**
      * Performs analysis on a passed activity.
      * @param activity The activity to analyse.
      */
+
+    // Add a user that is passed here once user loading is working in the app
     public void analyseActivity(Activity activity) {
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
@@ -49,6 +53,13 @@ public class DataAnalyser {
         dataSet.setTotalDistance(previous.getDistance());
         dataSet.setAvgHeartRate(calcAvgHeart(dataSet));
         dataSet.setTopSpeed(topSpeed(dataSet));
+        dataSet.setSlopeTime(slopeTime(dataSet));
+        dataSet.setAvgSpeed(calcAvgSpeed(dataSet));
+
+        /**
+         * Uncomment when user loading is working in the app
+         */
+        //  dataSet.setCaloriesBurned(calcCalBurned(dataSet, user.getWeight()));
     }
 
 
@@ -91,7 +102,6 @@ public class DataAnalyser {
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
-        double[] start = {startLong, startLat, startAlt};
 
 
         Boolean flag = false;
@@ -112,11 +122,10 @@ public class DataAnalyser {
             double endLat = dataPoints.get(endIndex).getLatitude();
             double endLong = dataPoints.get(endIndex).getLongitude();
             double endAlt = dataPoints.get(endIndex).getElevation();
-            double[] end = new double[] {endLong, endLat, endAlt};
 
 
             // Getting the altitude change over the two points
-            double movement = oneDist(start, end);
+            double movement = oneDist(startLat, startLong, endLat, endLong);
             double condition;
             if (flag) {
                 condition = 0.2 * (dataPoints.size() - index);
@@ -137,42 +146,28 @@ public class DataAnalyser {
 
 
     /**
-     * Calculating the cartesian product of a passed location point.
-     * @param alt The altitude
-     * @param longitude The longitude value
-     * @param lat The latitude value.
-     * @return A double array holding the cartesian product.
+     * Calculates the distance traveled between two passed polar points
+     * @param lat1 The latitude of the first point
+     * @param long1 The longitude of the first point
+     * @param lat2 The latitude of the second point
+     * @param long2 The longitude of the second point
+     * @return A double holding the distance between the two points
      */
-    private double[] cartesian(double alt, double longitude, double lat) {
-        // Forming the elements of the cartesian product of the passed point
-        double x = alt * Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(longitude));
-        double y = alt * Math.sin(Math.toRadians(lat));
-        double z = alt * Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(longitude));
-        double[] cart = {x, y, z};
-        // Returning the cartesian product
-        return cart;
+    private double oneDist(double lat1, double long1, double lat2, double long2) {
+        // Getting the change in latitude and longitude
+        double delLon = Math.toRadians(long2 - long1);
+        double delLat = Math.toRadians(lat2 - lat1);
+        // Setting the radius of the earth
+        final double rad = 6371000;
+
+        // Using the haversine formula to find the distance between the two points
+        double temp = Math.pow(Math.sin(delLat / 2), 2) + Math.pow(Math.sin(delLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+        double temp2 = 2 * Math.asin(Math.sqrt(temp));
+
+        // Returning the distance traveled
+        return roundNum(temp2 * rad);
     }
 
-
-    /**
-     * Calculates the distance traveled between two data points,
-     * in the format (longitude, latitude, altitude).
-     * @param point1 First location point.
-     * @param point2 Second location point.
-     * @return A double holding the distance bewtwwen teh two points.
-     */
-    private double oneDist(double[] point1, double[] point2) {
-        // Getting the cartesian product of the two points passed
-        double[] cart1 = cartesian(point1[2], point1[0], point1[1]);
-        double[] cart2 = cartesian(point2[2], point2[0], point2[1]);
-        // Using the cartesian products to get the arguments for the Euclidean formula
-        double arg1 = Math.pow((cart2[0] - cart1[0]), 2);
-        double arg2 = Math.pow((cart2[1] - cart1[1]), 2);
-        double arg3 = Math.pow((cart2[2] - cart1[2]), 2);
-        // Calculating the distance using the Euclidean formula
-        double distance = Math.sqrt(arg1 + arg2 + arg3);
-        return roundNum(distance);
-    }
 
 
     /**
@@ -182,12 +177,10 @@ public class DataAnalyser {
      * @param previous The previous data point.
      */
     private void appendDistance(DataPoint current, DataPoint previous) {
-        // Forming the two points to be passed to calculate the distance
-        double point1[] = {current.getLongitude(), current.getLatitude(), current.getElevation()};
-        double point2[] = {previous.getLongitude(), previous.getLatitude(), previous.getElevation()};
         // Calculating the distance traveled
-        double distance = oneDist(point1, point2) + previous.getDistance();
-        current.setDistance(distance);
+        double distance = oneDist(previous.getLatitude(), previous.getLongitude(), current.getLatitude(), current.getLongitude());
+        distance += previous.getDistance();
+        current.setDistance(roundNum(distance));
     }
 
 
@@ -216,8 +209,10 @@ public class DataAnalyser {
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
         // Calculating the change in distance
         double distance = dist1 - dist2;
-        // Calculating the change in time
+        // Calculating the change in time in seconds
         double time = (time1 - time2)/1000;
+
+        //System.out.println("Distance: " + distance);
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -225,8 +220,6 @@ public class DataAnalyser {
             // The distance change is zero so the speed is zero
             return 0;
         } else {
-           // System.out.println(distance);
-            //System.out.println(time);
             // The speed is above zero and will be calculated
             double speed = distance / time;
             return roundNum(speed);
@@ -257,10 +250,10 @@ public class DataAnalyser {
      * @param dataSet The DataSet of the activity being analysed.
      * @return A double holding the average heart rate found.
      */
-    private double calcAvgHeart(DataSet dataSet) {
+    private int calcAvgHeart(DataSet dataSet) {
         // Getting all DataPoints out of the passed DataSet
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
-        double avg = 0;
+        int avg = 0;
         // Looping through all DataPoints to find the average heart rate
         for (DataPoint point : dataPoints) {
             avg += point.getHeartRate();
@@ -339,4 +332,60 @@ public class DataAnalyser {
 
 
 
+    //TODO: Integrate this in once James has done user entry
+
+    /**
+     * Calculates the calories burned by a user during a passed DataSet.
+     * @param dataSet The DataSet to calculate calories burned on.
+     * @param weight The wieght of the user.
+     * @return The amount of calories burned.
+     */
+    private double calcCalBurned(DataSet dataSet, double weight) {
+        double MET = 7.0;
+        double perMin = (MET * 3.5 * weight) / 200;
+        double startTime = dataSet.getDataPoints().get(0).getDateTime().getTime();
+        double endTime = dataSet.getDataPoints().get(dataSet.getDataPoints().size() - 1).getDateTime().getTime();
+        double timeMilli = endTime - startTime;
+        double timeMin = (timeMilli / 1000.0) / 60.0;
+        return roundNum(perMin * timeMin);
+    }
+
+
+    //TODO: Look over this
+
+
+    /**
+     * Calculates the time the user spends on the slopes.
+     * @param dataSet The DataSet to calculate slope time over.
+     * @return The slope time calculated.
+     */
+    private double slopeTime(DataSet dataSet) {
+        double time = 0.0;
+        ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
+
+        for (int i = 1; i < dataSet.getDataPoints().size(); i++) {
+            if (dataPoints.get(i).isActive()) {
+                time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i).getDateTime().getTime();
+            }
+        }
+        return time;
+    }
+
+
+    /**
+     * Calculates the average speed of the user over their active DataPoints
+     * @param dataSet The DaraSet to find the average speed for.
+     * @return The found average speed.
+     */
+    private double calcAvgSpeed(DataSet dataSet) {
+        double avg = 0.0;
+        int count = 0;
+        for (DataPoint x : dataSet.getDataPoints()) {
+            if (x.isActive()) {
+                count++;
+                avg += x.getSpeed();
+            }
+        }
+        return roundNum(avg / count);
+    }
 }

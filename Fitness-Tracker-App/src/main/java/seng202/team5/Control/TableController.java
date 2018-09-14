@@ -1,45 +1,116 @@
 package seng202.team5.Control;
 
-import javafx.application.Application;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.InputDataParser;
+import javafx.stage.FileChooser;
+import seng202.team5.Model.*;
 
-import java.io.IOException;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class TableController extends Application {
+
+//TODO: Fix scroll pane, Needs to scroll for expanded activity
+
+
+
+
+
+/**
+ * This class hanldes the controls for the data view tab of the application. It
+ * handles the display of raw data as well as the loading of files.
+ */
+public class TableController {
 
     @FXML
     private Accordion accordion;
+    @FXML
+    private Button viewButton;
+    @FXML
+    private Button resetButton;
 
     private ArrayList<Activity> activities;
 
-    public TableController() {}
+    private DataBaseController db = AppController.getDb();
+    private User currentUser = AppController.getCurrentUser();
 
+
+    /**
+     *
+     */
     private void initialise() {
         int numActivities = activities.size();
-        for (int i = 0; i < (numActivities - 1); i += 1) {
+        for (int i = 0; i < (numActivities); i += 1) {
             addActivityPanels(i);
         }
-
     }
 
+    @FXML
+    /**
+     * Called by a press of the viewButton, this method displays the users current
+     * activities in the application.
+     */
+    public void viewData() {
+        resetButton.setVisible(true);
+        resetButton.setDisable(false);
+        viewButton.setVisible(false);
+        viewButton.setDisable(true);
+        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        setActivities(inputActivities);
+
+        initialise();
+    }
+
+    @FXML
+    /**
+     * Called by a press of the viewButton, this method displays the users current
+     * activities in the application.
+     */
+    public void viewData(String filePath) {
+        resetButton.setVisible(true);
+        resetButton.setDisable(false);
+        viewButton.setVisible(false);
+        viewButton.setDisable(true);
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+        setActivities(inputActivities);
+
+        initialise();
+    }
+
+    @FXML
+    /**
+     * Called by a press of the resetButton, this method clears and then refills the display
+     * of the users activities.
+     */
+    public void resetData() {
+        accordion.getPanes().clear();
+
+        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        setActivities(inputActivities);
+
+        initialise();
+    }
+
+    @FXML
+
+    public void loadFile() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV", "*.csv")
+        );
+        File f = fileChooser.showOpenDialog(null);
+        viewData(f.getAbsolutePath());
+
+    }
     /**
      * Populates the given table with the data from a specific activity
      * @param table an empty TableView object
@@ -77,7 +148,6 @@ public class TableController extends Application {
 
         table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
         table.setItems(getDataPointsList(index));
-
     }
 
     /**
@@ -129,71 +199,11 @@ public class TableController extends Application {
         accordion.getPanes().add(titledPane);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
+    /**
+     * Sets the activities ArrayList to the passed ArrayList of activities.
+     * @param inputActivities The new ArrayList of activities.
+     */
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("testData.csv");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TableTab.fxml"));
-        Parent root = loader.load();
-        TableController controller = loader.getController();
-        controller.setActivities(inputActivities);
-
-        controller.initialise();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
-    //Methods to run top bar buttons
-    public void homeButtonPress() throws IOException {
-        System.out.println("Home button pressed");
-        //appController.changeScene("/View/mainPage.fxml", c);
-    }
-
-    public void statsButtonPress() throws IOException {
-        System.out.println("Stats button pressed");
-        //appController.changeScene("/View/mainPage.fxml", c);
-    }
-
-    public void mapButtonPress() throws IOException {
-        System.out.println("Map button pressed");
-        //appController.changeScene("/View/mapView.fxml", c);
-    }
-
-    public void calendarButtonPress() throws IOException {
-        System.out.println("Calendar button pressed");
-        //appController.changeScene("/View/calView.fxml", c);
-    }
-
-    public void goalsButtonPress() throws IOException {
-        System.out.println("Goals button pressed");
-        //appController.changeScene("/View/goalView.fxml", c);
-    }
-
-    public void profileButtonPress() throws IOException {
-        System.out.println("Profile button pressed");
-        //appController.changeScene("/View/profView.fxml", c);
-    }
-
-    public void dataButtonPress() throws IOException {
-        System.out.println("Data button pressed");
-        //appController.changeScene("/View/dataView.fxml", c);
-    }
-
-    public void alertButtonPress() throws IOException {
-        System.out.println("Alert button pressed");
-        //appController.changeScene("/View/dataView.fxml", c);
     }
 }

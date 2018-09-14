@@ -1,0 +1,22 @@
+.check-box .box {
+
+    -fx-background-color: white;
+    -fx-border-color:transparent;
+    -fx-background-radius:8px;
+    -fx-opacity: 0.8;
+}
+
+.check-box:selected .mark {
+
+    -fx-background-color: green;
+
+}
+
+.check-box:selected .box {
+
+    -fx-background-color: white;
+}
+
+.check-box:disabled {
+    -fx-opacity: 1;
+}

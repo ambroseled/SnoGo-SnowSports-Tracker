@@ -1,0 +1,39 @@
+.tab {
+
+    -fx-background-color: #005e99;
+    -fx-pref-width: 178;
+    -fx-border-radius: 0px;
+}
+
+
+.tab:hover, .tab:selected {
+
+    -fx-background-color: #1da5f9;
+    -fx-focus-color: #1da5f9;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.tab-label{
+
+    -fx-alignment: center;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
+
+
+
+.tab-header-background {
+    /*-fx-background-color: linear-gradient(to top, #00C1FF, #002BFF) ;*/
+    -fx-background-color: #005e99;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    /*-fx-background-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
+    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;*/
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
+}

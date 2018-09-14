@@ -10,3 +10,29 @@
 .grad-radius-3{
     -fx-background-color: radial-gradient(center 50% 50% , radius 60% , #FFFFFF, #0C00FF);
 }
+
+.linear-grad-to-top{
+    -fx-background-color: linear-gradient(to top, #002BFF, #00C1FF);
+}
+
+.linear-grad-to-bottom{
+    -fx-background-color: linear-gradient(to bottom, #002BFF, #00C1FF);
+}
+
+.grid-pane {
+
+    -fx-background-color: rgba(0, 119, 193, 0.6);
+}
+
+.root {
+
+    -fx-background-image: url("backgrounds/background3.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1280 720;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.general-title {
+    -fx-text-fill: white;
+}
