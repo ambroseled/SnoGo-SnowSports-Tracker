@@ -1,8 +1,6 @@
 package seng202.team5.Control;
 
 
-
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -153,7 +151,7 @@ public class GoalController {
     public void checkDate() {
         String text = dateEntry.getText();
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = dateTimeFormat.parse(text);
             dateCheck.setSelected(true);
         } catch (ParseException e) {

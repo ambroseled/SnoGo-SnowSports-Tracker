@@ -22,13 +22,11 @@ public class AppController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
-    private AlertController alertTab = new AlertController();
 
 
     ////////////
     // Used for testing will later be the actual current user.
     private static User currentUser = db.getUsers().get(0);
-
     ////////////
 
 
