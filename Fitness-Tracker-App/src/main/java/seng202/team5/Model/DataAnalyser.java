@@ -331,6 +331,9 @@ public class DataAnalyser {
     }
 
 
+
+    //TODO: Integrate this in once James has done user entry
+
     /**
      * Calculates the calories burned by a user during a passed DataSet.
      * @param dataSet The DataSet to calculate calories burned on.
@@ -346,6 +349,9 @@ public class DataAnalyser {
         double timeMin = (timeMilli / 1000.0) / 60.0;
         return roundNum(perMin * timeMin);
     }
+
+
+    //TODO: Look over this
 
 
     /**

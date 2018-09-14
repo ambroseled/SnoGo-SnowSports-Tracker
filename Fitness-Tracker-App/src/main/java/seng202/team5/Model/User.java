@@ -54,7 +54,7 @@ public class User {
      * @param weight
      * @param activities
      */
-    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id, String dateString){
+    public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id, String dateString) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -65,9 +65,8 @@ public class User {
         try {
             birthDate = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
-
+            // Open error dialog
         }
-
     }
 
     /**

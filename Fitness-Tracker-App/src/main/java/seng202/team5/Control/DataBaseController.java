@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+//TODO: Duplicate data handling
+
+
+
 /**
  * This class is used to interact with the applications database
  */

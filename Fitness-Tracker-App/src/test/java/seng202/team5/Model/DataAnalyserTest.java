@@ -144,12 +144,12 @@ public class DataAnalyserTest {
    * Testing the calcAvgSpeed function. This also tests the appendSpeed and
    * oneSpeed functions as they are used prior to the calcAvgSpeed function.
    */
-  public void testAvgSpeed() {
-        Activity activity = activities.get(1);
+     public void testAvgSpeed() {
+         Activity activity = activities.get(1);
         // Getting the dataSet out of the activity
-        DataSet dataSet = activity.getDataSet();
-        assertEquals(7.35, dataSet.getAvgSpeed(), 0.0);
-    }
+         DataSet dataSet = activity.getDataSet();
+         assertEquals(7.35, dataSet.getAvgSpeed(), 0.0);
+     }
 
 
     /**
@@ -161,6 +161,13 @@ public class DataAnalyserTest {
         double weight = 70;
         double bmi = dataAnalyser.calcBMI(height, weight);
         assertEquals(22.86, bmi, 0.0);
+    }
+
+
+    //TODO: Implement once slope time is fixed
+
+    @Test
+    public void testSlopeTime() {
     }
 
 }
