@@ -8,8 +8,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
 import static seng202.team5.Model.CheckGoals.convertDate;
 
 
