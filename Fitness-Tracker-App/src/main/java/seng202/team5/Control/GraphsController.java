@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -23,6 +25,12 @@ import java.util.Date;
 public class GraphsController extends Application{
 
     private ArrayList<Activity> activities;
+
+    @FXML
+    ChoiceBox activityChoice;
+
+    @FXML
+    Button selectButton;
 
     @FXML
     LineChart<Number,Number> speedChart;
@@ -90,13 +98,26 @@ public class GraphsController extends Application{
         speedChart.getData().add(series);
     }
 
+    private void setChoiceBox() {
+        ObservableList<String> activityNames = FXCollections.observableArrayList();
+        for (Activity activity: activities) {
+            String activityName = "";
+            activityName += (activity.getName() + ", ");
+            activityName += (activity.getDataSet().getDateTime(0) + " - ");
+            activityName += (activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1));
+            activityNames.add(activityName);
+        }
+        activityChoice.setItems(activityNames);
+
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Speed graph");
 
 
         InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("TestData.csv");
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
@@ -104,8 +125,9 @@ public class GraphsController extends Application{
         GraphsController controller = loader.getController();
 
         controller.setActivities(inputActivities);
-        XYChart.Series series = controller.createGraph();
-        controller.populateGraph(series);
+        controller.setChoiceBox();
+//        XYChart.Series series = controller.createGraph();
+//        controller.populateGraph(series);
 
 
         Scene scene = new Scene(root);
