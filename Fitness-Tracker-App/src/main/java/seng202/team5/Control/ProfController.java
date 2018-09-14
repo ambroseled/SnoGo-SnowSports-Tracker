@@ -69,9 +69,14 @@ public class ProfController {
     }
 
 
-
     @FXML
     public void updateProfile() {
+
+    }
+
+
+    @FXML
+    public void checkProfile() {
         String name = nameEdit.getText();
         String weight = weightText.getText();
         String age = ageEdit.getText();
@@ -79,7 +84,21 @@ public class ProfController {
         String height = heightEdit.getText();
 
         if (checkName(name) && checkDouble(weight) && checkDouble(height) && checkInt(age) & checkDate(date)) {
-            double x = Double.parseDouble(weight);
+            double weightVal = Double.parseDouble(weight);
+            double heightVal = Double.parseDouble(height);
+            int ageVal = Integer.parseInt(age);
+            try {
+                Date dateVal = dateTimeFormat.parse(date);
+                if (weightVal == currentUser.getWeight() && heightVal == currentUser.getHeight() && ageVal == currentUser.getAge()
+                        && name.equals(currentUser.getName()) && dateVal == currentUser.getBirthDate()) {
+                    updateButton.setDisable(true);
+                } else {
+                    updateButton.setDisable(false);
+                }
+            } catch (ParseException e) {
+                updateButton.setDisable(false);
+            }
+
         }
     }
 
@@ -122,6 +141,7 @@ public class ProfController {
             return false;
         }
     }
+
 
 
 }
