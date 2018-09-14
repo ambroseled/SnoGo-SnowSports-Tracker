@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team5.Model.User;
 
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -26,6 +29,18 @@ public class ProfController {
     private TextField dateText;
     @FXML
     private Button viewButton;
+
+    @FXML
+    private TextField nameEdit;
+    @FXML
+    private TextField weightEdit;
+    @FXML
+    private TextField ageEdit;
+    @FXML
+    private TextField dateEdit;
+    @FXML
+    private TextField heightEdit;
+
     User currentUser;
 
 
@@ -56,7 +71,55 @@ public class ProfController {
     ////////
     @FXML
     public void updateProfile() {
+        String name = nameEdit.getText();
+        String weight = weightText.getText();
+        String age = ageEdit.getText();
+        String date = dateEdit.getText();
+        String height = heightEdit.getText();
 
+        if (checkName(name) && checkDouble(weight) && checkDouble(height) && checkInt(age) & checkDate(date)) {
+            double x = Double.parseDouble(weight);
+        }
+    }
+
+
+    private boolean checkName(String name) {
+        if (name.length() > 4 && name.length() < 30) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private boolean checkInt(String value) {
+        try {
+            int x = Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+    private boolean checkDouble(String value) {
+        try {
+            double x = Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+    private boolean checkDate(String date) {
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date x = dateTimeFormat.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
 
