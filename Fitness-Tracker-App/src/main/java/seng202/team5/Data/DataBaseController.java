@@ -18,7 +18,8 @@ import java.util.Date;
  */
 public class DataBaseController {
 
-    Connection connection = null;
+    private Connection connection = null;
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 
     /**
@@ -229,11 +230,44 @@ public class DataBaseController {
                 double height = toAdd.getHeight();
                 double weight = toAdd.getWeight();
                 int age = toAdd.getAge();
-                Date birth = toAdd.getBirthDate();
+                String birth = formatter.format(toAdd.getBirthDate());
                 // Creating and executing the update to store the user
-                String query = String.format("INSERT INTO User (Name, Height, Weight, Age) VALUES ('%s', %.2f, %.2f, " +
-                        "%d)", name, height, weight, age);
+                String query = String.format("INSERT INTO User (Name, Height, Weight, Age, BirthDate) VALUES ('%s', %.2f, %.2f, " +
+                        "%d, '%s')", name, height, weight, age, birth);
                 stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Updates a row in teh User table to the passed User. If the passed User is not in
+     * the database then it will be stored.
+     * @param user The User to be updated.
+     */
+    public void updateUser(User user) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking if the user is already in the database
+            if (checkId("User", user.getId())) {
+                // The user is in the database so can be updated
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Getting the values to update with the user
+                String name = user.getName();
+                double height = user.getHeight();
+                double weight = user.getWeight();
+                int age = user.getAge();
+                String birth = formatter.format(user.getBirthDate());
+                // Creating and executing the update to update the user
+                String query = String.format("UPDATE User Set Name = '%s', Height = %.2f,  Weight = %.2f, " +
+                        "Age = %d, BirthDate = '%s' WHERE ID = %d", name, height, weight, age, birth, user.getId());
+                stmt.executeUpdate(query);
+            } else {
+                storeNewUser(user);
             }
         } catch (SQLException e) {
             // Printing an error message
