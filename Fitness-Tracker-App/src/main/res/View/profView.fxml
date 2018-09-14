@@ -77,11 +77,41 @@
                <Font size="41.0" />
             </font>
          </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Will have editing profile here" GridPane.columnIndex="3" GridPane.rowIndex="2">
-            <font>
-               <Font size="31.0" />
-            </font>
-         </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Your Profile" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <TextField fx:id="dateEdit" editable="false" onAction="#checkProfile" opacity="0.8" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="ageEdit" editable="false" onAction="#checkProfile" opacity="0.8" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="nameEdit" editable="false" onAction="#checkProfile" opacity="0.8" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="weightEdit" editable="false" onAction="#checkProfile" opacity="0.8" prefHeight="27.0" prefWidth="256.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="heightEdit" editable="false" onAction="#checkProfile" opacity="0.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AGE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
       </children>
    </GridPane>
    </children>
