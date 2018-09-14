@@ -69,9 +69,7 @@ public class ProfController {
     }
 
 
-    ///////////
-    // WIll get James to do as he is already doing user stuff
-    ////////
+
     @FXML
     public void updateProfile() {
         String name = nameEdit.getText();
