@@ -16,8 +16,12 @@ public class Activity {
     }
     public String getName() { return name;}
     
+//    public String toString() {
+//    	return name + "\n" + dataSet;
+//    }
+
     public String toString() {
-    	return name + "\n" + dataSet;
+        return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
     }
 
     public void setDataSet(DataSet dataSet) {

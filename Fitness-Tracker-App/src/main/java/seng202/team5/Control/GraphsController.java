@@ -1,6 +1,8 @@
 package seng202.team5.Control;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,8 +21,11 @@ import seng202.team5.Model.DataSet;
 import seng202.team5.Model.InputDataParser;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static jdk.nashorn.internal.objects.ArrayBufferView.length;
 
 public class GraphsController extends Application{
 
@@ -46,30 +51,28 @@ public class GraphsController extends Application{
 
 
 
-    private XYChart.Series createGraph(LineChart lineChart) {
+    private XYChart.Series createGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Time");
         xAxis.setForceZeroInRange(false); //Stops the chart starting at (0,0) every time
 
         //Defining the y axis
         NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
-        yAxis.setLabel("Speed");
+        yAxis.setLabel(yLabel);
 
-        lineChart.setTitle("Speed graph");
+        lineChart.setTitle(yLabel + "graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
-        series.setName("Speed"); //
+        series.setName(yLabel); //
         //populating the series with data
 
         return series;
     }
 
-    private void populateGraph(XYChart.Series series) {
-        for (int i = 0; i < activities.size(); i++) {
+    private void populateGraph(XYChart.Series series, Activity activity) {
 
 
-             //Need to set lower and upper bounds, but this command isn't working
 
 
             /////////////////
@@ -81,15 +84,14 @@ public class GraphsController extends Application{
             /////////////////
 
 
-            for (DataPoint dataPoint : getDataPointsList(3)) {
-                long timeVal = (dataPoint.getDateTime().getTime());
+        for (DataPoint dataPoint : getDataPointsList(activity)) {
+            long timeVal = (dataPoint.getDateTime().getTime());
 //                if ((timeVal/1000) > 1451000889) {
 //                    System.out.println(dataPoint);
 //                }
 
-                double speedVal = dataPoint.getSpeed();
-                series.getData().add(new XYChart.Data(timeVal, speedVal));
-            }
+            double speedVal = dataPoint.getSpeed();
+            series.getData().add(new XYChart.Data(timeVal, speedVal));
         }
 
 //        xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
@@ -99,16 +101,29 @@ public class GraphsController extends Application{
     }
 
     private void setChoiceBox() {
-        ObservableList<String> activityNames = FXCollections.observableArrayList();
+        ObservableList<Activity> activityNames = FXCollections.observableArrayList();
         for (Activity activity: activities) {
-            String activityName = "";
-            activityName += (activity.getName() + ", ");
-            activityName += (activity.getDataSet().getDateTime(0) + " - ");
-            activityName += (activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1));
-            activityNames.add(activityName);
+            activityNames.add(activity);
+//            String activityName = "";
+//            activityName += (activity.getName() + ", ");
+//            activityName += (activity.getDataSet().getDateTime(0) + " - ");
+//            activityName += (activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1));
+            //activityNames.add(activityName);
         }
         activityChoice.setItems(activityNames);
+    }
 
+    public void selectData() {
+        Activity currentActivity = (Activity) activityChoice.getValue();
+
+        String[] graphTypes = {"Speed", "Distance", "Heart Rate", "Calories"};
+        LineChart[] charts = {speedChart, distanceChart, heartRateChart, caloriesChart};
+
+        XYChart.Series series;
+        for (int i = 0; i < graphTypes.length; i++) {
+            series = createGraph(charts[i], graphTypes[i]);
+            populateGraph(series, currentActivity);
+        }
     }
 
     @Override
@@ -126,6 +141,7 @@ public class GraphsController extends Application{
 
         controller.setActivities(inputActivities);
         controller.setChoiceBox();
+
 //        XYChart.Series series = controller.createGraph();
 //        controller.populateGraph(series);
 
@@ -143,10 +159,10 @@ public class GraphsController extends Application{
         activities = inputActivities;
     }
 
-    public ObservableList<DataPoint> getDataPointsList(int index) {
+    public ObservableList<DataPoint> getDataPointsList(Activity activity) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
-        DataSet dataSet = activities.get(index).getDataSet();
+        DataSet dataSet = activity.getDataSet();
         dataPointsList.addAll(dataSet.getDataPoints());
         return dataPointsList;
     }

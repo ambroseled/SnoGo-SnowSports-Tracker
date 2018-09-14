@@ -79,6 +79,6 @@
     </Label>
     <Label layoutX="72.0" layoutY="41.0" text="For Activity" />
     <ChoiceBox fx:id="activityChoice" layoutX="180.0" layoutY="37.0" minHeight="24.0" prefHeight="24.0" prefWidth="221.0" />
-    <Button fx:id="selectButton" layoutX="412.0" layoutY="36.0" minHeight="24.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Select" />
+    <Button fx:id="selectButton" onAction="#selectData" layoutX="412.0" layoutY="36.0" minHeight="24.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Select" />
   </children>
 </AnchorPane>
