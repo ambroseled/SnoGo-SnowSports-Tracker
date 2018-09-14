@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import seng202.team5.Model.Activity;
-import seng202.team5.Model.InputDataParser;
+import seng202.team5.Data.InputDataParser;
 import seng202.team5.Model.User;
 
 import java.util.ArrayList;

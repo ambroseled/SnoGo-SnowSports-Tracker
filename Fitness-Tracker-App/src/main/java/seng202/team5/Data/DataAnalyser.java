@@ -1,4 +1,8 @@
-package seng202.team5.Model;
+package seng202.team5.Data;
+
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.DataPoint;
+import seng202.team5.Model.DataSet;
 
 import java.util.ArrayList;
 

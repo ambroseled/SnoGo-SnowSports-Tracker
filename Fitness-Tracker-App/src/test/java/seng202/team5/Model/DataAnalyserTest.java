@@ -3,6 +3,9 @@ package seng202.team5.Model;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import seng202.team5.Data.DataAnalyser;
+import seng202.team5.Data.InputDataParser;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
