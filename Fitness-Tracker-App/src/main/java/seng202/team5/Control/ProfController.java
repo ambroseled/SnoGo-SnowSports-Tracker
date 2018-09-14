@@ -184,7 +184,7 @@ public class ProfController {
     private boolean checkHeight(String height) {
         try {
             double x = Double.parseDouble(height);
-            if (x < 2.0 || x > 10.0 ) {
+            if (x < 0.7 || x > 3 ) {
                 return false;
             } else {
                 return true;
