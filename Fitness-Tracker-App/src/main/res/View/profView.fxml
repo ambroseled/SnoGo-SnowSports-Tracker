@@ -68,11 +68,6 @@
          <TextField fx:id="bmiText" editable="false" opacity="0.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewProfile" opacity="0.7" prefHeight="70.0" prefWidth="262.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View current profile" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
          <TextField fx:id="dateText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <font>
-               <Font size="41.0" />
-            </font>
-         </Text>
       </children>
    </GridPane>
    </children>

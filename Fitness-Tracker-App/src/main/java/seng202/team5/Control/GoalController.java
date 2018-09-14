@@ -15,7 +15,8 @@ import java.util.Date;
 
 
 /**
- * This class handles controlling the goal view of the application.
+ * This class handles controlling the goal view of the application. It provides functionality to view and
+ * create goals.
  */
 public class GoalController {
 
@@ -124,7 +125,7 @@ public class GoalController {
      */
     private void fillCombo() {
         ObservableList<String> metrics = FXCollections.observableArrayList();
-        metrics.addAll("Top Speed, (m/s)", "Distance Traveled, (km)", "Vertical Distance, (km)", "Average Heart Rate, (bpm)");
+        metrics.addAll("Top Speed, (m/s)", "Distance Traveled, (km)", "Vertical Distance, (km)", "Average Heart Rate, (bpm)", "Calories Burned");
         metricCombo.getItems().addAll(metrics);
     }
 
@@ -181,10 +182,14 @@ public class GoalController {
             }
             valueCombo.getItems().addAll(values);
         } else if (metric.equals("Average Heart Rate, (bpm)")) {
-            for (double i = 50; i < 75; i++) {
+            for (double i = 130; i < 155; i++) {
                 values.add(i);
             }
             valueCombo.getItems().addAll(values);
+        } else if (metric.equals("Calories Burned")) {
+            for (double i = 300; i < 2000; i += 5) {
+                values.add(i);
+            }
         }
     }
 
@@ -212,10 +217,11 @@ public class GoalController {
     public void createGoal() {
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
+        System.out.println(metric);
         double value = valueCombo.getSelectionModel().getSelectedItem();
         String dateString = dateEntry.getText();
         metric = getMetric(metric);
-        Goal newGoal = new Goal(name, metric, value, dateString, false);
+        Goal newGoal = new Goal(name, metric, value, dateString);
         currentUser.addGoal(newGoal);
 
         // Store the goal into the database
@@ -232,8 +238,6 @@ public class GoalController {
         valueCombo.getItems().clear();
         refreshData();
     }
-
-
 
 
     /**

@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 /**
- * THis class is used to hold one line of information out of an uploaded csv file.
+ * This class is used to hold one line of information out of an uploaded csv file.
  */
 public class DataPoint {
 

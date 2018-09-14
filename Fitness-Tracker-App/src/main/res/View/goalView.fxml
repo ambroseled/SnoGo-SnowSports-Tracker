@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GoalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GoalController">
    <children>
    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
      <columnConstraints>
@@ -53,17 +53,17 @@
          <Button fx:id="createButton" disable="true" mnemonicParsing="false" onAction="#createGoal" opacity="0.5" prefHeight="59.0" prefWidth="147.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Goal" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
          <Button fx:id="refreshButton" disable="true" mnemonicParsing="false" onAction="#refreshData" prefHeight="61.0" prefWidth="133.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Goals" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          <ComboBox fx:id="metricCombo" onAction="#checkMetricCombo" opacity="0.8" prefHeight="27.0" prefWidth="183.0" promptText="Select Goal Metric" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Completion Date" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Completion Date" underline="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
             <font>
                <Font size="19.0" />
             </font>
          </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Metric" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Metric" underline="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
             <font>
                <Font size="19.0" />
             </font>
          </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Name" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Name" underline="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <font>
                <Font size="19.0" />
             </font>
@@ -73,13 +73,13 @@
          <CheckBox fx:id="metricCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
          <CheckBox fx:id="dateCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          <ComboBox fx:id="valueCombo" disable="true" onAction="#checkValueCombo" prefHeight="27.0" prefWidth="185.0" promptText="Select Metric Value" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metric Value" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metric Value" underline="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
             <font>
                <Font size="19.0" />
             </font>
          </Text>
          <CheckBox fx:id="valueCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Creation" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create A Goal" textAlignment="CENTER" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
                <Font size="30.0" />
             </font>
