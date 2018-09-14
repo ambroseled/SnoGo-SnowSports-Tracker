@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team5.Model.User;
 
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -71,12 +74,6 @@ public class ProfController {
     ////////
     @FXML
     public void updateProfile() {
-
-    }
-
-
-    @FXML
-    public void checkProfile() {
         String name = nameEdit.getText();
         String weight = weightText.getText();
         String age = ageEdit.getText();
@@ -84,21 +81,47 @@ public class ProfController {
         String height = heightEdit.getText();
 
         if (checkName(name) && checkDouble(weight) && checkDouble(height) && checkInt(age) & checkDate(date)) {
-            double weightVal = Double.parseDouble(weight);
-            double heightVal = Double.parseDouble(height);
-            int ageVal = Integer.parseInt(age);
-            try {
-                Date dateVal = dateTimeFormat.parse(date);
-                if (weightVal == currentUser.getWeight() && heightVal == currentUser.getHeight() && ageVal == currentUser.getAge()
-                        && name.equals(currentUser.getName()) && dateVal == currentUser.getBirthDate()) {
-                    updateButton.setDisable(true);
-                } else {
-                    updateButton.setDisable(false);
-                }
-            } catch (ParseException e) {
-                updateButton.setDisable(false);
-            }
+            double x = Double.parseDouble(weight);
+        }
+    }
 
+
+    private boolean checkName(String name) {
+        if (name.length() > 4 && name.length() < 30) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private boolean checkInt(String value) {
+        try {
+            int x = Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+    private boolean checkDouble(String value) {
+        try {
+            double x = Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+    private boolean checkDate(String date) {
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date x = dateTimeFormat.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
         }
     }
 
