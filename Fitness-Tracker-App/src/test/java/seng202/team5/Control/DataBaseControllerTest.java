@@ -4,10 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import seng202.team5.Data.DataBaseController;
+import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;
 import seng202.team5.Model.User;
-
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -17,12 +17,12 @@ public class DataBaseControllerTest {
     DataBaseController db;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         db = new DataBaseController();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         db.closeConnection();
     }
 
@@ -35,7 +35,6 @@ public class DataBaseControllerTest {
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first user in the database is altered or removed.
-     *
      */
     public void getUsers() {
         ArrayList<User> users = db.getUsers();
@@ -48,16 +47,21 @@ public class DataBaseControllerTest {
 
     @Test
     /**
+     * This test is testing the functionality of pulling activities out of
+     * the database. This is done by getting all activities for a user and then
+     * checking that there is the corect number of activities.
      *
-     *
-     *
-     * Test later as there are currently no activities in the database
-     *
-     *
-     *
+     * For this test it is assumed that the assert statements will be updated if the
+     * number of activities of the first user in the database is altered.
      */
     public void getActivities() {
-
+        ArrayList<User> users = db.getUsers();
+        ArrayList<Activity> activities = users.get(0).getActivities();
+        int count = 0;
+        for (Activity x : activities) {
+            count++;
+        }
+        assertEquals(count, activities.size());
     }
 
     @Test
@@ -69,7 +73,6 @@ public class DataBaseControllerTest {
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first goal for the user in the database is altered or removed.
-     *
      */
     public void getGoals() {
         ArrayList<Goal> goals = db.getGoals(1);
@@ -90,7 +93,6 @@ public class DataBaseControllerTest {
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first alert for the user in the database is altered or removed.
-     *
      */
     public void getAlerts() {
         ArrayList<Alert> alerts = db.getAlerts(1);
