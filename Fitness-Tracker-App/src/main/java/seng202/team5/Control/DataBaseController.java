@@ -311,7 +311,7 @@ public class DataBaseController {
             int id = toAdd.getId();
             if (!checkId("DataPoint", id) && checkId("DataSet", setId)) {
                 // Creating a statement and executing an update to store the DataSet
-                DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+                DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                 String dateString = dateTimeFormat.format(toAdd.getDateTime());
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +

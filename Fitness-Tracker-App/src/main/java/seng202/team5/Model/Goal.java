@@ -35,7 +35,7 @@ public class Goal {
         this.metricGoal = metricGoal;
         this.completed = completed;
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.completionDate = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
@@ -60,7 +60,7 @@ public class Goal {
         this.metricGoal = metricGoal;
         this.completed = completed;
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.completionDate = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());

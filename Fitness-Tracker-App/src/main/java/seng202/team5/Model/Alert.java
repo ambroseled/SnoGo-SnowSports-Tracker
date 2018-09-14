@@ -34,7 +34,7 @@ public class Alert {
         this.name = name;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
@@ -58,7 +58,7 @@ public class Alert {
         this.name = name;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());

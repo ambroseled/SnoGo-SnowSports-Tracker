@@ -67,7 +67,7 @@ public class InputDataParser {
             }
             else {
                 try {
-                    DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+                    DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
                     Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
 
                     int heartRate = Integer.parseInt(lineValues[2]);

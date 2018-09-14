@@ -49,18 +49,17 @@ public class InputDataParserTest {
     }
 
 
-    //TODO: Fix parsing of dates
-    /*
+
     @Test
     public void testOneLine() {
         DataPoint point = activities.get(0).getDataSet().getDataPoints().get(0);
 
-        DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
         String dateTime = dateTimeFormat.format(point.getDateTime());
 
-        assertEquals("07/06/2018 10:07:47", dateTime);
+        assertEquals("07/06/18 10:07:47", dateTime);
     }
-    */
+
 
 
 

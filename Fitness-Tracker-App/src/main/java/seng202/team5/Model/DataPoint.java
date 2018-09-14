@@ -60,7 +60,7 @@ public class DataPoint {
         this.active = active;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
             this.dateTime = dateTimeFormat.parse(date);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
