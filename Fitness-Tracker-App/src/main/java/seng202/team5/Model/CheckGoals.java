@@ -40,7 +40,7 @@ public class CheckGoals {
      * @param activities The activities to use to check the goal.
      * @return A boolean flag holding if the goal has been completed.
      */
-    public static boolean checkGoal(Goal goal, ArrayList<Activity> activities, User user) {
+    private static boolean checkGoal(Goal goal, ArrayList<Activity> activities, User user) {
         // Getting the current date string
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -93,16 +93,12 @@ public class CheckGoals {
 
 
 
-    public static boolean checkGlobal(Goal goal, User user) {
+    private static boolean checkGlobal(Goal goal, User user) {
         if (goal.getMetric().equals("Distance Traveled")) {
             double totalDist = 0.0;
             for (Activity activity : user.getActivities()) {
-                System.out.println(activity.getName());
                 totalDist += activity.getDataSet().getTotalDistance();
             }
-            System.out.println(goal.getName());
-            System.out.println(totalDist);
-            System.out.println(goal.getMetricGoal() * 1000);
             return (goal.getMetricGoal() * 1000) <= totalDist;
         } else if (goal.getMetric().equals("Top Speed")) {
             double topSpeed = 0.0;
