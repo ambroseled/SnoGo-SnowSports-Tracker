@@ -198,9 +198,9 @@ public class DataBaseController {
                 double elev = set.getDouble("Elevation");
                 double speed = set.getDouble("Speed");
                 boolean active = set.getBoolean("Active");
-
-                // Creating the Datapoint
-                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, speed, active);
+                double distance = set.getDouble("Distance");
+                // Creating the DataPoint
+                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, distance, speed, active);
                 // Adding the DataPoint to the ArrayList
                 dataPoints.add(newPoint);
             }
@@ -578,9 +578,6 @@ public class DataBaseController {
         return inTable;
 
     }
-
-
-    //TODO: Add distance to database
 
 
 }

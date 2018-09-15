@@ -30,7 +30,8 @@ public class DataPoint {
      * @param newLongitude
      * @param newElevation
      */
-    public DataPoint(Date newDateTime, int newHeartRate, double newLatitude, double newLongitude, double newElevation) {
+    public DataPoint(Date newDateTime, int newHeartRate, double newLatitude, double newLongitude,
+                     double newElevation) {
         dateTime = newDateTime;
         heartRate = newHeartRate;
         latitude = newLatitude;
@@ -47,10 +48,12 @@ public class DataPoint {
      * @param newLatitude
      * @param newLongitude
      * @param newElevation
+     * @param distance
      * @param speed
      * @param active
      */
-    public DataPoint(int id, String date, int newHeartRate, double newLatitude, double newLongitude, double newElevation, double speed, boolean active) {
+    public DataPoint(int id, String date, int newHeartRate, double newLatitude, double newLongitude,
+                     double newElevation, double distance, double speed, boolean active) {
         heartRate = newHeartRate;
         latitude = newLatitude;
         longitude = newLongitude;
@@ -65,6 +68,7 @@ public class DataPoint {
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
+        this.distance = distance;
     }
 
 
