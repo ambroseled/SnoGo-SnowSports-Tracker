@@ -79,7 +79,7 @@ public class Activity {
      * @return A string showing the activity.
      */
     public String toString() {
-        return name + "\n" + dataSet;
+        return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
     }
 
 

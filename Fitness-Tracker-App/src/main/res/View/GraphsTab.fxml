@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+  <children>
+    <ScrollPane fx:id="scrollPane" layoutX="6.0" layoutY="63.0" prefHeight="337.0" prefWidth="600.0" visible="false">
+      <content>
+        <GridPane prefHeight="908.0" prefWidth="586.0">
+          <children>
+            <LineChart fx:id="speedChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+              <xAxis>
+                <NumberAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <LineChart fx:id="distanceChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+              <xAxis>
+                <NumberAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+              <xAxis>
+                <NumberAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <LineChart fx:id="caloriesChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
+              <xAxis>
+                <NumberAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+                  <AnchorPane prefHeight="121.0" prefWidth="289.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                     <children>
+                        <Label fx:id="nameLabel" layoutX="241.0" layoutY="4.0" text="[Activity Name]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dateLabel" layoutX="256.0" layoutY="24.0" text="[Activity Date]" textAlignment="CENTER" />
+                        <Label layoutX="102.0" layoutY="55.0" text="Top Speed:" />
+                        <Label layoutX="33.0" layoutY="104.0" text="Total Distance Travelled:" />
+                        <Label layoutX="356.0" layoutY="55.0" text="Average Heart Rate:" />
+                        <Label layoutX="323.0" layoutY="104.0" text="Vertical Distance Travelled:" />
+                        <Label fx:id="speedLabel" layoutX="171.0" layoutY="55.0" text="[TopSpeedInput]" />
+                        <Label fx:id="distanceLabel" layoutX="171.0" layoutY="104.0" text="[DistanceInput]" />
+                        <Label fx:id="heartRateLabel" layoutX="473.0" layoutY="55.0" text="[HeartRateInput]" />
+                        <Label fx:id="vertDistanceLabel" layoutX="473.0" layoutY="104.0" text="[VertDistanceInput]" />
+                     </children></AnchorPane>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+    <Label layoutX="72.0" layoutY="14.0" prefHeight="27.0" prefWidth="108.0" text="Statistics">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Label>
+    <Label layoutX="72.0" layoutY="41.0" text="For Activity" />
+    <ChoiceBox fx:id="activityChoice" layoutX="180.0" layoutY="37.0" minHeight="24.0" prefHeight="24.0" prefWidth="221.0" />
+    <Button fx:id="selectButton" layoutX="412.0" layoutY="36.0" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" prefHeight="27.0" prefWidth="70.0" text="Select" />
+  </children>
+</AnchorPane>
