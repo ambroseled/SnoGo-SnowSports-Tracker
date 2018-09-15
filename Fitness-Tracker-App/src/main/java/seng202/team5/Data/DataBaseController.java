@@ -578,7 +578,9 @@ public class DataBaseController {
         return inTable;
 
     }
-    
+
+
+    //TODO: Add distance to database
 
 
 }
