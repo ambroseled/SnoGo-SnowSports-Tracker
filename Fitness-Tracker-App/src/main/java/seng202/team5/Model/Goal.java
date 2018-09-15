@@ -28,7 +28,7 @@ public class Goal {
      * @param metricGoal The value to achieve to complete the goal.
      * @param dateString A string holding the completion date of the goal.
      */
-    public Goal(String name, String metric, double metricGoal, String dateString) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean global) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
@@ -40,7 +40,7 @@ public class Goal {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
         this.dateString = dateString;
-
+        this.global = global;
     }
 
 
@@ -53,7 +53,7 @@ public class Goal {
      * @param completed A boolean flag holding if the goal has be completed.
      * @param id The database id of the goal.
      */
-    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id, boolean global) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
@@ -66,6 +66,7 @@ public class Goal {
         }
         this.id = id;
         this.dateString = dateString;
+        this.global = global;
     }
 
 
@@ -94,7 +95,7 @@ public class Goal {
     public String getMetric() {
         return metric;
     }
-
+// Update db with goal marked as true
 
     /**
      * Gets whether the goal is completed or not.
@@ -129,5 +130,32 @@ public class Goal {
      */
     public String getDateString() {
         return dateString;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean isGlobal() {
+        return global;
+    }
+
+
+    /**
+     *
+     * @param completed
+     */
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+
+    /**
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -1,5 +1,6 @@
 package seng202.team5.Data;
 
+import seng202.team5.Control.AppController;
 import seng202.team5.Model.*;
 
 import java.sql.*;
@@ -373,7 +374,7 @@ public class DataBaseController {
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
                 String query = String.format("INSERT INTO Goal (Metric, MetricGoal, Name, Completed, CompletionDate," +
-                        "User) Values (?, ?, ?, ?, ?, ?)");
+                        "User, Global) Values (?, ?, ?, ?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
                 pStmt.setString(1, toAdd.getMetric());
                 pStmt.setDouble(2, toAdd.getMetricGoal());
@@ -381,10 +382,45 @@ public class DataBaseController {
                 pStmt.setBoolean(4, toAdd.isCompleted());
                 pStmt.setString(5, toAdd.getDateString());
                 pStmt.setInt(6, userId);
+                pStmt.setBoolean(7, toAdd.isGlobal());
                 pStmt.executeUpdate();
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Updates a passed goal in the database. If the passed goal is not in
+     * the database it will be stored.
+     * @param goal The goal to update.
+     */
+    public void updateGoal(Goal goal) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking if the goal is already in the database
+            if (checkId("Goal", goal.getId())) {
+                // The goal is in the database so can be updated
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Getting the values to update with the goal
+                String metric = goal.getMetric();
+                double metricGoal = goal.getMetricGoal();
+                String name = goal.getName();
+                boolean comp = goal.isCompleted();
+                String compDate = goal.getDateString();
+                boolean global = goal.isGlobal();
+                // Creating and executing the update to update the user
+                String query = String.format("UPDATE Goal Set Metric = '%s', MetricGoal = %.2f,  Name = '%s', " +
+                        "Completed = %b, CompletionDate = '%s', Global = %b WHERE ID = %d", metric, metricGoal, name, comp, compDate, global, goal.getId());
+                stmt.executeUpdate(query);
+            } else {
+                storeGoal(goal, AppController.getCurrentUser().getId());
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
         }
     }
 
@@ -438,7 +474,8 @@ public class DataBaseController {
                 boolean completed = set.getBoolean("Completed");
                 int id = set.getInt("ID");
                 String dateString = set.getString("CompletionDate");
-                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id);
+                boolean global = set.getBoolean("Global");
+                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id, global);
                 goals.add(newGoal);
             }
         } catch (SQLException e) {
@@ -543,12 +580,11 @@ public class DataBaseController {
     }
 
 
-
-    //TODO: Delete methods for all tables
-
 /*
     public static void main(String[] args) {
         DataBaseController db = new DataBaseController();
+        Goal goal = new Goal("Top speed of 15m/s", "Top Speed", 15.0, "12/09/2018", false, 4, false);
+        db.updateGoal(goal);
     }
 */
 

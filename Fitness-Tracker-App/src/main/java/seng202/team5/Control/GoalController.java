@@ -54,6 +54,8 @@ public class GoalController {
     private ComboBox<Double> valueCombo;
     @FXML
     private CheckBox valueCheck;
+    @FXML
+    private CheckBox globalCheck;
 
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
@@ -63,7 +65,7 @@ public class GoalController {
     @FXML
     /**
      * Called by a press of the viewButton, this method fills the goal table
-     * with all of the users goals.
+     * with all of the users goals.return global;
      */
     public void viewData() {
         viewButton.setVisible(false);
@@ -221,11 +223,16 @@ public class GoalController {
         double value = valueCombo.getSelectionModel().getSelectedItem();
         String dateString = dateEntry.getText();
         metric = getMetric(metric);
-        Goal newGoal = new Goal(name, metric, value, dateString);
-        currentUser.addGoal(newGoal);
+        boolean global = globalCheck.isSelected();
+        Goal newGoal = new Goal(name, metric, value, dateString, global);
+
 
         // Store the goal into the database
         db.storeGoal(newGoal, currentUser.getId());
+
+        newGoal.setId(db.findId("Goal"));
+
+        currentUser.addGoal(newGoal);
 
 
         nameCheck.setSelected(false);

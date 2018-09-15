@@ -1,4 +1,4 @@
-package seng202.team5.Control;
+package seng202.team5.Data;
 
 import org.junit.After;
 import org.junit.Before;
