@@ -78,9 +78,9 @@ public class DataBaseControllerTest {
         ArrayList<Goal> goals = db.getGoals(1);
         Goal goal = goals.get(0);
         assertEquals("Top Speed", goal.getMetric());
-        assertEquals(25, goal.getMetricGoal(), 0.0);
+        assertEquals(15, goal.getMetricGoal(), 0.0);
         assertEquals(false, goal.isCompleted());
-        assertEquals("06/09/2019", goal.getDateString());
+        assertEquals("12/09/2018", goal.getDateString());
     }
 
 

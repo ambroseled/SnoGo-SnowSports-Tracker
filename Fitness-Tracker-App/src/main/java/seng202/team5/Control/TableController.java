@@ -83,6 +83,8 @@ public class TableController {
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
         setActivities(inputActivities);
 
+        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+
         initialise();
     }
 

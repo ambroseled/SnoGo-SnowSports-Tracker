@@ -219,7 +219,6 @@ public class GoalController {
     public void createGoal() {
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
-        System.out.println(metric);
         double value = valueCombo.getSelectionModel().getSelectedItem();
         String dateString = dateEntry.getText();
         metric = getMetric(metric);
@@ -239,6 +238,7 @@ public class GoalController {
         metricCheck.setSelected(false);
         dateCheck.setSelected(false);
         valueCheck.setSelected(false);
+        globalCheck.setSelected(false);
         goalName.clear();
         metricCombo.getItems().clear();
         dateEntry.clear();

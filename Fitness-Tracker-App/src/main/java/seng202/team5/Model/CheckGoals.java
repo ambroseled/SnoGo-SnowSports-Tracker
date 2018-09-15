@@ -1,5 +1,6 @@
 package seng202.team5.Model;
 
+import seng202.team5.Control.AppController;
 import seng202.team5.Data.DataBaseController;
 
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.Date;
  * This class is used to check if a given goal has been completed by the user.
  */
 public class CheckGoals {
+
 
 
     /**
@@ -54,31 +56,31 @@ public class CheckGoals {
         if (!goal.isGlobal()) {
             if (metric.equals("Distance Traveled")) {
                 for (Activity x : activities) {
-                    if (value >= x.getDataSet().getTotalDistance()) {
+                    if ((value * 1000) <= x.getDataSet().getTotalDistance()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Top Speed")) {
                 for (Activity x : activities) {
-                    if (value >= x.getDataSet().getTopSpeed()) {
+                    if (value <= x.getDataSet().getTopSpeed()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Vertical Distance")) {
                 for (Activity x : activities) {
-                    if (value >= x.getDataSet().getVerticalDistance()) {
+                    if ((value * 1000) <= x.getDataSet().getVerticalDistance()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Calories Burned")) {
                 for (Activity x : activities) {
-                    if (value >= x.getDataSet().getCaloriesBurned()) {
+                    if (value <= x.getDataSet().getCaloriesBurned()) {
                         return true;
                     }
                 }
             } else { // Metric is average heart rate
                 for (Activity x : activities) {
-                    if (value >= x.getDataSet().getAvgHeartRate()) {
+                    if (value == x.getDataSet().getAvgHeartRate()) {
                         return true;
                     }
                 }
@@ -95,9 +97,13 @@ public class CheckGoals {
         if (goal.getMetric().equals("Distance Traveled")) {
             double totalDist = 0.0;
             for (Activity activity : user.getActivities()) {
+                System.out.println(activity.getName());
                 totalDist += activity.getDataSet().getTotalDistance();
             }
-            return goal.getMetricGoal() >= totalDist;
+            System.out.println(goal.getName());
+            System.out.println(totalDist);
+            System.out.println(goal.getMetricGoal() * 1000);
+            return (goal.getMetricGoal() * 1000) <= totalDist;
         } else if (goal.getMetric().equals("Top Speed")) {
             double topSpeed = 0.0;
             for (Activity activity : user.getActivities()) {
@@ -105,19 +111,19 @@ public class CheckGoals {
                     topSpeed = activity.getDataSet().getTopSpeed();
                 }
             }
-            return goal.getMetricGoal() >= topSpeed;
+            return goal.getMetricGoal() <= topSpeed;
         } else if (goal.getMetric().equals("Vertical Distance")) {
             double vertDist = 0.0;
             for (Activity activity : user.getActivities()) {
                 vertDist += activity.getDataSet().getVerticalDistance();
             }
-            return goal.getMetricGoal() >= vertDist;
+            return (goal.getMetricGoal() * 1000) <= vertDist;
         } else if (goal.getMetric().equals("Calories Burned")) {
             double vertDist = 0.0;
             for (Activity activity : user.getActivities()) {
                 vertDist += activity.getDataSet().getVerticalDistance();
             }
-            return goal.getMetricGoal() >= vertDist;
+            return goal.getMetricGoal() <= vertDist;
         } else { // Metric is average heart rate
             int avgRate = 0;
             for (Activity x : user.getActivities()) {
