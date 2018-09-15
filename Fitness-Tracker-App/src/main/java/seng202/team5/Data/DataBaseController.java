@@ -578,15 +578,7 @@ public class DataBaseController {
         return inTable;
 
     }
-
-
-/*
-    public static void main(String[] args) {
-        DataBaseController db = new DataBaseController();
-        Goal goal = new Goal("Top speed of 15m/s", "Top Speed", 15.0, "12/09/2018", false, 4, false);
-        db.updateGoal(goal);
-    }
-*/
+    
 
 
 }
