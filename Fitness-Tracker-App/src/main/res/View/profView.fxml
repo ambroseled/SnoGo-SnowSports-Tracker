@@ -43,7 +43,7 @@
                <Font size="23.0" />
             </font>
          </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (ft)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (m)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
             <font>
                <Font size="23.0" />
             </font>
