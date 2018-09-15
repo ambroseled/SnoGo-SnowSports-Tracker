@@ -350,9 +350,9 @@ public class DataBaseController {
                 String dateString = dateTimeFormat.format(toAdd.getDateTime());
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
-                                "Elevation, Speed, Active, DataSet) Values ('%s', %d, %f, %f, %f, %f, %b, %d)",
-                        dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
-                        toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId);
+                                "Elevation, Speed, Active, DataSet, Distance) Values ('%s', %d, %f, %f, %f, %f, %b," +
+                                "%d, %f)", dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
+                        toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId, toAdd.getDistance());
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {

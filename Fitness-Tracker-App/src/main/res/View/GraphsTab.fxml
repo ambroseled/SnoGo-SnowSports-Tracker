@@ -152,24 +152,6 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <AnchorPane prefHeight="121.0" prefWidth="289.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
-                           <children>
-                              <Label fx:id="nameLabel1" layoutX="241.0" layoutY="4.0" text="[Activity Name]" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="dateLabel1" layoutX="134.0" layoutY="24.0" text="[Activity Date]" textAlignment="CENTER" />
-                              <Label layoutX="100.0" layoutY="63.0" text="Top Speed:" />
-                              <Label layoutX="29.0" layoutY="87.0" text="Total Distance Travelled:" />
-                              <Label layoutX="354.0" layoutY="63.0" text="Average Heart Rate:" />
-                              <Label layoutX="319.0" layoutY="87.0" text="Vertical Distance Travelled:" />
-                              <Label fx:id="speedLabel1" layoutX="169.0" layoutY="63.0" text="[TopSpeedInput]" />
-                              <Label fx:id="distanceLabel1" layoutX="167.0" layoutY="87.0" text="[DistanceInput]" />
-                              <Label fx:id="heartRateLabel1" layoutX="471.0" layoutY="63.0" text="[HeartRateInput]" />
-                              <Label fx:id="vertDistanceLabel1" layoutX="469.0" layoutY="87.0" text="[VertDistanceInput]" />
-                           </children>
-                        </AnchorPane>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
