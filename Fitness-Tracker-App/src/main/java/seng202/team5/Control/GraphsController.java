@@ -188,32 +188,34 @@ public class GraphsController{
      */
     public void selectData() {
         Activity currentActivity = (Activity) activityChoice.getValue();
-        speedChart.getData().clear();
-        distanceChart.getData().clear();
-        heartRateChart.getData().clear();
-        caloriesChart.getData().clear();
+        if (!(currentActivity == null)) {
+            speedChart.getData().clear();
+            distanceChart.getData().clear();
+            heartRateChart.getData().clear();
+            caloriesChart.getData().clear();
 
-        nameLabel.setText(currentActivity.getName());
-        DataSet dataSet = currentActivity.getDataSet();
-        dateLabel.setText(dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1));
-        dateLabel.setCenterShape(true);
-        speedLabel.setText(Double.toString(Math.round (dataSet.getTopSpeed() * 100.0) / 100.0));            //Rounds values to 2 decimal places
-        //distanceLabel.setText(Double.toString(Math.round (dataSet.getTotalDistance() * 100.0) / 100.0));
-        distanceLabel.setText(Double.toString(dataSet.getTotalDistance()));
-        heartRateLabel.setText(Double.toString(Math.round (dataSet.getAvgHeartRate() * 100.0) / 100.0));
-        vertDistanceLabel.setText(Double.toString(Math.round (dataSet.getVerticalDistance() * 100.0) / 100.0));
+            nameLabel.setText(currentActivity.getName());
+            DataSet dataSet = currentActivity.getDataSet();
+            dateLabel.setText(dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1));
+            dateLabel.setCenterShape(true);
+            speedLabel.setText(Double.toString(Math.round (dataSet.getTopSpeed() * 100.0) / 100.0));            //Rounds values to 2 decimal places
+            //distanceLabel.setText(Double.toString(Math.round (dataSet.getTotalDistance() * 100.0) / 100.0));
+            distanceLabel.setText(Double.toString(dataSet.getTotalDistance()));
+            heartRateLabel.setText(Double.toString(Math.round (dataSet.getAvgHeartRate() * 100.0) / 100.0));
+            vertDistanceLabel.setText(Double.toString(Math.round (dataSet.getVerticalDistance() * 100.0) / 100.0));
 
 
-        XYChart.Series speedSeries = createGraph(speedChart, "Speed");
-        setSpeedChart(speedChart, speedSeries, currentActivity);
-        XYChart.Series distanceSeries = createGraph(distanceChart, "Distance");
-        setDistanceChart(distanceChart, distanceSeries, currentActivity);
-        XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate");
-        setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
-        //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
-        //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
+            XYChart.Series speedSeries = createGraph(speedChart, "Speed");
+            setSpeedChart(speedChart, speedSeries, currentActivity);
+            XYChart.Series distanceSeries = createGraph(distanceChart, "Distance");
+            setDistanceChart(distanceChart, distanceSeries, currentActivity);
+            XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate");
+            setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
+            //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
+            //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
 
-        scrollPane.setVisible(true);
+            scrollPane.setVisible(true);
+        }
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
