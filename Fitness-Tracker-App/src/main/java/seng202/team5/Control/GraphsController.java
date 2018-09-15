@@ -14,6 +14,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -33,34 +35,46 @@ public class GraphsController extends Application{
 
     @FXML
     ChoiceBox activityChoice;
-
     @FXML
     Button selectButton;
+    @FXML
+    ScrollPane scrollPane;
 
     @FXML
     LineChart<Number,Number> speedChart;
-
     @FXML
     LineChart<Number,Number> distanceChart;
-
     @FXML
     LineChart<Number,Number> heartRateChart;
-
     @FXML
     LineChart<Number,Number> caloriesChart;
+
+    @FXML
+    Label nameLabel;
+    @FXML
+    Label dateLabel;
+    @FXML
+    Label speedLabel;
+    @FXML
+    Label distanceLabel;
+    @FXML
+    Label heartRateLabel;
+    @FXML
+    Label vertDistanceLabel;
+
 
 
 
     private XYChart.Series createGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
-        xAxis.setLabel("Time");
+        xAxis.setLabel("Time (Seconds)");
         xAxis.setForceZeroInRange(false); //Stops the chart starting at (0,0) every time
 
         //Defining the y axis
         NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
         yAxis.setLabel(yLabel);
 
-        lineChart.setTitle(yLabel + "graph");
+        lineChart.setTitle(yLabel + " Graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
@@ -71,30 +85,36 @@ public class GraphsController extends Application{
     }
 
     private void setSpeedChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            long timeVal = (dataPoint.getDateTime().getTime());
+            double timeVal = setTime(startTime, dataPoint);
             double speedVal = dataPoint.getSpeed();
             series.getData().add(new XYChart.Data(timeVal, speedVal));
         }
         lineChart.getData().add(series);
+        //((NumberAxis) lineChart.getXAxis()).setLowerBound(getDataPointsList(activity).get(0).getDateTime().getTime());
     }
 
     private void setDistanceChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            long timeVal = (dataPoint.getDateTime().getTime());
+            double timeVal = setTime(startTime, dataPoint);
             double distanceVal = dataPoint.getDistance();
             series.getData().add(new XYChart.Data(timeVal, distanceVal));
         }
         lineChart.getData().add(series);
+        //((NumberAxis) lineChart.getXAxis()).setLowerBound(getDataPointsList(activity).get(0).getDateTime().getTime());
     }
 
     private void setHeartRateChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            long timeVal = (dataPoint.getDateTime().getTime());
+            double timeVal = setTime(startTime, dataPoint);
             int heartRateVal = dataPoint.getHeartRate();
             series.getData().add(new XYChart.Data(timeVal, heartRateVal));
         }
         lineChart.getData().add(series);
+        //((NumberAxis) lineChart.getXAxis()).setLowerBound(getDataPointsList(activity).get(0).getDateTime().getTime());
     }
 
 /*    private void setCaloriesChart(LineChart lineChart, XYChart.Series series, Activity activity) {
@@ -106,35 +126,13 @@ public class GraphsController extends Application{
         lineChart.getData().add(series);
     }*/ //Get calories
 
-    private void populateGraph(LineChart lineChart, XYChart.Series series, Activity activity) {
-
-
-
-
-            /////////////////
-            /**
-             * You should save the time of the first dataPoint and then set it to zero,
-             * and then for all other DataPoints minus the time of the first dataPoint to
-             * get their relative time value.
-             */
-            /////////////////
-
-
-        for (DataPoint dataPoint : getDataPointsList(activity)) {
-            long timeVal = (dataPoint.getDateTime().getTime());
-//                if ((timeVal/1000) > 1451000889) {
-//                    System.out.println(dataPoint);
-//                }
-
-            double speedVal = dataPoint.getSpeed();
-            series.getData().add(new XYChart.Data(timeVal, speedVal));
-        }
-
-//        xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
-//        ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
-//        xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
-        lineChart.getData().add(series);
+    private double setTime(long startTime, DataPoint dataPoint) {
+        long currentTime = dataPoint.getDateTime().getTime();
+        double newTime = currentTime - startTime;
+        newTime = newTime / 1000;
+        return newTime;
     }
+
 
     private void setChoiceBox() {
         ObservableList<Activity> activityNames = FXCollections.observableArrayList();
@@ -146,7 +144,20 @@ public class GraphsController extends Application{
 
     public void selectData() {
         Activity currentActivity = (Activity) activityChoice.getValue();
-        System.out.println(speedChart.getData().removeAll());
+        speedChart.getData().clear();
+        distanceChart.getData().clear();
+        heartRateChart.getData().clear();
+        caloriesChart.getData().clear();
+
+        nameLabel.setText(currentActivity.getName());
+        DataSet dataSet = currentActivity.getDataSet();
+        dateLabel.setText(dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1));
+        dateLabel.setCenterShape(true);
+        speedLabel.setText(Double.toString(Math.round (dataSet.getTopSpeed() * 100.0) / 100.0));            //Rounds values to 2 decimal places
+        //distanceLabel.setText(Double.toString(Math.round (dataSet.getTotalDistance() * 100.0) / 100.0));
+        distanceLabel.setText(Double.toString(dataSet.getTotalDistance()));
+        heartRateLabel.setText(Double.toString(Math.round (dataSet.getAvgHeartRate() * 100.0) / 100.0));
+        vertDistanceLabel.setText(Double.toString(Math.round (dataSet.getVerticalDistance() * 100.0) / 100.0));
 
 
         XYChart.Series speedSeries = createGraph(speedChart, "Speed");
@@ -157,6 +168,8 @@ public class GraphsController extends Application{
         setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
         //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
         //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
+
+        scrollPane.setVisible(true);
     }
 
     @Override
@@ -165,7 +178,7 @@ public class GraphsController extends Application{
 
 
         InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("TestData.csv");
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
