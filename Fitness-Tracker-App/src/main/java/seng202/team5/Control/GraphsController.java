@@ -1,8 +1,6 @@
 package seng202.team5.Control;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,13 +19,9 @@ import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Data.InputDataParser;
-
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 
-import static jdk.nashorn.internal.objects.ArrayBufferView.length;
 
 public class GraphsController extends Application{
 
