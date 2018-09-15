@@ -166,7 +166,7 @@ public class GraphsController extends Application{
         scrollPane.setVisible(true);
     }
 
-    
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Statistics");
