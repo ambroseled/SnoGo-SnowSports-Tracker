@@ -18,6 +18,7 @@ public class Goal {
     private boolean completed;
     private int id = -1;
     private String dateString;
+    private boolean global;
 
 
     /**
