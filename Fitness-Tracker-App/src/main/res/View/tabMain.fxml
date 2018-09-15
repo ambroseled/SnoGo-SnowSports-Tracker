@@ -12,6 +12,7 @@
 
     <Tab text="Statistics">
          <content>
+             <fx:include fx:id="statTab" source="GraphsTab.fxml" />
          </content>
     </Tab>
       <Tab fx:id="mapTabView" text="Map">
