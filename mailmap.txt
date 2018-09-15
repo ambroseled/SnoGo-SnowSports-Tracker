@@ -1,6 +1,0 @@
-#
-# This list is used by git-shortlog to make contributions from the
-# same person appearing to be so.
-#
-
-Ambrose Ledbrook <ajl190@uclive.ac.nz>
