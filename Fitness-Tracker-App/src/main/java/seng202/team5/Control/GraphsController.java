@@ -70,7 +70,43 @@ public class GraphsController extends Application{
         return series;
     }
 
-    private void populateGraph(XYChart.Series series, Activity activity) {
+    private void setSpeedChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        for (DataPoint dataPoint : getDataPointsList(activity)) {
+            long timeVal = (dataPoint.getDateTime().getTime());
+            double speedVal = dataPoint.getSpeed();
+            series.getData().add(new XYChart.Data(timeVal, speedVal));
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setDistanceChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        for (DataPoint dataPoint : getDataPointsList(activity)) {
+            long timeVal = (dataPoint.getDateTime().getTime());
+            double distanceVal = dataPoint.getDistance();
+            series.getData().add(new XYChart.Data(timeVal, distanceVal));
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setHeartRateChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        for (DataPoint dataPoint : getDataPointsList(activity)) {
+            long timeVal = (dataPoint.getDateTime().getTime());
+            int heartRateVal = dataPoint.getHeartRate();
+            series.getData().add(new XYChart.Data(timeVal, heartRateVal));
+        }
+        lineChart.getData().add(series);
+    }
+
+/*    private void setCaloriesChart(LineChart lineChart, XYChart.Series series, Activity activity) {
+        for (DataPoint dataPoint : getDataPointsList(activity)) {
+            long timeVal = (dataPoint.getDateTime().getTime());
+            double speedVal = dataPoint.getSpeed();
+            series.getData().add(new XYChart.Data(timeVal, speedVal));
+        }
+        lineChart.getData().add(series);
+    }*/ //Get calories
+
+    private void populateGraph(LineChart lineChart, XYChart.Series series, Activity activity) {
 
 
 
@@ -97,38 +133,35 @@ public class GraphsController extends Application{
 //        xAxis.setLowerBound(getDataPointsList(0).get(0).getDateTime().getTime());
 //        ArrayList<DataPoint> dataPoints = activities.get(activities.size() - 1).getDataSet().getDataPoints();
 //        xAxis.setUpperBound((dataPoints.get(dataPoints.size() - 1)).getDateTime().getTime());
-        speedChart.getData().add(series);
+        lineChart.getData().add(series);
     }
 
     private void setChoiceBox() {
         ObservableList<Activity> activityNames = FXCollections.observableArrayList();
         for (Activity activity: activities) {
             activityNames.add(activity);
-//            String activityName = "";
-//            activityName += (activity.getName() + ", ");
-//            activityName += (activity.getDataSet().getDateTime(0) + " - ");
-//            activityName += (activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1));
-            //activityNames.add(activityName);
         }
         activityChoice.setItems(activityNames);
     }
 
     public void selectData() {
         Activity currentActivity = (Activity) activityChoice.getValue();
+        System.out.println(speedChart.getData().removeAll());
 
-        String[] graphTypes = {"Speed", "Distance", "Heart Rate", "Calories"};
-        LineChart[] charts = {speedChart, distanceChart, heartRateChart, caloriesChart};
 
-        XYChart.Series series;
-        for (int i = 0; i < graphTypes.length; i++) {
-            series = createGraph(charts[i], graphTypes[i]);
-            populateGraph(series, currentActivity);
-        }
+        XYChart.Series speedSeries = createGraph(speedChart, "Speed");
+        setSpeedChart(speedChart, speedSeries, currentActivity);
+        XYChart.Series distanceSeries = createGraph(distanceChart, "Distance");
+        setDistanceChart(distanceChart, distanceSeries, currentActivity);
+        XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate");
+        setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
+        //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
+        //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Speed graph");
+        stage.setTitle("Statistics");
 
 
         InputDataParser inputDataParser = new InputDataParser();
