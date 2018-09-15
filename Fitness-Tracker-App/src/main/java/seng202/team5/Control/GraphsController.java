@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-import seng202.team5.Model.InputDataParser;
+import seng202.team5.Data.InputDataParser;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
