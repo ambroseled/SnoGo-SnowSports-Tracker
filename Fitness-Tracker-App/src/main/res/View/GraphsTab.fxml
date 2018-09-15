@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+<AnchorPane onMouseMoved="#setChoiceBox" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
   <children>
     <ScrollPane fx:id="scrollPane" layoutX="6.0" layoutY="63.0" prefHeight="337.0" prefWidth="600.0" visible="false">
       <content>
@@ -57,15 +57,15 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dateLabel" layoutX="256.0" layoutY="24.0" text="[Activity Date]" textAlignment="CENTER" />
-                        <Label layoutX="102.0" layoutY="55.0" text="Top Speed:" />
-                        <Label layoutX="33.0" layoutY="104.0" text="Total Distance Travelled:" />
-                        <Label layoutX="356.0" layoutY="55.0" text="Average Heart Rate:" />
-                        <Label layoutX="323.0" layoutY="104.0" text="Vertical Distance Travelled:" />
-                        <Label fx:id="speedLabel" layoutX="171.0" layoutY="55.0" text="[TopSpeedInput]" />
-                        <Label fx:id="distanceLabel" layoutX="171.0" layoutY="104.0" text="[DistanceInput]" />
-                        <Label fx:id="heartRateLabel" layoutX="473.0" layoutY="55.0" text="[HeartRateInput]" />
-                        <Label fx:id="vertDistanceLabel" layoutX="473.0" layoutY="104.0" text="[VertDistanceInput]" />
+                        <Label fx:id="dateLabel" layoutX="134.0" layoutY="24.0" text="[Activity Date]" textAlignment="CENTER" />
+                        <Label layoutX="100.0" layoutY="63.0" text="Top Speed:" />
+                        <Label layoutX="29.0" layoutY="87.0" text="Total Distance Travelled:" />
+                        <Label layoutX="354.0" layoutY="63.0" text="Average Heart Rate:" />
+                        <Label layoutX="319.0" layoutY="87.0" text="Vertical Distance Travelled:" />
+                        <Label fx:id="speedLabel" layoutX="169.0" layoutY="63.0" text="[TopSpeedInput]" />
+                        <Label fx:id="distanceLabel" layoutX="167.0" layoutY="87.0" text="[DistanceInput]" />
+                        <Label fx:id="heartRateLabel" layoutX="471.0" layoutY="63.0" text="[HeartRateInput]" />
+                        <Label fx:id="vertDistanceLabel" layoutX="469.0" layoutY="87.0" text="[VertDistanceInput]" />
                      </children></AnchorPane>
           </children>
           <columnConstraints>

@@ -15,17 +15,21 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
+import seng202.team5.Data.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Data.InputDataParser;
+import seng202.team5.Model.User;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class GraphsController extends Application{
+public class GraphsController{
 
     private ArrayList<Activity> activities;
+    private boolean setChoices = false;
 
     @FXML
     ChoiceBox activityChoice;
@@ -56,9 +60,15 @@ public class GraphsController extends Application{
     @FXML
     Label vertDistanceLabel;
 
+    private DataBaseController db = AppController.getDb();
+    private User currentUser = AppController.getCurrentUser();
 
-
-
+    /**
+     * Creates the basic empty lineChart
+     * @param lineChart One of the lineCharts from FXML document
+     * @param yLabel String value to label lineChart y-axis
+     * @return Empty XYChart.Series with name set to yLabel
+     */
     private XYChart.Series createGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Time (Seconds)");
@@ -78,6 +88,12 @@ public class GraphsController extends Application{
         return series;
     }
 
+    /**
+     * Sets speed graph
+     * @param lineChart the speed over time line graph
+     * @param series series storing all speed points for activity in an 2D format
+     * @param activity currently selected activity
+     */
     private void setSpeedChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
@@ -89,6 +105,12 @@ public class GraphsController extends Application{
         //((NumberAxis) lineChart.getXAxis()).setLowerBound(getDataPointsList(activity).get(0).getDateTime().getTime());
     }
 
+    /**
+     * Sets distance graph
+     * @param lineChart the distance over time line graph
+     * @param series series storing all distance points for activity in an 2D format
+     * @param activity currently selected activity
+     */
     private void setDistanceChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
@@ -100,6 +122,12 @@ public class GraphsController extends Application{
         //((NumberAxis) lineChart.getXAxis()).setLowerBound(getDataPointsList(activity).get(0).getDateTime().getTime());
     }
 
+    /**
+     * Sets heart rate graph
+     * @param lineChart the heart rate over time line graph
+     * @param series series storing all heart rate points for activity in an 2D format
+     * @param activity currently selected activity
+     */
     private void setHeartRateChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
@@ -120,6 +148,11 @@ public class GraphsController extends Application{
         lineChart.getData().add(series);
     }*/ //Get calories
 
+    /**
+     * @param startTime Point when the activity started
+     * @param dataPoint Currently studied datapoint
+     * @return the time of the current datapoint relative to the start of the activity
+     */
     private double setTime(long startTime, DataPoint dataPoint) {
         long currentTime = dataPoint.getDateTime().getTime();
         double newTime = currentTime - startTime;
@@ -128,14 +161,31 @@ public class GraphsController extends Application{
     }
 
 
-    private void setChoiceBox() {
+    /**
+     * Runs when the tab is first switched to
+     * Sets up the choiceBox to show all activities for current User
+     */
+    public void setChoiceBox() {
+        if (setChoices) {
+            return;
+        }
+
+        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        setActivities(inputActivities);
+
         ObservableList<Activity> activityNames = FXCollections.observableArrayList();
         for (Activity activity: activities) {
             activityNames.add(activity);
         }
         activityChoice.setItems(activityNames);
+        setChoices = true;
     }
 
+    /**
+     * Clears all data from graphs
+     * Sets values of labelled data (max, min etc)
+     * Sets graphs to the values of activity selected in choiceBox
+     */
     public void selectData() {
         Activity currentActivity = (Activity) activityChoice.getValue();
         speedChart.getData().clear();
@@ -166,39 +216,14 @@ public class GraphsController extends Application{
         scrollPane.setVisible(true);
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        stage.setTitle("Statistics");
-
-
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities("huttTestData.csv");
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/GraphsTab.fxml"));
-        Parent root = loader.load();
-        GraphsController controller = loader.getController();
-
-        controller.setActivities(inputActivities);
-        controller.setChoiceBox();
-
-//        XYChart.Series series = controller.createGraph();
-//        controller.populateGraph(series);
-
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
 
+    /**
+     * @param activity the currently selected activity in the choiceBox
+     * @return a list of all dataPoints
+     */
     public ObservableList<DataPoint> getDataPointsList(Activity activity) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
