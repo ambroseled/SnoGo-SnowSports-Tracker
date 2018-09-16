@@ -39,7 +39,7 @@ public class CheckGoals {
      * @param activities The activities to use to check the goal.
      * @return A boolean flag holding if the goal has been completed.
      */
-    private static boolean checkGoal(Goal goal, ArrayList<Activity> activities, User user) {
+    public static boolean checkGoal(Goal goal, ArrayList<Activity> activities, User user) {
         // Getting the current date string
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

@@ -238,6 +238,7 @@ public class GoalController {
         boolean global = globalCheck.isSelected();
         Goal newGoal = new Goal(name, metric, value, dateString, global);
 
+        newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
 
         // Store the goal into the database
         db.storeGoal(newGoal, currentUser.getId());
