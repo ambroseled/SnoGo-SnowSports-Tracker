@@ -6,7 +6,7 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 /**
@@ -16,9 +16,8 @@ import java.util.Date;
  */
 public class DataAnalyser {
 
-  //  User currentUser = AppController.getCurrentUser();
-    Date date = new Date();
-    User currentUser = new User("Test", 25, 1.8, 75.8, date);
+    User currentUser = AppController.getCurrentUser();
+
 
     /**
      * Performs analysis on a passed activity.
@@ -366,7 +365,7 @@ public class DataAnalyser {
                 time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i).getDateTime().getTime();
             }
         }
-        return time;
+        return roundNum(time / 60);
     }
 
 
@@ -395,4 +394,5 @@ public class DataAnalyser {
     public void setCurrentUser(User user) {
         currentUser = user;
     }
+
 }
