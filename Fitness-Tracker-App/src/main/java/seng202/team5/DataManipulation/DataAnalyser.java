@@ -6,6 +6,7 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -15,8 +16,9 @@ import java.util.ArrayList;
  */
 public class DataAnalyser {
 
-    User currentUser = AppController.getCurrentUser();
-
+  //  User currentUser = AppController.getCurrentUser();
+    Date date = new Date();
+    User currentUser = new User("Test", 25, 1.8, 75.8, date);
 
     /**
      * Performs analysis on a passed activity.
