@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,8 +15,8 @@ import java.util.Date;
 
 
 /**
- * This class handles controlling the goal view of the application. It provides functionality to view and
- * create goals.
+ * This class handles controlling the goal view of the application. It provides functionality to view, remove
+ * and create goals.
  */
 public class GoalController {
 
@@ -72,6 +72,7 @@ public class GoalController {
         viewButton.setDisable(true);
         refreshButton.setVisible(true);
         refreshButton.setDisable(false);
+        refreshButton.setOpacity(0.7);
 
 
         goals.addAll(db.getGoals(currentUser.getId()));
@@ -105,7 +106,9 @@ public class GoalController {
 
     @FXML
     /**
-     *
+     * This method is called on a key release in teh goalName textField.
+     * It performs checks to see if the name entered is valid and sets the
+     * state of the nameCheck checkBox accordingly.
      */
     public void nameEntry() {
         String text = goalName.getText();
@@ -117,13 +120,13 @@ public class GoalController {
         if (metricCombo.getItems().size() == 0) {
             fillCombo();
         }
-
         checkChecks();
     }
 
 
     /**
-     *
+     * This method is used to fill the goal metric comboBox with the possible
+     * choices for a new goal.
      */
     private void fillCombo() {
         ObservableList<String> metrics = FXCollections.observableArrayList();
@@ -134,7 +137,9 @@ public class GoalController {
 
     @FXML
     /**
-     *
+     * This method is called on an action on the metricCombo comboBox. It checks if
+     * a value has been selected and then sets the state of the metricCheck checkBox
+     * accordingly.
      */
     public void checkMetricCombo() {
         boolean selected = metricCombo.getSelectionModel().isEmpty();
@@ -150,7 +155,9 @@ public class GoalController {
 
     @FXML
     /**
-     *
+     * This method is called a key release on the dateEntry textField. It checks if
+     * the entered date is valid and then sets the state of the dateCheck checkBox
+     * accordingly.
      */
     public void checkDate() {
         String text = dateEntry.getText();
@@ -165,7 +172,8 @@ public class GoalController {
 
 
     /**
-     *
+     * This method fills the valueCombo with the possible choices according to
+     * the passed metric type.
      * @param metric
      */
     private void fillValueCombo(String metric) {
@@ -196,9 +204,12 @@ public class GoalController {
     }
 
 
+
     @FXML
     /**
-     *
+     * This method is called on an action on the valueCombo comboBox. It checks if
+     * a value has been selected and then sets the state of the valueCheck checkBox
+     * accordingly.
      */
     public void checkValueCombo() {
 
@@ -214,7 +225,9 @@ public class GoalController {
 
     @FXML
     /**
-     *
+     * This method is called by a press of the createButton. It pulls all the data
+     * from the entries and creates a goal from this data. The goal is then stored in
+     * the database after wwhich the goal table is updated.
      */
     public void createGoal() {
         String name = goalName.getText();
@@ -248,9 +261,10 @@ public class GoalController {
 
 
     /**
-     *
-     * @param metric
-     * @return
+     * This method gets the metric out of the string which is returned
+     * from the metricCombo.
+     * @param metric The string form the metricCombo.
+     * @return The metric string.
      */
     private String getMetric(String metric) {
         int index = 0;
@@ -265,7 +279,8 @@ public class GoalController {
 
 
     /**
-     *
+     * This method checks that all the checkBoxes are selected.
+     * If so all the data entered is valid and the createButton is enabled.
      */
     private void checkChecks() {
         if (valueCheck.isSelected() && metricCheck.isSelected() && dateCheck.isSelected() && nameCheck.isSelected()) {
@@ -274,6 +289,21 @@ public class GoalController {
         } else {
             createButton.setDisable(true);
         }
+    }
+
+
+
+    @FXML
+    /**
+     * This method is called by a press to teh deleteButton. It gets the selected
+     * goal from the goal table and removes it from teh user and the database. The
+     * goal table is then updated.
+     */
+    private void removeGoal() {
+        Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
+        db.removeGoal(goal);
+        currentUser.removeGoal(goal);
+        refreshData();
     }
 
 }

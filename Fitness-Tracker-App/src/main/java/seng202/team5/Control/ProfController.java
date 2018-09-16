@@ -2,7 +2,7 @@ package seng202.team5.Control;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.User;
 import java.text.DateFormat;
 import java.text.ParseException;

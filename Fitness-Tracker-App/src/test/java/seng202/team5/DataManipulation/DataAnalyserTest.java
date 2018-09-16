@@ -1,22 +1,22 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seng202.team5.Data.DataAnalyser;
-import seng202.team5.Data.InputDataParser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
+import seng202.team5.Model.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
 public class DataAnalyserTest {
 
     private static ArrayList<Activity> activities;
-    private DataAnalyser dataAnalyser = new DataAnalyser();
+    private static DataAnalyser dataAnalyser = new DataAnalyser();
 
 
     /**
@@ -25,6 +25,9 @@ public class DataAnalyserTest {
      */
     @BeforeClass
     public static void beforeAll() {
+        Date date = new Date();
+        User user = new User("Test", 25, 1.8, 75.8, date);
+        dataAnalyser.setCurrentUser(user);
         InputDataParser parser = new InputDataParser();
         activities = parser.parseCSVToActivities("TestFiles/dataAnalysisTests.csv");
     }
@@ -170,10 +173,13 @@ public class DataAnalyserTest {
     }
 
 
-    //TODO: Implement once slope time is fixed
 
     @Test
-    public void testSlopeTime() {
+    /**
+     * Testing the calcCalBurned function.
+     */
+    public void testCalories() {
+        assertEquals(3.25, activities.get(3).getDataSet().getCaloriesBurned(), 0.0);
     }
 
 }

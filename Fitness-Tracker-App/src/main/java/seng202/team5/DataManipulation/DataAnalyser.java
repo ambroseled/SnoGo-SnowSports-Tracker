@@ -1,9 +1,10 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
+import seng202.team5.Control.AppController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-
+import seng202.team5.Model.User;
 import java.util.ArrayList;
 
 
@@ -14,15 +15,13 @@ import java.util.ArrayList;
  */
 public class DataAnalyser {
 
-
+    User currentUser = AppController.getCurrentUser();
 
 
     /**
      * Performs analysis on a passed activity.
      * @param activity The activity to analyse.
      */
-
-    // Add a user that is passed here once user loading is working in the app
     public void analyseActivity(Activity activity) {
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
@@ -59,11 +58,7 @@ public class DataAnalyser {
         dataSet.setTopSpeed(topSpeed(dataSet));
         dataSet.setSlopeTime(slopeTime(dataSet));
         dataSet.setAvgSpeed(calcAvgSpeed(dataSet));
-
-        /**
-         * Uncomment when user loading is working in the app
-         */
-        //  dataSet.setCaloriesBurned(calcCalBurned(dataSet, user.getWeight()));
+        dataSet.setCaloriesBurned(calcCalBurned(dataSet, currentUser.getWeight()));
     }
 
 
@@ -335,13 +330,10 @@ public class DataAnalyser {
     }
 
 
-
-    //TODO: Integrate this in once James has done user entry
-
     /**
      * Calculates the calories burned by a user during a passed DataSet.
      * @param dataSet The DataSet to calculate calories burned on.
-     * @param weight The wieght of the user.
+     * @param weight The weight of the user.
      * @return The amount of calories burned.
      */
     private double calcCalBurned(DataSet dataSet, double weight) {
@@ -391,5 +383,14 @@ public class DataAnalyser {
             }
         }
         return roundNum(avg / count);
+    }
+
+
+    /**
+     * Sets the current user to passed user.
+     * @param user The new current user.
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
     }
 }

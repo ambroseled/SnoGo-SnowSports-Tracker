@@ -1,9 +1,8 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import seng202.team5.Data.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;

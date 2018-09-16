@@ -1,4 +1,4 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 import seng202.team5.Control.AppController;
 import seng202.team5.Model.*;
@@ -7,7 +7,6 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 //TODO: Duplicate data handling
@@ -386,7 +385,7 @@ public class DataBaseController {
                 pStmt.executeUpdate();
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            System.out.println("Error when adding goal: " + e.getLocalizedMessage());
         }
     }
 
@@ -420,7 +419,27 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Printing an error message
-            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+            System.out.println("Error when updating goal: " + e.getLocalizedMessage());
+        }
+    }
+
+
+
+    public void removeGoal(Goal goal) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the goal is in the database
+            if (checkId("Goal", goal.getId())) {
+                // The goal is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the update to update the user
+                String query = String.format("DELETE FROM Goal WHERE ID = %d", goal.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
         }
     }
 

@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.User;
 

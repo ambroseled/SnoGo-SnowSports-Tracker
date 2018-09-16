@@ -1,12 +1,8 @@
 package seng202.team5.Control;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -14,15 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.stage.Stage;
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-import seng202.team5.Data.InputDataParser;
 import seng202.team5.Model.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -143,7 +136,7 @@ public class GraphsController{
         for (DataPoint dataPoint : getDataPointsList(activity)) {
             long timeVal = (dataPoint.getDateTime().getTime());
             double speedVal = dataPoint.getSpeed();
-            series.getData().add(new XYChart.Data(timeVal, speedVal));
+            series.getData().add(new XYChart.DataManipulation(timeVal, speedVal));
         }
         lineChart.getData().add(series);
     }*/ //Get calories

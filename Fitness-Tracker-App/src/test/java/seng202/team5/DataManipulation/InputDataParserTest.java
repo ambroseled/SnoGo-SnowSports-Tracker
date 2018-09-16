@@ -1,9 +1,8 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seng202.team5.Data.InputDataParser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 

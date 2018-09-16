@@ -1,6 +1,6 @@
 package seng202.team5.Model;
 
-import seng202.team5.Data.DataAnalyser;
+import seng202.team5.DataManipulation.DataAnalyser;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -263,6 +263,11 @@ public class User {
      */
     public ArrayList<Alert> getAlerts() {
         return alerts;
+    }
+
+
+    public void removeGoal(Goal goal) {
+        goals.remove(goal);
     }
 
     /*
