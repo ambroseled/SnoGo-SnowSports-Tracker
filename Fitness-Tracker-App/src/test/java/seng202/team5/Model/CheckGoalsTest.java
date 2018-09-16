@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import static org.junit.Assert.*;
 
+
+/**
+ *
+ */
 public class CheckGoalsTest {
 
     private Method[] methods;
@@ -80,6 +84,7 @@ public class CheckGoalsTest {
         try {
             assertTrue((boolean) methods[1].invoke(checkObject, goal, activities, user));
         } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
+            System.out.println("Exception: " + e.getLocalizedMessage());
             fail();
         }
     }
