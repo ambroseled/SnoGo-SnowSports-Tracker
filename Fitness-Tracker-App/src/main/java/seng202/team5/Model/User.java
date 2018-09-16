@@ -266,6 +266,10 @@ public class User {
     }
 
 
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
+    }
+
     public void removeGoal(Goal goal) {
         goals.remove(goal);
     }

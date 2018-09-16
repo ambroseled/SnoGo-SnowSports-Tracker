@@ -46,8 +46,8 @@ public class CheckGoals {
         int[] currentDate = convertDate(formatter.format(date).split("/"));
         int[] compDate = convertDate(formatter.format(goal.getCompletionDate()).split("/"));
 
-        if ((currentDate[0] > compDate[0] && currentDate[1] > compDate[1] && currentDate[2] > compDate[2])
-                || currentDate[0] > compDate[0] || (currentDate[0] > compDate[0] && currentDate[1] > compDate[1])) {
+        if ((currentDate[0] > compDate[0] && currentDate[1] > compDate[1] && currentDate[2] == compDate[2]) ||
+                currentDate[2] > compDate[2]) {
             return false;
         }
         String metric = goal.getMetric();
@@ -61,7 +61,7 @@ public class CheckGoals {
                 }
             } else if (metric.equals("Top Speed")) {
                 for (Activity x : activities) {
-                    if (value <= x.getDataSet().getTopSpeed()) {
+                    if (value >= x.getDataSet().getTopSpeed()) {
                         return true;
                     }
                 }
@@ -79,7 +79,7 @@ public class CheckGoals {
                 }
             } else { // Metric is average heart rate
                 for (Activity x : activities) {
-                    if (value == x.getDataSet().getAvgHeartRate()) {
+                    if ((int) value == x.getDataSet().getAvgHeartRate()) {
                         return true;
                     }
                 }
@@ -93,6 +93,15 @@ public class CheckGoals {
 
 
     private static boolean checkGlobal(Goal goal, User user) {
+        // Getting the current date string
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        int[] currentDate = convertDate(formatter.format(date).split("/"));
+        int[] compDate = convertDate(formatter.format(goal.getCompletionDate()).split("/"));
+        if ((currentDate[0] > compDate[0] && currentDate[1] > compDate[1] && currentDate[2] == compDate[2]) ||
+                currentDate[2] > compDate[2]) {
+            return false;
+        }
         if (goal.getMetric().equals("Distance Traveled")) {
             double totalDist = 0.0;
             for (Activity activity : user.getActivities()) {
@@ -106,7 +115,7 @@ public class CheckGoals {
                     topSpeed = activity.getDataSet().getTopSpeed();
                 }
             }
-            return goal.getMetricGoal() <= topSpeed;
+            return goal.getMetricGoal() >= topSpeed;
         } else if (goal.getMetric().equals("Vertical Distance")) {
             double vertDist = 0.0;
             for (Activity activity : user.getActivities()) {
@@ -114,18 +123,18 @@ public class CheckGoals {
             }
             return (goal.getMetricGoal() * 1000) <= vertDist;
         } else if (goal.getMetric().equals("Calories Burned")) {
-            double vertDist = 0.0;
+            double cals = 0.0;
             for (Activity activity : user.getActivities()) {
-                vertDist += activity.getDataSet().getVerticalDistance();
+                cals += activity.getDataSet().getCaloriesBurned();
             }
-            return goal.getMetricGoal() <= vertDist;
+            return goal.getMetricGoal() <= cals;
         } else { // Metric is average heart rate
             int avgRate = 0;
             for (Activity x : user.getActivities()) {
                 avgRate += x.getDataSet().getAvgHeartRate();
             }
             avgRate = avgRate / user.getActivities().size();
-            return goal.getMetricGoal() == avgRate;
+            return (int) goal.getMetricGoal() == avgRate;
         }
     }
 
