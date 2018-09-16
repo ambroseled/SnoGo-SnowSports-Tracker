@@ -22,7 +22,7 @@ public class CheckGoals {
      * @param activities The newly added activities to use to check the users goals.
      */
     public static void markGoals(User user, DataBaseController db, ArrayList<Activity> activities) {
-        for (Goal goal: db.getGoals(user.getId())) {
+        for (Goal goal: user.getGoals()) {
             if (!goal.isCompleted()) {
                 if (checkGoal(goal, activities, user)) {
                     goal.setCompleted(true);
