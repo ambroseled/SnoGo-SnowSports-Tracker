@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -17,6 +15,7 @@ import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class GraphsController{
@@ -52,6 +51,9 @@ public class GraphsController{
     Label heartRateLabel;
     @FXML
     Label vertDistanceLabel;
+
+    @FXML
+    TableView activityTable;
 
     private DataBaseController db = AppController.getDb();
     private User currentUser = AppController.getCurrentUser();
@@ -206,13 +208,70 @@ public class GraphsController{
             setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
             //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
             //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
+            createTable(currentActivity);
 
             scrollPane.setVisible(true);
         }
     }
 
+    private void createTable(Activity activity) {
+        activityTable.getColumns().clear();
+
+        // date and time column
+        TableColumn<String, String> activityCol = new TableColumn("Activity");
+        activityCol.setCellValueFactory(new PropertyValueFactory("activity"));
+
+        //heart rate column
+        TableColumn<String, String> totalDistCol = new TableColumn("Distance Travelled");
+        totalDistCol.setCellValueFactory(new PropertyValueFactory("totalDist"));
+
+        //latitude column
+        TableColumn<String, String> vertDistCol = new TableColumn("Vertical Distance Travelled");
+        vertDistCol.setCellValueFactory(new PropertyValueFactory("vertDist"));
+
+        //longitude column
+        TableColumn<String, String> avgHeartRateCol = new TableColumn("Average Heart Rate");
+        avgHeartRateCol.setCellValueFactory(new PropertyValueFactory("avgHeartRate"));
+
+        //elevation column
+        TableColumn<String, String> caloriesCol = new TableColumn("Calories Burnt");
+        caloriesCol.setCellValueFactory(new PropertyValueFactory("calories"));
+
+        //distance column
+        TableColumn<String, String> avgSpeedCol = new TableColumn("Average Speed");
+        avgSpeedCol.setCellValueFactory(new PropertyValueFactory("avgSpeed"));
+
+
+        activityTable.getColumns().addAll(activityCol, totalDistCol, vertDistCol, avgHeartRateCol, caloriesCol, avgSpeedCol);
+
+        activityTable.setItems(getTableList(activity));
+
+        System.out.println(activityCol);
+    }
+
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
+    }
+
+    private ObservableList<String> getTableList(Activity activity) {
+        String activityName = activity.getName();
+        String totalDistVal = Double.toString(activity.getDataSet().getTotalDistance());
+        String vertDistVal = Double.toString(activity.getDataSet().getVerticalDistance());
+        String avgHeartVal = Double.toString(activity.getDataSet().getAvgHeartRate());
+        String caloriesVal = Double.toString(activity.getDataSet().getCaloriesBurned());
+        String avgSpeedVal = Double.toString(activity.getDataSet().getAvgSpeed());
+
+        System.out.println(activityName);
+        System.out.println(totalDistVal);
+        System.out.println(vertDistVal);
+        System.out.println(avgHeartVal);
+        System.out.println(caloriesVal);
+        System.out.println(avgSpeedVal);
+
+        ObservableList<String> calculatedVals = FXCollections.observableArrayList();
+        calculatedVals.addAll(activityName, totalDistVal, vertDistVal, avgHeartVal, avgHeartVal, caloriesVal, avgSpeedVal);
+        System.out.println(calculatedVals);
+        return calculatedVals;
     }
 
     /**

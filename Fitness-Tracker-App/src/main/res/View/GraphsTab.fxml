@@ -172,15 +172,15 @@
                   </GridPane>
                </content>
             </ScrollPane>
-            <TableView opacity="0.75" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
+            <TableView fx:id="activityTable" opacity="0.75" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
               <columns>
-                <TableColumn prefWidth="199.0" text="Activity " />
+<!--                <TableColumn prefWidth="199.0" text="Activity " />
                 <TableColumn prefWidth="120.0" text="Top Speed (m/s)" />
                   <TableColumn prefWidth="124.0" text="Total Distance (m)" />
                   <TableColumn prefWidth="143.0" text="Vertical Distance (m)" />
                   <TableColumn prefWidth="130.0" text="Average Heart Rate" />
                   <TableColumn prefWidth="114.0" text="Calories Burned" />
-                  <TableColumn prefWidth="145.0" text="Average Speed (m/s)" />
+                  <TableColumn prefWidth="145.0" text="Average Speed (m/s)" />-->
               </columns>
             </TableView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
