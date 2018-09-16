@@ -3,15 +3,13 @@ package seng202.team5.Model;
 import org.junit.Before;
 import org.junit.Test;
 import seng202.team5.DataManipulation.InputDataParser;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import static org.junit.Assert.*;
 
 
 /**
- *
+ * This class provides tests for the CheckGoals class.
  */
 public class CheckGoalsTest {
 
@@ -42,6 +40,15 @@ public class CheckGoalsTest {
         assertEquals(2018, values[2]);
     }
 
+
+
+    @Test
+    public void testFalseDate() {
+        Goal goal = new Goal("test", "Distance Traveled", 0.4, "05/06/1999", false);
+        ArrayList<Activity> activities = new ArrayList<>();
+        activities.add(user.getActivities().get(0));
+        assertFalse(CheckGoals.checkGoal(goal, activities, user));
+    }
 
 
     @Test
@@ -82,14 +89,6 @@ public class CheckGoalsTest {
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
     }
 
-
-    @Test
-    public void testFalseDate() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.4, "05/06/1999", true);
-        ArrayList<Activity> activities = new ArrayList<>();
-        activities.add(user.getActivities().get(0));
-        assertFalse(CheckGoals.checkGoal(goal, activities, user));
-    }
 
 
     @Test

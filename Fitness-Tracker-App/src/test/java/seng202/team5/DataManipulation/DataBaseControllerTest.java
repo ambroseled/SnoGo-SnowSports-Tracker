@@ -35,7 +35,7 @@ public class DataBaseControllerTest {
      * For this test it is assumed that the assert statements will be updated if the
      * first user in the database is altered or removed.
      */
-    public void getUsers() {
+    public void testGetUsers() {
         ArrayList<User> users = db.getUsers();
         User user = users.get(0);
         assertEquals("John Stevens", user.getName());
@@ -53,7 +53,7 @@ public class DataBaseControllerTest {
      * For this test it is assumed that the assert statements will be updated if the
      * number of activities of the first user in the database is altered.
      */
-    public void getActivities() {
+    public void testGetActivities() {
         ArrayList<User> users = db.getUsers();
         ArrayList<Activity> activities = db.getActivities(users.get(0).getId());
         int count = 0;
@@ -74,7 +74,7 @@ public class DataBaseControllerTest {
      * For this test it is assumed that the assert statements will be updated if the
      * first goal for the user in the database is altered or removed.
      */
-    public void getGoals() {
+    public void testGetGoals() {
         ArrayList<Goal> goals = db.getGoals(1);
         assertTrue(goals.get(0) instanceof Goal);
     }
@@ -90,7 +90,7 @@ public class DataBaseControllerTest {
      * For this test it is assumed that the assert statements will be updated if the
      * first alert for the user in the database is altered or removed.
      */
-    public void getAlerts() {
+    public void testGetAlerts() {
         ArrayList<Alert> alerts = db.getAlerts(1);
         Alert alert = alerts.get(0);
         assertEquals("Testing", alert.getName());
@@ -98,4 +98,5 @@ public class DataBaseControllerTest {
         assertEquals("www.test.com", alert.getWebLink());
         assertEquals("06/07/2018", alert.getDateString());
     }
+
 }
