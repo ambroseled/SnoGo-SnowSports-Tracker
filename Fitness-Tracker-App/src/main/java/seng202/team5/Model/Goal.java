@@ -134,8 +134,8 @@ public class Goal {
 
 
     /**
-     *
-     * @return
+     * Gets if the goal is for all data or just over an activity
+     * @return Flag holding if the goal is global or not.
      */
     public boolean isGlobal() {
         return global;
@@ -143,8 +143,8 @@ public class Goal {
 
 
     /**
-     *
-     * @param completed
+     * Sets if the goal is complete.
+     * @param completed The new completion value.
      */
     public void setCompleted(boolean completed) {
         this.completed = completed;
@@ -152,8 +152,8 @@ public class Goal {
 
 
     /**
-     *
-     * @param id
+     * Sets the database id of the goal.
+     * @param id The database id of the goal.
      */
     public void setId(int id) {
         this.id = id;

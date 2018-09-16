@@ -104,8 +104,8 @@ public class DataAnalyser {
         double startAlt = dataPoints.get(index).getElevation();
 
 
-        Boolean flag = false;
-        int endIndex = 60;
+        boolean flag = false;
+        int endIndex = 40;
         int len = dataPoints.size();
         if ((index + endIndex) > len) {
             endIndex = len - 1;
@@ -124,7 +124,7 @@ public class DataAnalyser {
             double endAlt = dataPoints.get(endIndex).getElevation();
 
 
-            // Getting the altitude change over the two points
+            // Getting the distance change over the two points
             double movement = oneDist(startLat, startLong, endLat, endLong);
             double condition;
             if (flag) {

@@ -103,7 +103,10 @@ public class TableController {
     }
 
     @FXML
-
+    /**
+     * Called by a press of the fileLoad button. This method enables the user
+     * to select and upload a csv file into the application.
+     */
     public void loadFile() {
 
         FileChooser fileChooser = new FileChooser();

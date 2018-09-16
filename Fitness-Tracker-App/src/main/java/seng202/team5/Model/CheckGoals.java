@@ -1,7 +1,6 @@
 package seng202.team5.Model;
 
 import seng202.team5.DataManipulation.DataBaseController;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,7 +90,12 @@ public class CheckGoals {
     }
 
 
-
+    /**
+     * This method checks if a passed goal has been completed or not. This class
+     * only checks goals that are for all of the users data not just a single activity.
+     * @param goal The goal to check.
+     * @return A boolean flag holding if the goal has been completed.
+     */
     private static boolean checkGlobal(Goal goal, User user) {
         // Getting the current date string
         Date date = new Date();

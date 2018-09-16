@@ -24,11 +24,11 @@ public class DataPoint {
 
     /**
      * The constructor used to make a new DataPoint when the data is being parsed from a csv file.
-     * @param newDateTime
-     * @param newHeartRate
-     * @param newLatitude
-     * @param newLongitude
-     * @param newElevation
+     * @param newDateTime The data and time of the DataPoint.
+     * @param newHeartRate The heart rate of the DataPoint.
+     * @param newLatitude The latitude of the DataPoint.
+     * @param newLongitude The longitude of the DataPoint.
+     * @param newElevation The elevation of the DataPoint.
      */
     public DataPoint(Date newDateTime, int newHeartRate, double newLatitude, double newLongitude,
                      double newElevation) {
@@ -42,15 +42,15 @@ public class DataPoint {
 
     /**
      * This constructor is used when a DataPoint is read from the database.
-     * @param id
-     * @param date
-     * @param newHeartRate
-     * @param newLatitude
-     * @param newLongitude
-     * @param newElevation
-     * @param distance
-     * @param speed
-     * @param active
+     * @param id The database id of the DataPoint.
+     * @param date The date of the database.
+     * @param newHeartRate The heart rate of the DataPoint.
+     * @param newLatitude The latitude of the DataPoint.
+     * @param newLongitude The longitude of the DataPoint.
+     * @param newElevation The elevation of the DataPoint.
+     * @param distance The distance of the DataPoint.
+     * @param speed The speed of the DataPoint.
+     * @param active Flag showing if the DataPoint is active.
      */
     public DataPoint(int id, String date, int newHeartRate, double newLatitude, double newLongitude,
                      double newElevation, double distance, double speed, boolean active) {
@@ -160,8 +160,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the latitude value of the DataPoint.
+     * @return The latitude value.
      */
     public double getLatitude() {
         return latitude;
@@ -169,8 +169,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the longitude value of the DataPoint.
+     * @return The longitude value.
      */
     public double getLongitude() {
         return longitude;
@@ -178,8 +178,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the elevation value of the DataPoint.
+     * @return The elevation value.
      */
     public double getElevation() {
         return elevation;
@@ -187,8 +187,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the distance of the DataPoint.
+     * @return The distance value.
      */
     public double getDistance() {
         return  distance;
@@ -196,8 +196,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the speed of the DataPoint.
+     * @return The speed value.
      */
     public double getSpeed() {
         return speed;
@@ -205,8 +205,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets if the DataPoint is active.
+     * @return Flag if the point is active.
      */
     public boolean isActive() {
         return active;
@@ -214,8 +214,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets the database id of the DataPoint.
+     * @return The database id.
      */
     public int getId() {
         return id;
@@ -223,8 +223,8 @@ public class DataPoint {
 
 
     /**
-     *
-     * @return
+     * Gets a string representation of the DataPoint.
+     * @return The string of the DataPoint.
      */
     public String toString() {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+

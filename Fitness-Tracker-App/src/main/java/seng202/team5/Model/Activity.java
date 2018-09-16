@@ -2,7 +2,7 @@ package seng202.team5.Model;
 
 
 /**
- *
+ * This class holds a single activity that is in the application.
  */
 public class Activity {
 

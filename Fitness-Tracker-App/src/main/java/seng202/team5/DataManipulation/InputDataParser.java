@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.ArrayList;
 
 /**
- *
+ * This class provides the functionality to parse csv files into activities.
  */
 public class InputDataParser {
 
@@ -94,9 +94,10 @@ public class InputDataParser {
 
 
     /**
-     *
-     * @param fileName
-     * @return
+     * This method reads a csv file and parses the file into an ArrayList of
+     * activities.
+     * @param fileName The path of the file to be read.
+     * @return An ArrayList holding all activities read from teh passed file.
      */
 	public ArrayList<Activity> parseCSVToActivities(String fileName) {
 		ArrayList<String> lines = readFile(fileName);

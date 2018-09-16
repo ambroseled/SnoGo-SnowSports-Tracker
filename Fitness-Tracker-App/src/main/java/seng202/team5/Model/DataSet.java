@@ -4,7 +4,7 @@ import java.util.*;
 
 
 /**
- *
+ * This class is used to hold the information about one uploaded activity.
  */
 public class DataSet {
 
