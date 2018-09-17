@@ -2,7 +2,7 @@ package seng202.team5.Model;
 
 
 import org.junit.Test;
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 import java.util.Date;
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 import java.util.ArrayList;
 import java.util.Date;

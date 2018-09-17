@@ -1,4 +1,4 @@
-package seng202.team5.Data;
+package seng202.team5.DataManipulation;
 
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;

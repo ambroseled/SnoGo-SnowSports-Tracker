@@ -1,6 +1,6 @@
 package seng202.team5.Model;
 
-import seng202.team5.Data.DataBaseController;
+import seng202.team5.DataManipulation.DataBaseController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

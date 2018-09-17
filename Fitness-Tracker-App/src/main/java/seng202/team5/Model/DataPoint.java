@@ -139,7 +139,7 @@ public class DataPoint {
 
     /**
      * Gets the Date of the DataPoint
-     * @return The Data of the DataPoint.
+     * @return The DataManipulation of the DataPoint.
      */
     public Date getDateTime() {
         return dateTime;
