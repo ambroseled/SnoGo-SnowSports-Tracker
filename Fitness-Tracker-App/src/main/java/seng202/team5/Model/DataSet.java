@@ -220,4 +220,9 @@ public class DataSet {
     public void setSlopeTime(double slopeTime) {
         this.slopeTime = slopeTime;
     }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

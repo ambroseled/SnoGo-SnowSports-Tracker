@@ -284,6 +284,7 @@ public class DataAnalyser {
             }
             previous = dataPoints.get(i).getElevation();
         }
+        System.out.println(roundNum(vertical));
         return roundNum(vertical);
     }
 

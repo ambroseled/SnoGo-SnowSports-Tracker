@@ -41,22 +41,18 @@ public class AlertController {
      * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
-        refreshButton.setVisible(true);
-        refreshButton.setDisable(false);
+        if (alertTable.getItems().isEmpty()) {
+            alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
-        alerts.addAll(db.getAlerts(currentUser.getId()));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
+            desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
+            webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
 
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
-        desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
-        webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
-
-
-        alertTable.setItems(alerts);
+            alertTable.setItems(alerts);
+        }
     }
 
 

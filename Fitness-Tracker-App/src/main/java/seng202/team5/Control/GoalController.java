@@ -68,23 +68,21 @@ public class GoalController {
      * with all of the users goals.return global;
      */
     public void viewData() {
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
-        refreshButton.setVisible(true);
-        refreshButton.setDisable(false);
-        refreshButton.setOpacity(0.7);
+        if (goalTable.getItems().isEmpty()) {
 
 
-        goals.addAll(db.getGoals(currentUser.getId()));
+            goals.addAll(db.getGoals(currentUser.getId()));
 
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
-        metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
-        valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("dateString"));
-        compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
+            metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
+            valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("dateString"));
+            compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
 
-        goalTable.setItems(goals);
+            goalTable.setItems(goals);
+        }
+
     }
 
 

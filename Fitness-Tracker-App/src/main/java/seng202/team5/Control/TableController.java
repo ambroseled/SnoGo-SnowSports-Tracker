@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.InputDataParser;
 import seng202.team5.Model.*;
+import seng202.team5.Model.Alert;
 
 
 import java.io.File;
@@ -116,6 +117,7 @@ public class TableController {
         );
         File f = fileChooser.showOpenDialog(null);
         viewData(f.getAbsolutePath());
+
 
     }
     /**

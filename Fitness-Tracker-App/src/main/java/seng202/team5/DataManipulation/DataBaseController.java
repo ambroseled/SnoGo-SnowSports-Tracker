@@ -235,6 +235,7 @@ public class DataBaseController {
                 String query = String.format("INSERT INTO User (Name, Height, Weight, Age, BirthDate) VALUES ('%s', %.2f, %.2f, " +
                         "%d, '%s')", name, height, weight, age, birth);
                 stmt.executeUpdate(query);
+                toAdd.setId(findId("User"));
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -295,6 +296,7 @@ public class DataBaseController {
                 storeDataSet(toAdd.getDataSet(), findId("Activity"));
                 int actId = findId("Activity");
                 storeDataSet(toAdd.getDataSet(), actId);
+                toAdd.setId(findId("Activity"));
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -325,6 +327,7 @@ public class DataBaseController {
                 for (DataPoint x : toAdd.getDataPoints()) {
                     storeDatePoint(x, setId);
                 }
+                toAdd.setId(findId("DataSet"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -353,6 +356,7 @@ public class DataBaseController {
                                 "%d, %f)", dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
                         toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId, toAdd.getDistance());
                 stmt.executeUpdate(query);
+                toAdd.setId(findId("DataPoint"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -383,6 +387,7 @@ public class DataBaseController {
                 pStmt.setInt(6, userId);
                 pStmt.setBoolean(7, toAdd.isGlobal());
                 pStmt.executeUpdate();
+                toAdd.setId(findId("Goal"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding goal: " + e.getLocalizedMessage());
@@ -424,7 +429,10 @@ public class DataBaseController {
     }
 
 
-
+    /**
+     * Removes a passed goal form the database.
+     * @param goal The goal to be removed.
+     */
     public void removeGoal(Goal goal) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
@@ -465,6 +473,7 @@ public class DataBaseController {
                 pStmt.setString(4, toAdd.getDateString());
                 pStmt.setInt(5, userId);
                 pStmt.executeUpdate();
+                toAdd.setId(findId("Alert"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());

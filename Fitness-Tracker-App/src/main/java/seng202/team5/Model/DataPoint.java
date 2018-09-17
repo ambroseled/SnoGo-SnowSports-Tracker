@@ -222,6 +222,10 @@ public class DataPoint {
     }
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Gets a string representation of the DataPoint.
      * @return The string of the DataPoint.
