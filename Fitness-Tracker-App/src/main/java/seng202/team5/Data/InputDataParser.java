@@ -1,7 +1,6 @@
 package seng202.team5.Data;
 
 
-
 import seng202.team5.Data.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 public class InputDataParser {
 
     private DataAnalyser analyser = new DataAnalyser();
+    private DataValidator validator = new DataValidator();
 
 
     //As user is used in the calculations
@@ -61,36 +61,80 @@ public class InputDataParser {
      * @return An array list activities
      */
     private ArrayList<Activity> createActivitiesFromLines(ArrayList<String> lines) {
-        ArrayList<Activity> activities = new ArrayList<>();
-
-        for (String line : lines) {
-            String[] lineValues = line.split(",");
-
-            if (lineValues[0].equals("#start")) {
-                Activity activity = new Activity(lineValues[1]);
-                activities.add(activity);
-            }
-            else {
-                try {
-                    DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-                    Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
-
-                    int heartRate = Integer.parseInt(lineValues[2]);
-                    double latitude = Double.parseDouble(lineValues[3]);
-                    double longitude = Double.parseDouble(lineValues[4]);
-                    double elevation = Double.parseDouble(lineValues[5]);
-
-                    DataPoint dataPoint = new DataPoint(dateTime, heartRate, latitude, longitude, elevation);
-                    activities.get(activities.size() -1).getDataSet().addDataPoint(dataPoint);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-        //updateTable(activities);
-        return activities;
+    	ArrayList<Activity> activities = new ArrayList<Activity>();
+    	
+    	boolean activityFound = false;
+    	
+    	for (String line : lines) {
+    		String[] lineValues = line.split(",");
+    		
+    		
+    		if (lineValues[0].equals("#start")) {
+    			activityFound = true;
+    			Activity activity = new Activity(lineValues[1]);
+    			activities.add(activity);
+    		}
+    		else {
+    			if (activityFound) {
+	    			DataPoint dataPoint = getDataPointFromLine(lineValues);
+	    			activities.get(activities.size() -1).getDataSet().addDataPoint(dataPoint);
+    			}
+    		}
+    		
+    	}
+    	return activities;
+    }
+    
+    private DataPoint getDataPointFromLine(String[] lineValues) {
+    	DataPoint dataPoint = new DataPoint();
+    	
+		try {//DATE
+			DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
+			dataPoint.setDateTime(dateTime);
+		}
+		catch (Exception e) {
+			Date dateTime = null;
+			dataPoint.setDateTime(dateTime);
+		}
+		
+		try {//HEART RATE
+			int heartRate = Integer.parseInt(lineValues[2]);
+			dataPoint.setHeartRate(heartRate);
+		}
+		catch (Exception e) {
+			int heartRate = 0;
+			dataPoint.setHeartRate(heartRate);
+		}
+		
+		try {//LATITIDE
+			double latitude = Double.parseDouble(lineValues[3]);
+			dataPoint.setLatitude(latitude);
+		}
+		catch (Exception e) {
+			double latitude = 91;
+			dataPoint.setLatitude(latitude);
+		}
+		
+		try {//LONGITUDE
+			double longitude = Double.parseDouble(lineValues[4]);
+			dataPoint.setLongitude(longitude);
+		}
+		catch (Exception e) {
+			double longitude = 181;
+			dataPoint.setLongitude(longitude);
+		}
+		
+		try {//ELEVATION
+			double elevation = Double.parseDouble(lineValues[5]);
+			dataPoint.setElevation(elevation);
+		}
+		catch (Exception e) {
+			double elevation = 8851;
+			dataPoint.setElevation(elevation);
+		}
+			
+    	return dataPoint;
     }
 
 
@@ -103,14 +147,18 @@ public class InputDataParser {
 		ArrayList<String> lines = readFile(fileName);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
 		for (Activity activity : activities) {
+			validator.validateActivity(activity);
             analyser.analyseActivity(activity);
 		}
 		return activities;
 	}
-	/*
-	private void updateTable(ArrayList<Activity> activities) {
-		//TableController tableController = new TableController(activities);
-	} */
+	
+//	public static void main(String[] args) {
+//		InputDataParser inputDataParser = new InputDataParser();
+//		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("testData2.csv");
+//	
+//		System.out.println(activities);
+//	}
 
 
 	public static void setCurrentUser(User user) {

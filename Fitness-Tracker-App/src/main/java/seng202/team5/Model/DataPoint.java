@@ -37,7 +37,7 @@ public class DataPoint {
         longitude = newLongitude;
         elevation = newElevation;
     }
-
+    public DataPoint() {}
 
     /**
      * This constructor is used when a DataPoint is read from the database.
