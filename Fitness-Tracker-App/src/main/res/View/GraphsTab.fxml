@@ -6,16 +6,15 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane onMouseMoved="#setChoiceBox" prefHeight="680.0" prefWidth="1280.0" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+<AnchorPane onMouseMoved="#setChoiceBox" prefHeight="680.0" prefWidth="1280.0" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
   <children>
       <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css">
         <columnConstraints>
@@ -39,7 +38,7 @@
             <content>
               <GridPane opacity="0.8" prefHeight="908.0" prefWidth="586.0">
                 <children>
-                  <LineChart fx:id="speedChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                  <LineChart fx:id="speedChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -47,7 +46,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="distanceChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                  <LineChart fx:id="distanceChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -55,7 +54,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -63,15 +62,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="caloriesChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </LineChart>
-                        <AnchorPane prefHeight="121.0" prefWidth="289.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+<!--                        <AnchorPane prefHeight="121.0" prefWidth="289.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
                            <children>
                               <Label fx:id="nameLabel" layoutX="241.0" layoutY="4.0" text="[Activity Name]" textAlignment="CENTER">
                                  <font>
@@ -88,7 +79,7 @@
                               <Label fx:id="heartRateLabel" layoutX="471.0" layoutY="63.0" text="[HeartRateInput]" />
                               <Label fx:id="vertDistanceLabel" layoutX="469.0" layoutY="87.0" text="[VertDistanceInput]" />
                            </children>
-                        </AnchorPane>
+                        </AnchorPane>-->
                 </children>
                 <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
@@ -116,11 +107,11 @@
               <Font size="22.0" />
             </font>
           </Label>
-            <ScrollPane fx:id="scrollPane1" prefHeight="608.0" prefWidth="617.0" visible="false" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <ScrollPane fx:id="scrollPane1" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <content>
                   <GridPane prefHeight="908.0" prefWidth="586.0">
                      <children>
-                        <LineChart fx:id="speedChart1" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                        <LineChart fx:id="totDistChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -128,7 +119,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="distanceChart1" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                        <LineChart fx:id="vertDistChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -136,7 +127,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="heartRateChart1" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                        <LineChart fx:id="avgHeartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -144,13 +135,21 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="caloriesChart1" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
+                        <LineChart fx:id="caloriesChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
                            <yAxis>
                               <NumberAxis side="LEFT" />
                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="avgSpeedChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
+                            <xAxis>
+                                <NumberAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
                         </LineChart>
                      </children>
                      <columnConstraints>
@@ -172,22 +171,76 @@
                   </GridPane>
                </content>
             </ScrollPane>
-            <TableView fx:id="activityTable" opacity="0.75" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
-              <columns>
-<!--                <TableColumn prefWidth="199.0" text="Activity " />
-                <TableColumn prefWidth="120.0" text="Top Speed (m/s)" />
-                  <TableColumn prefWidth="124.0" text="Total Distance (m)" />
-                  <TableColumn prefWidth="143.0" text="Vertical Distance (m)" />
-                  <TableColumn prefWidth="130.0" text="Average Heart Rate" />
-                  <TableColumn prefWidth="114.0" text="Calories Burned" />
-                  <TableColumn prefWidth="145.0" text="Average Speed (m/s)" />-->
-              </columns>
-            </TableView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
+            <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" width="980.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="32.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="980.0" />
+                  <Label layoutX="55.0" layoutY="12.0" text="Activity" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="activityName" layoutX="14.0" layoutY="47.0" text="[Activity Name]">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="179.0" layoutY="12.0" text="Total Distance (m)" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalDistance" layoutX="213.0" layoutY="46.0" text="[TotDistance]" textAlignment="RIGHT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="vertDistance" layoutX="376.0" layoutY="46.0" text="[Vert Distance]" textAlignment="RIGHT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="334.0" layoutY="12.0" text="Vertical Distance (m)" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="509.0" layoutY="12.0" text="Average Heart Rate" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="avgHeartRate" layoutX="565.0" layoutY="46.0" text="[Avg Heart]" textAlignment="RIGHT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="672.0" layoutY="12.0" text="Calories Burned" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="calories" layoutX="717.0" layoutY="46.0" text="[Calories]" textAlignment="RIGHT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="818.0" layoutY="12.0" text="Average Speed (m/s)" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="avgSpeed" layoutX="880.0" layoutY="46.0" text="[Avg Speed]" textAlignment="RIGHT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
          </children>
       </GridPane>
   </children>
