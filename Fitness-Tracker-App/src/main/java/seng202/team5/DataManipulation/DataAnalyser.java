@@ -264,6 +264,7 @@ public class DataAnalyser {
     }
 
 
+    //TODO: Check over this
     /**
      * Calculates the total vertical distance traveled over a given list
      * of altitude values.
