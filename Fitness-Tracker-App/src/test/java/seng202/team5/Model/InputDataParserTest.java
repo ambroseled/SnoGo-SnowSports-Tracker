@@ -21,7 +21,7 @@ public class InputDataParserTest {
 
     private static ArrayList<Activity> activities;
 
-    
+
     @BeforeClass
     public static void beforeAll() {
         InputDataParser parser = new InputDataParser();
