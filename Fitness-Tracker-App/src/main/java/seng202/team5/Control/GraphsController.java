@@ -22,7 +22,7 @@ import java.util.Date;
 public class GraphsController{
 
     private ArrayList<Activity> activities;
-    private boolean setChoices = false;
+    private boolean visited = false;
 
     @FXML
     ChoiceBox activityChoice;
@@ -91,8 +91,8 @@ public class GraphsController{
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
-        series.setName(yLabel); //
-        //populating the series with data
+
+        lineChart.setLegendVisible(false);
 
         return series;
     }
@@ -111,8 +111,8 @@ public class GraphsController{
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
-        series.setName(yLabel); //
-        //populating the series with data
+
+        lineChart.setLegendVisible(false);
 
         return series;
     }
@@ -165,11 +165,51 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
-    private void setAvgHeartRate(LineChart lineChart, XYChart.Series series) {
+    private void setTotalDistChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            double totalDistance = activity.getDataSet().getTotalDistance();
+            series.getData().add(new XYChart.Data(i, totalDistance));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setVertDistChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            double verticalDistance = activity.getDataSet().getVerticalDistance();
+            series.getData().add(new XYChart.Data(i, verticalDistance));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setAvgHeartRateChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
             double avgHeartRate = activity.getDataSet().getAvgHeartRate();
             series.getData().add(new XYChart.Data(i, avgHeartRate));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setCaloriesChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            double caloriesBurned = activity.getDataSet().getCaloriesBurned();
+            series.getData().add(new XYChart.Data(i, caloriesBurned));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setAvgSpeedChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            double avgSpeed = activity.getDataSet().getAvgSpeed();
+            series.getData().add(new XYChart.Data(i, avgSpeed));
             i += 1;
         }
         lineChart.getData().add(series);
@@ -194,7 +234,7 @@ public class GraphsController{
      * Sets up the choiceBox to show all activities for current User
      */
     public void setChoiceBox() {
-        if (setChoices) {
+        if (visited) {
             return;
         }
 
@@ -206,7 +246,7 @@ public class GraphsController{
             activityNames.add(activity);
         }
         activityChoice.setItems(activityNames);
-        setChoices = true;
+        visited = true;
 
         setOverallStats();
     }
@@ -224,25 +264,12 @@ public class GraphsController{
             heartRateChart.getData().clear();
             caloriesChart.getData().clear();
 
-/*            nameLabel.setText(currentActivity.getName());
-            DataSet dataSet = currentActivity.getDataSet();
-            dateLabel.setText(dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1));
-            dateLabel.setCenterShape(true);
-            speedLabel.setText(Double.toString(Math.round (dataSet.getTopSpeed() * 100.0) / 100.0));            //Rounds values to 2 decimal places
-            //distanceLabel.setText(Double.toString(Math.round (dataSet.getTotalDistance() * 100.0) / 100.0));
-            distanceLabel.setText(Double.toString(dataSet.getTotalDistance()));
-            heartRateLabel.setText(Double.toString(Math.round (dataSet.getAvgHeartRate() * 100.0) / 100.0));
-            vertDistanceLabel.setText(Double.toString(Math.round (dataSet.getVerticalDistance() * 100.0) / 100.0));*/
-
-
             XYChart.Series speedSeries = createGraph(speedChart, "Speed");
             setSpeedChart(speedChart, speedSeries, currentActivity);
             XYChart.Series distanceSeries = createGraph(distanceChart, "Distance");
             setDistanceChart(distanceChart, distanceSeries, currentActivity);
             XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate");
             setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
-            //XYChart.Series caloriesSeries = createGraph(caloriesChart, "Calories");
-            //setCaloriesChart(caloriesChart, caloriesSeries, currentActivity);
 
             setTable(currentActivity);
             tablePane.setVisible(true);
@@ -255,16 +282,27 @@ public class GraphsController{
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
 
+        XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance");
+        setTotalDistChart(totDistChart, totalDistSeries);
+
+        XYChart.Series vertDistSeries = createOverallGraph(vertDistChart, "Vertical Distance");
+        setVertDistChart(vertDistChart, vertDistSeries);
+
         XYChart.Series avgHeartRateSeries = createOverallGraph(avgHeartRateChart, "Average Heart Rate");
-        setAvgHeartRate(avgHeartRateChart, avgHeartRateSeries);
+        setAvgHeartRateChart(avgHeartRateChart, avgHeartRateSeries);
 
+        XYChart.Series caloriesSeries = createOverallGraph(caloriesChart, "Calories Burned");
+        setCaloriesChart(caloriesChart, caloriesSeries);
 
+        XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
+        setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
     }
-
 
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
+
+    public void setVisited() {visited = false;}
 
     private void setTable(Activity activity) {
         activityName.setText(activity.getName());
@@ -273,16 +311,6 @@ public class GraphsController{
         avgHeartRate.setText(Double.toString(activity.getDataSet().getAvgHeartRate()));
         calories.setText(Double.toString(activity.getDataSet().getCaloriesBurned()));
         avgSpeed.setText(Double.toString(activity.getDataSet().getAvgSpeed()));
-
-
-/*        System.out.println(activityName);
-        System.out.println(totalDistVal);
-        System.out.println(vertDistVal);
-        System.out.println(avgHeartVal);
-        System.out.println(caloriesVal);
-        System.out.println(avgSpeedVal);*/
-
-
     }
 
     /**

@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane onMouseMoved="#setChoiceBox" prefHeight="680.0" prefWidth="1280.0" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+<AnchorPane onMouseMoved="#setChoiceBox" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
   <children>
-      <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css">
+      <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="148.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="397.0" minWidth="10.0" prefWidth="285.0" />
@@ -62,56 +62,34 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-<!--                        <AnchorPane prefHeight="121.0" prefWidth="289.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
-                           <children>
-                              <Label fx:id="nameLabel" layoutX="241.0" layoutY="4.0" text="[Activity Name]" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="dateLabel" layoutX="134.0" layoutY="24.0" text="[Activity Date]" textAlignment="CENTER" />
-                              <Label layoutX="100.0" layoutY="63.0" text="Top Speed:" />
-                              <Label layoutX="29.0" layoutY="87.0" text="Total Distance Travelled:" />
-                              <Label layoutX="354.0" layoutY="63.0" text="Average Heart Rate:" />
-                              <Label layoutX="319.0" layoutY="87.0" text="Vertical Distance Travelled:" />
-                              <Label fx:id="speedLabel" layoutX="169.0" layoutY="63.0" text="[TopSpeedInput]" />
-                              <Label fx:id="distanceLabel" layoutX="167.0" layoutY="87.0" text="[DistanceInput]" />
-                              <Label fx:id="heartRateLabel" layoutX="471.0" layoutY="63.0" text="[HeartRateInput]" />
-                              <Label fx:id="vertDistanceLabel" layoutX="469.0" layoutY="87.0" text="[VertDistanceInput]" />
-                           </children>
-                        </AnchorPane>-->
                 </children>
                 <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
                 </columnConstraints>
                 <rowConstraints>
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                  <RowConstraints />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
+                    <RowConstraints maxHeight="126.0" minHeight="126.0" prefHeight="126.0" vgrow="NEVER" />
                 </rowConstraints>
               </GridPane>
             </content>
           </ScrollPane>
           <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" opacity="0.7" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Select" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
           <ChoiceBox fx:id="activityChoice" minHeight="24.0" opacity="0.8" prefHeight="24.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-          <Label prefHeight="28.0" prefWidth="184.0" text="Activity Statistics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label prefHeight="28.0" prefWidth="184.0" text="Activity Statistics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
             <font>
               <Font size="22.0" />
             </font>
           </Label>
-            <ScrollPane fx:id="scrollPane1" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <ScrollPane fx:id="scrollPane1" opacity="0.8" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <content>
                   <GridPane prefHeight="908.0" prefWidth="586.0">
                      <children>
-                        <LineChart fx:id="totDistChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                        <LineChart fx:id="totDistChart" prefHeight="260.0" prefWidth="586.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -166,17 +144,18 @@
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints />
                      </rowConstraints>
                   </GridPane>
                </content>
             </ScrollPane>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
-            <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
+            <AnchorPane fx:id="tablePane" opacity="0.8" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" width="980.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="32.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="980.0" />
