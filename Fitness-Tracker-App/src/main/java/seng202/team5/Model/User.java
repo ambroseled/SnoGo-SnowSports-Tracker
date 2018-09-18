@@ -279,6 +279,10 @@ public class User {
         alerts.add(alert);
     }
 
+    public void removeAlert(Alert alert) {
+        alerts.remove(alert);
+    }
+
     /*
     //Adds activities from CSV to user's list of activities
     public void addActivities(String fileName) {

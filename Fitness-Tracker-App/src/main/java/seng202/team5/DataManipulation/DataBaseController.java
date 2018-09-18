@@ -482,6 +482,29 @@ public class DataBaseController {
 
 
     /**
+     * Removes a passed goal form the database.
+     * @param alert The goal to be removed.
+     */
+    public void removeAlert(Alert alert) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the alert is in the database
+            if (checkId("Alert", alert.getId())) {
+                // The alert is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the update to update the user
+                String query = String.format("DELETE FROM Alert WHERE ID = %d", alert.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
      * Gets an ArrayList of Goals from the database that are related to a passed
      * user id.
      * @param userId The user id to find goals for.

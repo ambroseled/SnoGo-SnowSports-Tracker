@@ -68,7 +68,7 @@ public class GoalController {
      * with all of the users goals.return global;
      */
     public void viewData() {
-        if (goalTable.getItems().isEmpty()) {
+        if (goalTable.getItems().size() != currentUser.getGoals().size()) {
 
 
             goals.addAll(db.getGoals(currentUser.getId()));

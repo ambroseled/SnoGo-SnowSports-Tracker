@@ -29,8 +29,6 @@ public class ProfController {
     @FXML
     private TextField dateText;
     @FXML
-    private Button viewButton;
-    @FXML
     private Button updateButton;
 
     private User currentUser = AppController.getCurrentUser();
@@ -45,17 +43,20 @@ public class ProfController {
      * personal information.
      */
     public void viewProfile() {
-        viewButton.setDisable(true);
-        viewButton.setVisible(false);
-        currentUser = AppController.getCurrentUser();
-        nameText.setText(currentUser.getName());
-        ageText.setText(Integer.toString(currentUser.getAge()));
-        heightText.setText(Double.toString(currentUser.getHeight()));
-        weightText.setText(Double.toString(currentUser.getWeight()));
-        bmiText.setText(Double.toString(currentUser.getBmi()));
+        if (nameText.getText().isEmpty() && ageText.getText().isEmpty() && heightText.getText().isEmpty() &&
+                weightText.getText().isEmpty() && bmiText.getText().isEmpty() && dateText.getText().isEmpty())
+        {
+            currentUser = AppController.getCurrentUser();
+            nameText.setText(currentUser.getName());
+            ageText.setText(Integer.toString(currentUser.getAge()));
+            heightText.setText(Double.toString(currentUser.getHeight()));
+            weightText.setText(Double.toString(currentUser.getWeight()));
+            bmiText.setText(Double.toString(currentUser.getBmi()));
 
-        String dateString = dateTimeFormat.format(currentUser.getBirthDate());
-        dateText.setText(dateString);
+            String dateString = dateTimeFormat.format(currentUser.getBirthDate());
+            dateText.setText(dateString);
+        }
+
     }
 
 

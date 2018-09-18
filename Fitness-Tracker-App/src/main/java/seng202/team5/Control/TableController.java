@@ -33,11 +33,6 @@ public class TableController {
 
     @FXML
     private Accordion accordion;
-    @FXML
-    private Button viewButton;
-    @FXML
-    private Button resetButton;
-
     private ArrayList<Activity> activities;
 
     private DataBaseController db = AppController.getDb();
@@ -60,14 +55,13 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        resetButton.setVisible(true);
-        resetButton.setDisable(false);
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
-        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
-        setActivities(inputActivities);
+        if (accordion.getPanes().isEmpty()) {
+            ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+            setActivities(inputActivities);
 
-        initialise();
+            initialise();
+        }
+
     }
 
     @FXML
@@ -76,10 +70,6 @@ public class TableController {
      * activities in the application.
      */
     public void viewData(String filePath) {
-        resetButton.setVisible(true);
-        resetButton.setDisable(false);
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
         setActivities(inputActivities);

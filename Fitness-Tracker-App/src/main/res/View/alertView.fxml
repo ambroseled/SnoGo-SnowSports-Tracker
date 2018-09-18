@@ -10,10 +10,10 @@
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="130.0" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="234.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="144.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="197.0" />
-         <ColumnConstraints maxWidth="172.0" minWidth="112.0" prefWidth="112.0" />
-         <ColumnConstraints maxWidth="187.0" minWidth="158.0" prefWidth="158.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="197.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="109.0" />
+         <ColumnConstraints maxWidth="206.0" minWidth="112.0" prefWidth="206.0" />
+         <ColumnConstraints maxWidth="187.0" minWidth="111.0" prefWidth="111.0" />
          <ColumnConstraints maxWidth="189.0" minWidth="146.0" prefWidth="146.0" />
          <ColumnConstraints maxWidth="143.0" minWidth="10.0" prefWidth="143.0" />
      </columnConstraints>
@@ -36,7 +36,8 @@
                <TableColumn fx:id="webCol" minWidth="9.0" prefWidth="312.0" text="Web Link" />
            </columns>
          </TableView>
-         <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshData" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Health Alerts" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+         <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshData" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Health Alerts" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="4" GridPane.rowIndex="4" />
       </children>
    </GridPane>
    </children>

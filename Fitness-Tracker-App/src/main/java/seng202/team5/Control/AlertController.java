@@ -17,8 +17,6 @@ import seng202.team5.Model.User;
 public class AlertController {
 
     @FXML
-    private Button viewButton;
-    @FXML
     private TableColumn<Alert, String> nameCol;
     @FXML
     private TableColumn<Alert, String> dateCol;
@@ -28,11 +26,9 @@ public class AlertController {
     private TableColumn<Alert, String> webCol;
     @FXML
     private TableView alertTable;
-    @FXML
-    private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
-    private DataBaseController db = new DataBaseController();
+    private DataBaseController db = AppController.getDb();
 
 
     @FXML
@@ -41,7 +37,7 @@ public class AlertController {
      * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
-        if (alertTable.getItems().isEmpty()) {
+        if (alertTable.getItems().size() != currentUser.getAlerts().size()) {
             alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
@@ -70,5 +66,19 @@ public class AlertController {
         alertTable.setItems(alerts);
 
     }
+
+    @FXML
+    /**
+     * This method is called by a press to teh deleteButton. It gets the selected
+     * goal from the goal table and removes it from teh user and the database. The
+     * goal table is then updated.
+     */
+    private void removeAlert() {
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        db.removeAlert(alert);
+        currentUser.removeAlert(alert);
+        refreshData();
+    }
+
 
 }

@@ -54,6 +54,9 @@ public class AppController extends Application {
     }
 
 
+    //TODO: On exit method to close database connection
+
+
     public static User getCurrentUser() {
         return currentUser;
     }
@@ -69,7 +72,3 @@ public class AppController extends Application {
     }
 }
 
-
-/**
- * Need some kind of on exit method here to close the database connection
- */
