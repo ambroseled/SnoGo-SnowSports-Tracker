@@ -109,7 +109,7 @@ public class TableController {
         try {
             viewData(f.getAbsolutePath());
         } catch (Exception e) {
-            System.out.println("No file selected");
+            ErrorController.displayError("No file selected");
         }
 
 
