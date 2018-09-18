@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.ErrorController">
    <children>
-      <GridPane layoutX="189.0" layoutY="147.0">
+      <GridPane layoutX="189.0" layoutY="147.0" styleClass="grid-pane" stylesheets="@../CSS/errorStyle.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
