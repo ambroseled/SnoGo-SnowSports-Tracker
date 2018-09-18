@@ -79,6 +79,8 @@ public class DataBaseController {
                 ArrayList<Activity> activities = getActivities(id);
                 // Creating the user
                 newUser = new User(name, age, height, weight, activities, id, birth);
+                newUser.setAlerts(getAlerts(id));
+                newUser.setGoals(getGoals(id));
                 // Adding the user to the ArrayList
                 users.add(newUser);
             }

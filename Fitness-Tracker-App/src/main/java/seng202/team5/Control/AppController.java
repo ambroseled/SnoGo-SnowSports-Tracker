@@ -3,6 +3,7 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class AppController extends Application {
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
+
 
 
     ////////////
@@ -44,17 +46,16 @@ public class AppController extends Application {
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
 
-        //
-        currentUser.setGoals(db.getGoals(currentUser.getId()));
-        currentUser.setAlerts(db.getAlerts(currentUser.getId()));
-        //
-
 
         appStage = primaryStage;
     }
 
 
-    //TODO: On exit method to close database connection
+
+    @Override
+    public void stop(){
+        db.closeConnection();
+    }
 
 
     public static User getCurrentUser() {

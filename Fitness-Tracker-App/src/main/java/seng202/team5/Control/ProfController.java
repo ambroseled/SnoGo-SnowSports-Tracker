@@ -37,6 +37,7 @@ public class ProfController {
 
 
 
+
     @FXML
     /**
      * Called by a press to the viewButton, this method displays all of the users
