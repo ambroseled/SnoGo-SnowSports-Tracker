@@ -73,7 +73,6 @@ public class DataAnalyser {
         for (int i = 0; i < dataPoints.size(); i++) {
             // Checking if the dataPoint is active
             String active = checkInactive(i, dataPoints);
-            System.out.println(active);
             if (active.equals("Inactive")) {
                 // Marking the dataPoint as inactive
                 DataPoint previous = dataPoints.get(i++);
