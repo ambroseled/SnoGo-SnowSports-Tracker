@@ -106,7 +106,11 @@ public class TableController {
                 new FileChooser.ExtensionFilter("CSV", "*.csv")
         );
         File f = fileChooser.showOpenDialog(null);
-        viewData(f.getAbsolutePath());
+        try {
+            viewData(f.getAbsolutePath());
+        } catch (Exception e) {
+            System.out.println("No file selected");
+        }
 
 
     }
