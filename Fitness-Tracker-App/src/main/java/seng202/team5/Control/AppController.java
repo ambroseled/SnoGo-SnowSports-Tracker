@@ -3,6 +3,7 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,9 +24,10 @@ public class AppController extends Application {
     private static DataBaseController db = new DataBaseController();
 
 
+
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = db.getUsers().get(0);
+    private static User currentUser = db.getUsers().get(2);
     ////////////
 
 
@@ -44,13 +46,15 @@ public class AppController extends Application {
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
 
-        //
-        currentUser.setGoals(db.getGoals(currentUser.getId()));
-        currentUser.setAlerts(db.getAlerts(currentUser.getId()));
-        //
-
 
         appStage = primaryStage;
+    }
+
+
+
+    @Override
+    public void stop(){
+        db.closeConnection();
     }
 
 
@@ -69,7 +73,3 @@ public class AppController extends Application {
     }
 }
 
-
-/**
- * Need some kind of on exit method here to close the database connection
- */

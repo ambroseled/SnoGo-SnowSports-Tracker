@@ -1,10 +1,13 @@
 package seng202.team5.DataManipulation;
 
+import seng202.team5.Control.AppController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-
+import seng202.team5.Model.User;
 import java.util.ArrayList;
+
+import static java.lang.Math.abs;
 
 
 /**
@@ -14,15 +17,13 @@ import java.util.ArrayList;
  */
 public class DataAnalyser {
 
-
+    User currentUser = AppController.getCurrentUser();
 
 
     /**
      * Performs analysis on a passed activity.
      * @param activity The activity to analyse.
      */
-
-    // Add a user that is passed here once user loading is working in the app
     public void analyseActivity(Activity activity) {
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
@@ -59,11 +60,7 @@ public class DataAnalyser {
         dataSet.setTopSpeed(topSpeed(dataSet));
         dataSet.setSlopeTime(slopeTime(dataSet));
         dataSet.setAvgSpeed(calcAvgSpeed(dataSet));
-
-        /**
-         * Uncomment when user loading is working in the app
-         */
-        //  dataSet.setCaloriesBurned(calcCalBurned(dataSet, user.getWeight()));
+        dataSet.setCaloriesBurned(calcCalBurned(dataSet, currentUser.getWeight()));
     }
 
 
@@ -91,9 +88,9 @@ public class DataAnalyser {
 
     /**
      * Checks if a passed DataPoint is active or not. The check is done by
-     * calculating the change in vertical distance over 1 minute. If this change
+     * calculating the change in vertical distance over 5 dataPoints. If this change
      * is negative then it is assumed the user is on a lift or hiking hence "Inactive"
-     * is returned. If the change is less than 1 it is also assumed that the user is
+     * is returned. If the distance change is less than 1 it is also assumed that the user is
      * inactive either being in a cafe or standing still so "Inactive is also returned.
      * If neither of these conditions are meet then it is assumed the user is active and
      * hence "active" is returned.
@@ -108,10 +105,10 @@ public class DataAnalyser {
         double startAlt = dataPoints.get(index).getElevation();
 
 
-        Boolean flag = false;
-        int endIndex = 60;
+        boolean flag = false;
+        int endIndex = index + 5;
         int len = dataPoints.size();
-        if ((index + endIndex) > len) {
+        if ((endIndex) >= len) {
             endIndex = len - 1;
             flag = true;
         }
@@ -128,7 +125,7 @@ public class DataAnalyser {
             double endAlt = dataPoints.get(endIndex).getElevation();
 
 
-            // Getting the altitude change over the two points
+            // Getting the distance change over the two points
             double movement = oneDist(startLat, startLong, endLat, endLong);
             double condition;
             if (flag) {
@@ -268,6 +265,7 @@ public class DataAnalyser {
     }
 
 
+    //TODO: Check over this
     /**
      * Calculates the total vertical distance traveled over a given list
      * of altitude values.
@@ -283,7 +281,7 @@ public class DataAnalyser {
         for(int i = 1; i < dataPoints.size(); i++) {
             if (dataPoints.get(i).isActive()) {
                 // The DataPoint is marked as active so the vertical distance is recorded
-                vertical += oneAlt(dataPoints.get(i).getElevation(), previous);
+                vertical += abs(oneAlt(dataPoints.get(i).getElevation(), previous));
             }
             previous = dataPoints.get(i).getElevation();
         }
@@ -335,13 +333,10 @@ public class DataAnalyser {
     }
 
 
-
-    //TODO: Integrate this in once James has done user entry
-
     /**
      * Calculates the calories burned by a user during a passed DataSet.
      * @param dataSet The DataSet to calculate calories burned on.
-     * @param weight The wieght of the user.
+     * @param weight The weight of the user.
      * @return The amount of calories burned.
      */
     private double calcCalBurned(DataSet dataSet, double weight) {
@@ -372,7 +367,7 @@ public class DataAnalyser {
                 time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i).getDateTime().getTime();
             }
         }
-        return time;
+        return roundNum(time / 60);
     }
 
 
@@ -392,4 +387,14 @@ public class DataAnalyser {
         }
         return roundNum(avg / count);
     }
+
+
+    /**
+     * Sets the current user to passed user.
+     * @param user The new current user.
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
 }

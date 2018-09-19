@@ -1,14 +1,13 @@
 package seng202.team5.Model;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 /**
- *
+ * This class provides the structure of a goal in the application.
  */
 public class Goal {
 
@@ -19,21 +18,21 @@ public class Goal {
     private boolean completed;
     private int id = -1;
     private String dateString;
+    private boolean global;
 
 
     /**
-     *
-     * @param name
-     * @param metric
-     * @param metricGoal
-     * @param dateString
-     * @param completed
+     * The normal constructor used to create a new Goal.
+     * @param name The name of the goal.
+     * @param metric The metric the goal is related to.
+     * @param metricGoal The value to achieve to complete the goal.
+     * @param dateString A string holding the completion date of the goal.
      */
-    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean global) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
-        this.completed = completed;
+        this.completed = false;
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.completionDate = dateTimeFormat.parse(dateString);
@@ -41,20 +40,20 @@ public class Goal {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
         }
         this.dateString = dateString;
-
+        this.global = global;
     }
 
 
     /**
-     *
-     * @param name
-     * @param metric
-     * @param metricGoal
-     * @param dateString
-     * @param completed
-     * @param id
+     * The constructor used to create a Goal which has been read form the database.
+     * @param name The name of the goal.
+     * @param metric The metric the goal is related to.
+     * @param metricGoal The value to achieve to complete the goal.
+     * @param dateString A string holding the completion date of the goal.
+     * @param completed A boolean flag holding if the goal has be completed.
+     * @param id The database id of the goal.
      */
-    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id, boolean global) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
@@ -67,32 +66,13 @@ public class Goal {
         }
         this.id = id;
         this.dateString = dateString;
+        this.global = global;
     }
 
 
     /**
-     *
-     * @param name
-     * @param metric
-     * @param metricGoal
-     * @param date
-     * @param completed
-     * @param id
-     */
-    public Goal(String name, String metric, double metricGoal, Date date, boolean completed, int id) {
-        this.name = name;
-        this.metric = metric;
-        this.metricGoal = metricGoal;
-        this.completed = completed;
-        completionDate = date;
-        this.id = id;
-
-    }
-
-
-    /**
-     *
-     * @return
+     * Gets the completion date of the goal.
+     * @return The completion date of the goal.
      */
     public Date getCompletionDate() {
         return completionDate;
@@ -100,8 +80,8 @@ public class Goal {
 
 
     /**
-     *
-     * @return
+     * Gets the goals value.
+     * @return The value to meet to complete the goal.
      */
     public double getMetricGoal() {
         return metricGoal;
@@ -109,17 +89,17 @@ public class Goal {
 
 
     /**
-     *
-     * @return
+     * Gets the metric the goal is for.
+     * @return The metric of the goal.
      */
     public String getMetric() {
         return metric;
     }
-
+// Update db with goal marked as true
 
     /**
-     *
-     * @return
+     * Gets whether the goal is completed or not.
+     * @return A boolean flag holding if the goal is completed.
      */
     public boolean isCompleted() {
         return completed;
@@ -127,46 +107,55 @@ public class Goal {
 
 
     /**
-     *
-     * @return
+     * Gets the name of the goal.
+     * @return The name of the goal.
      */
     public String getName() {
         return name;
     }
 
 
+    /**
+     * Gets the database id of the goal.
+     * @return The database id of the goal.
+     */
     public int getId() {
         return id;
     }
 
 
+    /**
+     * Gets the string value of the completion date of the goal.
+     * @return The string value of the completion date of the goal.
+     */
     public String getDateString() {
         return dateString;
     }
 
+
     /**
-     *
-     * @param completionData
+     * Gets if the goal is for all data or just over an activity
+     * @return Flag holding if the goal is global or not.
      */
-    public void setCompletionData(Date completionData) {
-        this.completionDate = completionData;
+    public boolean isGlobal() {
+        return global;
     }
 
 
     /**
-     *
-     * @param metric
+     * Sets if the goal is complete.
+     * @param completed The new completion value.
      */
-    public void setMetric(String metric) {
-        this.metric = metric;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
 
     /**
-     *
-     * @param metricGoal
+     * Sets the database id of the goal.
+     * @param id The database id of the goal.
      */
-    public void setMetricGoal(double metricGoal) {
-        this.metricGoal = metricGoal;
+    public void setId(int id) {
+        this.id = id;
     }
 }

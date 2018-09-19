@@ -17,46 +17,35 @@ import seng202.team5.Model.User;
 public class AlertController {
 
     @FXML
-    private Button viewButton;
-    @FXML
     private TableColumn<Alert, String> nameCol;
     @FXML
     private TableColumn<Alert, String> dateCol;
     @FXML
     private TableColumn<Alert, String> desCol;
     @FXML
-    private TableColumn<Alert, String> webCol;
-    @FXML
     private TableView alertTable;
-    @FXML
-    private Button refreshButton;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
-    private DataBaseController db = new DataBaseController();
+    private DataBaseController db = AppController.getDb();
 
 
     @FXML
     /**
-     * Called by a button press of the viewButton. It
+     * Called by mouse movement on the anchor pane. It
      * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
-        refreshButton.setVisible(true);
-        refreshButton.setDisable(false);
+        if (alertTable.getItems().size() != currentUser.getAlerts().size()) {
+            alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
-        alerts.addAll(db.getAlerts(currentUser.getId()));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("type"));
+            desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
 
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
-        desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
-        webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
-
-
-        alertTable.setItems(alerts);
+            alertTable.setItems(alerts);
+        }
     }
 
 
@@ -74,5 +63,19 @@ public class AlertController {
         alertTable.setItems(alerts);
 
     }
+
+    @FXML
+    /**
+     * This method is called by a press to teh deleteButton. It gets the selected
+     * goal from the goal table and removes it from teh user and the database. The
+     * goal table is then updated.
+     */
+    private void removeAlert() {
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        db.removeAlert(alert);
+        currentUser.removeAlert(alert);
+        refreshData();
+    }
+
 
 }

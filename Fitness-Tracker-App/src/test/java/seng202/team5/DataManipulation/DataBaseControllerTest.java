@@ -1,13 +1,12 @@
-package seng202.team5.Control;
+package seng202.team5.DataManipulation;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;
 import seng202.team5.Model.User;
-
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -17,12 +16,12 @@ public class DataBaseControllerTest {
     DataBaseController db;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         db = new DataBaseController();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         db.closeConnection();
     }
 
@@ -35,12 +34,11 @@ public class DataBaseControllerTest {
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first user in the database is altered or removed.
-     *
      */
-    public void getUsers() {
+    public void testGetUsers() {
         ArrayList<User> users = db.getUsers();
         User user = users.get(0);
-        assertEquals("John Jones", user.getName());
+        assertEquals("John Stevens", user.getName());
         assertEquals(25, user.getAge());
         assertEquals(1.8, user.getHeight(), 0.0);
         assertEquals(75.8, user.getWeight(), 0.0);
@@ -48,36 +46,37 @@ public class DataBaseControllerTest {
 
     @Test
     /**
+     * This test is testing the functionality of pulling activities out of
+     * the database. This is done by getting all activities for a user and then
+     * checking that there is the correct number of activities.
      *
-     *
-     *
-     * Test later as there are currently no activities in the database
-     *
-     *
-     *
+     * For this test it is assumed that the assert statements will be updated if the
+     * number of activities of the first user in the database is altered.
      */
-    public void getActivities() {
-
+    public void testGetActivities() {
+        ArrayList<User> users = db.getUsers();
+        ArrayList<Activity> activities = db.getActivities(users.get(0).getId());
+        int count = 0;
+        for (Activity x : activities) {
+            count++;
+        }
+        assertEquals(count, users.get(0).getActivities().size());
     }
 
+
+    //TODO: Change this maybe
     @Test
     /**
      * This test is testing the functionality of pulling Goals out of
      * the database. This is done by getting all goals for a selected user and then checking that
-     * the first goal in the list is correct. This is because the number of goals for a user
-     * will change so that cannot be relied on.
+     * the first goal in the list is of type Goal.
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first goal for the user in the database is altered or removed.
-     *
      */
-    public void getGoals() {
+    public void testGetGoals() {
         ArrayList<Goal> goals = db.getGoals(1);
-        Goal goal = goals.get(0);
-        assertEquals("Top Speed", goal.getMetric());
-        assertEquals(25, goal.getMetricGoal(), 0.0);
-        assertEquals(false, goal.isCompleted());
-        assertEquals("06/09/2019", goal.getDateString());
+        assertTrue(goals.get(0) instanceof Goal);
     }
 
 
@@ -90,14 +89,9 @@ public class DataBaseControllerTest {
      *
      * For this test it is assumed that the assert statements will be updated if the
      * first alert for the user in the database is altered or removed.
-     *
      */
-    public void getAlerts() {
-        ArrayList<Alert> alerts = db.getAlerts(1);
-        Alert alert = alerts.get(0);
-        assertEquals("Testing", alert.getName());
-        assertEquals("This is a test",  alert.getMessage());
-        assertEquals("www.test.com", alert.getWebLink());
-        assertEquals("06/07/2018", alert.getDateString());
+    public void testGetAlerts() {
+
     }
+
 }

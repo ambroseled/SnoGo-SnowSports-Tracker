@@ -10,33 +10,21 @@ import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.InputDataParser;
 import seng202.team5.Model.*;
+import seng202.team5.Model.Alert;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-
-//TODO: Fix scroll pane, Needs to scroll for expanded activity
-
-
-
-
-
 /**
- * This class hanldes the controls for the data view tab of the application. It
+ * This class handles the controls for the data view tab of the application. It
  * handles the display of raw data as well as the loading of files.
  */
 public class TableController {
 
     @FXML
     private Accordion accordion;
-    @FXML
-    private Button viewButton;
-    @FXML
-    private Button resetButton;
-
     private ArrayList<Activity> activities;
 
     private DataBaseController db = AppController.getDb();
@@ -59,14 +47,13 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        resetButton.setVisible(true);
-        resetButton.setDisable(false);
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
-        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
-        setActivities(inputActivities);
+        if (accordion.getPanes().isEmpty()) {
+            ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+            setActivities(inputActivities);
 
-        initialise();
+            initialise();
+        }
+
     }
 
     @FXML
@@ -75,14 +62,22 @@ public class TableController {
      * activities in the application.
      */
     public void viewData(String filePath) {
-        resetButton.setVisible(true);
-        resetButton.setDisable(false);
-        viewButton.setVisible(false);
-        viewButton.setDisable(true);
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
         setActivities(inputActivities);
 
+    /* Uncomment when merged into master
+        for (Activity activity : inputActivities) {
+            db.storeActivity(activity, currentUser.getId());
+            currentUser.addActivity(activity);
+        }
+    */
+        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+        Alert countAlert = AlertHandler.activityAlert(currentUser);
+        if (countAlert != null) {
+            db.storeAlert(countAlert, currentUser.getId());
+            currentUser.addAlert(countAlert);
+        }
         initialise();
     }
 
@@ -101,7 +96,10 @@ public class TableController {
     }
 
     @FXML
-
+    /**
+     * Called by a press of the fileLoad button. This method enables the user
+     * to select and upload a csv file into the application.
+     */
     public void loadFile() {
 
         FileChooser fileChooser = new FileChooser();
@@ -110,7 +108,12 @@ public class TableController {
                 new FileChooser.ExtensionFilter("CSV", "*.csv")
         );
         File f = fileChooser.showOpenDialog(null);
-        viewData(f.getAbsolutePath());
+        try {
+            viewData(f.getAbsolutePath());
+        } catch (Exception e) {
+            ErrorController.displayError("No file selected");
+        }
+
 
     }
     /**
@@ -179,6 +182,8 @@ public class TableController {
         Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
         dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
         titledPane.setText(dropdownText);
+        titledPane.setMinHeight(320);
+
     }
 
     /**

@@ -1,9 +1,10 @@
-package seng202.team5.Model;
+package seng202.team5.DataManipulation;
 
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.DataPoint;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -109,8 +110,6 @@ public class InputDataParserTest {
     public void testName() {
         assertEquals("Not Riding", activities.get(0).getName());
     }
-
-
 
 
 }

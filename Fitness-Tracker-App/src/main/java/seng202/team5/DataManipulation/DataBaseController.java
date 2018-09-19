@@ -1,12 +1,12 @@
 package seng202.team5.DataManipulation;
 
+import seng202.team5.Control.AppController;
 import seng202.team5.Model.*;
 
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 //TODO: Duplicate data handling
@@ -18,7 +18,8 @@ import java.util.Date;
  */
 public class DataBaseController {
 
-    Connection connection = null;
+    private Connection connection = null;
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 
     /**
@@ -29,7 +30,6 @@ public class DataBaseController {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
-            System.out.println("Connected to database");
         } catch (Exception e) {
             // Printing out an error message
             System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
@@ -44,7 +44,6 @@ public class DataBaseController {
         // Try-catch used to catch any exceptions trow while closing connection to database.
         try {
             connection.close();
-            System.out.println("Database connection closed");
         } catch (SQLException e) {
             // Printing out an error message
             System.out.println("Error closing connection: " + e.getLocalizedMessage());
@@ -78,6 +77,8 @@ public class DataBaseController {
                 ArrayList<Activity> activities = getActivities(id);
                 // Creating the user
                 newUser = new User(name, age, height, weight, activities, id, birth);
+                newUser.setAlerts(getAlerts(id));
+                newUser.setGoals(getGoals(id));
                 // Adding the user to the ArrayList
                 users.add(newUser);
             }
@@ -196,9 +197,9 @@ public class DataBaseController {
                 double elev = set.getDouble("Elevation");
                 double speed = set.getDouble("Speed");
                 boolean active = set.getBoolean("Active");
-
-                // Creating the Datapoint
-                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, speed, active);
+                double distance = set.getDouble("Distance");
+                // Creating the DataPoint
+                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, distance, speed, active);
                 // Adding the DataPoint to the ArrayList
                 dataPoints.add(newPoint);
             }
@@ -229,11 +230,45 @@ public class DataBaseController {
                 double height = toAdd.getHeight();
                 double weight = toAdd.getWeight();
                 int age = toAdd.getAge();
-                Date birth = toAdd.getBirthDate();
+                String birth = formatter.format(toAdd.getBirthDate());
                 // Creating and executing the update to store the user
-                String query = String.format("INSERT INTO User (Name, Height, Weight, Age) VALUES ('%s', %.2f, %.2f, " +
-                        "%d)", name, height, weight, age);
+                String query = String.format("INSERT INTO User (Name, Height, Weight, Age, BirthDate) VALUES ('%s', %.2f, %.2f, " +
+                        "%d, '%s')", name, height, weight, age, birth);
                 stmt.executeUpdate(query);
+                toAdd.setId(findId("User"));
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Updates a row in teh User table to the passed User. If the passed User is not in
+     * the database then it will be stored.
+     * @param user The User to be updated.
+     */
+    public void updateUser(User user) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking if the user is already in the database
+            if (checkId("User", user.getId())) {
+                // The user is in the database so can be updated
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Getting the values to update with the user
+                String name = user.getName();
+                double height = user.getHeight();
+                double weight = user.getWeight();
+                int age = user.getAge();
+                String birth = formatter.format(user.getBirthDate());
+                // Creating and executing the update to update the user
+                String query = String.format("UPDATE User Set Name = '%s', Height = %.2f,  Weight = %.2f, " +
+                        "Age = %d, BirthDate = '%s' WHERE ID = %d", name, height, weight, age, birth, user.getId());
+                stmt.executeUpdate(query);
+            } else {
+                storeNewUser(user);
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -261,6 +296,7 @@ public class DataBaseController {
                 storeDataSet(toAdd.getDataSet(), findId("Activity"));
                 int actId = findId("Activity");
                 storeDataSet(toAdd.getDataSet(), actId);
+                toAdd.setId(findId("Activity"));
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -291,6 +327,7 @@ public class DataBaseController {
                 for (DataPoint x : toAdd.getDataPoints()) {
                     storeDatePoint(x, setId);
                 }
+                toAdd.setId(findId("DataSet"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -315,10 +352,11 @@ public class DataBaseController {
                 String dateString = dateTimeFormat.format(toAdd.getDateTime());
                 Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
-                                "Elevation, Speed, Active, DataSet) Values ('%s', %d, %f, %f, %f, %f, %b, %d)",
-                        dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
-                        toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId);
+                                "Elevation, Speed, Active, DataSet, Distance) Values ('%s', %d, %f, %f, %f, %f, %b," +
+                                "%d, %f)", dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
+                        toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId, toAdd.getDistance());
                 stmt.executeUpdate(query);
+                toAdd.setId(findId("DataPoint"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -339,7 +377,7 @@ public class DataBaseController {
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
                 String query = String.format("INSERT INTO Goal (Metric, MetricGoal, Name, Completed, CompletionDate," +
-                        "User) Values (?, ?, ?, ?, ?, ?)");
+                        "User, Global) Values (?, ?, ?, ?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
                 pStmt.setString(1, toAdd.getMetric());
                 pStmt.setDouble(2, toAdd.getMetricGoal());
@@ -347,10 +385,69 @@ public class DataBaseController {
                 pStmt.setBoolean(4, toAdd.isCompleted());
                 pStmt.setString(5, toAdd.getDateString());
                 pStmt.setInt(6, userId);
+                pStmt.setBoolean(7, toAdd.isGlobal());
                 pStmt.executeUpdate();
+                toAdd.setId(findId("Goal"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            System.out.println("Error when adding goal: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Updates a passed goal in the database. If the passed goal is not in
+     * the database it will be stored.
+     * @param goal The goal to update.
+     */
+    public void updateGoal(Goal goal) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking if the goal is already in the database
+            if (checkId("Goal", goal.getId())) {
+                // The goal is in the database so can be updated
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Getting the values to update with the goal
+                String metric = goal.getMetric();
+                double metricGoal = goal.getMetricGoal();
+                String name = goal.getName();
+                boolean comp = goal.isCompleted();
+                String compDate = goal.getDateString();
+                boolean global = goal.isGlobal();
+                // Creating and executing the update to update the user
+                String query = String.format("UPDATE Goal Set Metric = '%s', MetricGoal = %.2f,  Name = '%s', " +
+                        "Completed = %b, CompletionDate = '%s', Global = %b WHERE ID = %d", metric, metricGoal, name, comp, compDate, global, goal.getId());
+                stmt.executeUpdate(query);
+            } else {
+                storeGoal(goal, AppController.getCurrentUser().getId());
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when updating goal: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Removes a passed goal form the database.
+     * @param goal The goal to be removed.
+     */
+    public void removeGoal(Goal goal) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the goal is in the database
+            if (checkId("Goal", goal.getId())) {
+                // The goal is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the update to update the user
+                String query = String.format("DELETE FROM Goal WHERE ID = %d", goal.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
         }
     }
 
@@ -367,18 +464,41 @@ public class DataBaseController {
             int id = toAdd.getId();
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
-                String query = String.format("INSERT INTO Alert (Name, Message, WebLink, Date, User) " +
-                        "Values (?, ?, ?, ?, ?)");
+                String query = String.format("INSERT INTO Alert (Type, Message, Date, User) " +
+                        "Values (?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
-                pStmt.setString(1, toAdd.getName());
+                pStmt.setString(1, toAdd.getType());
                 pStmt.setString(2, toAdd.getMessage());
-                pStmt.setString(3, toAdd.getWebLink());
-                pStmt.setString(4, toAdd.getDateString());
-                pStmt.setInt(5, userId);
+                pStmt.setString(3, toAdd.getDateString());
+                pStmt.setInt(4, userId);
                 pStmt.executeUpdate();
+                toAdd.setId(findId("Alert"));
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
+     * Removes a passed goal form the database.
+     * @param alert The goal to be removed.
+     */
+    public void removeAlert(Alert alert) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the alert is in the database
+            if (checkId("Alert", alert.getId())) {
+                // The alert is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the update to update the user
+                String query = String.format("DELETE FROM Alert WHERE ID = %d", alert.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
         }
     }
 
@@ -404,7 +524,8 @@ public class DataBaseController {
                 boolean completed = set.getBoolean("Completed");
                 int id = set.getInt("ID");
                 String dateString = set.getString("CompletionDate");
-                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id);
+                boolean global = set.getBoolean("Global");
+                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id, global);
                 goals.add(newGoal);
             }
         } catch (SQLException e) {
@@ -429,12 +550,11 @@ public class DataBaseController {
             String query = "SELECT * FROM Alert WHERE User=" + userId;
             ResultSet set = stmt.executeQuery(query);
             while (set.next()) {
-                String name = set.getString("Name");
+                String type = set.getString("Type");
                 String message = set.getString("Message");
-                String webLink = set.getString("WebLink");
                 int id = set.getInt("ID");
                 String dateString = set.getString("Date");
-                Alert alert = new Alert(dateString, webLink, message, id, name);
+                Alert alert = new Alert(dateString , message, id, type);
                 alerts.add(alert);
             }
         } catch (SQLException e) {
@@ -459,7 +579,6 @@ public class DataBaseController {
             String query = "SELECT ID FROM " + table;
             ResultSet set = stmt.executeQuery(query);
             ArrayList<Integer> ids = new ArrayList<>();
-            // TODO: add things to list and get max
             // Looping over the results to find the last id
             while (set.next()) {
                 id = set.getInt("ID");
@@ -505,18 +624,7 @@ public class DataBaseController {
         }
         // Returning the result of the search
         return inTable;
-
     }
-
-
-
-    //TODO: Delete methods for all tables
-
-/*
-    public static void main(String[] args) {
-        DataBaseController db = new DataBaseController();
-    }
-*/
 
 
 }

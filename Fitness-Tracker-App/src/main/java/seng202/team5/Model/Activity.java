@@ -2,7 +2,7 @@ package seng202.team5.Model;
 
 
 /**
- *
+ * This class holds a single activity that is in the application.
  */
 public class Activity {
 
@@ -79,7 +79,7 @@ public class Activity {
      * @return A string showing the activity.
      */
     public String toString() {
-        return name + "\n" + dataSet;
+        return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
     }
 
 
@@ -98,5 +98,9 @@ public class Activity {
      */
     public String getName() {
         return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

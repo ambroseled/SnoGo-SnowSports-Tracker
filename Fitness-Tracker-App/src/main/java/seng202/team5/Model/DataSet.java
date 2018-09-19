@@ -4,7 +4,7 @@ import java.util.*;
 
 
 /**
- *
+ * This class is used to hold the information about one uploaded activity.
  */
 public class DataSet {
 
@@ -219,5 +219,10 @@ public class DataSet {
      */
     public void setSlopeTime(double slopeTime) {
         this.slopeTime = slopeTime;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
