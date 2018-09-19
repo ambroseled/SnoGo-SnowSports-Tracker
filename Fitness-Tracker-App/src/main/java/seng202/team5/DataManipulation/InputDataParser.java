@@ -152,12 +152,12 @@ public class InputDataParser {
 		return activities;
 	}
 	
-//	public static void main(String[] args) {
-//		InputDataParser inputDataParser = new InputDataParser();
-//		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("testData2.csv");
-//	
-//		System.out.println(activities);
-//	}
+	public static void main(String[] args) {
+		InputDataParser inputDataParser = new InputDataParser();
+		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("huttTestData.csv");
+
+		System.out.println(activities);
+	}
 
 
 	public static void setCurrentUser(User user) {

@@ -82,7 +82,7 @@ public class DataValidator {
 	
 	private boolean validateFirstPoint(ArrayList<DataPoint> dataPoints) {
 		boolean firstPointValid = false;
-		
+		System.out.println(dataPoints.size());
 		while (!firstPointValid) {
 			int[] dataPointValidity = getDataPointValidity(dataPoints.get(0));
 			
