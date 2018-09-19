@@ -80,7 +80,7 @@ public class GraphsController{
      */
     private XYChart.Series createGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
-        xAxis.setLabel("Time (Seconds)");
+//        xAxis.setLabel("Time (Seconds)");
         xAxis.setForceZeroInRange(false); //Stops the chart starting at (0,0) every time
 
         //Defining the y axis
@@ -126,7 +126,7 @@ public class GraphsController{
     private void setSpeedChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint);
+            double timeVal = setTime(startTime, dataPoint, lineChart);
             double speedVal = dataPoint.getSpeed();
             series.getData().add(new XYChart.Data(timeVal, speedVal));
         }
@@ -142,7 +142,7 @@ public class GraphsController{
     private void setDistanceChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint);
+            double timeVal = setTime(startTime, dataPoint, lineChart);
             double distanceVal = dataPoint.getDistance();
             series.getData().add(new XYChart.Data(timeVal, distanceVal));
         }
@@ -158,7 +158,7 @@ public class GraphsController{
     private void setHeartRateChart(LineChart lineChart, XYChart.Series series, Activity activity) {
         long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint);
+            double timeVal = setTime(startTime, dataPoint, lineChart);
             int heartRateVal = dataPoint.getHeartRate();
             series.getData().add(new XYChart.Data(timeVal, heartRateVal));
         }
@@ -221,10 +221,21 @@ public class GraphsController{
      * @param dataPoint Currently studied datapoint
      * @return the time of the current datapoint relative to the start of the activity
      */
-    private double setTime(long startTime, DataPoint dataPoint) {
+    private double setTime(long startTime, DataPoint dataPoint, LineChart lineChart) {
         long currentTime = dataPoint.getDateTime().getTime();
         double newTime = currentTime - startTime;
         newTime = newTime / 1000;
+        String timeScale = "Seconds";
+/*        if (newTime > 60) {
+            newTime = newTime / 60;
+            timeScale = "Minutes";
+            if (newTime > 60) {
+                newTime = newTime / 60;
+                timeScale = "Hours";
+            }
+        }*/
+
+        lineChart.getXAxis().setLabel("Time (" + timeScale + ")");
         return newTime;
     }
 
