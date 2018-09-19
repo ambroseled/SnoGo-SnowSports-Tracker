@@ -66,8 +66,18 @@ public class TableController {
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
         setActivities(inputActivities);
 
-        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+    // Uncomment when merged into master
+        for (Activity activity : inputActivities) {
+            db.storeActivity(activity, currentUser.getId());
+            currentUser.addActivity(activity);
+        }
 
+        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+        Alert countAlert = AlertHandler.activityAlert(currentUser);
+        if (countAlert != null) {
+            db.storeAlert(countAlert, currentUser.getId());
+            currentUser.addAlert(countAlert);
+        }
         initialise();
     }
 

@@ -87,180 +87,96 @@ public class User {
     }
 
 
-    /**
-     *
-     * @return
-     */
     public String getName() {
         return name;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public Date getBirthDate() {
         return birthDate;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getHeight() {
         return height;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getWeight() {
         return weight;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Activity> getActivities() {
         return activities;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getBmi() {
         return bmi;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public int getAge() {
         return age;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public int getId() {
         return id;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Goal> getGoals() {
         return goals;
     }
 
-    /**
-     *
-     * @param tempName
-     */
+
     public void setName(String tempName) {
         name = tempName;
     }
 
 
-    /**
-     *
-     * @param tempDate
-     */
     public void setBirthDate(Date tempDate) {
         birthDate = tempDate;
     }
 
 
-    /**
-     *
-     * @param tempHeight
-     */
     public void setHeight(double tempHeight) {
         height = tempHeight;
     }
 
 
-    /**
-     *
-     * @param tempWeight
-     */
     public void setWeight(double tempWeight) {
         weight = tempWeight;
     }
 
 
-    /**
-     *
-     * @param goals
-     */
     public void setGoals(ArrayList<Goal> goals) {
         this.goals = goals;
     }
 
 
-    /**
-     *
-     * @param alerts
-     */
     public void setAlerts(ArrayList<Alert> alerts) {
         this.alerts = alerts;
     }
 
 
-    /**
-     *
-     * @param age
-     */
     public void setAge(int age) {
         this.age = age;
     }
 
 
-    /**
-     *
-     * @param id
-     */
     public void setId(int id) {
         this.id = id;
     }
 
 
-    /**
-     *
-     * @param bmi
-     */
-    public void setBmi(double bmi) {
-        this.bmi = bmi;
-    }
-
-
-    /**
-     *
-     * @param toAdd
-     */
     public void addGoal(Goal toAdd) {
         goals.add(toAdd);
     }
 
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Alert> getAlerts() {
         return alerts;
     }
@@ -279,14 +195,13 @@ public class User {
         alerts.add(alert);
     }
 
+
     public void removeAlert(Alert alert) {
         alerts.remove(alert);
     }
 
-    /*
-    //Adds activities from CSV to user's list of activities
-    public void addActivities(String fileName) {
-        ArrayList<Activity> activitiesToAdd = InputDataParser.parseCSVToActivities(String fileName);
-        activities.addAll(activitiesToAdd);
-    } */
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
+    }
 }

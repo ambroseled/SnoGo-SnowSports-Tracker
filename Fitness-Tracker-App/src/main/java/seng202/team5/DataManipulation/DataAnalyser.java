@@ -7,6 +7,7 @@ import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
 
 
 /**
@@ -280,7 +281,7 @@ public class DataAnalyser {
         for(int i = 1; i < dataPoints.size(); i++) {
             if (dataPoints.get(i).isActive()) {
                 // The DataPoint is marked as active so the vertical distance is recorded
-                vertical += oneAlt(dataPoints.get(i).getElevation(), previous);
+                vertical += abs(oneAlt(dataPoints.get(i).getElevation(), previous));
             }
             previous = dataPoints.get(i).getElevation();
         }
