@@ -35,8 +35,6 @@ public class ProfController {
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
     private DataBaseController db = AppController.getDb();
 
-    private User currentUser = AppController.getCurrentUser();
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
 
