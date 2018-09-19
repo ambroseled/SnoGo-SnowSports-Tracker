@@ -16,9 +16,9 @@
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="130.0" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="114.0" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="235.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="193.0" />
-         <ColumnConstraints maxWidth="206.0" minWidth="112.0" prefWidth="123.0" />
-         <ColumnConstraints maxWidth="201.0" minWidth="111.0" prefWidth="194.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="271.0" />
+         <ColumnConstraints maxWidth="206.0" minWidth="30.0" prefWidth="93.0" />
+         <ColumnConstraints maxWidth="201.0" minWidth="111.0" prefWidth="146.0" />
          <ColumnConstraints maxWidth="189.0" minWidth="146.0" prefWidth="146.0" />
          <ColumnConstraints maxWidth="143.0" minWidth="10.0" prefWidth="143.0" />
      </columnConstraints>
@@ -40,8 +40,7 @@
                <TableColumn fx:id="desCol" prefWidth="661.0" text="Description" />
            </columns>
          </TableView>
-         <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshData" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Refresh Health Alerts" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       </children>
    </GridPane>
    </children>

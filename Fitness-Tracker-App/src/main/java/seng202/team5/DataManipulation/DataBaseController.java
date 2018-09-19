@@ -30,7 +30,6 @@ public class DataBaseController {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
-            System.out.println("Connected to database");
         } catch (Exception e) {
             // Printing out an error message
             System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
@@ -45,7 +44,6 @@ public class DataBaseController {
         // Try-catch used to catch any exceptions trow while closing connection to database.
         try {
             connection.close();
-            System.out.println("Database connection closed");
         } catch (SQLException e) {
             // Printing out an error message
             System.out.println("Error closing connection: " + e.getLocalizedMessage());
@@ -552,7 +550,7 @@ public class DataBaseController {
             String query = "SELECT * FROM Alert WHERE User=" + userId;
             ResultSet set = stmt.executeQuery(query);
             while (set.next()) {
-                String type = set.getString("type");
+                String type = set.getString("Type");
                 String message = set.getString("Message");
                 int id = set.getInt("ID");
                 String dateString = set.getString("Date");

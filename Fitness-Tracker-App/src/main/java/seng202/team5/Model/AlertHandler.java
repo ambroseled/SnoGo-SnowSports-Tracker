@@ -22,7 +22,7 @@ public class AlertHandler {
         return alert;
     }
 
-
+    //TODO: Re think calc method
     /**
      * This method creates an alert based on the amount of activities that
      * the current user has uploaded. An alert is created every 5 activity
@@ -34,7 +34,7 @@ public class AlertHandler {
         int actCount = user.getActivities().size();
         String date = dateTimeFormat.format(new Date());
         String message = null;
-        if (actCount % 5 == 0) {
+        if (actCount % 5 == 0 & actCount != 0) {
             message = String.format("%d activities uploaded", actCount);
         }
         if (message != null) {

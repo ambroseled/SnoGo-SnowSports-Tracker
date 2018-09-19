@@ -27,7 +27,7 @@ public class AppController extends Application {
 
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = db.getUsers().get(1);
+    private static User currentUser = db.getUsers().get(2);
     ////////////
 
 

@@ -88,9 +88,9 @@ public class DataAnalyser {
 
     /**
      * Checks if a passed DataPoint is active or not. The check is done by
-     * calculating the change in vertical distance over 1 minute. If this change
+     * calculating the change in vertical distance over 5 dataPoints. If this change
      * is negative then it is assumed the user is on a lift or hiking hence "Inactive"
-     * is returned. If the change is less than 1 it is also assumed that the user is
+     * is returned. If the distance change is less than 1 it is also assumed that the user is
      * inactive either being in a cafe or standing still so "Inactive is also returned.
      * If neither of these conditions are meet then it is assumed the user is active and
      * hence "active" is returned.
@@ -106,9 +106,9 @@ public class DataAnalyser {
 
 
         boolean flag = false;
-        int endIndex = 40;
+        int endIndex = index + 5;
         int len = dataPoints.size();
-        if ((index + endIndex) > len) {
+        if ((endIndex) >= len) {
             endIndex = len - 1;
             flag = true;
         }

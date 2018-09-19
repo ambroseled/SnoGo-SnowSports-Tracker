@@ -31,7 +31,7 @@ public class AlertController {
 
     @FXML
     /**
-     * Called by a button press of the viewButton. It
+     * Called by mouse movement on the anchor pane. It
      * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
