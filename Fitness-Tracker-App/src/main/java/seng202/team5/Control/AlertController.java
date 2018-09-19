@@ -23,8 +23,6 @@ public class AlertController {
     @FXML
     private TableColumn<Alert, String> desCol;
     @FXML
-    private TableColumn<Alert, String> webCol;
-    @FXML
     private TableView alertTable;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
     private User currentUser = AppController.getCurrentUser();
@@ -33,7 +31,7 @@ public class AlertController {
 
     @FXML
     /**
-     * Called by a button press of the viewButton. It
+     * Called by mouse movement on the anchor pane. It
      * fills the alerts table with all of the users alerts.
      */
     public void viewData() {
@@ -41,9 +39,8 @@ public class AlertController {
             alerts.addAll(db.getAlerts(currentUser.getId()));
 
 
-            nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("name"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("type"));
             desCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("message"));
-            webCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("webLink"));
             dateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("dateString"));
 
 

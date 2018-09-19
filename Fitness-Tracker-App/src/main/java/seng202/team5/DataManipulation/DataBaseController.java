@@ -30,7 +30,6 @@ public class DataBaseController {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
-            System.out.println("Connected to database");
         } catch (Exception e) {
             // Printing out an error message
             System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
@@ -45,7 +44,6 @@ public class DataBaseController {
         // Try-catch used to catch any exceptions trow while closing connection to database.
         try {
             connection.close();
-            System.out.println("Database connection closed");
         } catch (SQLException e) {
             // Printing out an error message
             System.out.println("Error closing connection: " + e.getLocalizedMessage());
@@ -466,14 +464,13 @@ public class DataBaseController {
             int id = toAdd.getId();
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
-                String query = String.format("INSERT INTO Alert (Name, Message, WebLink, Date, User) " +
-                        "Values (?, ?, ?, ?, ?)");
+                String query = String.format("INSERT INTO Alert (Type, Message, Date, User) " +
+                        "Values (?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
-                pStmt.setString(1, toAdd.getName());
+                pStmt.setString(1, toAdd.getType());
                 pStmt.setString(2, toAdd.getMessage());
-                pStmt.setString(3, toAdd.getWebLink());
-                pStmt.setString(4, toAdd.getDateString());
-                pStmt.setInt(5, userId);
+                pStmt.setString(3, toAdd.getDateString());
+                pStmt.setInt(4, userId);
                 pStmt.executeUpdate();
                 toAdd.setId(findId("Alert"));
             }
@@ -553,12 +550,11 @@ public class DataBaseController {
             String query = "SELECT * FROM Alert WHERE User=" + userId;
             ResultSet set = stmt.executeQuery(query);
             while (set.next()) {
-                String name = set.getString("Name");
+                String type = set.getString("Type");
                 String message = set.getString("Message");
-                String webLink = set.getString("WebLink");
                 int id = set.getInt("ID");
                 String dateString = set.getString("Date");
-                Alert alert = new Alert(dateString, webLink, message, id, name);
+                Alert alert = new Alert(dateString , message, id, type);
                 alerts.add(alert);
             }
         } catch (SQLException e) {

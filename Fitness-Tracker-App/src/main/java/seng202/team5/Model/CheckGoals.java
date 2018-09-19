@@ -29,9 +29,9 @@ public class CheckGoals {
                 if (checkGoal(goal, activities, user)) {
                     goal.setCompleted(true);
                     db.updateGoal(goal);
-                    Alert alert = new Alert(dateTimeFormat.format(date), "n/a", goal.getName() + " completed", goal.getName());
-                    db.storeAlert(alert, user.getId());
-                    user.addAlert(alert);
+                    Alert goalAlert = AlertHandler.newGoalAlert(goal.getName());
+                    db.storeAlert(goalAlert, user.getId());
+                    user.addAlert(goalAlert);
                 }
             }
         }

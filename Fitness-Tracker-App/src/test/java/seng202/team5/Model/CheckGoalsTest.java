@@ -174,7 +174,7 @@ public class CheckGoalsTest {
 
     @Test
     public void testTrueCalories() {
-        Goal goal = new Goal("test", "Calories Burned", 8.6, "06/07/2100", false);
+        Goal goal = new Goal("test", "Calories Burned", 5.4, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
