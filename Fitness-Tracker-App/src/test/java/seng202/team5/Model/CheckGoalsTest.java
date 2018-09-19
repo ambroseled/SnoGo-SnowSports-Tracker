@@ -22,8 +22,8 @@ public class CheckGoalsTest {
      * Getting a list of all the methods to be tested. Also setting up
      * the dummy User which is used for testing.
      */
-    public void getMethods() {
-        user.setActivities(parser.parseCSVToActivities("TestFiles/checkGoalTestData.csv"));
+    public void before() {
+        user.setActivities(parser.parseCSVToActivities("TestFiles/alertGoalTestData.csv"));
     }
 
 

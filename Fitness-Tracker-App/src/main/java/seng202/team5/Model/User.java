@@ -20,7 +20,7 @@ public class User {
     private int age;
     private int id = -1; // Need to add a handler for this
     private double bmi;
-    private ArrayList<Activity> activities;
+    private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Alert> alerts = new ArrayList<>();
     private ArrayList<Goal> goals = new ArrayList<>();
     DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");

@@ -34,14 +34,14 @@ public class AlertHandler {
         int actCount = user.getActivities().size();
         String date = dateTimeFormat.format(new Date());
         String message = null;
+        Alert actAlert = null;
         if (actCount % 5 == 0 & actCount != 0) {
             message = String.format("%d activities uploaded", actCount);
         }
         if (message != null) {
-            Alert actAlert = new Alert(date, message, "Activity count");
-            return actAlert;
+            actAlert = new Alert(date, message, "Activity count");
         }
-        return null;
+        return actAlert;
     }
 
 
