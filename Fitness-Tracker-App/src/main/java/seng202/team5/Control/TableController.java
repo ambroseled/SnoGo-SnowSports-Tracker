@@ -17,16 +17,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-
-//TODO: Fix scroll pane, Needs to scroll for expanded activity
-
-
-
-
-
 /**
- * This class hanldes the controls for the data view tab of the application. It
+ * This class handles the controls for the data view tab of the application. It
  * handles the display of raw data as well as the loading of files.
  */
 public class TableController {
@@ -180,6 +172,8 @@ public class TableController {
         Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
         dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
         titledPane.setText(dropdownText);
+        titledPane.setMinHeight(320);
+
     }
 
     /**

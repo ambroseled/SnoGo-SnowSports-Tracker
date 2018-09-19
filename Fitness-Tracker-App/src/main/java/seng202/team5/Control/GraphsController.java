@@ -262,7 +262,6 @@ public class GraphsController{
             speedChart.getData().clear();
             distanceChart.getData().clear();
             heartRateChart.getData().clear();
-            caloriesChart.getData().clear();
 
             XYChart.Series speedSeries = createGraph(speedChart, "Speed");
             setSpeedChart(speedChart, speedSeries, currentActivity);
