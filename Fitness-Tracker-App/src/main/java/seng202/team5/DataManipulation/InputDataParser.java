@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
 
+import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.User;
@@ -15,78 +16,87 @@ import java.util.Date;
 import java.util.ArrayList;
 
 /**
- *
+ * The class reads a csv file into a set of Activity objects.
  */
 public class InputDataParser {
 
-    private DataAnalyser analyser = new DataAnalyser();
-    private DataValidator validator = new DataValidator();
+	private DataAnalyser analyser = new DataAnalyser();
+	private DataValidator validator = new DataValidator();
 
 
-    //As user is used in the calculations
-    private static User currentUser;
+	//As user is used in the calculations
+	private static User currentUser;
 
 
-    /**
-     *
-     * @param filePath
-     * @return
-     */
-    private ArrayList<String> readFile(String filePath) {
-        ArrayList<String> lines = new ArrayList<>();
+	/**
+	 * This method reads the lines of a csv file.
+	 * @param filePath the path of the chosen file to be read
+	 * @return An list of lines read from teh given file
+	 */
+	private ArrayList<String> readFile(String filePath) {
+		ArrayList<String> lines = new ArrayList<String>();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
 
-            String line;
-            while((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			String line;
+			while((line = br.readLine()) != null) {
+				lines.add(line);
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        return lines;
-    }
+		return lines;
+	}
 
-    /**
-     * The data read in readFile() is further processed into separate activities
-     * creating data points from each line and adding them to the activity they are under
-     * for each activity.
-     * @param lines a list of lines returned from the readFile method
-     * @return An array list activities
-     */
-    private ArrayList<Activity> createActivitiesFromLines(ArrayList<String> lines) {
-    	ArrayList<Activity> activities = new ArrayList<Activity>();
-    	
-    	boolean activityFound = false;
-    	
-    	for (String line : lines) {
-    		String[] lineValues = line.split(",");
-    		
-    		
-    		if (lineValues[0].equals("#start")) {
-    			activityFound = true;
-    			Activity activity = new Activity(lineValues[1]);
-    			activities.add(activity);
-    		}
-    		else {
-    			if (activityFound) {
-	    			DataPoint dataPoint = getDataPointFromLine(lineValues);
-	    			activities.get(activities.size() -1).getDataSet().addDataPoint(dataPoint);
-    			}
-    		}
-    		
-    	}
-    	return activities;
-    }
-    
-    private DataPoint getDataPointFromLine(String[] lineValues) {
-    	DataPoint dataPoint = new DataPoint();
-    	
+	/**
+	 * The data read in readFile() is further processed into separate activities
+	 * creating data points from each line and adding them to the activity they are under
+	 * for each activity.
+	 * @param lines a list of lines returned from the readFile method
+	 * @return An array list activities
+	 */
+	private ArrayList<Activity> createActivitiesFromLines(ArrayList<String> lines) {
+		ArrayList<Activity> activities = new ArrayList<Activity>();
+
+		boolean activityFound = false;
+
+		for (String line : lines) {
+			String[] lineValues = line.split(",");
+
+			try {
+				if (lineValues[0].equals("#start")) {
+					activityFound = true;
+					Activity activity = new Activity(lineValues[1]);
+					activities.add(activity);
+				} else {
+					if (activityFound) {
+						DataPoint dataPoint = getDataPointFromLine(lineValues);
+						activities.get(activities.size() - 1).getDataSet().addDataPoint(dataPoint);
+					}
+				}
+			}
+			catch (Exception e) {
+				//Just in case an empty line of the csv file is ',,,,,' instead of just empty
+				//Only happens when you manually delete lines in e.g. excel.
+			}
+		}
+		return activities;
+	}
+
+	/**
+	 * This is a helper method to the createActivitiesFromLines method. It deals with parsing one
+	 * line of the csv into a dataPoint object.
+	 * @param lineValues an array of values parsed from one line of the csv file
+	 * @return An array list activities
+	 */
+	private DataPoint getDataPointFromLine(String[] lineValues) {
+		DataPoint dataPoint = new DataPoint();
+
 		try {//DATE
 			DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 			Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
@@ -96,7 +106,7 @@ public class InputDataParser {
 			Date dateTime = null;
 			dataPoint.setDateTime(dateTime);
 		}
-		
+
 		try {//HEART RATE
 			int heartRate = Integer.parseInt(lineValues[2]);
 			dataPoint.setHeartRate(heartRate);
@@ -105,7 +115,7 @@ public class InputDataParser {
 			int heartRate = 0;
 			dataPoint.setHeartRate(heartRate);
 		}
-		
+
 		try {//LATITIDE
 			double latitude = Double.parseDouble(lineValues[3]);
 			dataPoint.setLatitude(latitude);
@@ -114,7 +124,7 @@ public class InputDataParser {
 			double latitude = 91;
 			dataPoint.setLatitude(latitude);
 		}
-		
+
 		try {//LONGITUDE
 			double longitude = Double.parseDouble(lineValues[4]);
 			dataPoint.setLongitude(longitude);
@@ -123,7 +133,7 @@ public class InputDataParser {
 			double longitude = 181;
 			dataPoint.setLongitude(longitude);
 		}
-		
+
 		try {//ELEVATION
 			double elevation = Double.parseDouble(lineValues[5]);
 			dataPoint.setElevation(elevation);
@@ -132,36 +142,39 @@ public class InputDataParser {
 			double elevation = 8851;
 			dataPoint.setElevation(elevation);
 		}
-			
-    	return dataPoint;
-    }
+
+		return dataPoint;
+	}
 
 
-    /**
-     *
-     * @param fileName
-     * @return
-     */
-	public ArrayList<Activity> parseCSVToActivities(String fileName) {
-		ArrayList<String> lines = readFile(fileName);
+	/**
+	 * This is the method which can be called from other classes. It puts the method which reads the csv and the
+	 * method which parses this into DataPoints and Activities. This method also calls the validate and analysis
+	 * procedures on each activity before returning the list of activities.
+	 * @param filePath A String of the filepath.
+	 * @return An ArrayList of activities parsed from the
+	 */
+	public ArrayList<Activity> parseCSVToActivities(String filePath) {
+		ArrayList<String> lines = readFile(filePath);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
 		for (Activity activity : activities) {
 			validator.validateActivity(activity);
-            analyser.analyseActivity(activity);
+			analyser.analyseActivity(activity);
+			//System.out.println(activity.getDataSet());
 		}
 		return activities;
 	}
-	
+	/*
 	public static void main(String[] args) {
 		InputDataParser inputDataParser = new InputDataParser();
-		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("huttTestData.csv");
+		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("testData2.csv");
 
-		System.out.println(activities);
+		//System.out.println(activities);
 	}
-
+	*/
 
 	public static void setCurrentUser(User user) {
-        currentUser = user;
-    }
+		currentUser = user;
+	}
 
 }
