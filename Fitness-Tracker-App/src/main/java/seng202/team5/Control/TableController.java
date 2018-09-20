@@ -68,11 +68,13 @@ public class TableController {
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
         setActivities(inputActivities);
 
-    // Uncomment when merged into master
+    // Uncomment to enable file loading into database
+        /*
         for (Activity activity : inputActivities) {
             db.storeActivity(activity, currentUser.getId());
             currentUser.addActivity(activity);
         }
+        */
 
         CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
         Alert countAlert = AlertHandler.activityAlert(currentUser);

@@ -204,4 +204,9 @@ public class User {
     public void removeAlert(Alert alert) {
         alerts.remove(alert);
     }
+
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
+    }
 }
