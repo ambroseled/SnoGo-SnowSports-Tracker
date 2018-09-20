@@ -24,6 +24,7 @@ public class AlertHandlerTest {
         assertEquals("Goal completed", alert.getType());
     }
 
+    /*
     @Test
     public void testCountAlertTrue() {
         ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/alertGoalTestData.csv");
@@ -32,7 +33,7 @@ public class AlertHandlerTest {
         assertEquals(dateTimeFormat.format(date), countAlert.getDateString());
         assertEquals("5 activities uploaded", countAlert.getMessage());
         assertEquals("Activity count", countAlert.getType());
-    }
+    }*/
 
 
     @Test
