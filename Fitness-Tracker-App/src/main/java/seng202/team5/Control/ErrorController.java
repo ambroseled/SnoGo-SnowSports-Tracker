@@ -9,6 +9,7 @@ public class ErrorController {
     public static void displayError(String errorMessage) {
         Alert errorPopup = new Alert(Alert.AlertType.ERROR);
         errorPopup.setTitle("Error Dialog");
+        errorPopup.setHeaderText("Oops, you've fallen off your board!");
         errorPopup.setContentText(errorMessage);
         errorPopup.showAndWait();
 
