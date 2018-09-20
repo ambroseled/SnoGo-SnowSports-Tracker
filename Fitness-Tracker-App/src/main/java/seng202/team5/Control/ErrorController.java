@@ -11,10 +11,13 @@ public class ErrorController {
         errorPopup.setTitle("Error Dialog");
         errorPopup.setHeaderText("Oops, you've fallen off your board!");
         errorPopup.setContentText(errorMessage);
-        errorPopup.showAndWait();
 
         DialogPane dialogPane = errorPopup.getDialogPane();
-        dialogPane.getStylesheets().add("../../../res/CSS/errorStyle.css");
+        dialogPane.getStylesheets().add("errorStyle.css");
         dialogPane.getStyleClass().add("error");
+
+        errorPopup.showAndWait();
+
+
     }
 }
