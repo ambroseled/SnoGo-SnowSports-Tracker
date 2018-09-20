@@ -134,7 +134,7 @@ public class DataValidator {
 	 * The method performs validation on all of the data points of the activity
 	 * @param activity the given activity on which to perform validation
 	 */
-	private void validateActivity(Activity activity) {
+	public void validateActivity(Activity activity) {
 
 		ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
 		initialDataSetSize = dataPoints.size();
