@@ -79,7 +79,7 @@ public class InputDataParserTest {
      */
     public void testLatitude() {
         DataPoint point = activities.get(0).getDataSet().getDataPoints().get(0);
-        assertEquals(171.538148, point.getLatitude(), 0.0);
+        assertEquals(-43.49153, point.getLatitude(), 0.0);
     }
 
 
@@ -89,7 +89,7 @@ public class InputDataParserTest {
      */
     public void testLongitude() {
         DataPoint point = activities.get(0).getDataSet().getDataPoints().get(0);
-        assertEquals(-43.49153, point.getLongitude(), 0.0);
+        assertEquals(171.538148, point.getLongitude(), 0.0);
     }
 
 
