@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class CheckGoals {
 
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+
 
     /**
      * This method checks all of the users incomplete goals and marks them as completed

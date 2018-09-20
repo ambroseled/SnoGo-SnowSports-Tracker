@@ -44,5 +44,14 @@ public class AlertHandler {
         return actAlert;
     }
 
+/*
+    public static Alert expiredGoalAlert(String goalName) {
+        String date = dateTimeFormat.format(new Date());
+        String message = "Goal: " + goalName + " expired";
+        Alert alert = new Alert(date, message, "Goal expired");
+        return alert;
+    }
+
+    */
 
 }

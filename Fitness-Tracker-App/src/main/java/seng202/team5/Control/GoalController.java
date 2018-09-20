@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
+import seng202.team5.Model.Alert;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,11 +66,11 @@ public class GoalController {
 
     @FXML
     /**
-     * Called by a press of the viewButton, this method fills the goal table
+     * Called by mouse movement, this method fills the goal table
      * with all of the users goals.return global;
      */
     public void viewData() {
-        if (goalTable.getItems().size() != currentUser.getGoals().size()) {
+        if (goalTable.getItems().size() != db.getGoals(currentUser.getId()).size()) {
 
 
             goals.addAll(db.getGoals(currentUser.getId()));
@@ -228,6 +230,8 @@ public class GoalController {
      * the database after wwhich the goal table is updated.
      */
     public void createGoal() {
+
+
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
         double value = valueCombo.getSelectionModel().getSelectedItem();
@@ -238,10 +242,15 @@ public class GoalController {
 
         newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
 
+        if (newGoal.isCompleted()) {
+            Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
+            db.storeAlert(alert, currentUser.getId());
+            currentUser.addAlert(alert);
+        }
+
         // Store the goal into the database
         db.storeGoal(newGoal, currentUser.getId());
 
-        newGoal.setId(db.findId("Goal"));
 
         currentUser.addGoal(newGoal);
 
