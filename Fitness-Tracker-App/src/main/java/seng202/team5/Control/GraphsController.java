@@ -288,7 +288,6 @@ public class GraphsController{
         return newTime;
     }
 
-
     /**
      * Runs when the tab is first switched to
      * Sets up the choiceBox to show all activities for current User
@@ -297,6 +296,7 @@ public class GraphsController{
         if (visited) {
             return;
         }
+        resetData();
 
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
@@ -337,6 +337,14 @@ public class GraphsController{
         }
     }
 
+    private void resetData() {
+        totDistChart.getData().clear();
+        vertDistChart.getData().clear();
+        avgHeartRateChart.getData().clear();
+        caloriesChart.getData().clear();
+        avgSpeedChart.getData().clear();
+        runningDistChart.getData().clear();
+    }
 
     /**
      *
@@ -368,7 +376,10 @@ public class GraphsController{
         activities = inputActivities;
     }
 
-    public void setVisited() {visited = false;}
+    public void setVisited() {
+        visited = false;
+        setChoiceBox();
+    }
 
 
     /**
