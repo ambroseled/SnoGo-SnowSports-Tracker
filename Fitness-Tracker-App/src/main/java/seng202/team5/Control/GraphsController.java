@@ -25,8 +25,6 @@ public class GraphsController{
     @FXML
     private ChoiceBox activityChoice;
     @FXML
-    private Button selectButton;
-    @FXML
     private ScrollPane scrollPane;
     //Chart FXML elements
     @FXML
