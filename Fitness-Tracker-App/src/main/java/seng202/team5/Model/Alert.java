@@ -1,7 +1,6 @@
 package seng202.team5.Model;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,10 +9,9 @@ import java.util.Date;
 /**
  * This class holds the alerts that are displayed in the application.
  */
-public class
-Alert {
+public class Alert {
 
-
+    // Variables stored for each alert
     private Date date;
     private String message;
     private String type;

@@ -56,49 +56,30 @@ public class Activity {
     }
 
 
-    /**
-     * Gets the activities DataSet.
-     * @return The activities DataSet.
-     */
     public DataSet getDataSet() {
         return dataSet;
     }
 
 
-    /**
-     * Gets the activities id.
-     * @return The activities id.
-     */
     public int getId() {
         return id;
     }
 
 
-    /**
-     * Gets the string representation of the activity
-     * @return A string showing the activity.
-     */
     public String toString() {
         return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
     }
 
 
-    /**
-     * Sets the DataSet of the activity.
-     * @param dataSet The new DataSet to be added to the activity.
-     */
     public void setDataSet(DataSet dataSet) {
         this.dataSet = dataSet;
     }
 
 
-    /**
-     * Gets the name of the activity.
-     * @return The name of the activity.
-     */
     public String getName() {
         return name;
     }
+
 
     public void setId(int id) {
         this.id = id;

@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public class Goal {
 
+    // The variables for the information stored with each goal
     private Date completionDate;
     private String metric;
     private double metricGoal;
@@ -70,91 +71,51 @@ public class Goal {
     }
 
 
-    /**
-     * Gets the completion date of the goal.
-     * @return The completion date of the goal.
-     */
     public Date getCompletionDate() {
         return completionDate;
     }
 
 
-    /**
-     * Gets the goals value.
-     * @return The value to meet to complete the goal.
-     */
     public double getMetricGoal() {
         return metricGoal;
     }
 
 
-    /**
-     * Gets the metric the goal is for.
-     * @return The metric of the goal.
-     */
     public String getMetric() {
         return metric;
     }
-// Update db with goal marked as true
 
-    /**
-     * Gets whether the goal is completed or not.
-     * @return A boolean flag holding if the goal is completed.
-     */
+
     public boolean isCompleted() {
         return completed;
     }
 
 
-    /**
-     * Gets the name of the goal.
-     * @return The name of the goal.
-     */
     public String getName() {
         return name;
     }
 
 
-    /**
-     * Gets the database id of the goal.
-     * @return The database id of the goal.
-     */
     public int getId() {
         return id;
     }
 
 
-    /**
-     * Gets the string value of the completion date of the goal.
-     * @return The string value of the completion date of the goal.
-     */
     public String getDateString() {
         return dateString;
     }
 
 
-    /**
-     * Gets if the goal is for all data or just over an activity
-     * @return Flag holding if the goal is global or not.
-     */
     public boolean isGlobal() {
         return global;
     }
 
 
-    /**
-     * Sets if the goal is complete.
-     * @param completed The new completion value.
-     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
 
-    /**
-     * Sets the database id of the goal.
-     * @param id The database id of the goal.
-     */
     public void setId(int id) {
         this.id = id;
     }

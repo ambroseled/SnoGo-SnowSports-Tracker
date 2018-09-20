@@ -25,52 +25,48 @@ public class GraphsController{
     private boolean visited = false;
 
     @FXML
-    ChoiceBox activityChoice;
+    private ChoiceBox activityChoice;
     @FXML
-    Button selectButton;
+    private Button selectButton;
     @FXML
-    ScrollPane scrollPane;
-
+    private ScrollPane scrollPane;
     //Chart FXML elements
     @FXML
-    LineChart<Number,Number> speedChart;
+    private LineChart<Number,Number> speedChart;
     @FXML
-    LineChart<Number,Number> distanceChart;
+    private  LineChart<Number,Number> distanceChart;
     @FXML
-    LineChart<Number,Number> heartRateChart;
-
-
+    private  LineChart<Number,Number> heartRateChart;
     //Table FXML elements
     @FXML
-    AnchorPane tablePane;
+    private AnchorPane tablePane;
     @FXML
-    Label activityName;
+    private Label activityName;
     @FXML
-    Label totalDistance;
+    private Label totalDistance;
     @FXML
-    Label vertDistance;
+    private Label vertDistance;
     @FXML
-    Label avgHeartRate;
+    private Label avgHeartRate;
     @FXML
-    Label calories;
+    private Label calories;
     @FXML
-    Label avgSpeed;
-
+    private Label avgSpeed;
     //Overall Stats FXML elements
     @FXML
-    LineChart<Number,Number> totDistChart;
+    private LineChart<Number,Number> totDistChart;
     @FXML
-    LineChart<Number,Number> vertDistChart;
+    private LineChart<Number,Number> vertDistChart;
     @FXML
-    LineChart<Number,Number> avgHeartRateChart;
+    private LineChart<Number,Number> avgHeartRateChart;
     @FXML
-    LineChart<Number,Number> caloriesChart;
+    private LineChart<Number,Number> caloriesChart;
     @FXML
-    LineChart<Number,Number> avgSpeedChart;
-
-
+    private LineChart<Number,Number> avgSpeedChart;
+    // Getting database controller and current user
     private DataBaseController db = AppController.getDb();
     private User currentUser = AppController.getCurrentUser();
+
 
     /**
      * Creates the basic empty lineChart
@@ -97,6 +93,13 @@ public class GraphsController{
         return series;
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param yLabel
+     * @return
+     */
     private XYChart.Series createOverallGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Activities");
@@ -117,6 +120,7 @@ public class GraphsController{
         return series;
     }
 
+
     /**
      * Sets speed graph
      * @param lineChart the speed over time line graph
@@ -132,6 +136,7 @@ public class GraphsController{
         }
         lineChart.getData().add(series);
     }
+
 
     /**
      * Sets distance graph
@@ -149,6 +154,7 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
     /**
      * Sets heart rate graph
      * @param lineChart the heart rate over time line graph
@@ -165,6 +171,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param series
+     */
     private void setTotalDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -175,6 +187,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param series
+     */
     private void setVertDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -185,6 +203,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param series
+     */
     private void setAvgHeartRateChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -195,6 +219,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param series
+     */
     private void setCaloriesChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -205,6 +235,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param series
+     */
     private void setAvgSpeedChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -288,6 +324,10 @@ public class GraphsController{
         }
     }
 
+
+    /**
+     *
+     */
     private void setOverallStats() {
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
@@ -314,6 +354,11 @@ public class GraphsController{
 
     public void setVisited() {visited = false;}
 
+
+    /**
+     *
+     * @param activity
+     */
     private void setTable(Activity activity) {
         activityName.setText(activity.getName());
         totalDistance.setText(Double.toString(activity.getDataSet().getTotalDistance()));

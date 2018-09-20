@@ -2,11 +2,11 @@ package seng202.team5.Model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class AlertHandler {
 
+    // Date format used to create new alerts
     private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -16,11 +16,14 @@ public class AlertHandler {
      * @return The alert created
      */
     public static Alert newGoalAlert(String goalName) {
+        // Creating the alert
         String date = dateTimeFormat.format(new Date());
         String message = "Goal: " + goalName + " completed";
         Alert alert = new Alert(date, message, "Goal completed");
+        // Returning the alert
         return alert;
     }
+
 
     //TODO: Re think calc method
     /**

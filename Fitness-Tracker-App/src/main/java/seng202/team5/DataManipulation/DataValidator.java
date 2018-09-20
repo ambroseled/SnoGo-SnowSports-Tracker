@@ -2,7 +2,6 @@ package seng202.team5.DataManipulation;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 
@@ -10,16 +9,14 @@ import seng202.team5.Model.DataPoint;
  * This class performs various validation procedures on one activity class.
  * The InputDataParser utilises this class.
  */
-
 public class DataValidator {
 
-	/**
-	 * This attribute is used to keep track of how many points have been deleted
-	 */
+
+	//TODO: are these used??????
+
+	// This attribute is used to keep track of how many points have been deleted
 	private int pointsDeleted = 0;
-	/**
-	 * This attribute keeps track of how many points have been altered
-	 */
+	// This attribute keeps track of how many points have been altered
 	private int pointsValidated = 0;
 	private int initialDataSetSize;
 
@@ -61,6 +58,7 @@ public class DataValidator {
 		return dataPointValidity;
 	}
 
+
 	/**
 	 * Checks if the date time is null
 	 * @param dateTime the given date time
@@ -75,6 +73,8 @@ public class DataValidator {
 			return true;
 		}
 	}
+
+
 	/**
 	 * Checks if the heart rate is between 26 (the lowest heart rate ever recorded)
 	 * and 480 (the highest heart rate ever recorded)
@@ -87,6 +87,8 @@ public class DataValidator {
 		}
 		return true;
 	}
+
+
 	/**
 	 * Checks if the latitude is between -90 and 90, as the range of latitude is [-90, 90]
 	 * @param latitude the given latitude value
@@ -99,6 +101,7 @@ public class DataValidator {
 		return true;
 	}
 
+
 	/**
 	 * Checks if the longitude is between -180 and 180 as the range of longitude is [-180, 180]
 	 * @param longitude the given longitude value
@@ -110,6 +113,7 @@ public class DataValidator {
 		}
 		return true;
 	}
+
 
 	/**
 	 * Checks if the elevation is between -213m, as this is the lowest point on the surface of earth,
@@ -124,12 +128,13 @@ public class DataValidator {
 		return true;
 	}
 
+
 	/**
 	 * Control method for the class, the method is called from within the InputDataParser class.
 	 * The method performs validation on all of the data points of the activity
 	 * @param activity the given activity on which to perform validation
 	 */
-	public void validateActivity(Activity activity) {
+	private void validateActivity(Activity activity) {
 
 		ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
 		initialDataSetSize = dataPoints.size();
@@ -137,6 +142,7 @@ public class DataValidator {
 		validateFirstPoint(dataPoints);
 		validateDataPoints(dataPoints);
 	}
+
 
 	/**
 	 * This method loops through the dataPoints until it finds a valid dataPoint
@@ -166,6 +172,7 @@ public class DataValidator {
 		return firstPointValid;
 	}
 
+
 	/**
 	 * This method loops through each data point and validates it, if the datetime cannot be
 	 * validated then the point would have been deleted
@@ -186,6 +193,7 @@ public class DataValidator {
 		}
 
 	}
+
 
 	/**
 	 * This method checks the validity of the date time, uses the preceding and the next valid succeeding data
@@ -233,6 +241,7 @@ public class DataValidator {
 		return true;
 	}
 
+
 	/**
 	 * This method checks the validity of the heart rate of the data point, uses the preceding and the next
 	 * valid succeeding data point to estimate the value, if there is no valid succeeding heart rate then
@@ -278,6 +287,7 @@ public class DataValidator {
 
 		}
 	}
+
 
 	/**
 	 * This method checks the validity of the latitude of the data point, uses the preceding and the next
@@ -326,6 +336,7 @@ public class DataValidator {
 
 	}
 
+
 	/**
 	 * This method checks the validity of the longitude of the data point, uses the preceding and the next
 	 * valid succeeding data point to estimate the value, if there is no valid succeeding longitude then
@@ -370,6 +381,7 @@ public class DataValidator {
 
 		}
 	}
+
 
 	/**
 	 * This method checks the validity of the elevation of the data point, uses the preceding and the next
@@ -417,14 +429,15 @@ public class DataValidator {
 
 	}
 
+
 	/**
 	 * This method checks the uniqueness of an activity against other activities, by testing if
 	 * their datetime ranges intersect.
-	 * @param activty the subject activity on which to test the uniqueness
+	 * @param activity the subject activity on which to test the uniqueness
 	 * @param activities the activities on which to test against
 	 * @return boolean value of whether the activity is unique or not
 	 */
-	public boolean isActivityDuplicate(Activity activty, ArrayList<Activity> activities) {
+	public boolean isActivityDuplicate(Activity activity, ArrayList<Activity> activities) {
 
 		boolean isActivityUnique = true;
 

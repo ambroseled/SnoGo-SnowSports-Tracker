@@ -16,6 +16,8 @@ import static seng202.team5.Model.CheckGoals.convertDate;
  * It provides the functionality to view and edit a users profile.
  */
 public class ProfController {
+
+    // Java fx elements used in the controller
     @FXML
     private  TextField nameText;
     @FXML
@@ -30,34 +32,32 @@ public class ProfController {
     private TextField dateText;
     @FXML
     private Button updateButton;
-
+    // Getting the database controller and current user
     private User currentUser = AppController.getCurrentUser();
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
     private DataBaseController db = AppController.getDb();
-
-
+    // Setting the date format for the users birth date
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
     @FXML
     /**
-     * Called by a press to the viewButton, this method displays all of the users
+     * Called by a mouse movement on teh anchor pane, this method displays all of the users
      * personal information.
      */
     public void viewProfile() {
+        // Checking if all entry fields are empty
         if (nameText.getText().isEmpty() && ageText.getText().isEmpty() && heightText.getText().isEmpty() &&
                 weightText.getText().isEmpty() && bmiText.getText().isEmpty() && dateText.getText().isEmpty())
         {
-            currentUser = AppController.getCurrentUser();
+            // Setting all entry fields to the users current personal information
             nameText.setText(currentUser.getName());
             ageText.setText(Integer.toString(currentUser.getAge()));
             heightText.setText(Double.toString(currentUser.getHeight()));
             weightText.setText(Double.toString(currentUser.getWeight()));
             bmiText.setText(Double.toString(currentUser.getBmi()));
-
             String dateString = dateTimeFormat.format(currentUser.getBirthDate());
             dateText.setText(dateString);
         }
-
     }
 
 
@@ -68,20 +68,25 @@ public class ProfController {
      */
     public void updateProfile() {
         try {
+            // Getting data from entry fields
             String name = nameText.getText();
             double weight = Double.parseDouble(weightText.getText());
             double height = Double.parseDouble(heightText.getText());
             int age = Integer.parseInt(ageText.getText());
             Date date = dateTimeFormat.parse(dateText.getText());
+            // Setting the new values of the users information
             currentUser.setName(name);
             currentUser.setWeight(weight);
             currentUser.setHeight(height);
             currentUser.setAge(age);
             currentUser.setBirthDate(date);
+            // Updating the user in the database
             db.updateUser(currentUser);
+            // Disabling update button as data in entry fields is the same as the user object
             updateButton.setDisable(true);
         } catch (Exception e) {
-            System.out.println("Error updating user");
+            // Showing error dialogue to user
+            ErrorController.displayError("Error updating user information");
         }
     }
 
@@ -93,36 +98,43 @@ public class ProfController {
      * the updateButton is enabled but if the data is invalid the button is disabled.
      */
     public void checkProfile() {
+        // Getting all information from entry fields
         String name = nameText.getText();
         String weight = weightText.getText();
         String age = ageText.getText();
         String date = dateText.getText();
         String height = heightText.getText();
         try {
+            // Checking all entry fields values are valid
             if (checkName(name) && checkWeight(weight) && checkHeight(height) && checkInt(age) & checkDate(date, Integer.parseInt(age))) {
-
+                // Parsing the none string values
                 double weightVal = Double.parseDouble(weight);
                 double heightVal = Double.parseDouble(height);
                 int ageVal = Integer.parseInt(age);
                 try {
                     Date dateVal = dateTimeFormat.parse(date);
+                    // Checking that newly entered data isn't the same ass the users information
                     if (weightVal == currentUser.getWeight() && heightVal == currentUser.getHeight() && ageVal == currentUser.getAge()
                             && name.equals(currentUser.getName()) && dateVal == currentUser.getBirthDate()) {
+                        // Disabling update button
                         updateButton.setDisable(true);
                     } else {
+                        // Enabling the update button
                         updateButton.setDisable(false);
                         updateButton.setVisible(true);
                     }
                 } catch (ParseException e) {
+                    // Disabling update button
                     updateButton.setDisable(true);
                 }
             } else {
+                // Disabling update button
                 updateButton.setDisable(true);
             }
         } catch (NumberFormatException e) {
-            System.out.println("Parse error");
+            // Disabling update button
+            updateButton.setDisable(true);
         }
-
     }
 
 
@@ -132,7 +144,8 @@ public class ProfController {
      * @return A boolean flag holding the result of the check.
      */
     private boolean checkName(String name) {
-        if (name.length() > 4 && name.length() < 30) {
+        // Checking the name is of valid length and is all alphabetical
+        if (name.length() > 4 && name.length() < 30 && name.matches("[a-zA-Z]+")) {
             return true;
         } else {
             return false;
@@ -146,6 +159,7 @@ public class ProfController {
      * @return A boolean flag holding the result of the check.
      */
     private boolean checkInt(String value) {
+        // Trying to parse string to int returning if the parse was successful
         try {
             int x = Integer.parseInt(value);
             return true;
@@ -158,12 +172,14 @@ public class ProfController {
     /**
      * This method checks if a newly entered weight value is valid. Valid is
      * considered to be between 25 and 175 kg.
-     * @param value The weight vlaue to be checked.
+     * @param value The weight value to be checked.
      * @return A boolean flag holding the result of the check.
      */
     private boolean checkWeight(String value) {
+        // Trying to parse string to double returning if the parse was successful
         try {
             double x = Double.parseDouble(value);
+            // Checking weight is within a reasonable range
             if (x < 25 || x > 175 ) {
                 return false;
             } else {
@@ -182,7 +198,9 @@ public class ProfController {
      * @return A boolean flag holding the result of the check.
      */
     private boolean checkHeight(String height) {
+        // Trying to parse string to double returning if the parse was successful
         try {
+            // Checking height is within a reasonable range
             double x = Double.parseDouble(height);
             if (x < 0.7 || x > 3 ) {
                 return false;
@@ -202,10 +220,12 @@ public class ProfController {
      * @return A boolean flag holding the result of the check.
      */
     private boolean checkDate(String date, int newAge) {
+        // Trying to parse string to double returning if the parse was successful
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date x = dateTimeFormat.parse(date);
             Date current = new Date();
+            // Checking that the birth date lines up with the users age
             int[] currentDate = convertDate(dateTimeFormat.format(current).split("/"));
             int[] compDate = convertDate(date.split("/"));
             if (compDate[2] != currentDate[2] - newAge) {

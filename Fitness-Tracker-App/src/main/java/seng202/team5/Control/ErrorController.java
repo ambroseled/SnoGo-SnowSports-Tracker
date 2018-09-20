@@ -3,6 +3,7 @@ package seng202.team5.Control;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 
+
 public class ErrorController {
 
     public static void displayError(String errorMessage) {
@@ -15,5 +16,4 @@ public class ErrorController {
         dialogPane.getStylesheets().add("../../../res/CSS/errorStyle.css");
         dialogPane.getStyleClass().add("error");
     }
-
 }

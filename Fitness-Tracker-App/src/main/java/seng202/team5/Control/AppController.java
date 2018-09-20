@@ -1,9 +1,7 @@
 package seng202.team5.Control;
 
 
-
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,24 +16,22 @@ import java.net.URL;
  */
 public class AppController extends Application {
 
+
     private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
-
-
-
     ////////////
     // Used for testing will later be the actual current user.
     private static User currentUser = db.getUsers().get(0);
     ////////////
 
 
-    public static Stage getAppStage() {
-        return  appStage;
-    }
-
-
+    /**
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";
         URL value1 = c.getResource(filename);
@@ -51,18 +47,28 @@ public class AppController extends Application {
     }
 
 
-
     @Override
+    /**
+     * Closing the database connection when the application is closed
+     */
     public void stop(){
         db.closeConnection();
     }
 
 
+    /**
+     * Gets the current user which is used by other controllers of the application
+     * @return The current user
+     */
     public static User getCurrentUser() {
         return currentUser;
     }
 
 
+    /**
+     * Gets the dataBaseController which is used by other controllers of the application
+     * @return The current DataBaseController
+     */
     public static DataBaseController getDb() {
         return db;
     }

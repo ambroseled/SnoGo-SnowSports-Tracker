@@ -17,7 +17,8 @@ import static java.lang.Math.abs;
  */
 public class DataAnalyser {
 
-    User currentUser = AppController.getCurrentUser();
+    // Getting the current user
+    private User currentUser = AppController.getCurrentUser();
 
 
     /**
@@ -103,8 +104,7 @@ public class DataAnalyser {
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
-
-
+        // Finding end index to compare dataPoint to
         boolean flag = false;
         int endIndex = index + 5;
         int len = dataPoints.size();
@@ -112,6 +112,7 @@ public class DataAnalyser {
             endIndex = len - 1;
             flag = true;
         }
+        // It is the last dataPoint so the same active status as the previous point is returned
         if (endIndex == index) {
             if (dataPoints.get(index - 1).isActive()) {
                 return "Active";
@@ -123,8 +124,6 @@ public class DataAnalyser {
             double endLat = dataPoints.get(endIndex).getLatitude();
             double endLong = dataPoints.get(endIndex).getLongitude();
             double endAlt = dataPoints.get(endIndex).getElevation();
-
-
             // Getting the distance change over the two points
             double movement = oneDist(startLat, startLong, endLat, endLong);
             double condition;
@@ -212,8 +211,6 @@ public class DataAnalyser {
         double distance = dist1 - dist2;
         // Calculating the change in time in seconds
         double time = (time1 - time2)/1000;
-
-        //System.out.println("Distance: " + distance);
         if (time == 0) {
             // The time change is zero so the speed is zero
             return 0;
@@ -265,7 +262,6 @@ public class DataAnalyser {
     }
 
 
-    //TODO: Check over this
     /**
      * Calculates the total vertical distance traveled over a given list
      * of altitude values.
@@ -340,19 +336,21 @@ public class DataAnalyser {
      * @return The amount of calories burned.
      */
     private double calcCalBurned(DataSet dataSet, double weight) {
+        // Defining calorie constant for skiing
         double MET = 7.0;
+        // Getting the calories burned per minute
         double perMin = (MET * 3.5 * weight) / 200;
+        // Getting the total time of the dataSet in minutes
         double startTime = dataSet.getDataPoints().get(0).getDateTime().getTime();
         double endTime = dataSet.getDataPoints().get(dataSet.getDataPoints().size() - 1).getDateTime().getTime();
         double timeMilli = endTime - startTime;
         double timeMin = (timeMilli / 1000.0) / 60.0;
+        // Returning the result
         return roundNum(perMin * timeMin);
     }
 
 
     //TODO: Look over this
-
-
     /**
      * Calculates the time the user spends on the slopes.
      * @param dataSet The DataSet to calculate slope time over.
@@ -379,6 +377,7 @@ public class DataAnalyser {
     private double calcAvgSpeed(DataSet dataSet) {
         double avg = 0.0;
         int count = 0;
+        // Looping over all dataPoints to find average
         for (DataPoint x : dataSet.getDataPoints()) {
             if (x.isActive()) {
                 count++;

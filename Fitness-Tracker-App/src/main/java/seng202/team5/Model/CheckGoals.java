@@ -1,8 +1,6 @@
 package seng202.team5.Model;
 
 import seng202.team5.DataManipulation.DataBaseController;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +11,6 @@ import java.util.Date;
  */
 public class CheckGoals {
 
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * This method checks all of the users incomplete goals and marks them as completed
@@ -23,12 +20,16 @@ public class CheckGoals {
      * @param activities The newly added activities to use to check the users goals.
      */
     public static void markGoals(User user, DataBaseController db, ArrayList<Activity> activities) {
-        Date date = new Date();
+        // Looping over the users goals
         for (Goal goal: user.getGoals()) {
             if (!goal.isCompleted()) {
+                // Checking if the goal is completed as it is currently marked as incomplete
                 if (checkGoal(goal, activities, user)) {
+                    // Goal is completed
+                    // Updating goal in database
                     goal.setCompleted(true);
                     db.updateGoal(goal);
+                    // Creating an alert
                     Alert goalAlert = AlertHandler.newGoalAlert(goal.getName());
                     db.storeAlert(goalAlert, user.getId());
                     user.addAlert(goalAlert);

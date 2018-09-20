@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
 import seng202.team5.Control.AppController;
+import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
 
 import java.sql.*;
@@ -31,8 +32,8 @@ public class DataBaseController {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
         } catch (Exception e) {
-            // Printing out an error message
-            System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -45,8 +46,8 @@ public class DataBaseController {
         try {
             connection.close();
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error closing connection: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -83,8 +84,8 @@ public class DataBaseController {
                 users.add(newUser);
             }
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error getting users: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         // Returning the ArrayList of user
         return users;
@@ -125,8 +126,8 @@ public class DataBaseController {
             }
 
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         // Returning the ArrayList of activities
         return activities;
@@ -163,8 +164,8 @@ public class DataBaseController {
             // Returning the DataSet
             return dataSet;
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
             return null;
         }
     }
@@ -204,8 +205,8 @@ public class DataBaseController {
                 dataPoints.add(newPoint);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         // Returning the ArrayList of DataPoints
         return dataPoints;
@@ -238,8 +239,8 @@ public class DataBaseController {
                 toAdd.setId(findId("User"));
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -271,8 +272,8 @@ public class DataBaseController {
                 storeNewUser(user);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -299,8 +300,8 @@ public class DataBaseController {
                 toAdd.setId(findId("Activity"));
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding activity: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -330,7 +331,8 @@ public class DataBaseController {
                 toAdd.setId(findId("DataSet"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -359,7 +361,8 @@ public class DataBaseController {
                 toAdd.setId(findId("DataPoint"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -390,7 +393,8 @@ public class DataBaseController {
                 toAdd.setId(findId("Goal"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -423,8 +427,8 @@ public class DataBaseController {
                 storeGoal(goal, AppController.getCurrentUser().getId());
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when updating goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -446,8 +450,8 @@ public class DataBaseController {
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -475,7 +479,8 @@ public class DataBaseController {
                 toAdd.setId(findId("Alert"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -497,8 +502,8 @@ public class DataBaseController {
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
     }
 
@@ -529,7 +534,8 @@ public class DataBaseController {
                 goals.add(newGoal);
             }
         } catch (SQLException e) {
-            System.out.println("Error getting goals: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         return goals;
     }
@@ -558,7 +564,8 @@ public class DataBaseController {
                 alerts.add(alert);
             }
         } catch (SQLException e) {
-            System.out.println("Error getting alerts: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         return alerts;
     }
@@ -584,8 +591,8 @@ public class DataBaseController {
                 id = set.getInt("ID");
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error finding id: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         // Returning th found id
         return id;
@@ -619,8 +626,8 @@ public class DataBaseController {
                 }
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error finding id: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error with database");
         }
         // Returning the result of the search
         return inTable;

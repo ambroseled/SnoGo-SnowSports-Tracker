@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
 
+import seng202.team5.Control.ErrorController;
 import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -45,9 +46,11 @@ public class InputDataParser {
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+            // Showing error dialogue to user
+            ErrorController.displayError("File not found");
 		} catch (IOException e) {
-			e.printStackTrace();
+            // Showing error dialogue to user
+            ErrorController.displayError("Error parsing data");
 		}
 
 		return lines;
@@ -164,13 +167,14 @@ public class InputDataParser {
 		}
 		return activities;
 	}
-
+/*
 	public static void main(String[] args) {
 		InputDataParser inputDataParser = new InputDataParser();
 		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("TestFiles/alertGoalTestData.csv");
 
 		//System.out.println(activities);
 	}
+	*/
 
 
 	public static void setCurrentUser(User user) {

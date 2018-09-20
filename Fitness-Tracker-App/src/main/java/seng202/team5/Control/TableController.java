@@ -26,7 +26,7 @@ public class TableController {
     @FXML
     private Accordion accordion;
     private ArrayList<Activity> activities;
-
+    // Getting database controller and current user
     private DataBaseController db = AppController.getDb();
     private User currentUser = AppController.getCurrentUser();
 
@@ -40,6 +40,7 @@ public class TableController {
             addActivityPanels(i);
         }
     }
+
 
     @FXML
     /**
@@ -55,6 +56,7 @@ public class TableController {
         }
 
     }
+
 
     @FXML
     /**
@@ -81,6 +83,7 @@ public class TableController {
         initialise();
     }
 
+
     @FXML
     /**
      * Called by a press of the resetButton, this method clears and then refills the display
@@ -94,6 +97,7 @@ public class TableController {
 
         initialise();
     }
+
 
     @FXML
     /**
@@ -116,6 +120,8 @@ public class TableController {
 
 
     }
+
+
     /**
      * Populates the given table with the data from a specific activity
      * @param table an empty TableView object
@@ -155,6 +161,7 @@ public class TableController {
         table.setItems(getDataPointsList(index));
     }
 
+
     /**
      * Retrieves all dataPoint objects from a specific activity
      * @param index refers to an activity in the list "activities"
@@ -167,6 +174,7 @@ public class TableController {
         dataPointsList.addAll(dataSet.getDataPoints());
         return dataPointsList;
     }
+
 
     /**
      * Sets the text in the TitledPane object given, in the format:
@@ -185,6 +193,7 @@ public class TableController {
         titledPane.setMinHeight(320);
 
     }
+
 
     /**
      * Creates a new TitledPane for the activity referred to by "index"
@@ -205,6 +214,7 @@ public class TableController {
         titledPane.setContent(table);
         accordion.getPanes().add(titledPane);
     }
+
 
     /**
      * Sets the activities ArrayList to the passed ArrayList of activities.
