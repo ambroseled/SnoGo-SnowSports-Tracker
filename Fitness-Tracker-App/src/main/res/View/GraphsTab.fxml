@@ -129,6 +129,14 @@
                                 <NumberAxis side="LEFT" />
                             </yAxis>
                         </LineChart>
+                         <LineChart fx:id="runningDistChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                             <xAxis>
+                                 <NumberAxis side="BOTTOM" />
+                             </xAxis>
+                             <yAxis>
+                                 <NumberAxis side="LEFT" />
+                             </yAxis>
+                         </LineChart>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
@@ -145,6 +153,8 @@
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints />
                      </rowConstraints>
                   </GridPane>

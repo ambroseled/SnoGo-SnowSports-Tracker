@@ -63,6 +63,8 @@ public class GraphsController{
     private LineChart<Number,Number> caloriesChart;
     @FXML
     private LineChart<Number,Number> avgSpeedChart;
+    @FXML
+    private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
     private DataBaseController db = AppController.getDb();
     private User currentUser = AppController.getCurrentUser();
@@ -173,7 +175,7 @@ public class GraphsController{
 
 
     /**
-     *
+     * Sets
      * @param lineChart
      * @param series
      */
@@ -246,6 +248,17 @@ public class GraphsController{
         for (Activity activity: activities) {
             double avgSpeed = activity.getDataSet().getAvgSpeed();
             series.getData().add(new XYChart.Data(i, avgSpeed));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    private void setRunningDistChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        double runningDistance = 0;
+        for (Activity activity: activities) {
+            runningDistance += activity.getDataSet().getTotalDistance();
+            series.getData().add(new XYChart.Data(i, runningDistance));
             i += 1;
         }
         lineChart.getData().add(series);
@@ -346,6 +359,9 @@ public class GraphsController{
 
         XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
         setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
+
+        XYChart.Series runningDistSeries = createGraph(runningDistChart, "Running Distance");
+        setRunningDistChart(runningDistChart, runningDistSeries);
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
