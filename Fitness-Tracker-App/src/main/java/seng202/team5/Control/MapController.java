@@ -29,9 +29,9 @@ public class MapController implements Initializable {
     private TableColumn<Activity, String> actCol;
     private ArrayList<Activity> activities;
     private WebEngine webEngine;
-    private User user = AppController.getCurrentUser();
+    private User user = App.getCurrentUser();
     private ArrayList<DataPoint> dataPoints;
-    private DataBaseController db = AppController.getDb();
+    private DataBaseController db = App.getDb();
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
     private Route skiRoute;
 

@@ -7,7 +7,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
@@ -16,7 +15,6 @@ import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class GraphsController{
@@ -66,8 +64,8 @@ public class GraphsController{
     @FXML
     private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
-    private DataBaseController db = AppController.getDb();
-    private User currentUser = AppController.getCurrentUser();
+    private DataBaseController db = App.getDb();
+    private User currentUser = App.getCurrentUser();
 
 
     /**

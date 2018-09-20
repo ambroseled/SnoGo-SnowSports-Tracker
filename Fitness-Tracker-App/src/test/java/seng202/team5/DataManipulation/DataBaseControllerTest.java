@@ -3,17 +3,17 @@ package seng202.team5.DataManipulation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.Alert;
-import seng202.team5.Model.Goal;
-import seng202.team5.Model.User;
+import seng202.team5.Model.*;
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
+
+/**
+ *
+ */
 public class DataBaseControllerTest {
 
-    DataBaseController db;
+    private DataBaseController db;
 
     @Before
     public void setUp() {
@@ -27,13 +27,7 @@ public class DataBaseControllerTest {
 
     @Test
     /**
-     * This test is testing the functionality of pulling users out of
-     * the database. This is done by getting all users and then checking that
-     * the first user in the list is correct. This is because the number of users
-     * will change so that cannot be relied on.
      *
-     * For this test it is assumed that the assert statements will be updated if the
-     * first user in the database is altered or removed.
      */
     public void testGetUsers() {
         ArrayList<User> users = db.getUsers();
@@ -46,52 +40,45 @@ public class DataBaseControllerTest {
 
     @Test
     /**
-     * This test is testing the functionality of pulling activities out of
-     * the database. This is done by getting all activities for a user and then
-     * checking that there is the correct number of activities.
      *
-     * For this test it is assumed that the assert statements will be updated if the
-     * number of activities of the first user in the database is altered.
      */
     public void testGetActivities() {
         ArrayList<User> users = db.getUsers();
         ArrayList<Activity> activities = db.getActivities(users.get(0).getId());
-        int count = 0;
-        for (Activity x : activities) {
-            count++;
-        }
-        assertEquals(count, users.get(0).getActivities().size());
+        assertEquals(activities.size(), users.get(0).getActivities().size());
     }
 
 
-    //TODO: Change this maybe
     @Test
     /**
-     * This test is testing the functionality of pulling Goals out of
-     * the database. This is done by getting all goals for a selected user and then checking that
-     * the first goal in the list is of type Goal.
      *
-     * For this test it is assumed that the assert statements will be updated if the
-     * first goal for the user in the database is altered or removed.
      */
     public void testGetGoals() {
-        ArrayList<Goal> goals = db.getGoals(1);
-        assertTrue(goals.get(0) instanceof Goal);
+        ArrayList<User> users = db.getUsers();
+        ArrayList<Goal> goals = db.getGoals(users.get(0).getId());
+        assertEquals(goals.size(), users.get(0).getGoals().size());
     }
 
 
     @Test
     /**
-     * This test is testing the functionality of pulling Alerts out of
-     * the database. This is done by getting all alerts for a selected user and then checking that
-     * the first alert in the list is correct. This is because the number of alerts for a user
-     * will change so that cannot be relied on.
      *
-     * For this test it is assumed that the assert statements will be updated if the
-     * first alert for the user in the database is altered or removed.
      */
     public void testGetAlerts() {
+        ArrayList<User> users = db.getUsers();
+        ArrayList<Alert> alerts = db.getAlerts(users.get(0).getId());
+        assertEquals(alerts.size(), users.get(0).getAlerts().size());
+    }
 
+
+    @Test
+    /**
+     *
+     */
+    public void testGetDataPoints() {
+        DataSet dataSet = db.getDataSet(db.getActivities(db.getUsers().get(0).getId()).get(0).getId());
+        ArrayList<DataPoint> dataPoints = db.getDataPoints(dataSet.getId());
+        assertEquals(dataPoints.size(), dataSet.getDataPoints().size());
     }
 
 }

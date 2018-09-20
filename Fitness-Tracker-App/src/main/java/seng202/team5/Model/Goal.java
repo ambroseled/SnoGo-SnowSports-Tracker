@@ -20,6 +20,7 @@ public class Goal {
     private int id = -1;
     private String dateString;
     private boolean global;
+    private boolean expired;
 
 
     /**
@@ -42,6 +43,7 @@ public class Goal {
         }
         this.dateString = dateString;
         this.global = global;
+        this.expired = false;
     }
 
 
@@ -54,7 +56,7 @@ public class Goal {
      * @param completed A boolean flag holding if the goal has be completed.
      * @param id The database id of the goal.
      */
-    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id, boolean global) {
+    public Goal(String name, String metric, double metricGoal, String dateString, boolean completed, int id, boolean global, boolean expired) {
         this.name = name;
         this.metric = metric;
         this.metricGoal = metricGoal;
@@ -68,6 +70,7 @@ public class Goal {
         this.id = id;
         this.dateString = dateString;
         this.global = global;
+        this.expired = expired;
     }
 
 
@@ -118,5 +121,15 @@ public class Goal {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

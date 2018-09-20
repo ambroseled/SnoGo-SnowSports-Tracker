@@ -1,6 +1,6 @@
 package seng202.team5.DataManipulation;
 
-import seng202.team5.Control.AppController;
+import seng202.team5.Control.App;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
@@ -18,7 +18,7 @@ import static java.lang.Math.abs;
 public class DataAnalyser {
 
     // Getting the current user
-    private User currentUser = AppController.getCurrentUser();
+    private User currentUser = App.getCurrentUser();
 
 
     /**
