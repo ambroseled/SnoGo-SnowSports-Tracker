@@ -16,7 +16,7 @@
     </Tab>
       <Tab fx:id="mapTabView" text="Map">
          <content>
-             <fx:include fx:id="mapTab" source="mapView.fxml" />
+             <fx:include fx:id="mapTab" source="mapView2.fxml" />
          </content>
       </Tab>
       <Tab fx:id="alertsTab" text="Alerts">
