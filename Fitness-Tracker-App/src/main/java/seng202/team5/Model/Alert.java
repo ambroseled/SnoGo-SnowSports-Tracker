@@ -10,7 +10,8 @@ import java.util.Date;
 /**
  * This class holds the alerts that are displayed in the application.
  */
-public class Alert {
+public class
+Alert {
 
 
     private Date date;

@@ -1,65 +1,61 @@
 package seng202.team5.Control;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import seng202.team5.Model.Activity;
-import seng202.team5.DataManipulation.InputDataParser;
-import seng202.team5.Model.User;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import seng202.team5.Model.*;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-
-/**
- * This class handles the controls of the map view
- */
-public class MapController {
-
-    private ArrayList<Activity> activities;
-    private User currentUser;
-    private InputDataParser parser = new InputDataParser();
+public class MapController implements Initializable {
+    @FXML
+    private ToggleGroup routeSelection;
+    @FXML
+    private RadioButton routeARadioButton;
 
     @FXML
-    private ComboBox<String> activityCombo;
-    @FXML
-    private Button selectButton;
-    @FXML
-    private Button loadButton;
-    private ObservableList<String> names = FXCollections.observableArrayList();
+    private WebView webView;
 
-    @FXML
-    public void displayActivities() {
-        selectButton.setVisible(true);
-        loadButton.setVisible(false);
-        loadButton.setDisable(true);
-        currentUser = AppController.getCurrentUser();
-       // activities = currentUser.getActivities();
-        activities = parser.parseCSVToActivities("testData.csv");
+    private WebEngine webEngine;
 
-        if (activities != null) {
-            fillList(activities);
-            activityCombo.setItems(names);
-        }
+    private FXMLLoader loader = new FXMLLoader();
+    private Class c = getClass();
+
+
+    private User user = AppController.getCurrentUser();
+    private ArrayList<DataPoint> dataPoints = new ArrayList<>(user.getActivities().get(0).getDataSet().getDataPoints());
+
+    private Route skiRoute = new Route(dataPoints);
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initMap();
+
+        routeSelection.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == routeARadioButton) {
+                displayRoute(skiRoute);
+            } else {
+                displayRoute(skiRoute);
+            }
+        });
     }
 
-
-    
-    @FXML
-    public void selectButtonPress() {
-        String name = activityCombo.getValue();
-        System.out.println(name);
-        /**
-         * This needs to get the activity out of the list
-         */
+    private void initMap() {
+        webEngine = webView.getEngine();
+        webEngine.load(MapController.class.getResource("/View/map.html").toExternalForm());
     }
 
-
-    private void fillList(ArrayList<Activity> activities) {
-        for (Activity activity : activities) {
-            names.add(activity.getName());
-        }
+    private void displayRoute(Route newRoute) {
+        String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
+        webEngine.executeScript(scriptToExecute);
     }
 
 

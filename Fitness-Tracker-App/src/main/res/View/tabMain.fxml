@@ -21,7 +21,7 @@
              <fx:include fx:id="mapTab" source="mapView.fxml" />
          </content>
       </Tab>
-      <Tab fx:id="alertTab" text="Alerts">
+      <Tab fx:id="alertsTab" text="Alerts">
           <content>
               <fx:include source="alertView.fxml" />
           </content>
