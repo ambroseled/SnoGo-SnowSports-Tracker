@@ -14,7 +14,7 @@ import java.net.URL;
 /**
  *
  */
-public class AppController extends Application {
+public class App extends Application {
 
 
     private static Stage appStage;
