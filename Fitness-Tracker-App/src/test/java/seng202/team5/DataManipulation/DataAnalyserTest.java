@@ -180,7 +180,7 @@ public class DataAnalyserTest {
      * Testing the calcCalBurned function.
      */
     public void testCalories() {
-        assertEquals(2.4, activities.get(3).getDataSet().getCaloriesBurned(), 0.0);
+        assertEquals(3.25, activities.get(3).getDataSet().getCaloriesBurned(), 0.0);
     }
 
 }
