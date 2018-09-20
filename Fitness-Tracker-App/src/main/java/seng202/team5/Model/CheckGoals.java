@@ -12,6 +12,7 @@ import java.util.Date;
 public class CheckGoals {
 
 
+
     /**
      * This method checks all of the users incomplete goals and marks them as completed
      * if they have been completed.

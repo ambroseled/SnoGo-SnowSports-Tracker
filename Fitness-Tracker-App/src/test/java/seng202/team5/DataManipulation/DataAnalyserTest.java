@@ -141,6 +141,7 @@ public class DataAnalyserTest {
      * oneSpeed functions as they are used prior to the topSpeed function.
      */
     @Test
+    //TODO: look over
     public void testTopSpeed() {
         Activity activity = activities.get(1);
         // Getting the dataSet out of the activity
