@@ -53,7 +53,7 @@ public class CheckGoalsTest {
 
     @Test
     public void testFalseDistance() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.5, "06/07/2100", false);
+        Goal goal = new Goal("test", "Distance Traveled", 0.7, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
@@ -73,9 +73,10 @@ public class CheckGoalsTest {
 
     @Test
     public void testFalseDistanceGlobal() {
-        Goal goal = new Goal("test", "Distance Traveled", 1, "06/07/2100", true);
+        Goal goal = new Goal("test", "Distance Traveled", 1.2, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
+        System.out.println(activities.get(0).getDataSet().getTotalDistance());
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
     }
 

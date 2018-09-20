@@ -141,11 +141,12 @@ public class DataAnalyserTest {
      * oneSpeed functions as they are used prior to the topSpeed function.
      */
     @Test
+    //TODO: look over
     public void testTopSpeed() {
         Activity activity = activities.get(1);
         // Getting the dataSet out of the activity
         DataSet dataSet = activity.getDataSet();
-        assertEquals(10.84, dataSet.getTopSpeed(), 0.0);
+        assertEquals(12.15, dataSet.getTopSpeed(), 0.0);
     }
 
   @Test
@@ -157,7 +158,7 @@ public class DataAnalyserTest {
          Activity activity = activities.get(1);
         // Getting the dataSet out of the activity
          DataSet dataSet = activity.getDataSet();
-         assertEquals(7.35, dataSet.getAvgSpeed(), 0.0);
+         assertEquals(7.17, dataSet.getAvgSpeed(), 0.0);
      }
 
 
