@@ -61,6 +61,8 @@ public class GraphsController{
     private LineChart<Number,Number> caloriesChart;
     @FXML
     private LineChart<Number,Number> avgSpeedChart;
+    @FXML
+    private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
     private User currentUser = App.getCurrentUser();
@@ -171,7 +173,7 @@ public class GraphsController{
 
 
     /**
-     *
+     * Sets
      * @param lineChart
      * @param series
      */
@@ -249,6 +251,17 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+    private void setRunningDistChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        double runningDistance = 0;
+        for (Activity activity: activities) {
+            runningDistance += activity.getDataSet().getTotalDistance();
+            series.getData().add(new XYChart.Data(i, runningDistance));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
 
     /**
      * @param startTime Point when the activity started
@@ -273,7 +286,6 @@ public class GraphsController{
         return newTime;
     }
 
-
     /**
      * Runs when the tab is first switched to
      * Sets up the choiceBox to show all activities for current User
@@ -282,6 +294,7 @@ public class GraphsController{
         if (visited) {
             return;
         }
+        resetData();
 
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
@@ -322,6 +335,14 @@ public class GraphsController{
         }
     }
 
+    private void resetData() {
+        totDistChart.getData().clear();
+        vertDistChart.getData().clear();
+        avgHeartRateChart.getData().clear();
+        caloriesChart.getData().clear();
+        avgSpeedChart.getData().clear();
+        runningDistChart.getData().clear();
+    }
 
     /**
      *
@@ -344,13 +365,19 @@ public class GraphsController{
 
         XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
         setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
+
+        XYChart.Series runningDistSeries = createGraph(runningDistChart, "Running Distance");
+        setRunningDistChart(runningDistChart, runningDistSeries);
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
 
-    public void setVisited() {visited = false;}
+    public void setVisited() {
+        visited = false;
+        setChoiceBox();
+    }
 
 
     /**
