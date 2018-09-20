@@ -24,6 +24,7 @@ public class MapController implements Initializable {
     @FXML
     private WebView webView;
 
+    private ArrayList<Activity> activities;
     private WebEngine webEngine;
 
     @FXML
@@ -89,11 +90,11 @@ public class MapController implements Initializable {
      * Sets up the choiceBox to show all activities for current User
      */
     public void setChoiceBox() {
-        if (activityChoice.getItems().size() != db.getActivities(user.getId()).size()) {
-            ArrayList<Activity> inputActivities = db.getActivities(user.getId());
+        if (activityChoice.getItems().size() != user.getActivities().size()) {
+            activities = db.getActivities(user.getId());
 
             ObservableList<Activity> activityNames = FXCollections.observableArrayList();
-            for (Activity activity: inputActivities) {
+            for (Activity activity: activities) {
                 activityNames.add(activity);
             }
             activityChoice.setItems(activityNames);
