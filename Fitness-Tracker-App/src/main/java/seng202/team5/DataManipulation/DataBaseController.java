@@ -33,7 +33,7 @@ public class DataBaseController {
             connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
         } catch (Exception e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error connecting to database");
         }
     }
 
@@ -47,7 +47,7 @@ public class DataBaseController {
             connection.close();
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error closing connection to database");
         }
     }
 
@@ -85,7 +85,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error populating the database");
         }
         // Returning the ArrayList of user
         return users;
@@ -127,7 +127,7 @@ public class DataBaseController {
 
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error querying the database");
         }
         // Returning the ArrayList of activities
         return activities;
@@ -165,7 +165,7 @@ public class DataBaseController {
             return dataSet;
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error querying the database");
             return null;
         }
     }
@@ -206,7 +206,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error querying the database");
         }
         // Returning the ArrayList of DataPoints
         return dataPoints;
@@ -240,7 +240,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing new user in database");
         }
     }
 
@@ -273,7 +273,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error updating user details in database");
         }
     }
 
@@ -301,7 +301,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing activity database");
         }
     }
 
@@ -332,7 +332,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing data set in database");
         }
     }
 
@@ -362,7 +362,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing data point database");
         }
     }
 
@@ -394,7 +394,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing goal in database");
         }
     }
 
@@ -428,7 +428,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error updating goal within database");
         }
     }
 
@@ -451,7 +451,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error removing goal from database");
         }
     }
 
@@ -480,7 +480,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error storing alert in database");
         }
     }
 
@@ -503,7 +503,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error removing alert from database");
         }
     }
 
@@ -535,7 +535,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error retrieving goal from database");
         }
         return goals;
     }
@@ -565,7 +565,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error getting alerts from database");
         }
         return alerts;
     }
@@ -592,7 +592,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error finding id within database");
         }
         // Returning th found id
         return id;
@@ -627,7 +627,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with database");
+            ErrorController.displayError("Error checking id within database");
         }
         // Returning the result of the search
         return inTable;
