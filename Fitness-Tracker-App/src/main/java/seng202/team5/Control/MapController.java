@@ -2,14 +2,14 @@
 package seng202.team5.Control;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seng202.team5.Model.Position;
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.InputDataParser;
 import seng202.team5.Model.Route;
+import seng202.team5.Model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +18,18 @@ public class MapController implements Initializable {
     @FXML
     private ToggleGroup routeSelection;
     @FXML
-    private RadioButton routeARadioButton;
+    private Button selectButton;
+    @FXML
+    private Button loadButton;
+    @FXML
+    private WebView webView;
+    private WebEngine webEngine;
+    private ObservableList<String> names = FXCollections.observableArrayList();
+
+
+
+    //For testing
+    User user = AppController.getCurrentUser();
 
     @FXML
     private WebView webView;
@@ -64,6 +75,24 @@ public class MapController implements Initializable {
         webEngine.executeScript(scriptToExecute);
     }
 
+/*
+
+    public void initialize() {
+        setUpMap();
+        Route route = new Route(user.getActivities().get(0).getDataSet().getDataPoints());
+
+        String executeString = "displayRoute(" + route.toJSONArray() + ");";
+        webEngine.executeScript(executeString);
+    }
+
+
+    private void setUpMap() {
+        webEngine = webView.getEngine();
+        webEngine.load(this.getClass().getClassLoader().getResource("map.html").toExternalForm());
+    }
+
+
+    */
 
 
 }
