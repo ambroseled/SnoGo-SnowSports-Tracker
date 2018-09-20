@@ -33,8 +33,7 @@ public class App extends Application {
      * @throws Exception IOException
      */
     public void start(Stage primaryStage) throws Exception {
-        String filename = "View/tabMain.fxml";
-        URL value1 = c.getClassLoader().getResource(filename);
+        URL value1 = c.getResource("/View/tabMain.fxml");
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
