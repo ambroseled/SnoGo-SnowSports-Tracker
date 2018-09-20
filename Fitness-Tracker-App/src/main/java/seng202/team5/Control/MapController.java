@@ -6,15 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -28,14 +27,16 @@ public class MapController implements Initializable {
     private WebEngine webEngine;
 
     @FXML
-    private ChoiceBox activityChoice;
+    private TableView actTable;
+    @FXML
+    private TableColumn<Activity, String> actCol;
 
 
 
     private User user = AppController.getCurrentUser();
     private ArrayList<DataPoint> dataPoints;
     private DataBaseController db = AppController.getDb();
-
+    private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
     private Route skiRoute;
 
 
@@ -71,35 +72,28 @@ public class MapController implements Initializable {
         displayRoute(skiRoute);
     }
 
+
+
     @FXML
-    /**
-     * Clears all data from graphs
-     * Sets values of labelled data (max, min etc)
-     * Sets graphs to the values of activity selected in choiceBox
-     */
-    public void selectData() {
-        Activity currentActivity = (Activity) activityChoice.getValue();
-        if (!(currentActivity == null)) {
-            displayAct(currentActivity);
+    public void showData() {
+        Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+        if (activity != null) {
+            displayAct(activity);
         }
     }
 
+
+
     @FXML
-    /**
-     * Runs when the tab is first switched to
-     * Sets up the choiceBox to show all activities for current User
-     */
-    public void setChoiceBox() {
-        if (activityChoice.getItems().size() != user.getActivities().size()) {
+    public void fillTable() {
+        if (actTable.getItems().size() != user.getActivities().size()) {
             activities = db.getActivities(user.getId());
 
-            ObservableList<Activity> activityNames = FXCollections.observableArrayList();
-            for (Activity activity: activities) {
-                activityNames.add(activity);
-            }
-            activityChoice.setItems(activityNames);
-        }
+            actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+            activityNames.addAll(activities);
+            actTable.setItems(activityNames);
+        }
     }
 
 
