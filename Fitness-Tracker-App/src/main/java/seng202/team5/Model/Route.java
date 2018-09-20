@@ -1,24 +1,21 @@
 package seng202.team5.Model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-/**
- * Created by brad on 9/09/16.
- */
+
+
 public class Route {
-    private ArrayList<DataPoint> points = new ArrayList<>();
+    private ArrayList<DataPoint> route = new ArrayList<DataPoint>();
 
-    public Route(ArrayList<DataPoint> points) {
-        this.points = points;
+    public Route(ArrayList<DataPoint> dataPoints) {
+        route.addAll(dataPoints);
     }
 
     public String toJSONArray() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        points.forEach(point -> stringBuilder.append(
-                String.format("{lat: %f, lng: %f}, ", point.getLatitude(), point.getLongitude())));
+        route.forEach(pos -> stringBuilder.append(
+                String.format("{lat: %f, lng: %f}, ", pos.getLatitude(), pos.getLongitude())));
         stringBuilder.append("]");
         return stringBuilder.toString();
     }

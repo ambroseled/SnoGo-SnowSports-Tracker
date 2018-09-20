@@ -1,45 +1,40 @@
-
 package seng202.team5.Control;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.geometry.Pos;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team5.Model.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MapController {
+public class MapController implements Initializable {
     @FXML
     private ToggleGroup routeSelection;
     @FXML
-    private Button selectButton;
-    @FXML
-    private Button loadButton;
+    private RadioButton routeARadioButton;
+
     @FXML
     private WebView webView;
+
     private WebEngine webEngine;
-    private ObservableList<String> names = FXCollections.observableArrayList();
-
-
-
-    //For testing
-    User user = AppController.getCurrentUser();
-
 
     private FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
 
 
+    private User user = AppController.getCurrentUser();
+    private ArrayList<DataPoint> dataPoints = new ArrayList<>(user.getActivities().get(0).getDataSet().getDataPoints());
 
-    /*
+    private Route skiRoute = new Route(dataPoints);
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initMap();
@@ -48,7 +43,7 @@ public class MapController {
             if (newValue == routeARadioButton) {
                 displayRoute(skiRoute);
             } else {
-                displayRoute(new Route(g));
+                displayRoute(skiRoute);
             }
         });
     }
@@ -61,26 +56,7 @@ public class MapController {
     private void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);
-    } */
-
-
-
-    public void initialize() {
-        setUpMap();
-        Route route = new Route(user.getActivities().get(0).getDataSet().getDataPoints());
-
-        String executeString = "displayRoute(" + route.toJSONArray() + ");";
-        webEngine.executeScript(executeString);
     }
-
-
-    private void setUpMap() {
-        webEngine = webView.getEngine();
-        webEngine.load(this.getClass().getClassLoader().getResource("map.html").toExternalForm());
-    }
-
-
-
 
 
 }
