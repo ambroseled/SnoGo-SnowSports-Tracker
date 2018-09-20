@@ -27,8 +27,8 @@ public class TableController {
     private Accordion accordion;
     private ArrayList<Activity> activities;
     // Getting database controller and current user
-    private DataBaseController db = AppController.getDb();
-    private User currentUser = AppController.getCurrentUser();
+    private DataBaseController db = App.getDb();
+    private User currentUser = App.getCurrentUser();
 
 
     /**
@@ -76,7 +76,7 @@ public class TableController {
         }
         */
 
-        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+        CheckGoals.markGoals(currentUser, App.getDb(), inputActivities);
         Alert countAlert = AlertHandler.activityAlert(currentUser);
         if (countAlert != null) {
             db.storeAlert(countAlert, currentUser.getId());

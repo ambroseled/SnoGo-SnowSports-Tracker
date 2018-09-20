@@ -14,7 +14,7 @@ import java.net.URL;
 /**
  *
  */
-public class AppController extends Application {
+public class App extends Application {
 
 
     private static Stage appStage;
@@ -28,9 +28,9 @@ public class AppController extends Application {
 
 
     /**
-     *
+     * Creates the application GUI scene, based on tabMain.fxml file
      * @param primaryStage
-     * @throws Exception
+     * @throws Exception IOException
      */
     public void start(Stage primaryStage) throws Exception {
         String filename = "/View/tabMain.fxml";

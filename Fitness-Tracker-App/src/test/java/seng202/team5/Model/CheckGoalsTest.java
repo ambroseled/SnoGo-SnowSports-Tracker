@@ -42,16 +42,6 @@ public class CheckGoalsTest {
     }
 
 
-
-    @Test
-    public void testFalseDate() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.4, "05/06/1999", false);
-        ArrayList<Activity> activities = new ArrayList<>();
-        activities.add(user.getActivities().get(0));
-        assertFalse(CheckGoals.checkGoal(goal, activities, user));
-    }
-
-
     @Test
     public void testFalseDistance() {
         Goal goal = new Goal("test", "Distance Traveled", 0.7, "06/07/2100", false);
@@ -77,7 +67,6 @@ public class CheckGoalsTest {
         Goal goal = new Goal("test", "Distance Traveled", 1.2, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
-        System.out.println(activities.get(0).getDataSet().getTotalDistance());
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
     }
 
