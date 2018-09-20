@@ -173,9 +173,9 @@ public class GraphsController{
 
 
     /**
-     * Sets
-     * @param lineChart
-     * @param series
+     * Sets total distance graph
+     * @param lineChart the total distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
      */
     private void setTotalDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
@@ -189,9 +189,9 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param lineChart
-     * @param series
+     * Sets vertical distance travelled graph
+     * @param lineChart the vertical distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
      */
     private void setVertDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
@@ -205,9 +205,9 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param lineChart
-     * @param series
+     * Sets Average Heart Rate graph
+     * @param lineChart the Average Heart Rate over activities graph
+     * @param series series storing heart rate points for each activity in the 2D format
      */
     private void setAvgHeartRateChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
@@ -221,9 +221,9 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param lineChart
-     * @param series
+     * Sets calories burned graph
+     * @param lineChart the calories burned over activities graph
+     * @param series series storing calories points for each activity in the 2D format
      */
     private void setCaloriesChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
@@ -237,9 +237,9 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param lineChart
-     * @param series
+     * Sets average speed graph
+     * @param lineChart the average speed over activities graph
+     * @param series series storing average speed for each activity in a 2D format
      */
     private void setAvgSpeedChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
@@ -251,6 +251,11 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+    /**
+     * Sets running distance graph, which adds each activity's distance
+     * @param lineChart the running distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
+     */
     private void setRunningDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         double runningDistance = 0;
@@ -335,6 +340,9 @@ public class GraphsController{
         }
     }
 
+    /**
+     * Resets all graphs to base state
+     */
     private void resetData() {
         totDistChart.getData().clear();
         vertDistChart.getData().clear();
@@ -345,7 +353,7 @@ public class GraphsController{
     }
 
     /**
-     *
+     * Creates the lineCharts for all activities
      */
     private void setOverallStats() {
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
@@ -374,6 +382,9 @@ public class GraphsController{
         activities = inputActivities;
     }
 
+    /**
+     * Resets choice box and overall stats
+     */
     public void setVisited() {
         visited = false;
         setChoiceBox();
@@ -381,8 +392,8 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param activity
+     * Sets a table at the bottom to show textual statistics of activity
+     * @param activity the currently selected activity
      */
     private void setTable(Activity activity) {
         activityName.setText(activity.getName());
