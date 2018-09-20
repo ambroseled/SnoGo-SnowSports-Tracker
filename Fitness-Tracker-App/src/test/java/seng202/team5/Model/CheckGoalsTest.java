@@ -17,7 +17,7 @@ public class CheckGoalsTest {
     private User user = new User ("Test", 15, 1.7, 60, date);
     private InputDataParser parser = new InputDataParser();
 
-   // @Before
+    @Before
     /**
      * Getting a list of all the methods to be tested. Also setting up
      * the dummy User which is used for testing.
@@ -28,7 +28,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     /**
      * Testing the convertDate method. Done using the java reflection api
      * as the method is private.
@@ -43,7 +43,7 @@ public class CheckGoalsTest {
 
 
 
-    //@Test
+    @Test
     public void testFalseDate() {
         Goal goal = new Goal("test", "Distance Traveled", 0.4, "05/06/1999", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -52,9 +52,9 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseDistance() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.5, "06/07/2100", false);
+        Goal goal = new Goal("test", "Distance Traveled", 0.7, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
@@ -62,7 +62,7 @@ public class CheckGoalsTest {
 
 
 
-    //@Test
+    @Test
     public void testTrueDistance() {
         Goal goal = new Goal("test", "Distance Traveled", 0.4, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -72,7 +72,7 @@ public class CheckGoalsTest {
 
 
 
-    //@Test
+    @Test
     public void testFalseDistanceGlobal() {
         Goal goal = new Goal("test", "Distance Traveled", 1, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -82,7 +82,7 @@ public class CheckGoalsTest {
 
 
 
-   // @Test
+    @Test
     public void testTrueDistanceGlobal() {
         Goal goal = new Goal("test", "Distance Traveled", 0.5, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -92,7 +92,7 @@ public class CheckGoalsTest {
 
 
 
-  //  @Test
+    @Test
     public void testFalseTopSpeed() {
         Goal goal = new Goal("test", "Top Speed", 9.5, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -101,7 +101,7 @@ public class CheckGoalsTest {
     }
 
 
-  //  @Test
+    @Test
     public void testTrueTopSpeed() {
         Goal goal = new Goal("test", "Top Speed", 12.6, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -110,7 +110,7 @@ public class CheckGoalsTest {
     }
 
 
-  //  @Test
+    @Test
     public void testTrueTopSpeedGlobal() {
         Goal goal = new Goal("test", "Top Speed", 21.5, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -119,7 +119,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseTopSpeedGlobal() {
         Goal goal = new Goal("test", "Top Speed", 12.6, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -128,7 +128,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseVertical() {
         Goal goal = new Goal("test", "Vertical Distance", 0.1, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -137,7 +137,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testTrueVertical() {
         Goal goal = new Goal("test", "Vertical Distance", 0.03, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -146,7 +146,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseVerticalGlobal() {
         Goal goal = new Goal("test", "Vertical Distance", 0.5, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -155,7 +155,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testTrueVerticalGlobal() {
         Goal goal = new Goal("test", "Vertical Distance", 0.1, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -164,7 +164,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseCalories() {
         Goal goal = new Goal("test", "Calories Burned", 9.4, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -173,7 +173,7 @@ public class CheckGoalsTest {
     }
 
 
-  //  @Test
+    @Test
     public void testTrueCalories() {
         Goal goal = new Goal("test", "Calories Burned", 5.4, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -182,18 +182,17 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseCaloriesGlobal() {
-        Goal goal = new Goal("test", "Calories Burned", 95, "06/07/2100", true);
+        Goal goal = new Goal("test", "Calories Burned", 6000, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
-        System.out.println(CheckGoals.checkGoal(goal, activities, user));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
     }
 
 
 
-  //  @Test
+    @Test
     public void testTrueCaloriesGlobal() {
         Goal goal = new Goal("test", "Calories Burned", 9.4, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -202,7 +201,7 @@ public class CheckGoalsTest {
     }
 
 
-  //  @Test
+    @Test
     public void testFalseHeart() {
         Goal goal = new Goal("test", "Average Heart Rate", 143, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -211,7 +210,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testTrueHeart() {
         Goal goal = new Goal("test", "Average Heart Rate", 146.0, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -220,7 +219,7 @@ public class CheckGoalsTest {
     }
 
 
-   // @Test
+    @Test
     public void testFalseHeartGlobal() {
         Goal goal = new Goal("test", "Average Heart Rate", 143, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
@@ -229,9 +228,9 @@ public class CheckGoalsTest {
     }
 
 
-  //  @Test
+    @Test
     public void testTrueHeartGlobal() {
-        Goal goal = new Goal("test", "Average Heart Rate", 145, "06/07/2100", true);
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
