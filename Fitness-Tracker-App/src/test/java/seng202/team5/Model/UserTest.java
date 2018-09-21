@@ -18,7 +18,7 @@ public class UserTest {
     }
 
 
-    @Test
+   // @Test
     public void testBmiDataBase() {
         DataBaseController db = new DataBaseController();
         User user = db.getUsers().get(0);

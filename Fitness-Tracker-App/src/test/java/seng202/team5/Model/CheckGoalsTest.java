@@ -28,6 +28,7 @@ public class CheckGoalsTest {
     public void before() {
         user.setActivities(parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv"));
         DataAnalyser dataAnalyser = new DataAnalyser();
+        dataAnalyser.setCurrentUser(user);
         for (Activity activity : user.getActivities()) {
             dataAnalyser.analyseActivity(activity);
         }

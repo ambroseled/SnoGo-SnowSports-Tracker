@@ -75,6 +75,7 @@ public class TableController {
         }
 
         DataAnalyser analyser = new DataAnalyser();
+        analyser.setCurrentUser(currentUser);
         for (Activity activity : inputActivities) {
             analyser.analyseActivity(activity);
         }

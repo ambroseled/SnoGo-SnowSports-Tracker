@@ -26,7 +26,7 @@ public class DataBaseControllerTest {
     }
 
 
-    @Test
+  //  @Test
     /**
      *
      */
@@ -37,7 +37,7 @@ public class DataBaseControllerTest {
     }
 
 
-    @Test
+  //  @Test
     /**
      *
      */
@@ -48,7 +48,7 @@ public class DataBaseControllerTest {
     }
 
 
-    @Test
+   // @Test
     /**
      *
      */
@@ -59,7 +59,7 @@ public class DataBaseControllerTest {
     }
 
 
-    @Test
+   // @Test
     /**
      *
      */

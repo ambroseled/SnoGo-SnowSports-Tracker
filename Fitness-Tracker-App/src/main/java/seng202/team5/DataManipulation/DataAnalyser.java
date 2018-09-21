@@ -18,7 +18,12 @@ import static java.lang.Math.abs;
 public class DataAnalyser {
 
     // Getting the current user
-    private User currentUser = App.getCurrentUser();
+    private User currentUser;
+
+
+    public void setUser(User user) {
+        currentUser = user;
+    }
 
 
     /**
