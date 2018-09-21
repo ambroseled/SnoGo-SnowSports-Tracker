@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
-import seng202.team5.Control.AppController;
+import seng202.team5.Control.App;
+import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
 
 import java.sql.*;
@@ -29,10 +30,10 @@ public class DataBaseController {
         // Try-catch is used to catch any exceptions that throw while creating connection to the database
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
+            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/dataBase.sqlite");
         } catch (Exception e) {
-            // Printing out an error message
-            System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error connecting to database");
         }
     }
 
@@ -45,8 +46,8 @@ public class DataBaseController {
         try {
             connection.close();
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error closing connection: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error closing connection to database");
         }
     }
 
@@ -83,8 +84,8 @@ public class DataBaseController {
                 users.add(newUser);
             }
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error getting users: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error populating the database");
         }
         // Returning the ArrayList of user
         return users;
@@ -101,32 +102,33 @@ public class DataBaseController {
         ArrayList<Activity> activities = new ArrayList<>();
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
-            // Creating a statement to execute the query
-            Statement stmt = connection.createStatement();
-            // Executing the query to get the activities
-            String query = "SELECT * FROM Activity WHERE User=" + UserId;
-            ResultSet set = stmt.executeQuery(query);
-            Activity newAct;
+            if (checkId("User", UserId)) {
+                // Creating a statement to execute the query
+                Statement stmt = connection.createStatement();
+                // Executing the query to get the activities
+                String query = "SELECT * FROM Activity WHERE User=" + UserId;
+                ResultSet set = stmt.executeQuery(query);
+                Activity newAct;
 
-            // Looping over the results of the query
-            while (set.next()) {
-                // Getting all the information on the current query
-                int actID = set.getInt("ID");
-                String name = set.getString("Name");
-                DataSet dataSet = getDataSet(actID);
-                // Creating the activity
-                if (dataSet == null) {
-                    newAct = new Activity(actID, name);
-                } else {
-                    newAct = new Activity(actID, name, dataSet);
+                // Looping over the results of the query
+                while (set.next()) {
+                    // Getting all the information on the current query
+                    int actID = set.getInt("ID");
+                    String name = set.getString("Name");
+                    DataSet dataSet = getDataSet(actID);
+                    // Creating the activity
+                    if (dataSet == null) {
+                        newAct = new Activity(actID, name);
+                    } else {
+                        newAct = new Activity(actID, name, dataSet);
+                    }
+                    // Adding the activity to the ArrayList
+                    activities.add(newAct);
                 }
-                // Adding the activity to the ArrayList
-                activities.add(newAct);
             }
-
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error querying the database");
         }
         // Returning the ArrayList of activities
         return activities;
@@ -142,29 +144,32 @@ public class DataBaseController {
         DataSet dataSet;
         // Try-catch is used to catch any exception that are throw wile executing the query.
         try {
-            // Creating a statement and executing a query
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
-            ResultSet set = stmt.executeQuery(query);
+            if (checkId("Activity", actID)) {
+                // Creating a statement and executing a query
+                Statement stmt = connection.createStatement();
+                String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
+                ResultSet set = stmt.executeQuery(query);
 
-            // Getting the information about the DataSet
-            int setId = set.getInt("ID");
-            double topSpeed = set.getInt("TopSpeed");
-            double totalDist = set.getDouble("TotalDist");
-            int heart = set.getInt("AvgHeartRate");
-            double vert = set.getInt("VerticalDist"); // NEED TO FIX IN THE DATABASE
-            ArrayList<DataPoint> dataPoints = getDataPoints(setId);
-            double calories = set.getDouble("Calories");
-            double slopeTime = set.getDouble("SlopeTime");
-            double avgSpeed = set.getDouble("AvgSpeed");
+                // Getting the information about the DataSet
+                int setId = set.getInt("ID");
+                double topSpeed = set.getInt("TopSpeed");
+                double totalDist = set.getDouble("TotalDist");
+                int heart = set.getInt("AvgHeartRate");
+                double vert = set.getInt("VerticalDist"); // NEED TO FIX IN THE DATABASE
+                ArrayList<DataPoint> dataPoints = getDataPoints(setId);
+                double calories = set.getDouble("Calories");
+                double slopeTime = set.getDouble("SlopeTime");
+                double avgSpeed = set.getDouble("AvgSpeed");
 
-            // Creating the DataSet
-            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
-            // Returning the DataSet
-            return dataSet;
+                // Creating the DataSet
+                dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
+                // Returning the DataSet
+                return dataSet;
+            }
+            return null;
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error querying the database");
             return null;
         }
     }
@@ -180,32 +185,34 @@ public class DataBaseController {
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
-            // Creating a statement and executing a query
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM DataPoint WHERE DataSet=" + setID;
-            ResultSet set = stmt.executeQuery(query);
-            DataPoint newPoint;
+            if (checkId("DataSet", setID)) {
+                // Creating a statement and executing a query
+                Statement stmt = connection.createStatement();
+                String query = "SELECT * FROM DataPoint WHERE DataSet=" + setID;
+                ResultSet set = stmt.executeQuery(query);
+                DataPoint newPoint;
 
-            // Looping over the results of the query
-            while (set.next()) {
-                // Getting all the information on the DataPoint
-                int pointId = set.getInt("ID");
-                String date = set.getString("DateTime");
-                int heart = set.getInt("HeartRate");
-                double lat = set.getDouble("Latitude");
-                double lon = set.getDouble("Longitude");
-                double elev = set.getDouble("Elevation");
-                double speed = set.getDouble("Speed");
-                boolean active = set.getBoolean("Active");
-                double distance = set.getDouble("Distance");
-                // Creating the DataPoint
-                newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, distance, speed, active);
-                // Adding the DataPoint to the ArrayList
-                dataPoints.add(newPoint);
+                // Looping over the results of the query
+                while (set.next()) {
+                    // Getting all the information on the DataPoint
+                    int pointId = set.getInt("ID");
+                    String date = set.getString("DateTime");
+                    int heart = set.getInt("HeartRate");
+                    double lat = set.getDouble("Latitude");
+                    double lon = set.getDouble("Longitude");
+                    double elev = set.getDouble("Elevation");
+                    double speed = set.getDouble("Speed");
+                    boolean active = set.getBoolean("Active");
+                    double distance = set.getDouble("Distance");
+                    // Creating the DataPoint
+                    newPoint = new DataPoint(pointId, date, heart, lat, lon, elev, distance, speed, active);
+                    // Adding the DataPoint to the ArrayList
+                    dataPoints.add(newPoint);
+                }
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error querying the database");
         }
         // Returning the ArrayList of DataPoints
         return dataPoints;
@@ -238,8 +245,8 @@ public class DataBaseController {
                 toAdd.setId(findId("User"));
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing new user in database");
         }
     }
 
@@ -271,8 +278,8 @@ public class DataBaseController {
                 storeNewUser(user);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding user: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error updating user details in database");
         }
     }
 
@@ -299,8 +306,8 @@ public class DataBaseController {
                 toAdd.setId(findId("Activity"));
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when adding activity: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing activity database");
         }
     }
 
@@ -310,7 +317,7 @@ public class DataBaseController {
      * @param toAdd The DataSet to be stored.
      * @param actId The related activty for the DataSet being stored.
      */
-    public void storeDataSet(DataSet toAdd, int actId) {
+    private void storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataSet is not already in the database and that the activity passed is in the database
@@ -330,7 +337,8 @@ public class DataBaseController {
                 toAdd.setId(findId("DataSet"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing data set in database");
         }
     }
 
@@ -341,7 +349,7 @@ public class DataBaseController {
      * @param toAdd The DataPoint to be stored
      * @param setId The DataSet that the passed DataPoint belongs to.
      */
-    public void storeDatePoint(DataPoint toAdd, int setId) {
+    private void storeDatePoint(DataPoint toAdd, int setId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataPoint is not already in the database and the the DataSet id passed is in the database
@@ -359,7 +367,8 @@ public class DataBaseController {
                 toAdd.setId(findId("DataPoint"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing data point database");
         }
     }
 
@@ -377,7 +386,7 @@ public class DataBaseController {
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
                 String query = String.format("INSERT INTO Goal (Metric, MetricGoal, Name, Completed, CompletionDate," +
-                        "User, Global) Values (?, ?, ?, ?, ?, ?, ?)");
+                        "User, Global, Expired) Values (?, ?, ?, ?, ?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
                 pStmt.setString(1, toAdd.getMetric());
                 pStmt.setDouble(2, toAdd.getMetricGoal());
@@ -386,11 +395,13 @@ public class DataBaseController {
                 pStmt.setString(5, toAdd.getDateString());
                 pStmt.setInt(6, userId);
                 pStmt.setBoolean(7, toAdd.isGlobal());
+                pStmt.setBoolean(8, toAdd.isExpired());
                 pStmt.executeUpdate();
                 toAdd.setId(findId("Goal"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing goal in database");
         }
     }
 
@@ -415,16 +426,18 @@ public class DataBaseController {
                 boolean comp = goal.isCompleted();
                 String compDate = goal.getDateString();
                 boolean global = goal.isGlobal();
+                boolean expired = goal.isExpired();
                 // Creating and executing the update to update the user
                 String query = String.format("UPDATE Goal Set Metric = '%s', MetricGoal = %.2f,  Name = '%s', " +
-                        "Completed = %b, CompletionDate = '%s', Global = %b WHERE ID = %d", metric, metricGoal, name, comp, compDate, global, goal.getId());
+                        "Completed = %b, CompletionDate = '%s', Global = %b, Expired = %b WHERE ID = %d", metric,
+                        metricGoal, name, comp, compDate, global, expired, goal.getId());
                 stmt.executeUpdate(query);
             } else {
-                storeGoal(goal, AppController.getCurrentUser().getId());
+                storeGoal(goal, App.getCurrentUser().getId());
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when updating goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error updating goal within database");
         }
     }
 
@@ -446,8 +459,8 @@ public class DataBaseController {
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error removing goal from database");
         }
     }
 
@@ -475,7 +488,8 @@ public class DataBaseController {
                 toAdd.setId(findId("Alert"));
             }
         } catch (SQLException e) {
-            System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error storing alert in database");
         }
     }
 
@@ -497,8 +511,8 @@ public class DataBaseController {
                 stmt.executeUpdate(query);
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error when removing goal: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error removing alert from database");
         }
     }
 
@@ -512,24 +526,29 @@ public class DataBaseController {
     public ArrayList<Goal> getGoals(int userId) {
         ArrayList<Goal> goals = new ArrayList<>();
         try {
-            // Creating a statement to execute the query
-            Statement stmt = connection.createStatement();
-            // Executing the query to get the goals
-            String query = "SELECT * FROM Goal WHERE User=" + userId;
-            ResultSet set = stmt.executeQuery(query);
-            while (set.next()) {
-                String name = set.getString("Name");
-                String metric = set.getString("Metric");
-                double metricGoal = set.getDouble("MetricGoal");
-                boolean completed = set.getBoolean("Completed");
-                int id = set.getInt("ID");
-                String dateString = set.getString("CompletionDate");
-                boolean global = set.getBoolean("Global");
-                Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id, global);
-                goals.add(newGoal);
+            if (checkId("User", userId)) {
+                // Creating a statement to execute the query
+                Statement stmt = connection.createStatement();
+                // Executing the query to get the goals
+                String query = "SELECT * FROM Goal WHERE User=" + userId;
+                ResultSet set = stmt.executeQuery(query);
+                while (set.next()) {
+                    String name = set.getString("Name");
+                    String metric = set.getString("Metric");
+                    double metricGoal = set.getDouble("MetricGoal");
+                    boolean completed = set.getBoolean("Completed");
+                    int id = set.getInt("ID");
+                    String dateString = set.getString("CompletionDate");
+                    boolean global = set.getBoolean("Global");
+                    boolean expired = set.getBoolean("Expired");
+                    Goal newGoal = new Goal(name, metric, metricGoal, dateString, completed, id, global, expired);
+                    goals.add(newGoal);
+                }
             }
+
         } catch (SQLException e) {
-            System.out.println("Error getting goals: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error retrieving goal from database");
         }
         return goals;
     }
@@ -544,21 +563,24 @@ public class DataBaseController {
     public ArrayList<Alert> getAlerts(int userId) {
         ArrayList<Alert> alerts = new ArrayList<>();
         try {
-            // Creating a statement to execute the query
-            Statement stmt = connection.createStatement();
-            // Executing the query to get the alerts
-            String query = "SELECT * FROM Alert WHERE User=" + userId;
-            ResultSet set = stmt.executeQuery(query);
-            while (set.next()) {
-                String type = set.getString("Type");
-                String message = set.getString("Message");
-                int id = set.getInt("ID");
-                String dateString = set.getString("Date");
-                Alert alert = new Alert(dateString , message, id, type);
-                alerts.add(alert);
+            if (checkId("User", userId)) {
+                // Creating a statement to execute the query
+                Statement stmt = connection.createStatement();
+                // Executing the query to get the alerts
+                String query = "SELECT * FROM Alert WHERE User=" + userId;
+                ResultSet set = stmt.executeQuery(query);
+                while (set.next()) {
+                    String type = set.getString("Type");
+                    String message = set.getString("Message");
+                    int id = set.getInt("ID");
+                    String dateString = set.getString("Date");
+                    Alert alert = new Alert(dateString , message, id, type);
+                    alerts.add(alert);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error getting alerts: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error getting alerts from database");
         }
         return alerts;
     }
@@ -570,7 +592,7 @@ public class DataBaseController {
      * @param table The table to find the id for.
      * @return The found id.
      */
-    public int findId(String table) {
+    private int findId(String table) {
         int id = -1;
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
@@ -584,8 +606,8 @@ public class DataBaseController {
                 id = set.getInt("ID");
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error finding id: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error finding id within database");
         }
         // Returning th found id
         return id;
@@ -599,7 +621,7 @@ public class DataBaseController {
      * @param toCheck The id to check.
      * @return A boolean holding if the id was found.
      */
-    public boolean checkId(String table, int toCheck) {
+    private boolean checkId(String table, int toCheck) {
         boolean inTable = false;
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
@@ -619,8 +641,8 @@ public class DataBaseController {
                 }
             }
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error finding id: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error checking id within database");
         }
         // Returning the result of the search
         return inTable;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Map Demo</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    var map;
+    var marker1;
+    var marker2;
+    var path;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 39.144684, lng: -84.510079},
+            zoom: 15
+        });
+
+        new google.maps.Marker({
+            position: {lat: 39.144684, lng: -84.510079},
+            map: map,
+            title: '\u0048\u0061\u0072\u0061\u006d\u0062\u0065'
+        });
+    }
+
+    function displayRoute(flightPath) {
+        // CLEAR EXISTING MARKERS
+        if (marker1 !== undefined && marker2 !== undefined && path !== undefined) {
+            marker1.setMap(null);
+            marker2.setMap(null);
+            path.setMap(null);
+        }
+
+        if (flightPath.length < 2) {
+            return;
+        }
+
+        // CREATE MARKERS AT START AND FINISH
+        marker1 = new google.maps.Marker({
+            position: flightPath[0],
+            map: map
+        });
+
+        marker2 = new google.maps.Marker({
+            position: flightPath[flightPath.length - 1],
+            map: map
+        });
+
+        // DRAW POLYLINE FOR ROUTE
+        path = new google.maps.Polyline({
+            path: flightPath,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        path.setMap(map);
+
+        repositionMap(flightPath);
+    }
+
+    function repositionMap(flightPath) {
+        var bounds = new google.maps.LatLngBounds();
+
+        for (var i = 0; i < flightPath.length; i++) {
+            bounds.extend(flightPath[i]);
+        }
+
+        map.fitBounds(bounds);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBON7vSdMzAs8u-1tKXYc50ogu2cZaefH4&callback=initMap"
+        async defer></script>
+</body>
+</html>

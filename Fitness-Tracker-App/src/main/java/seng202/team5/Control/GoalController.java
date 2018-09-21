@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 public class GoalController {
 
+    // Java fx elements used in controller
     @FXML
     private TableView goalTable;
     @FXML
@@ -32,10 +34,6 @@ public class GoalController {
     private TableColumn<Goal, String> dateCol;
     @FXML
     private TableColumn<Goal, Boolean> compCol;
-    @FXML
-    private Button viewButton;
-    @FXML
-    private Button refreshButton;
     @FXML
     private Button createButton;
     @FXML
@@ -56,47 +54,45 @@ public class GoalController {
     private CheckBox valueCheck;
     @FXML
     private CheckBox globalCheck;
-
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
-    private User currentUser = AppController.getCurrentUser();
-    private DataBaseController db = AppController.getDb();
+    // Getting database controller and current user
+    private User currentUser = App.getCurrentUser();
+    private DataBaseController db = App.getDb();
 
 
     @FXML
     /**
      * Called by a press of the viewButton, this method fills the goal table
-     * with all of the users goals.return global;
+     * with all of the users goals, if the number of goals in teh table
+     * does not match teh number of goals the user has.;
      */
     public void viewData() {
+        // Checking if the data in the table is current
         if (goalTable.getItems().size() != currentUser.getGoals().size()) {
-
-
+            // Getting the users goals
             goals.addAll(db.getGoals(currentUser.getId()));
-
-
-            nameCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("name"));
-            metricCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("metric"));
-            valueCol.setCellValueFactory(new PropertyValueFactory<Goal, Double>("metricGoal"));
-            dateCol.setCellValueFactory(new PropertyValueFactory<Goal, String>("dateString"));
-            compCol.setCellValueFactory(new PropertyValueFactory<Goal, Boolean>("completed"));
-
+            // Setting up the tables columns
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            metricCol.setCellValueFactory(new PropertyValueFactory<>("metric"));
+            valueCol.setCellValueFactory(new PropertyValueFactory<>("metricGoal"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+            compCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
+            // Filling the table
             goalTable.setItems(goals);
         }
-
     }
 
 
     @FXML
     /**
-     * Called by a press of the refreshButton, this method clears and then refills
+     * This method clears and then refills
      * the goal table with all of the users goals.
      */
     public void refreshData() {
+        // Emptying the table
         goalTable.getItems().clear();
-
-
+        // Re-filling the table
         goals.addAll(db.getGoals(currentUser.getId()));
-
         goalTable.setItems(goals);
 
     }
@@ -104,20 +100,24 @@ public class GoalController {
 
     @FXML
     /**
-     * This method is called on a key release in teh goalName textField.
+     * This method is called on a key release in the goalName textField.
      * It performs checks to see if the name entered is valid and sets the
      * state of the nameCheck checkBox accordingly.
      */
     public void nameEntry() {
+        // Getting the current name text
         String text = goalName.getText();
+        // Checking the length of the name then setting the name check box accordingly
         if (text.length() > 4 && text.length() < 30) {
             nameCheck.setSelected(true);
         } else {
             nameCheck.setSelected(false);
         }
+        // Filling the metric picker combo box
         if (metricCombo.getItems().size() == 0) {
             fillCombo();
         }
+        // Checking if all fields are now valid
         checkChecks();
     }
 
@@ -127,8 +127,10 @@ public class GoalController {
      * choices for a new goal.
      */
     private void fillCombo() {
+        // Getting all possible metrics
         ObservableList<String> metrics = FXCollections.observableArrayList();
         metrics.addAll("Top Speed, (m/s)", "Distance Traveled, (km)", "Vertical Distance, (km)", "Average Heart Rate, (bpm)", "Calories Burned");
+        // Filling the combo box
         metricCombo.getItems().addAll(metrics);
     }
 
@@ -140,13 +142,16 @@ public class GoalController {
      * accordingly.
      */
     public void checkMetricCombo() {
+        // Checking if a metric has been selected in the combo and marking the metric check box accordingly
         boolean selected = metricCombo.getSelectionModel().isEmpty();
         if (!selected) {
             metricCheck.setSelected(true);
+            // Filling teh value combo with the correct set of data according to the metric selected
             fillValueCombo(metricCombo.getSelectionModel().getSelectedItem());
         } else {
             metricCheck.setSelected(false);
         }
+        // Checking if all fields are now valid
         checkChecks();
     }
 
@@ -158,7 +163,9 @@ public class GoalController {
      * accordingly.
      */
     public void checkDate() {
+        // Getting the entered date string
         String text = dateEntry.getText();
+        // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = dateTimeFormat.parse(text);
@@ -166,6 +173,8 @@ public class GoalController {
         } catch (ParseException e) {
             dateCheck.setSelected(false);
         }
+        // Checking if all fields are now valid
+        checkChecks();
     }
 
 
@@ -175,10 +184,12 @@ public class GoalController {
      * @param metric
      */
     private void fillValueCombo(String metric) {
+        // Enabling and emptying the combo box
         valueCombo.setDisable(false);
         valueCombo.getItems().clear();
         valueCombo.setOpacity(0.8);
         ObservableList<Double> values = FXCollections.observableArrayList();
+        // Getting teh values to fill the combo box with according to the selected metric type
         if (metric.equals("Top Speed, (m/s)")) {
             for (double i = 10.0; i < 34.0; i += 0.5) {
                 values.add(i);
@@ -210,13 +221,14 @@ public class GoalController {
      * accordingly.
      */
     public void checkValueCombo() {
-
+        // Getting if a value has been selected and then marking the value check box accordingly
         boolean selected = valueCombo.getSelectionModel().isEmpty();
         if (!selected) {
             valueCheck.setSelected(true);
         } else {
             valueCheck.setSelected(false);
         }
+        // Checking if all fields are now valid
         checkChecks();
     }
 
@@ -228,24 +240,22 @@ public class GoalController {
      * the database after wwhich the goal table is updated.
      */
     public void createGoal() {
+        // Getting all entered data
         String name = goalName.getText();
         String metric = metricCombo.getSelectionModel().getSelectedItem();
         double value = valueCombo.getSelectionModel().getSelectedItem();
         String dateString = dateEntry.getText();
         metric = getMetric(metric);
         boolean global = globalCheck.isSelected();
+        // Creating the new Goal
         Goal newGoal = new Goal(name, metric, value, dateString, global);
-
+        // Checking if the goal has been completed
         newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
-
-        // Store the goal into the database
+        // Storing the goal in the database
         db.storeGoal(newGoal, currentUser.getId());
-
-        newGoal.setId(db.findId("Goal"));
-
+        // Adding the goal to the user
         currentUser.addGoal(newGoal);
-
-
+        // Resetting all the entry fields and check boxes
         nameCheck.setSelected(false);
         metricCheck.setSelected(false);
         dateCheck.setSelected(false);
@@ -255,6 +265,7 @@ public class GoalController {
         metricCombo.getItems().clear();
         dateEntry.clear();
         valueCombo.getItems().clear();
+        // Refreshing the goal table
         refreshData();
     }
 
@@ -267,6 +278,7 @@ public class GoalController {
      */
     private String getMetric(String metric) {
         int index = 0;
+        // Finding the comma and getting the metric string
         for (int i = 0; i < metric.length(); i++) {
             if (metric.charAt(i) == ',') {
                 index = i;
@@ -282,14 +294,16 @@ public class GoalController {
      * If so all the data entered is valid and the createButton is enabled.
      */
     private void checkChecks() {
+        // Checking if all check boxes are selected and therefore al fields are valid
         if (valueCheck.isSelected() && metricCheck.isSelected() && dateCheck.isSelected() && nameCheck.isSelected()) {
+            // Enabling the create button
             createButton.setDisable(false);
             createButton.setOpacity(0.7);
         } else {
+            // Disabling the create button
             createButton.setDisable(true);
         }
     }
-
 
 
     @FXML
@@ -299,10 +313,14 @@ public class GoalController {
      * goal table is then updated.
      */
     private void removeGoal() {
+        // Getting the selected goal
         Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
+        // Removing the goal from the database and the user
         db.removeGoal(goal);
         currentUser.removeGoal(goal);
+        // Refreshing the goal table
         refreshData();
     }
+
 
 }

@@ -28,9 +28,9 @@ public class TableController {
     @FXML
     private Accordion accordion;
     private ArrayList<Activity> activities;
-
-    private DataBaseController db = AppController.getDb();
-    private User currentUser = AppController.getCurrentUser();
+    // Getting database controller and current user
+    private DataBaseController db = App.getDb();
+    private User currentUser = App.getCurrentUser();
 
 
     /**
@@ -42,6 +42,7 @@ public class TableController {
             addActivityPanels(i);
         }
     }
+
 
     @FXML
     /**
@@ -57,6 +58,7 @@ public class TableController {
         }
 
     }
+
 
     @FXML
     /**
@@ -81,13 +83,15 @@ public class TableController {
 
         setActivities(inputActivities);
 
-    /* Uncomment when merged into master
+    // Uncomment to enable file loading into database
+        /*
         for (Activity activity : inputActivities) {
             db.storeActivity(activity, currentUser.getId());
             currentUser.addActivity(activity);
         }
-    */
-        CheckGoals.markGoals(currentUser, AppController.getDb(), inputActivities);
+        */
+
+        CheckGoals.markGoals(currentUser, App.getDb(), inputActivities);
         Alert countAlert = AlertHandler.activityAlert(currentUser);
         if (countAlert != null) {
             db.storeAlert(countAlert, currentUser.getId());
@@ -95,6 +99,7 @@ public class TableController {
         }
         initialise();
     }
+
 
     @FXML
     /**
@@ -109,6 +114,7 @@ public class TableController {
 
         initialise();
     }
+
 
     @FXML
     /**
@@ -131,6 +137,8 @@ public class TableController {
 
 
     }
+
+
     /**
      * Populates the given table with the data from a specific activity
      * @param table an empty TableView object
@@ -170,6 +178,7 @@ public class TableController {
         table.setItems(getDataPointsList(index));
     }
 
+
     /**
      * Retrieves all dataPoint objects from a specific activity
      * @param index refers to an activity in the list "activities"
@@ -182,6 +191,7 @@ public class TableController {
         dataPointsList.addAll(dataSet.getDataPoints());
         return dataPointsList;
     }
+
 
     /**
      * Sets the text in the TitledPane object given, in the format:
@@ -200,6 +210,7 @@ public class TableController {
         titledPane.setMinHeight(320);
 
     }
+
 
     /**
      * Creates a new TitledPane for the activity referred to by "index"
@@ -220,6 +231,7 @@ public class TableController {
         titledPane.setContent(table);
         accordion.getPanes().add(titledPane);
     }
+
 
     /**
      * Sets the activities ArrayList to the passed ArrayList of activities.

@@ -1,8 +1,6 @@
 package seng202.team5.Model;
 
 import seng202.team5.DataManipulation.DataBaseController;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +11,6 @@ import java.util.Date;
  */
 public class CheckGoals {
 
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * This method checks all of the users incomplete goals and marks them as completed
@@ -23,12 +20,25 @@ public class CheckGoals {
      * @param activities The newly added activities to use to check the users goals.
      */
     public static void markGoals(User user, DataBaseController db, ArrayList<Activity> activities) {
-        Date date = new Date();
+        // Looping over the users goals
         for (Goal goal: user.getGoals()) {
-            if (!goal.isCompleted()) {
-                if (checkGoal(goal, activities, user)) {
+            if (!goal.isCompleted() && !goal.isExpired()) {
+                // Checking if the goal is completed as it is currently marked as incomplete
+                if (checkExpired(goal)) {
+                    // Marking the goal as expired
+                    goal.setExpired(true);
+                    // Updating goal in the database
+                    db.updateGoal(goal);
+                    // Creating an alert and storing the alert in the database
+                    Alert goalAlert = AlertHandler.expiredGoalAlert(goal.getName());
+                    db.storeAlert(goalAlert, user.getId());
+                    user.addAlert(goalAlert);
+                } else if (checkGoal(goal, activities, user)) {
+                    // Goal is completed
+                    // Updating goal in database
                     goal.setCompleted(true);
                     db.updateGoal(goal);
+                    // Creating an alert
                     Alert goalAlert = AlertHandler.newGoalAlert(goal.getName());
                     db.storeAlert(goalAlert, user.getId());
                     user.addAlert(goalAlert);
@@ -46,15 +56,6 @@ public class CheckGoals {
      */
     public static boolean checkGoal(Goal goal, ArrayList<Activity> activities, User user) {
         // Getting the current date string
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        int[] currentDate = convertDate(formatter.format(date).split("/"));
-        int[] compDate = convertDate(formatter.format(goal.getCompletionDate()).split("/"));
-
-        if ((currentDate[0] > compDate[0] && currentDate[1] > compDate[1] && currentDate[2] == compDate[2]) ||
-                currentDate[2] > compDate[2]) {
-            return false;
-        }
         String metric = goal.getMetric();
         double value = goal.getMetricGoal();
         if (!goal.isGlobal()) {
@@ -103,15 +104,6 @@ public class CheckGoals {
      * @return A boolean flag holding if the goal has been completed.
      */
     private static boolean checkGlobal(Goal goal, User user) {
-        // Getting the current date string
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        int[] currentDate = convertDate(formatter.format(date).split("/"));
-        int[] compDate = convertDate(formatter.format(goal.getCompletionDate()).split("/"));
-        if ((currentDate[0] > compDate[0] && currentDate[1] > compDate[1] && currentDate[2] == compDate[2]) ||
-                currentDate[2] > compDate[2]) {
-            return false;
-        }
         if (goal.getMetric().equals("Distance Traveled")) {
             double totalDist = 0.0;
             for (Activity activity : user.getActivities()) {
@@ -146,6 +138,20 @@ public class CheckGoals {
             avgRate = avgRate / user.getActivities().size();
             return (int) goal.getMetricGoal() == avgRate;
         }
+    }
+
+
+    /**
+     *
+     * @param goal
+     * @return
+     */
+    private static boolean checkExpired(Goal goal) {
+        Date current = new Date();
+        if (goal.getCompletionDate().getTime() < current.getTime()) {
+            return true;
+        }
+        return false;
     }
 
 

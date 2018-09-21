@@ -7,7 +7,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
@@ -16,7 +15,6 @@ import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class GraphsController{
@@ -25,52 +23,48 @@ public class GraphsController{
     private boolean visited = false;
 
     @FXML
-    ChoiceBox activityChoice;
+    private ChoiceBox activityChoice;
     @FXML
-    Button selectButton;
-    @FXML
-    ScrollPane scrollPane;
-
+    private ScrollPane scrollPane;
     //Chart FXML elements
     @FXML
-    LineChart<Number,Number> speedChart;
+    private LineChart<Number,Number> speedChart;
     @FXML
-    LineChart<Number,Number> distanceChart;
+    private  LineChart<Number,Number> distanceChart;
     @FXML
-    LineChart<Number,Number> heartRateChart;
-
-
+    private  LineChart<Number,Number> heartRateChart;
     //Table FXML elements
     @FXML
-    AnchorPane tablePane;
+    private AnchorPane tablePane;
     @FXML
-    Label activityName;
+    private Label activityName;
     @FXML
-    Label totalDistance;
+    private Label totalDistance;
     @FXML
-    Label vertDistance;
+    private Label vertDistance;
     @FXML
-    Label avgHeartRate;
+    private Label avgHeartRate;
     @FXML
-    Label calories;
+    private Label calories;
     @FXML
-    Label avgSpeed;
-
+    private Label avgSpeed;
     //Overall Stats FXML elements
     @FXML
-    LineChart<Number,Number> totDistChart;
+    private LineChart<Number,Number> totDistChart;
     @FXML
-    LineChart<Number,Number> vertDistChart;
+    private LineChart<Number,Number> vertDistChart;
     @FXML
-    LineChart<Number,Number> avgHeartRateChart;
+    private LineChart<Number,Number> avgHeartRateChart;
     @FXML
-    LineChart<Number,Number> caloriesChart;
+    private LineChart<Number,Number> caloriesChart;
     @FXML
-    LineChart<Number,Number> avgSpeedChart;
+    private LineChart<Number,Number> avgSpeedChart;
+    @FXML
+    private LineChart<Number,Number> runningDistChart;
+    // Getting database controller and current user
+    private DataBaseController db = App.getDb();
+    private User currentUser = App.getCurrentUser();
 
-
-    private DataBaseController db = AppController.getDb();
-    private User currentUser = AppController.getCurrentUser();
 
     /**
      * Creates the basic empty lineChart
@@ -97,6 +91,13 @@ public class GraphsController{
         return series;
     }
 
+
+    /**
+     *
+     * @param lineChart
+     * @param yLabel
+     * @return
+     */
     private XYChart.Series createOverallGraph(LineChart lineChart, String yLabel) {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Activities");
@@ -117,6 +118,7 @@ public class GraphsController{
         return series;
     }
 
+
     /**
      * Sets speed graph
      * @param lineChart the speed over time line graph
@@ -132,6 +134,7 @@ public class GraphsController{
         }
         lineChart.getData().add(series);
     }
+
 
     /**
      * Sets distance graph
@@ -149,6 +152,7 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
     /**
      * Sets heart rate graph
      * @param lineChart the heart rate over time line graph
@@ -165,6 +169,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     * Sets total distance graph
+     * @param lineChart the total distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
+     */
     private void setTotalDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -175,6 +185,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     * Sets vertical distance travelled graph
+     * @param lineChart the vertical distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
+     */
     private void setVertDistChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -185,6 +201,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     * Sets Average Heart Rate graph
+     * @param lineChart the Average Heart Rate over activities graph
+     * @param series series storing heart rate points for each activity in the 2D format
+     */
     private void setAvgHeartRateChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -195,6 +217,12 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     * Sets calories burned graph
+     * @param lineChart the calories burned over activities graph
+     * @param series series storing calories points for each activity in the 2D format
+     */
     private void setCaloriesChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
@@ -205,11 +233,33 @@ public class GraphsController{
         lineChart.getData().add(series);
     }
 
+
+    /**
+     * Sets average speed graph
+     * @param lineChart the average speed over activities graph
+     * @param series series storing average speed for each activity in a 2D format
+     */
     private void setAvgSpeedChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
             double avgSpeed = activity.getDataSet().getAvgSpeed();
             series.getData().add(new XYChart.Data(i, avgSpeed));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+    /**
+     * Sets running distance graph, which adds each activity's distance
+     * @param lineChart the running distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
+     */
+    private void setRunningDistChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        double runningDistance = 0;
+        for (Activity activity: activities) {
+            runningDistance += activity.getDataSet().getTotalDistance();
+            series.getData().add(new XYChart.Data(i, runningDistance));
             i += 1;
         }
         lineChart.getData().add(series);
@@ -239,7 +289,6 @@ public class GraphsController{
         return newTime;
     }
 
-
     /**
      * Runs when the tab is first switched to
      * Sets up the choiceBox to show all activities for current User
@@ -248,6 +297,7 @@ public class GraphsController{
         if (visited) {
             return;
         }
+        resetData();
 
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
@@ -288,6 +338,21 @@ public class GraphsController{
         }
     }
 
+    /**
+     * Resets all graphs to base state
+     */
+    private void resetData() {
+        totDistChart.getData().clear();
+        vertDistChart.getData().clear();
+        avgHeartRateChart.getData().clear();
+        caloriesChart.getData().clear();
+        avgSpeedChart.getData().clear();
+        runningDistChart.getData().clear();
+    }
+
+    /**
+     * Creates the lineCharts for all activities
+     */
     private void setOverallStats() {
         ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
         setActivities(inputActivities);
@@ -306,14 +371,28 @@ public class GraphsController{
 
         XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
         setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
+
+        XYChart.Series runningDistSeries = createGraph(runningDistChart, "Running Distance");
+        setRunningDistChart(runningDistChart, runningDistSeries);
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
 
-    public void setVisited() {visited = false;}
+    /**
+     * Resets choice box and overall stats
+     */
+    public void setVisited() {
+        visited = false;
+        setChoiceBox();
+    }
 
+
+    /**
+     * Sets a table at the bottom to show textual statistics of activity
+     * @param activity the currently selected activity
+     */
     private void setTable(Activity activity) {
         activityName.setText(activity.getName());
         totalDistance.setText(Double.toString(activity.getDataSet().getTotalDistance()));

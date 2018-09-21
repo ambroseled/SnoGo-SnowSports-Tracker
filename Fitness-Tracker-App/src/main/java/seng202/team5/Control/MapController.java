@@ -3,62 +3,111 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import seng202.team5.Model.Activity;
-import seng202.team5.DataManipulation.InputDataParser;
-import seng202.team5.Model.User;
-
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.Model.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
 /**
- * This class handles the controls of the map view
+ * 
  */
-public class MapController {
+public class MapController implements Initializable {
 
+    // Java fx elements used in controller
+    @FXML
+    private WebView webView;
+    @FXML
+    private TableView actTable;
+    @FXML
+    private TableColumn<Activity, String> actCol;
     private ArrayList<Activity> activities;
-    private User currentUser;
-    private InputDataParser parser = new InputDataParser();
+    private WebEngine webEngine;
+    private User user = App.getCurrentUser();
+    private ArrayList<DataPoint> dataPoints;
+    private DataBaseController db = App.getDb();
+    private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
+    private Route skiRoute;
+
+
+    @Override
+    /**
+     *
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        initMap();
+/*
+        routeSelection.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == routeARadioButton) {
+                displayRoute(skiRoute);
+            } else {
+                displayRoute(skiRoute);
+            }
+        });
+        */
+    }
+
+
+    /**
+     *
+     */
+    private void initMap() {
+        webEngine = webView.getEngine();
+        webEngine.load(MapController.class.getResource("/View/map.html").toExternalForm());
+    }
+
+
+    /**
+     *
+     * @param newRoute
+     */
+    private void displayRoute(Route newRoute) {
+        String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
+        webEngine.executeScript(scriptToExecute);
+    }
+
+
+    /**
+     *
+     * @param act
+     */
+    private void displayAct(Activity act) {
+        dataPoints = act.getDataSet().getDataPoints();
+        skiRoute = new Route(dataPoints);
+        displayRoute(skiRoute);
+    }
+
 
     @FXML
-    private ComboBox<String> activityCombo;
-    @FXML
-    private Button selectButton;
-    @FXML
-    private Button loadButton;
-    private ObservableList<String> names = FXCollections.observableArrayList();
-
-    @FXML
-    public void displayActivities() {
-        selectButton.setVisible(true);
-        loadButton.setVisible(false);
-        loadButton.setDisable(true);
-        currentUser = AppController.getCurrentUser();
-       // activities = currentUser.getActivities();
-        activities = parser.parseCSVToActivities("testData.csv");
-
-        if (activities != null) {
-            fillList(activities);
-            activityCombo.setItems(names);
+    /**
+     * Called by a mouse click on the activity table. Shows the selected activity on the map
+     */
+    public void showData() {
+        Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+        if (activity != null) {
+            displayAct(activity);
         }
     }
 
 
-    
     @FXML
-    public void selectButtonPress() {
-        String name = activityCombo.getValue();
-        System.out.println(name);
-        /**
-         * This needs to get the activity out of the list
-         */
-    }
-
-
-    private void fillList(ArrayList<Activity> activities) {
-        for (Activity activity : activities) {
-            names.add(activity.getName());
+    /**
+     * Called by a mouse movement on the anchor pane. Fills the table with all of
+     * the users activities if the number of activities in the table is not equal
+     * to the number of activities the user has.
+     */
+    public void fillTable() {
+        if (actTable.getItems().size() != user.getActivities().size()) {
+            activities = db.getActivities(user.getId());
+            actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            activityNames.addAll(activities);
+            actTable.setItems(activityNames);
         }
     }
 

@@ -13,6 +13,9 @@ import java.util.Date;
  *
  */
 public class User {
+
+
+    // The variables for the information stored with a user
     private String name;
     private Date birthDate;
     private double height;
@@ -23,12 +26,14 @@ public class User {
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Alert> alerts = new ArrayList<>();
     private ArrayList<Goal> goals = new ArrayList<>();
-    DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+
+    // The date format used to parse the birth date string
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
 
 
 
     /**
-     *
+     * Constructor used to create a new user
      * @param name
      * @param age
      * @param height
@@ -47,7 +52,7 @@ public class User {
 
 
     /**
-     *
+     * Constructor used to read a user from the database
      * @param id
      * @param name
      * @param age
@@ -71,7 +76,7 @@ public class User {
     }
 
     /**
-     *
+     * Constructor used to create a new user
      * @param name
      * @param age
      * @param height

@@ -8,9 +8,10 @@ import java.util.*;
  */
 public class DataSet {
 
+    // The list of data points the data set is for
     private ArrayList<DataPoint> dataPoints;
 
-    //Where the thing calculated by analysis are stored
+    // The variables for the extra data stored with each data set
     private double topSpeed;
     private double totalDistance;
     private double verticalDistance;
@@ -21,7 +22,7 @@ public class DataSet {
     private double avgSpeed;
 
     /**
-     *
+     * Constructor used while parsing data.
      */
     public DataSet() {
         dataPoints = new ArrayList<>();
@@ -29,13 +30,13 @@ public class DataSet {
 
 
     /**
-     *
-     * @param id
-     * @param topSpeed
-     * @param totalDistance
-     * @param verticalDistance
-     * @param avgHeartRate
-     * @param dataPoints
+     * Constructor used when reading a data set from teh database
+     * @param id The database id of the data set
+     * @param topSpeed The top speed of the data set
+     * @param totalDistance The total distance of the data set
+     * @param verticalDistance The vertical distance of the data set
+     * @param avgHeartRate The average heart rate of the data set
+     * @param dataPoints The DataPoints of the data set
      */
     public DataSet(int id, double topSpeed, double totalDistance, double verticalDistance, int avgHeartRate,
                    ArrayList<DataPoint> dataPoints, double caloriesBurned, double slopeTime, double avgSpeed) {
@@ -52,18 +53,14 @@ public class DataSet {
 
 
     /**
-     *
-     * @param dataPoint
+     * Adds a passed DataPoint to the DataSet
+     * @param dataPoint The DataPoint to add
      */
     public void addDataPoint(DataPoint dataPoint) {
         dataPoints.add(dataPoint);
     }
 
 
-    /**
-     *
-     * @return
-     */
     public String toString() {
         String dataPointsString = "";
         for (DataPoint dataPoint : dataPoints) {
@@ -73,64 +70,36 @@ public class DataSet {
     }
 
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getTopSpeed() {
         return topSpeed;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getTotalDistance() {
         return totalDistance;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public int getAvgHeartRate() {
         return avgHeartRate;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getVerticalDistance() {
         return verticalDistance;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getCaloriesBurned() {
         return caloriesBurned;
     }
 
-    /**
-     *
-     * @param index
-     * @return
-     */
+
     public Date getDateTime(int index) {
         DataPoint point = dataPoints.get(index);
         return point.getDateTime();
@@ -147,76 +116,41 @@ public class DataSet {
     }
 
 
-    public void setDataPoints(ArrayList<DataPoint> dataPoints) {
-        this.dataPoints = dataPoints;
-    }
-
-    /**
-     *
-     * @return
-     */
     public int getId() {
         return id;
     }
 
 
-    /**
-     *
-     * @return
-     */
     public double getSlopeTime() {
         return slopeTime;
     }
 
-    /**
-     *
-     * @param distance
-     */
+
     public void setTotalDistance(double distance) {
         totalDistance = distance;
     }
 
 
-    /**
-     *
-     * @param vetical
-     */
     public void setVerticalDistance(double vetical) {
         verticalDistance = vetical;
     }
 
 
-    /**
-     *
-     * @param rate
-     */
     public void setAvgHeartRate(int rate) {
         avgHeartRate = rate;
     }
 
 
-    /**
-     *
-     * @param speed
-     */
     public void setTopSpeed(double speed) {
         topSpeed = speed;
     }
 
 
-    /**
-     *
-     * @param caloriesBurned
-     */
     public void setCaloriesBurned(double caloriesBurned) {
         this.caloriesBurned = caloriesBurned;
     }
 
 
-    /**
-     *
-     * @param slopeTime
-     */
     public void setSlopeTime(double slopeTime) {
         this.slopeTime = slopeTime;
     }

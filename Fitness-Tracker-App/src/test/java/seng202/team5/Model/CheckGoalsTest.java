@@ -22,8 +22,9 @@ public class CheckGoalsTest {
      * Getting a list of all the methods to be tested. Also setting up
      * the dummy User which is used for testing.
      */
+
     public void before() {
-        user.setActivities(parser.parseCSVToActivities("TestFiles/alertGoalTestData.csv"));
+        user.setActivities(parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv"));
     }
 
 
@@ -41,19 +42,9 @@ public class CheckGoalsTest {
     }
 
 
-
-    @Test
-    public void testFalseDate() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.4, "05/06/1999", false);
-        ArrayList<Activity> activities = new ArrayList<>();
-        activities.add(user.getActivities().get(0));
-        assertFalse(CheckGoals.checkGoal(goal, activities, user));
-    }
-
-
     @Test
     public void testFalseDistance() {
-        Goal goal = new Goal("test", "Distance Traveled", 0.5, "06/07/2100", false);
+        Goal goal = new Goal("test", "Distance Traveled", 0.7, "06/07/2100", false);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
@@ -73,7 +64,7 @@ public class CheckGoalsTest {
 
     @Test
     public void testFalseDistanceGlobal() {
-        Goal goal = new Goal("test", "Distance Traveled", 1, "06/07/2100", true);
+        Goal goal = new Goal("test", "Distance Traveled", 1.2, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
@@ -183,10 +174,9 @@ public class CheckGoalsTest {
 
     @Test
     public void testFalseCaloriesGlobal() {
-        Goal goal = new Goal("test", "Calories Burned", 95, "06/07/2100", true);
+        Goal goal = new Goal("test", "Calories Burned",  8000, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
-        System.out.println(CheckGoals.checkGoal(goal, activities, user));
         assertFalse(CheckGoals.checkGoal(goal, activities, user));
     }
 
@@ -230,7 +220,7 @@ public class CheckGoalsTest {
 
     @Test
     public void testTrueHeartGlobal() {
-        Goal goal = new Goal("test", "Average Heart Rate", 145, "06/07/2100", true);
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2100", true);
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
