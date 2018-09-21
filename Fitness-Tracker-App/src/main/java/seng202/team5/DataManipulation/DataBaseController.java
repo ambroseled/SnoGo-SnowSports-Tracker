@@ -21,6 +21,7 @@ public class DataBaseController {
 
     private Connection connection = null;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private static String dbString = "jdbc:sqlite:" + System.getProperty("user.home") + "/SnoGoDB.db";
 
 
     /**
@@ -30,11 +31,22 @@ public class DataBaseController {
         // Try-catch is used to catch any exceptions that throw while creating connection to the database
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/dataBase.sqlite");
+            connection = DriverManager.getConnection(dbString);
         } catch (Exception e) {
-            // Showing error dialogue to user
-            ErrorController.displayError("Error connecting to database");
+            createDB();
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection(dbString);
+            } catch (Exception e2) {
+                //TODO: error dialogue
+            }
         }
+    }
+
+
+
+    public void createDB() {
+
     }
 
 
