@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 
 /**
- *
+ * This test class provides unit tests for the DatabaseController class.
  */
 public class DataBaseControllerTest {
 
