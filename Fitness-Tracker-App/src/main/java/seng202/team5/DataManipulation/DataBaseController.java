@@ -49,15 +49,6 @@ public class DataBaseController {
 
     }
 
-    public static void openConnection() {
-        try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(dbString);
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
 
     private static void executeStmt(String query) {
         try {
@@ -127,6 +118,8 @@ public class DataBaseController {
                     "Name STRING NOT NULL,\n" +
                     "Completed BOOLEAN NOT NULL,\n" +
                     "CompletionDate STRING NOT NULL,\n" +
+                    "Global BOOLEAN NOT NULL.\n" +
+                    "EXPIRED BOOLEAN NOT NULL,\n" +
                     "User INTEGER REFERENCES Activity (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
                     ");";
 
@@ -652,6 +645,7 @@ public class DataBaseController {
 
         } catch (SQLException e) {
             // Showing error dialogue to user
+            System.out.println(e.getLocalizedMessage());
             ErrorController.displayError("Error retrieving goal from database");
         }
         return goals;
@@ -753,19 +747,17 @@ public class DataBaseController {
     }
 
 
-/*
     public static void main(String[] args) {
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date birth = dateTimeFormat.parse("08/06/1973");
-            User user = new User("Steve Jones", 45, 1.7, 78.9, birth);
+            Date birth = dateTimeFormat.parse("07/06/2000");
+            User user = new User("Steve Jones", 18, 1.7, 75.6, birth);
             DataBaseController db = new DataBaseController();
             db.storeNewUser(user);
-        } catch (Exception e) {
+        } catch(Exception e) {
 
         }
-
-
     }
-*/
+
+
 }

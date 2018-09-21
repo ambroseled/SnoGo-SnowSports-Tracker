@@ -30,6 +30,11 @@
         <artifactId>sqlite-jdbc</artifactId>
         <version>3.23.1</version>
       </dependency>
+      <dependency>
+          <groupId>com.google.maps</groupId>
+          <artifactId>google-maps-services</artifactId>
+          <version>0.2.11</version>
+      </dependency>
   </dependencies>
 
   <build>
