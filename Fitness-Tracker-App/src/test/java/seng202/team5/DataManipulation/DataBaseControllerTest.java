@@ -140,6 +140,8 @@ public class DataBaseControllerTest {
         db.storeNewUser(user);
         db.storeGoal(goal, user.getId());
         ArrayList<Goal> goals = db.getGoals(user.getId());
+        System.out.println(goals.get(0));
+        System.out.println(goals.size());
 
         assertEquals(goal.getName(), goals.get(goals.size() - 1).getName());
 
