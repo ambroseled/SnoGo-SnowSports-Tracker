@@ -13,9 +13,10 @@ import seng202.team5.Model.DataPoint;
 
 public class DataValidator {
 
-	/**
-	 * This attribute is used to keep track of how many points have been deleted
-	 */
+
+	//TODO: are these used?????? YESS THEY ARE! :)
+
+	// This attribute is used to keep track of how many points have been deleted
 	private int pointsDeleted = 0;
 	/**
 	 * This attribute keeps track of how many data values have been altered
@@ -434,8 +435,8 @@ public class DataValidator {
 	 * @param activities the activities on which to test against
 	 * @return boolean value of whether the activity is unique or not
 	 */
-/*	public boolean isActivityDuplicate(Activity activty, ArrayList<Activity> activities) {
 
+/*	public boolean isActivityDuplicate(Activity activty, ArrayList<Activity> activities) {
 		boolean isActivityUnique = true;
 
 		for (Activity otherActivity : activities) {

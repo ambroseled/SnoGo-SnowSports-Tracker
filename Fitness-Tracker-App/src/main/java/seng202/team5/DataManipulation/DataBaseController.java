@@ -1,12 +1,13 @@
 package seng202.team5.DataManipulation;
 
+
 import seng202.team5.Control.App;
 import seng202.team5.Model.*;
-
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 //TODO: Duplicate data handling
@@ -18,37 +19,129 @@ import java.util.ArrayList;
  */
 public class DataBaseController {
 
-    private Connection connection = null;
+    private static Connection connection = null;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private static String dbString = "jdbc:sqlite:" + System.getProperty("user.home") + "/SnoGo.db";
+    private static final String driver = "org.sqlite.JDBC";
 
 
-    /**
-     * Tries to establish a connection wih the applications database.
-     */
+
     public DataBaseController() {
-        // Try-catch is used to catch any exceptions that throw while creating connection to the database
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/dataBase.sqlite");
+            Class.forName(driver);
+            connection = DriverManager.getConnection(dbString);
+            createDatabase();
         } catch (Exception e) {
-            // Printing out an error message
-            System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
+            System.out.println("ERROR");
         }
     }
 
 
-    /**
-     * Closes the connections to the database
-     */
-    public void closeConnection() {
-        // Try-catch used to catch any exceptions trow while closing connection to database.
+
+    public static void closeConnection() {
         try {
             connection.close();
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error closing connection: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error closing connection to database");
+        }
+
+    }
+
+
+    private static void executeStmt(String query) {
+        try {
+            Statement newStmt = connection.createStatement();
+            newStmt.execute(query);
+        } catch (SQLException e) {
         }
     }
+
+
+    /**
+     *  Creates a new data for the application if it does not already exist and creates the databases structure (tables
+     *  and attributes). The data is stored in the project's directory and consists of four tables:
+     *  users, activities, datapoints and targets.     *
+     * @throws SQLException if an sql related problem is encountered trying to set up the data.
+     */
+    public static void createDatabase() {
+        if (connection != null) {
+            String actTable = "CREATE TABLE IF NOT EXISTS Activity (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "Name VARCHAR NOT NULL,\n" +
+                    "USER INTEGER REFERENCES User (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    ");";
+
+
+            String alertTable = "CREATE TABLE IF NOT EXISTS Alert (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "Type STRING NOT NULL,\n" +
+                    "MESSAGE STRING NOT NULL,\n" +
+                    "Date STRING NOT NULL,\n" +
+                    "User INTEGER NOT NULL REFERENCES User (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    ");";
+
+
+            String pointTable = "CREATE TABLE IF NOT EXISTS DataPoint (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "DateTime STRING NOT NULL,\n" +
+                    "HeartRate INTEGER NOT NULL,\n" +
+                    "Latitude DOUBLE NOT NULL,\n" +
+                    "Longitude DOUBLE NOT NULL,\n" +
+                    "Elevation DOUBLE NOT NULL,\n" +
+                    "Distance DOUBLE NOT NULL,\n" +
+                    "Speed DOUBLE NOT NULL,\n" +
+                    "Active BOoLEAN NOT NULL,\n" +
+                    "DataSet INTEGER REFERENCES DataSet (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    ");";
+
+
+            String setTable = "CREATE TABLE IF NOT EXISTS DataSet (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "TopSpeed DOUBLE NOT NULL,\n" +
+                    "TotalDist DOUBLE NOT NULL,\n" +
+                    "AvgHeartRate INTEGER NOT NULL,\n" +
+                    "VerticalDistance DOUBLE NOT NULL,\n" +
+                    "Calories DOUBLE NOT NULL,\n" +
+                    "SlopeTime DOUBLE NOT NULL,\n" +
+                    "AvgSpeed DOUBLE NOT NULL,\n" +
+                    "Activity INTEGER REFERENCES Activity (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    ");";
+
+
+            String goalTable = "CREATE TABLE IF NOT EXISTS Goal (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "Metric STRING NOT NULL,\n" +
+                    "MetricGoal DOUBLE NOT NULL,\n" +
+                    "Name STRING NOT NULL,\n" +
+                    "Completed BOOLEAN NOT NULL,\n" +
+                    "CompletionDate STRING NOT NULL,\n" +
+                    "Global BOOLEAN NOT NULL,\n" +
+                    "EXPIRED BOOLEAN NOT NULL,\n" +
+                    "User INTEGER REFERENCES Activity (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    ");";
+
+
+            String userTable = "CREATE TABLE IF NOT EXISTS User (\n" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                    "Name STRING NOT NULL,\n" +
+                    "Height DOUBLE NOT NULL,\n" +
+                    "Weight DOUBLE NOT NULL,\n" +
+                    "Age INTEGER NOT NULL,\n" +
+                    "BirthDate STRING NOT NULL\n" +
+                    ");";
+
+
+
+            executeStmt(actTable);
+            executeStmt(alertTable);
+            executeStmt(pointTable);
+            executeStmt(setTable);
+            executeStmt(goalTable);
+            executeStmt(userTable);
+        }
+    }
+
 
 
     /**
@@ -57,7 +150,7 @@ public class DataBaseController {
      */
     public ArrayList<User> getUsers() {
         // Creating an ArrayList to hold all the users.
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
             // Creating a statement and then executing a query to get all users
@@ -83,8 +176,8 @@ public class DataBaseController {
                 users.add(newUser);
             }
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error getting users: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("User error with the database");
         }
         // Returning the ArrayList of user
         return users;
@@ -108,25 +201,30 @@ public class DataBaseController {
             ResultSet set = stmt.executeQuery(query);
             Activity newAct;
 
-            // Looping over the results of the query
-            while (set.next()) {
-                // Getting all the information on the current query
-                int actID = set.getInt("ID");
-                String name = set.getString("Name");
-                DataSet dataSet = getDataSet(actID);
-                // Creating the activity
-                if (dataSet == null) {
-                    newAct = new Activity(actID, name);
-                } else {
-                    newAct = new Activity(actID, name, dataSet);
+
+
+                // Looping over the results of the query
+                while (set.next()) {
+                    // Getting all the information on the current query
+                    int actID = set.getInt("ID");
+                    String name = set.getString("Name");
+                    DataSet dataSet = getDataSet(actID);
+                    // Creating the activity
+                    if (dataSet == null) {
+                        newAct = new Activity(actID, name);
+                    } else {
+                        newAct = new Activity(actID, name, dataSet);
+                    }
+                    // Adding the activity to the ArrayList
+                    activities.add(newAct);
                 }
                 // Adding the activity to the ArrayList
                 activities.add(newAct);
             }
 
         } catch (SQLException e) {
-            // Printing out an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error activity database");
         }
         // Returning the ArrayList of activities
         return activities;
@@ -142,29 +240,33 @@ public class DataBaseController {
         DataSet dataSet;
         // Try-catch is used to catch any exception that are throw wile executing the query.
         try {
-            // Creating a statement and executing a query
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
-            ResultSet set = stmt.executeQuery(query);
+            if (checkId("Activity", actID)) {
+                // Creating a statement and executing a query
+                Statement stmt = connection.createStatement();
+                String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
+                ResultSet set = stmt.executeQuery(query);
+                if (!set.isClosed()) {
+                    // Getting the information about the DataSet
+                    int setId = set.getInt("ID");
+                    double topSpeed = set.getDouble("TopSpeed");
+                    double totalDist = set.getDouble("TotalDist");
+                    int heart = set.getInt("AvgHeartRate");
+                    double vert = set.getDouble("VerticalDistance"); // NEED TO FIX IN THE DATABASE
+                    ArrayList<DataPoint> dataPoints = getDataPoints(setId);
+                    double calories = set.getDouble("Calories");
+                    double slopeTime = set.getDouble("SlopeTime");
+                    double avgSpeed = set.getDouble("AvgSpeed");
 
-            // Getting the information about the DataSet
-            int setId = set.getInt("ID");
-            double topSpeed = set.getInt("TopSpeed");
-            double totalDist = set.getDouble("TotalDist");
-            int heart = set.getInt("AvgHeartRate");
-            double vert = set.getInt("VerticalDist"); // NEED TO FIX IN THE DATABASE
-            ArrayList<DataPoint> dataPoints = getDataPoints(setId);
-            double calories = set.getDouble("Calories");
-            double slopeTime = set.getDouble("SlopeTime");
-            double avgSpeed = set.getDouble("AvgSpeed");
-
-            // Creating the DataSet
-            dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
-            // Returning the DataSet
-            return dataSet;
+                    // Creating the DataSet
+                    dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
+                    // Returning the DataSet
+                    return dataSet;
+                }
+            }
+            return null;
         } catch (SQLException e) {
-            // Printing an error message
-            System.out.println("Error: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            ErrorController.displayError("Error dataSet database");
             return null;
         }
     }
@@ -318,7 +420,7 @@ public class DataBaseController {
             if (!checkId("DataSet", id) && checkId("Activity", actId)) {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
-                String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
+                String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDistance, " +
                                 "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f, %f)",
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
                         toAdd.getVerticalDistance(), actId, toAdd.getCaloriesBurned(), toAdd.getSlopeTime(), toAdd.getAvgSpeed());
@@ -530,7 +632,9 @@ public class DataBaseController {
                 goals.add(newGoal);
             }
         } catch (SQLException e) {
-            System.out.println("Error getting goals: " + e.getLocalizedMessage());
+            // Showing error dialogue to user
+            System.out.println(e.getLocalizedMessage());
+            ErrorController.displayError("Error retrieving goal from database");
         }
         return goals;
     }
@@ -625,6 +729,19 @@ public class DataBaseController {
         }
         // Returning the result of the search
         return inTable;
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date birth = dateTimeFormat.parse("07/06/2000");
+            User user = new User("Steve Jones", 18, 1.7, 75.6, birth);
+            DataBaseController db = new DataBaseController();
+            db.storeNewUser(user);
+        } catch(Exception e) {
+
+        }
     }
 
 

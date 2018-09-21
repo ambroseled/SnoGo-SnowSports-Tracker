@@ -2,6 +2,8 @@ package seng202.team5.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import seng202.team5.DataManipulation.DataAnalyser;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.InputDataParser;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +27,10 @@ public class CheckGoalsTest {
 
     public void before() {
         user.setActivities(parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv"));
+        DataAnalyser dataAnalyser = new DataAnalyser();
+        for (Activity activity : user.getActivities()) {
+            dataAnalyser.analyseActivity(activity);
+        }
     }
 
 

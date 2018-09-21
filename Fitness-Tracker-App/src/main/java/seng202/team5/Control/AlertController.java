@@ -39,7 +39,8 @@ public class AlertController {
     public void viewData() {
         // Checking if the table needs to be refilled
         if (alertTable.getItems().size() != currentUser.getAlerts().size()) {
-            // Getting teh users alerts
+            alertTable.getItems().clear();
+            // Getting the users alerts
             alerts.addAll(db.getAlerts(currentUser.getId()));
             // Setting table columns
             nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));

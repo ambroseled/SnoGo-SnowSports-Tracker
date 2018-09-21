@@ -50,13 +50,11 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        if (accordion.getPanes().isEmpty()) {
-            ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        if (accordion.getPanes().size() != currentUser.getActivities().size()) {
+            ArrayList<Activity> inputActivities = currentUser.getActivities();
             setActivities(inputActivities);
-
             initialise();
         }
-
     }
 
 
@@ -66,6 +64,7 @@ public class TableController {
      * activities in the application.
      */
     public void viewData(String filePath) {
+
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
 
@@ -80,16 +79,15 @@ public class TableController {
             analyser.analyseActivity(activity);
         }
 
-
         setActivities(inputActivities);
 
     // Uncomment to enable file loading into database
-        /*
+
         for (Activity activity : inputActivities) {
             db.storeActivity(activity, currentUser.getId());
             currentUser.addActivity(activity);
         }
-        */
+
 
         CheckGoals.markGoals(currentUser, App.getDb(), inputActivities);
         Alert countAlert = AlertHandler.activityAlert(currentUser);
@@ -97,6 +95,7 @@ public class TableController {
             db.storeAlert(countAlert, currentUser.getId());
             currentUser.addAlert(countAlert);
         }
+
         initialise();
     }
 

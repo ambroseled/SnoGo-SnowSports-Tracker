@@ -25,18 +25,6 @@ public class DataBaseControllerTest {
         db.closeConnection();
     }
 
-    @Test
-    /**
-     *
-     */
-    public void testGetUsers() {
-        ArrayList<User> users = db.getUsers();
-        User user = users.get(0);
-        assertEquals("John Stevens", user.getName());
-        assertEquals(25, user.getAge());
-        assertEquals(1.8, user.getHeight(), 0.0);
-        assertEquals(75.8, user.getWeight(), 0.0);
-    }
 
     @Test
     /**

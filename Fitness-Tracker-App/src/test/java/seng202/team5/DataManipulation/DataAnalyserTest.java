@@ -30,6 +30,9 @@ public class DataAnalyserTest {
         dataAnalyser.setCurrentUser(user);
         InputDataParser parser = new InputDataParser();
         activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataAnalysisTests.csv");
+        for (Activity activity : activities) {
+            dataAnalyser.analyseActivity(activity);
+        }
     }
 
 
