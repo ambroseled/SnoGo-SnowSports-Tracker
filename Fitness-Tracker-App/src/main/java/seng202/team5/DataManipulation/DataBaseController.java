@@ -55,7 +55,6 @@ public class DataBaseController {
             Statement newStmt = connection.createStatement();
             newStmt.execute(query);
         } catch (SQLException e) {
-
         }
     }
 
@@ -118,7 +117,7 @@ public class DataBaseController {
                     "Name STRING NOT NULL,\n" +
                     "Completed BOOLEAN NOT NULL,\n" +
                     "CompletionDate STRING NOT NULL,\n" +
-                    "Global BOOLEAN NOT NULL.\n" +
+                    "Global BOOLEAN NOT NULL,\n" +
                     "EXPIRED BOOLEAN NOT NULL,\n" +
                     "User INTEGER REFERENCES Activity (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
                     ");";
