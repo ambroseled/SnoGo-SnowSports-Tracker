@@ -29,7 +29,8 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="196.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="231.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="298.0" minWidth="10.0" prefWidth="256.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="151.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="151.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
@@ -44,7 +45,7 @@
             <content>
               <GridPane opacity="0.8" prefHeight="908.0" prefWidth="586.0">
                 <children>
-                  <LineChart fx:id="speedChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                  <LineChart fx:id="speedChart" prefHeight="260.0" prefWidth="580.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -52,7 +53,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="distanceChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                  <LineChart fx:id="distanceChart" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -60,7 +61,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+                  <LineChart fx:id="heartRateChart" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -70,6 +71,7 @@
                   </LineChart>
                 </children>
                 <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
                 </columnConstraints>
@@ -85,9 +87,9 @@
             </content>
           </ScrollPane>
             <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" opacity="0.7" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Select" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-            <Button fx:id="resetButton" minHeight="24.0" mnemonicParsing="false" onAction="#setVisited" opacity="0.7" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Reset" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="resetButton" minHeight="24.0" mnemonicParsing="false" onAction="#setVisited" opacity="0.7" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Reset" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
           <ChoiceBox fx:id="activityChoice" minHeight="24.0" opacity="0.8" prefHeight="24.0" prefWidth="286.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label prefHeight="28.0" prefWidth="197.0" text="Activity Statistics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label prefHeight="28.0" prefWidth="197.0" text="Activity Statistics" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <font>
               <Font size="22.0" />
             </font>

@@ -41,7 +41,7 @@
                 <TableColumn fx:id="actCol" prefWidth="243.41497802734375" text="Activities" />
               </columns>
             </TableView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Activity" GridPane.columnIndex="5">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Activity" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
