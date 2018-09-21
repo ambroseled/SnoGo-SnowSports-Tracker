@@ -37,6 +37,7 @@ public class App extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setTitle("SnoGo");
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
