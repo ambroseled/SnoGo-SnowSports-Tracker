@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import seng202.team5.Model.Activity;
@@ -12,10 +13,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-
-
-//TODO: Make corrupt and invalid test files to be tested
-//TODO: More tests to check the functionality of the parser
 
 public class InputDataParserTest {
 
@@ -110,6 +107,149 @@ public class InputDataParserTest {
     public void testName() {
         assertEquals("Not Riding", activities.get(0).getName());
     }
+
+
+
+    /**
+     * Testing with data that would be one activity, however start tag missing
+     */
+    @Test
+    public void testNoStartTagWithData() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/noStartWithData.csv");
+            assertEquals(0, activities.size());
+
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Testing with multiple activities, however one of their start tags is missing
+     */
+    @Test
+    public void testNoStartTagWithOtherActivities() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/noStartWithActivities.csv");
+            assertEquals(3, activities.size());
+            assertEquals(17, activities.get(0).getDataSet().getDataPoints().size());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test with a blank csv
+     */
+    @Test
+    public void testEmptyCSV() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/emptyCSV.csv");
+            assertEquals(0, activities.size());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test with a random file type
+     */
+    @Test
+    public void testWrongFileType() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/randomFile.jpeg");
+            assertEquals(0, activities.size());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test with a heavily mixed up csv file
+     */
+    @Test
+    public void testCorruptFile() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/corruptFile.csv");
+            assertEquals(2, activities.size());
+            assertEquals(17, activities.get(0).getDataSet().getDataPoints().size());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test with blank gaps between rows
+     */
+    @Test
+    public void testGapsInFile() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/gapInFile.csv");
+            assertEquals(4, activities.size());
+            assertEquals(13, activities.get(0).getDataSet().getDataPoints().size());
+            assertEquals(17, activities.get(1).getDataSet().getDataPoints().size());
+            assertEquals(18, activities.get(2).getDataSet().getDataPoints().size());
+            assertEquals(22, activities.get(3).getDataSet().getDataPoints().size());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test that when the format for a data point isn't correct
+     */
+    @Test
+    public void testWrongFormats() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/wrongFormats.csv");
+            assertEquals(1, activities.size());
+            assertEquals(null, activities.get(0).getDataSet().getDataPoints().get(4).getDateTime());
+            assertEquals(0, activities.get(0).getDataSet().getDataPoints().get(5).getHeartRate());
+            assertEquals(171.538081, activities.get(0).getDataSet().getDataPoints().get(6).getLongitude(), 0.000001);
+            assertEquals(8851, activities.get(0).getDataSet().getDataPoints().get(9).getElevation(), 0.01);
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    /**
+     * Test for when no activity name given next to the start tag
+     */
+    @Test
+    public void missingName() {
+        InputDataParser parser = new InputDataParser();
+
+        try {
+            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/missingName.csv");
+            assertEquals(4, activities.size());
+            assertEquals("", activities.get(1).getName());
+        }
+        catch (Exception e) {
+            assert(false);
+        }
+    }
+
 
 
 }
