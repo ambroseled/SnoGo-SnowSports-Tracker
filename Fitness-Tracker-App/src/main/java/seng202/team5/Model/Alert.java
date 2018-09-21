@@ -17,6 +17,7 @@ public class Alert {
     private String type;
     private int id = -1;
     private String dateString;
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
     /**
@@ -30,7 +31,6 @@ public class Alert {
         this.type = type;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
@@ -52,7 +52,6 @@ public class Alert {
         this.type = type;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             this.date = dateTimeFormat.parse(dateString);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());

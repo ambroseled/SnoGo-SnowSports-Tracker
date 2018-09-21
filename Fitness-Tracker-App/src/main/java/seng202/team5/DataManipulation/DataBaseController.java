@@ -1,14 +1,14 @@
 package seng202.team5.DataManipulation;
 
-import org.sqlite.SQLiteConfig;
+
 import seng202.team5.Control.App;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
-
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 //TODO: Duplicate data handling
@@ -753,4 +753,19 @@ public class DataBaseController {
     }
 
 
+/*
+    public static void main(String[] args) {
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date birth = dateTimeFormat.parse("08/06/1973");
+            User user = new User("Steve Jones", 45, 1.7, 78.9, birth);
+            DataBaseController db = new DataBaseController();
+            db.storeNewUser(user);
+        } catch (Exception e) {
+
+        }
+
+
+    }
+*/
 }
