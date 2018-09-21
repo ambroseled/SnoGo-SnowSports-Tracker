@@ -39,6 +39,7 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
+        primaryStage.setResizable(false);
     }
 
 
