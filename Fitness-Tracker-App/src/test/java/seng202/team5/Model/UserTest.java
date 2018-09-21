@@ -18,12 +18,4 @@ public class UserTest {
     }
 
 
-    @Test
-    public void testBmiDataBase() {
-        DataBaseController db = new DataBaseController();
-        User user = db.getUsers().get(0);
-        assertEquals(26.16, user.getBmi(), 0.0);
-    }
-
-
 }
