@@ -1,13 +1,12 @@
 package seng202.team5.Model;
 
 import seng202.team5.DataManipulation.DataBaseController;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 /**
- * This class is used to check if a given goal has been completed by the user.
+ * This class is used to check if goals have been completed or expired.
  */
 public class CheckGoals {
 
@@ -25,6 +24,7 @@ public class CheckGoals {
             if (!goal.isCompleted() && !goal.isExpired()) {
                 // Checking if the goal is completed as it is currently marked as incomplete
                 if (checkExpired(goal)) {
+                    System.out.println("Goal expired");
                     // Marking the goal as expired
                     goal.setExpired(true);
                     // Updating goal in the database
@@ -36,6 +36,7 @@ public class CheckGoals {
                 } else if (checkGoal(goal, activities, user)) {
                     // Goal is completed
                     // Updating goal in database
+                    System.out.println("Goal completed");
                     goal.setCompleted(true);
                     db.updateGoal(goal);
                     // Creating an alert
@@ -142,11 +143,11 @@ public class CheckGoals {
 
 
     /**
-     *
-     * @param goal
-     * @return
+     * This method checks if a given goal has expired.
+     * @param goal The goal to check.
+     * @return A boolena flag holding if the goal is expired.
      */
-    private static boolean checkExpired(Goal goal) {
+    public static boolean checkExpired(Goal goal) {
         Date current = new Date();
         if (goal.getCompletionDate().getTime() < current.getTime()) {
             return true;

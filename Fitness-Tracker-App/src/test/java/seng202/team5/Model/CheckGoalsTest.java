@@ -2,6 +2,8 @@ package seng202.team5.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import seng202.team5.DataManipulation.DataAnalyser;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.InputDataParser;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +27,11 @@ public class CheckGoalsTest {
 
     public void before() {
         user.setActivities(parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv"));
+        DataAnalyser dataAnalyser = new DataAnalyser();
+        dataAnalyser.setCurrentUser(user);
+        for (Activity activity : user.getActivities()) {
+            dataAnalyser.analyseActivity(activity);
+        }
     }
 
 
@@ -224,6 +231,21 @@ public class CheckGoalsTest {
         ArrayList<Activity> activities = new ArrayList<>();
         activities.add(user.getActivities().get(0));
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
+    }
+
+
+    @Test
+    public void testTrueExpired() {
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2000", true);
+        assertTrue(CheckGoals.checkExpired(goal));
+    }
+
+
+
+    @Test
+    public void testFalseExpired() {
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2100", true);
+        assertFalse(CheckGoals.checkExpired(goal));
     }
 
 }

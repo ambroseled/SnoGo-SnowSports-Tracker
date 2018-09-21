@@ -1,14 +1,15 @@
 package seng202.team5.DataManipulation;
 
-import seng202.team5.Control.App;
+
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 import seng202.team5.Model.User;
 import java.util.ArrayList;
-
 import static java.lang.Math.abs;
 
+
+//TODO: Comment about how the analysis is ski dependent
 
 /**
  * This class performs analytics on the data uploaded into the application by the user.
@@ -18,8 +19,16 @@ import static java.lang.Math.abs;
 public class DataAnalyser {
 
     // Getting the current user
-    DataBaseController db = new DataBaseController();
-    private User currentUser = db.getUsers().get(0);//App.getCurrentUser();
+    private User currentUser;
+
+
+    /**
+     *
+     * @param user
+     */
+    public void setUser(User user) {
+        currentUser = user;
+    }
 
 
     /**
