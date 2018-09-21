@@ -23,17 +23,16 @@
     var marker2;
     var path;
 
+
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 39.144684, lng: -84.510079},
+            center: {lat: 46.530555, lng: 8.471073},
+            streetViewControl: false,
             zoom: 15
         });
 
-        new google.maps.Marker({
-            position: {lat: 39.144684, lng: -84.510079},
-            map: map,
-            title: '\u0048\u0061\u0072\u0061\u006d\u0062\u0065'
-        });
+        map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+
     }
 
     function displayRoute(flightPath) {
