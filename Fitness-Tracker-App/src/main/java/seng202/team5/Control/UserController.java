@@ -28,10 +28,6 @@ public class UserController {
     @FXML
     private void fillTable() {
         users = db.getUsers();
-        System.out.println(users.size());
-        for (User x : users) {
-            System.out.println(x.getId());
-        }
         if (userTable.getItems().size() != users.size()) {
             userCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             userNames.addAll(users);
