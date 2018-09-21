@@ -30,6 +30,9 @@ public class Route {
         route.forEach(pos -> stringBuilder.append(
                 String.format("{lat: %f, lng: %f}, ", pos.getLatitude(), pos.getLongitude())));
         stringBuilder.append("]");
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
+
+
     }
 }
