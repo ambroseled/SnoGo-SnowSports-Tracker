@@ -2,6 +2,7 @@ package seng202.team5.DataManipulation;
 
 
 import seng202.team5.Control.App;
+import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
 import java.sql.*;
 import java.text.DateFormat;
@@ -201,32 +202,25 @@ public class DataBaseController {
             ResultSet set = stmt.executeQuery(query);
             Activity newAct;
 
-
-
-                // Looping over the results of the query
-                while (set.next()) {
-                    // Getting all the information on the current query
-                    int actID = set.getInt("ID");
-                    String name = set.getString("Name");
-                    DataSet dataSet = getDataSet(actID);
-                    // Creating the activity
-                    if (dataSet == null) {
-                        newAct = new Activity(actID, name);
-                    } else {
-                        newAct = new Activity(actID, name, dataSet);
-                    }
-                    // Adding the activity to the ArrayList
-                    activities.add(newAct);
+            // Looping over the results of the query
+            while (set.next()) {
+                // Getting all the information on the current query
+                int actID = set.getInt("ID");
+                String name = set.getString("Name");
+                DataSet dataSet = getDataSet(actID);
+                // Creating the activity
+                if (dataSet == null) {
+                    newAct = new Activity(actID, name);
+                } else {
+                    newAct = new Activity(actID, name, dataSet);
                 }
                 // Adding the activity to the ArrayList
                 activities.add(newAct);
             }
-
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error activity database");
         }
-        // Returning the ArrayList of activities
         return activities;
     }
 
