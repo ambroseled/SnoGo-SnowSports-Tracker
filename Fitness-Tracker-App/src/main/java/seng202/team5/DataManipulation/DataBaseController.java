@@ -26,29 +26,16 @@ public class DataBaseController {
     private static final String driver = "org.sqlite.JDBC";
 
 
-    private static SQLiteConfig configureSQl() {
-        SQLiteConfig sqlConfig = new SQLiteConfig();
-        sqlConfig.enforceForeignKeys(true);
-        return sqlConfig;
-    }
-
 
     public DataBaseController() {
-        connectDB();
-    }
-
-
-    public static void connectDB(){
         try {
             Class.forName(driver);
-            SQLiteConfig sqlConfig = configureSQl();
             connection = DriverManager.getConnection(dbString);
             createDatabase();
         } catch (Exception e) {
             System.out.println("ERROR");
         }
     }
-
 
 
 
@@ -162,7 +149,6 @@ public class DataBaseController {
             executeStmt(goalTable);
             executeStmt(userTable);
         }
-        closeConnection();
     }
 
 
@@ -177,9 +163,7 @@ public class DataBaseController {
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
             // Creating a statement and then executing a query to get all users
-            System.out.println(connection);
             Statement stmt = connection.createStatement();
-            System.out.println("bean");
             ResultSet set = stmt.executeQuery("SELECT * FROM User");
             User newUser;
 
@@ -227,6 +211,8 @@ public class DataBaseController {
                 ResultSet set = stmt.executeQuery(query);
                 Activity newAct;
 
+
+
                 // Looping over the results of the query
                 while (set.next()) {
                     // Getting all the information on the current query
@@ -266,21 +252,23 @@ public class DataBaseController {
                 Statement stmt = connection.createStatement();
                 String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
                 ResultSet set = stmt.executeQuery(query);
-                // Getting the information about the DataSet
-                int setId = set.getInt("ID");
-                double topSpeed = set.getInt("TopSpeed");
-                double totalDist = set.getDouble("TotalDist");
-                int heart = set.getInt("AvgHeartRate");
-                double vert = set.getInt("VerticalDist"); // NEED TO FIX IN THE DATABASE
-                ArrayList<DataPoint> dataPoints = getDataPoints(setId);
-                double calories = set.getDouble("Calories");
-                double slopeTime = set.getDouble("SlopeTime");
-                double avgSpeed = set.getDouble("AvgSpeed");
+                if (!set.isClosed()) {
+                    // Getting the information about the DataSet
+                    int setId = set.getInt("ID");
+                    double topSpeed = set.getDouble("TopSpeed");
+                    double totalDist = set.getDouble("TotalDist");
+                    int heart = set.getInt("AvgHeartRate");
+                    double vert = set.getDouble("VerticalDistance"); // NEED TO FIX IN THE DATABASE
+                    ArrayList<DataPoint> dataPoints = getDataPoints(setId);
+                    double calories = set.getDouble("Calories");
+                    double slopeTime = set.getDouble("SlopeTime");
+                    double avgSpeed = set.getDouble("AvgSpeed");
 
-                // Creating the DataSet
-                dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
-                // Returning the DataSet
-                return dataSet;
+                    // Creating the DataSet
+                    dataSet = new DataSet(setId, topSpeed, totalDist, vert, heart, dataPoints, calories, slopeTime, avgSpeed);
+                    // Returning the DataSet
+                    return dataSet;
+                }
             }
             return null;
         } catch (SQLException e) {
@@ -441,7 +429,7 @@ public class DataBaseController {
             if (!checkId("DataSet", id) && checkId("Activity", actId)) {
                 // Creating a statement and executing an update to store the DataSet
                 Statement stmt = connection.createStatement();
-                String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDist, " +
+                String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDistance, " +
                                 "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f, %f)",
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
                         toAdd.getVerticalDistance(), actId, toAdd.getCaloriesBurned(), toAdd.getSlopeTime(), toAdd.getAvgSpeed());

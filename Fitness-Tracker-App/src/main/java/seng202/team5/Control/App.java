@@ -22,7 +22,7 @@ public class App extends Application {
     private static DataBaseController db = new DataBaseController();
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = setUser();
+    private static User currentUser = db.getUsers().get(0);
     ////////////
 
 
@@ -39,14 +39,6 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
-    }
-
-
-    private static User setUser() {
-        db.openConnection();
-        User user = db.getUsers().get(0);
-        db.closeConnection();
-        return user;
     }
 
 

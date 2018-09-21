@@ -50,15 +50,11 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        if (accordion.getPanes().isEmpty()) {
-            db.openConnection();
-            System.out.println("mem");
-            ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        if (accordion.getPanes().size() != currentUser.getActivities().size()) {
+            ArrayList<Activity> inputActivities = currentUser.getActivities();
             setActivities(inputActivities);
-            db.closeConnection();
             initialise();
         }
-
     }
 
 
@@ -87,9 +83,7 @@ public class TableController {
 
     // Uncomment to enable file loading into database
 
-        db.openConnection();
         for (Activity activity : inputActivities) {
-
             db.storeActivity(activity, currentUser.getId());
             currentUser.addActivity(activity);
         }
@@ -101,7 +95,6 @@ public class TableController {
             db.storeAlert(countAlert, currentUser.getId());
             currentUser.addAlert(countAlert);
         }
-        db.closeConnection();
 
         initialise();
     }
