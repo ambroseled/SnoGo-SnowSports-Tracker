@@ -4,6 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+//TODO: Unit tests
+
+
+/**
+ *
+ */
 public class AlertHandler {
 
     // Date format used to create new alerts

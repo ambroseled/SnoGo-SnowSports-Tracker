@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+
+//TODO: Unit tests
+
+
+
 /**
  * This class is used to check if a given goal has been completed by the user.
  */
