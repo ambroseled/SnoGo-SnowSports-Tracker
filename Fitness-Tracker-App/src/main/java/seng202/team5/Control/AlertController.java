@@ -58,8 +58,16 @@ public class AlertController {
      * refills it with all of the users alerts.
      */
     public void refreshData() {
-        // Emptying the table
-        alertTable.getItems().clear();
+
+        if (alertTable.getItems().isEmpty()) {
+            // Setting table columns
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        } else {
+            // Emptying the table
+            alertTable.getItems().clear();
+        }
         // Refilling the table
         alerts.addAll(db.getAlerts(currentUser.getId()));
         alertTable.setItems(alerts);
@@ -75,11 +83,14 @@ public class AlertController {
     private void removeAlert() {
         // Getting the selected alert
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
-        // Removing the alert from teh user and the database
-        db.removeAlert(alert);
-        currentUser.removeAlert(alert);
-        // Refreshing the data in teh table
-        refreshData();
+        // Removing the alert from the user and the database
+        if (alert != null) {
+            db.removeAlert(alert);
+            currentUser.setAlerts(db.getAlerts(currentUser.getId()));
+            // Refreshing the data in teh table
+            refreshData();
+        }
+
     }
 
 

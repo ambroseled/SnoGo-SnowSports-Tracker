@@ -192,6 +192,7 @@ public class User {
     }
 
     public void removeGoal(Goal goal) {
+
         goals.remove(goal);
     }
 

@@ -473,7 +473,7 @@ public class DataBaseController {
             if (!checkId("Goal", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the DataSet
                 String query = String.format("INSERT INTO Goal (Metric, MetricGoal, Name, Completed, CompletionDate," +
-                        "User, Global) Values (?, ?, ?, ?, ?, ?, ?)");
+                        "User, Global, Expired) Values (?, ?, ?, ?, ?, ?, ?, ?)");
                 PreparedStatement pStmt = connection.prepareStatement(query);
                 pStmt.setString(1, toAdd.getMetric());
                 pStmt.setDouble(2, toAdd.getMetricGoal());
@@ -482,6 +482,7 @@ public class DataBaseController {
                 pStmt.setString(5, toAdd.getDateString());
                 pStmt.setInt(6, userId);
                 pStmt.setBoolean(7, toAdd.isGlobal());
+                pStmt.setBoolean(8, toAdd.isExpired());
                 pStmt.executeUpdate();
                 toAdd.setId(findId("Goal"));
             }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#viewData" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.AlertController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#viewData" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.AlertController">
    <children>
    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
      <columnConstraints>
@@ -37,7 +40,7 @@
            <columns>
              <TableColumn fx:id="nameCol" prefWidth="173.0" text="Alert Type" />
              <TableColumn fx:id="dateCol" prefWidth="170.0" text="Date" />
-               <TableColumn fx:id="desCol" prefWidth="661.0" text="Description" />
+               <TableColumn fx:id="desCol" prefWidth="399.0" text="Description" />
            </columns>
          </TableView>
             <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />

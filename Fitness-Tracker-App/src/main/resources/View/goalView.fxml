@@ -87,7 +87,6 @@
                <Font size="30.0" />
             </font>
          </Text>
-         <TextField fx:id="dateEntry" onKeyReleased="#checkDate" opacity="0.8" promptText="dd/mm/yyyy" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <CheckBox fx:id="globalCheck" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <TextField editable="false" opacity="0.8" text="Measured over all data?" GridPane.columnIndex="4" GridPane.rowIndex="4" />
@@ -97,6 +96,7 @@
                   <Font size="19.0" />
                </font>
             </Text>
+            <TextField fx:id="dateEntry" onKeyReleased="#checkDate" opacity="0.8" promptText="dd/MM/yyy" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       </children>
    </GridPane>
    </children>
