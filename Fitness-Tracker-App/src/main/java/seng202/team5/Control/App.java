@@ -17,7 +17,6 @@ import java.net.URL;
 public class App extends Application {
 
 
-    private static Stage appStage;
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
@@ -40,9 +39,6 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
-
-
-        appStage = primaryStage;
     }
 
 
