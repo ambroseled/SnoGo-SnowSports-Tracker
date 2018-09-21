@@ -33,7 +33,7 @@ public class DataBaseController {
             connection = DriverManager.getConnection(dbString);
             createDatabase();
         } catch (Exception e) {
-            System.out.println("ERROR");
+            System.out.println(e.getLocalizedMessage());
         }
     }
 
