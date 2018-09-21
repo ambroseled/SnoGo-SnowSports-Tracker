@@ -22,7 +22,7 @@ public class UserTest {
     public void testBmiDataBase() {
         DataBaseController db = new DataBaseController();
         User user = db.getUsers().get(0);
-        assertEquals(23.4, user.getBmi(), 0.0);
+        assertEquals(26.16, user.getBmi(), 0.0);
     }
 
 

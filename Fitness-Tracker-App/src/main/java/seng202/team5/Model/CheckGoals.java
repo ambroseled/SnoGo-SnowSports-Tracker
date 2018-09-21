@@ -25,6 +25,7 @@ public class CheckGoals {
             if (!goal.isCompleted() && !goal.isExpired()) {
                 // Checking if the goal is completed as it is currently marked as incomplete
                 if (checkExpired(goal)) {
+                    System.out.println("Goal expired");
                     // Marking the goal as expired
                     goal.setExpired(true);
                     // Updating goal in the database
@@ -36,6 +37,7 @@ public class CheckGoals {
                 } else if (checkGoal(goal, activities, user)) {
                     // Goal is completed
                     // Updating goal in database
+                    System.out.println("Goal completed");
                     goal.setCompleted(true);
                     db.updateGoal(goal);
                     // Creating an alert
@@ -146,7 +148,7 @@ public class CheckGoals {
      * @param goal
      * @return
      */
-    private static boolean checkExpired(Goal goal) {
+    public static boolean checkExpired(Goal goal) {
         Date current = new Date();
         if (goal.getCompletionDate().getTime() < current.getTime()) {
             return true;
