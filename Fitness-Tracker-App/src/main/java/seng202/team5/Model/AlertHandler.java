@@ -42,7 +42,6 @@ public class AlertHandler {
     public static Alert activityAlert(User user) {
         int actCount = user.getActivities().size();
         String date = dateTimeFormat.format(new Date());
-        String message = null;
         Alert actAlert = null;
         if (actCount >= 50) {
             actAlert = new Alert(date, "50 activities uploaded", "Activity count");

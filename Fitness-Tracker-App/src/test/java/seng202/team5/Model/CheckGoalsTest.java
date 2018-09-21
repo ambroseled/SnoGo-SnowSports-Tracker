@@ -233,4 +233,19 @@ public class CheckGoalsTest {
         assertTrue(CheckGoals.checkGoal(goal, activities, user));
     }
 
+
+    @Test
+    public void testTrueExpired() {
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2000", true);
+        assertTrue(CheckGoals.checkExpired(goal));
+    }
+
+
+
+    @Test
+    public void testFalseExpired() {
+        Goal goal = new Goal("test", "Average Heart Rate", 142, "06/07/2100", true);
+        assertFalse(CheckGoals.checkExpired(goal));
+    }
+
 }

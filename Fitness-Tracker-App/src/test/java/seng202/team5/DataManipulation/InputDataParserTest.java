@@ -1,19 +1,21 @@
 package seng202.team5.DataManipulation;
 
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 
+//TODO: Test overlapping time files
+
+/**
+ *
+ */
 public class InputDataParserTest {
 
 
@@ -118,7 +120,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/noStartWithData.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/noStartWithData.csv");
             assertEquals(0, activities.size());
 
         }
@@ -135,7 +137,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/noStartWithActivities.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/noStartWithActivities.csv");
             assertEquals(3, activities.size());
             assertEquals(17, activities.get(0).getDataSet().getDataPoints().size());
         }
@@ -152,7 +154,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/emptyCSV.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/emptyCSV.csv");
             assertEquals(0, activities.size());
         }
         catch (Exception e) {
@@ -168,7 +170,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/randomFile.jpeg");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/randomFile.jpeg");
             assertEquals(0, activities.size());
         }
         catch (Exception e) {
@@ -184,7 +186,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/corruptFile.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/corruptFile.csv");
             assertEquals(2, activities.size());
             assertEquals(17, activities.get(0).getDataSet().getDataPoints().size());
         }
@@ -201,7 +203,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/gapInFile.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/gapInFile.csv");
             assertEquals(4, activities.size());
             assertEquals(13, activities.get(0).getDataSet().getDataPoints().size());
             assertEquals(17, activities.get(1).getDataSet().getDataPoints().size());
@@ -221,7 +223,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/wrongFormats.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/wrongFormats.csv");
             assertEquals(1, activities.size());
             assertEquals(null, activities.get(0).getDataSet().getDataPoints().get(4).getDateTime());
             assertEquals(0, activities.get(0).getDataSet().getDataPoints().get(5).getHeartRate());
@@ -241,7 +243,7 @@ public class InputDataParserTest {
         InputDataParser parser = new InputDataParser();
 
         try {
-            ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/parserTestFiles/missingName.csv");
+            ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/missingName.csv");
             assertEquals(4, activities.size());
             assertEquals("", activities.get(1).getName());
         }

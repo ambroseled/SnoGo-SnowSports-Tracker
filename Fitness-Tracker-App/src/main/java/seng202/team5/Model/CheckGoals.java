@@ -1,18 +1,12 @@
 package seng202.team5.Model;
 
 import seng202.team5.DataManipulation.DataBaseController;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-
-//TODO: Unit tests
-
-
-
 /**
- * This class is used to check if a given goal has been completed by the user.
+ * This class is used to check if goals have been completed or expired.
  */
 public class CheckGoals {
 
@@ -149,9 +143,9 @@ public class CheckGoals {
 
 
     /**
-     *
-     * @param goal
-     * @return
+     * This method checks if a given goal has expired.
+     * @param goal The goal to check.
+     * @return A boolena flag holding if the goal is expired.
      */
     public static boolean checkExpired(Goal goal) {
         Date current = new Date();
