@@ -13,7 +13,12 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
+
+/**
+ * This test class provides unit tests for the DataAnalyser class.
+ */
 public class DataAnalyserTest {
+
 
     private static ArrayList<Activity> activities;
     private static DataAnalyser dataAnalyser = new DataAnalyser();
@@ -152,11 +157,12 @@ public class DataAnalyserTest {
         assertEquals(12.15, dataSet.getTopSpeed(), 0.0);
     }
 
-  @Test
-  /**
-   * Testing the calcAvgSpeed function. This also tests the appendSpeed and
-   * oneSpeed functions as they are used prior to the calcAvgSpeed function.
-   */
+
+    @Test
+    /**
+    * Testing the calcAvgSpeed function. This also tests the appendSpeed and
+    * oneSpeed functions as they are used prior to the calcAvgSpeed function.
+    */
      public void testAvgSpeed() {
          Activity activity = activities.get(1);
         // Getting the dataSet out of the activity
@@ -172,10 +178,9 @@ public class DataAnalyserTest {
     public void testBMI() {
         double height = 1.75;
         double weight = 70;
-        double bmi = dataAnalyser.calcBMI(height, weight);
+        double bmi = DataAnalyser.calcBMI(height, weight);
         assertEquals(22.86, bmi, 0.0);
     }
-
 
 
     @Test
@@ -185,5 +190,6 @@ public class DataAnalyserTest {
     public void testCalories() {
         assertEquals(3.25, activities.get(3).getDataSet().getCaloriesBurned(), 0.0);
     }
+
 
 }

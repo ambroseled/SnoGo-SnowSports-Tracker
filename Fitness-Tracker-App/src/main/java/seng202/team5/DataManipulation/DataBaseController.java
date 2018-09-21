@@ -11,20 +11,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-//TODO: Unit tests
-
-
-
 /**
  * This class is used to interact with the applications database
  */
 public class DataBaseController {
 
+
+    // Variables used in database processing
     private static Connection connection = null;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private static String dbString = "jdbc:sqlite:" + System.getProperty("user.home") + "/SnoGo.db";
     private static final String driver = "org.sqlite.JDBC";
-
 
 
     public DataBaseController() {
@@ -36,7 +33,6 @@ public class DataBaseController {
             System.out.println(e.getLocalizedMessage());
         }
     }
-
 
 
     public static void closeConnection() {
@@ -374,6 +370,29 @@ public class DataBaseController {
 
 
     /**
+     * Removes a passed user from the database. Does nothing if the user is not present in the database.
+     * @param user the user to be removed.
+     */
+    public void removeUser(User user) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the user is in the database
+            if (checkId("User", user.getId())) {
+                // The user is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the remove on the user
+                String query = String.format("DELETE FROM User WHERE ID = %d", user.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing user: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    /**
      * Stores a passed activity in the database.
      * @param toAdd The activity to be stored.
      * @param userId The related user for the activity being stored.
@@ -401,12 +420,36 @@ public class DataBaseController {
     }
 
 
+
+    /**
+     * Removes a passed activity from the database. Does nothing if the activity is not present in the database.
+     * @param activity the user to be removed.
+     */
+    public void removeActivity(Activity activity) {
+        // Try-catch is used to catch any exception that are throw wile executing the update
+        try {
+            // Checking that the activity is in the database
+            if (checkId("Activity", activity.getId())) {
+                // The activity is in the database so can be removed
+                // Creating a statement
+                Statement stmt = connection.createStatement();
+                // Creating and executing the remove on the activity
+                String query = String.format("DELETE FROM Activity WHERE ID = %d", activity.getId());
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when removing activity: " + e.getLocalizedMessage());
+        }
+    }
+
+
     /**
      * Stores a passed DataSet into the database.
      * @param toAdd The DataSet to be stored.
      * @param actId The related activty for the DataSet being stored.
      */
-    public void storeDataSet(DataSet toAdd, int actId) {
+    private void storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataSet is not already in the database and that the activity passed is in the database
@@ -437,7 +480,7 @@ public class DataBaseController {
      * @param toAdd The DataPoint to be stored
      * @param setId The DataSet that the passed DataPoint belongs to.
      */
-    public void storeDatePoint(DataPoint toAdd, int setId) {
+    private void storeDatePoint(DataPoint toAdd, int setId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataPoint is not already in the database and the the DataSet id passed is in the database
@@ -512,9 +555,11 @@ public class DataBaseController {
                 boolean comp = goal.isCompleted();
                 String compDate = goal.getDateString();
                 boolean global = goal.isGlobal();
+                boolean expired = goal.isExpired();
                 // Creating and executing the update to update the user
                 String query = String.format("UPDATE Goal Set Metric = '%s', MetricGoal = %.2f,  Name = '%s', " +
-                        "Completed = %b, CompletionDate = '%s', Global = %b WHERE ID = %d", metric, metricGoal, name, comp, compDate, global, goal.getId());
+                        "Completed = %b, CompletionDate = '%s', Global = %b, Expired = %b WHERE ID = %d", metric,
+                        metricGoal, name, comp, compDate, global, expired, goal.getId());
                 stmt.executeUpdate(query);
             } else {
                 storeGoal(goal, App.getCurrentUser().getId());
@@ -670,7 +715,7 @@ public class DataBaseController {
      * @param table The table to find the id for.
      * @return The found id.
      */
-    public int findId(String table) {
+    private int findId(String table) {
         int id = -1;
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {
@@ -699,7 +744,7 @@ public class DataBaseController {
      * @param toCheck The id to check.
      * @return A boolean holding if the id was found.
      */
-    public boolean checkId(String table, int toCheck) {
+    private boolean checkId(String table, int toCheck) {
         boolean inTable = false;
         // Try-catch is used to catch any exception that are throw wile executing the query
         try {

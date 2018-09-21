@@ -4,6 +4,10 @@ import seng202.team5.Model.Activity;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
+/**
+ *
+ */
 public class DataValidationTest {
 
 
