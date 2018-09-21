@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.DataManipulation.DataValidator;
 import seng202.team5.DataManipulation.InputDataParser;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
@@ -66,6 +68,19 @@ public class TableController {
     public void viewData(String filePath) {
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+
+        for (Activity activity : inputActivities) {
+            DataValidator validator = new DataValidator();
+            validator.validateActivity(activity);
+            //Add in messages to user for when and what data was manipulated
+        }
+
+        DataAnalyser analyser = new DataAnalyser();
+        for (Activity activity : inputActivities) {
+            analyser.analyseActivity(activity);
+        }
+
+
         setActivities(inputActivities);
 
     // Uncomment to enable file loading into database
