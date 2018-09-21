@@ -21,14 +21,6 @@ import java.util.ArrayList;
  */
 public class InputDataParser {
 
-	private DataAnalyser analyser = new DataAnalyser();
-	private DataValidator validator = new DataValidator();
-
-
-	//As user is used in the calculations
-	private static User currentUser;
-
-
 	/**
 	 * This method reads the lines of a csv file.
 	 * @param filePath the path of the chosen file to be read
@@ -65,7 +57,6 @@ public class InputDataParser {
 	 */
 	private ArrayList<Activity> createActivitiesFromLines(ArrayList<String> lines) {
 		ArrayList<Activity> activities = new ArrayList<Activity>();
-
 		boolean activityFound = false;
 
 		for (String line : lines) {
@@ -74,8 +65,14 @@ public class InputDataParser {
 			try {
 				if (lineValues[0].equals("#start")) {
 					activityFound = true;
-					Activity activity = new Activity(lineValues[1]);
-					activities.add(activity);
+					try {
+						Activity activity = new Activity(lineValues[1]);
+						activities.add(activity);
+					}
+					catch (Exception e) {
+						Activity activity = new Activity("");
+						activities.add(activity);
+					}
 				} else {
 					if (activityFound) {
 						DataPoint dataPoint = getDataPointFromLine(lineValues);
@@ -160,25 +157,22 @@ public class InputDataParser {
 	public ArrayList<Activity> parseCSVToActivities(String filePath) {
 		ArrayList<String> lines = readFile(filePath);
 		ArrayList<Activity> activities = createActivitiesFromLines(lines);
-		for (Activity activity : activities) {
-			validator.validateActivity(activity);
-			analyser.analyseActivity(activity);
-			//System.out.println(activity.getDataSet());
-		}
+
 		return activities;
 	}
-/*
+
+	/*
 	public static void main(String[] args) {
 		InputDataParser inputDataParser = new InputDataParser();
-		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("TestFiles/alertGoalTestData.csv");
+		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("TestFiles/validationTestFiles/missingLastValues.csv");
 
-		//System.out.println(activities);
+		DataValidator validator = new DataValidator();
+		for (Activity activity : activities) {
+			System.out.println(activity.getDataSet());
+			validator.validateActivity(activity);
+		}
 	}
 	*/
 
-
-	public static void setCurrentUser(User user) {
-		currentUser = user;
-	}
 
 }

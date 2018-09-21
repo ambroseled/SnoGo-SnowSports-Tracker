@@ -12,14 +12,22 @@ import seng202.team5.Model.DataPoint;
 public class DataValidator {
 
 
-	//TODO: are these used??????
+	//TODO: are these used?????? YESS THEY ARE! :)
 
 	// This attribute is used to keep track of how many points have been deleted
 	private int pointsDeleted = 0;
-	// This attribute keeps track of how many points have been altered
-	private int pointsValidated = 0;
+	/**
+	 * This attribute keeps track of how many data values have been altered
+	 */
+	private int dataValidated = 0;
+	/**
+	 * This attribute is used for determining the changes made to the activity object
+	 */
 	private int initialDataSetSize;
 
+	public int getPointsDeleted() { return pointsDeleted; }
+	public int getDataValidated() { return dataValidated; }
+	public int getInitialDataSetSize() { return initialDataSetSize; }
 
 	/**
 	 * The method uses several helper methods to check the validity of each piece of data, i.e.
@@ -225,7 +233,7 @@ public class DataValidator {
 					long newDateTime = (dateTimeInitial + dateTimeFinal)/2;
 
 					dataPoint.setDateTime(new Date(newDateTime));
-					pointsValidated++;
+					dataValidated++;
 
 					nextValidPointFound = true;
 					break;
@@ -272,7 +280,7 @@ public class DataValidator {
 					int newHeartRate = (heartRateInitial + heartRateFinal)/2;
 
 					dataPoint.setHeartRate(newHeartRate);
-					pointsValidated++;
+					dataValidated++;
 
 					nextValidPointFound = true;
 					break;
@@ -282,6 +290,7 @@ public class DataValidator {
 			if (!nextValidPointFound) {
 				int newHeartRate = previousDataPoint.getHeartRate();
 				dataPoint.setHeartRate(newHeartRate);
+				dataValidated++;
 			}
 
 
@@ -320,7 +329,7 @@ public class DataValidator {
 					double newLatitude = (latitudeInitial + latitudeFinal)/2;
 
 					dataPoint.setLatitude(newLatitude);
-					pointsValidated++;
+					dataValidated++;
 
 					nextValidPointFound = true;
 					break;
@@ -330,6 +339,7 @@ public class DataValidator {
 			if (!nextValidPointFound) {
 				double newLatitude = previousDataPoint.getLatitude();
 				dataPoint.setLatitude(newLatitude);
+				dataValidated++;
 			}
 
 		}
@@ -367,7 +377,7 @@ public class DataValidator {
 					double newLongitude = (longitudeInitial + longitudeFinal)/2;
 
 					dataPoint.setLongitude(newLongitude);
-					pointsValidated++;
+					dataValidated++;
 
 					nextValidPointFound = true;
 					break;
@@ -377,6 +387,7 @@ public class DataValidator {
 			if (!nextValidPointFound) {
 				double newLongitude = previousDataPoint.getLongitude();
 				dataPoint.setLongitude(newLongitude);
+				dataValidated++;
 			}
 
 		}
@@ -413,7 +424,7 @@ public class DataValidator {
 					double newElevation = (elevationInitial + elevationFinal)/2;
 
 					dataPoint.setElevation(newElevation);
-					pointsValidated++;
+					dataValidated++;
 
 					nextValidPointFound = true;
 					break;
@@ -423,6 +434,7 @@ public class DataValidator {
 			if (!nextValidPointFound) {
 				double newElevation = previousDataPoint.getElevation();
 				dataPoint.setElevation(newElevation);
+				dataValidated++;
 			}
 
 		}
@@ -437,8 +449,8 @@ public class DataValidator {
 	 * @param activities the activities on which to test against
 	 * @return boolean value of whether the activity is unique or not
 	 */
-	public boolean isActivityDuplicate(Activity activity, ArrayList<Activity> activities) {
 
+/*	public boolean isActivityDuplicate(Activity activty, ArrayList<Activity> activities) {
 		boolean isActivityUnique = true;
 
 		for (Activity otherActivity : activities) {
@@ -447,5 +459,6 @@ public class DataValidator {
 
 		return isActivityUnique;
 	}
+*/
 }
 
