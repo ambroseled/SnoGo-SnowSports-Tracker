@@ -45,7 +45,7 @@ public class AlertHandlerTest {
 
     @Test
     public void testCountAlertNull() {
-        ArrayList<Activity> activities = parser.parseCSVToActivities("TestFiles/dataAnalysisTests.csv");
+        ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataAnalysisTests.csv");
         user.setActivities(activities);
         Alert countAlert = AlertHandler.activityAlert(user);
         assertNull(countAlert);

@@ -29,7 +29,7 @@ public class DataAnalyserTest {
         User user = new User("Test", 25, 1.8, 75.8, date);
         dataAnalyser.setCurrentUser(user);
         InputDataParser parser = new InputDataParser();
-        activities = parser.parseCSVToActivities("TestFiles/dataAnalysisTests.csv");
+        activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataAnalysisTests.csv");
     }
 
 

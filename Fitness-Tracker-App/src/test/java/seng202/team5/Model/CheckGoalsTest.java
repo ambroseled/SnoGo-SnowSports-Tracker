@@ -24,7 +24,7 @@ public class CheckGoalsTest {
      */
 
     public void before() {
-        user.setActivities(parser.parseCSVToActivities("TestFiles/alertGoalTestData.csv"));
+        user.setActivities(parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv"));
     }
 
 

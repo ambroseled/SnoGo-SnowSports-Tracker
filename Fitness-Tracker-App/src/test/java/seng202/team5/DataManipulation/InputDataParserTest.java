@@ -26,7 +26,7 @@ public class InputDataParserTest {
     @BeforeClass
     public static void beforeAll() {
         InputDataParser parser = new InputDataParser();
-        activities = parser.parseCSVToActivities("TestFiles/parserTestData.csv");
+        activities = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestData.csv");
     }
 
 
