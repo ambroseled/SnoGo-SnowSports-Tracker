@@ -39,6 +39,10 @@
     -fx-background-color: linear-gradient(to top, #00FFEC, #00B9FF);
 }
 
+.backGround-blue {
+    -fx-background-color: #0078FF;
+}
+
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
@@ -75,7 +79,7 @@
 }
 
 .scroll-bar .track{
-    -fx-background-color: linear-gradient(to top, #00FFEC, #00B9FF);
+    -fx-background-color: linear-gradient(to top, #0078FF, #0078FF);
     -fx-padding: 0px;
 }
 

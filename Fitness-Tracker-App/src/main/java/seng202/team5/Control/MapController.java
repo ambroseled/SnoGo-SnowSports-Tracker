@@ -89,10 +89,15 @@ public class MapController implements Initializable {
      * Called by a mouse click on the activity table. Shows the selected activity on the map
      */
     public void showData() {
-        Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
-        if (activity != null) {
-            displayAct(activity);
+        try {
+            Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+            if (activity != null) {
+                displayAct(activity);
+            }
+        } catch (netscape.javascript.JSException e) {
+            ErrorController.displayError("Internet connection is need to view map");
         }
+
     }
 
 
