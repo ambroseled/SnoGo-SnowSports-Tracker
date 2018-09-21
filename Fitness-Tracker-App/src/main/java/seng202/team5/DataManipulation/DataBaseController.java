@@ -35,7 +35,7 @@ public class DataBaseController {
             System.out.println("Error opening connection to database: " + e.getLocalizedMessage());
         }
     }
-
+ 
 
     /**
      * Closes the connections to the database
