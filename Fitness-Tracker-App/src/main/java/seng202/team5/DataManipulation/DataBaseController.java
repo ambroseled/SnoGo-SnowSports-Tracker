@@ -30,7 +30,7 @@ public class DataBaseController {
         // Try-catch is used to catch any exceptions that throw while creating connection to the database
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:dataBase.sqlite");
+            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/dataBase.sqlite");
         } catch (Exception e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error connecting to database");
