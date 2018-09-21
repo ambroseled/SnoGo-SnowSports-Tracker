@@ -18,8 +18,7 @@ import static java.lang.Math.abs;
 public class DataAnalyser {
 
     // Getting the current user
-    DataBaseController db = new DataBaseController();
-    private User currentUser = db.getUsers().get(0);//App.getCurrentUser();
+    private User currentUser = App.getCurrentUser();
 
 
     /**

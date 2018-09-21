@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.DataManipulation.dataBase2;
 import seng202.team5.Model.User;
 import java.net.URL;
 
@@ -23,7 +22,7 @@ public class App extends Application {
     private static DataBaseController db = new DataBaseController();
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = db.getUsers().get(0);
+    private static User currentUser = setUser();
     ////////////
 
 
@@ -40,6 +39,14 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
+    }
+
+
+    private static User setUser() {
+        db.openConnection();
+        User user = db.getUsers().get(0);
+        db.closeConnection();
+        return user;
     }
 
 

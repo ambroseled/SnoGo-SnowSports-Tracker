@@ -41,13 +41,12 @@ public class DataBaseController {
     public static void connectDB(){
         try {
             Class.forName(driver);
-            //SQLiteConfig sqlConfig = configureSQl();
+            SQLiteConfig sqlConfig = configureSQl();
             connection = DriverManager.getConnection(dbString);
             createDatabase();
         } catch (Exception e) {
             System.out.println("ERROR");
         }
-
     }
 
 
@@ -63,6 +62,15 @@ public class DataBaseController {
 
     }
 
+    public static void openConnection() {
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(dbString);
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+    }
+
 
     private static void executeStmt(String query) {
         try {
@@ -71,7 +79,6 @@ public class DataBaseController {
         } catch (SQLException e) {
 
         }
-
     }
 
 
@@ -195,7 +202,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error with the database");
+            ErrorController.displayError("User error with the database");
         }
         // Returning the ArrayList of user
         return users;
@@ -238,7 +245,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error querying the database");
+            ErrorController.displayError("Error activity database");
         }
         // Returning the ArrayList of activities
         return activities;
@@ -259,7 +266,6 @@ public class DataBaseController {
                 Statement stmt = connection.createStatement();
                 String query = "SELECT * FROM DataSet WHERE Activity=" + actID;
                 ResultSet set = stmt.executeQuery(query);
-
                 // Getting the information about the DataSet
                 int setId = set.getInt("ID");
                 double topSpeed = set.getInt("TopSpeed");
@@ -279,7 +285,7 @@ public class DataBaseController {
             return null;
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error querying the database");
+            ErrorController.displayError("Error dataSet database");
             return null;
         }
     }

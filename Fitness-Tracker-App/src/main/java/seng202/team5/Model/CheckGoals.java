@@ -21,6 +21,7 @@ public class CheckGoals {
      */
     public static void markGoals(User user, DataBaseController db, ArrayList<Activity> activities) {
         // Looping over the users goals
+        db.openConnection();
         for (Goal goal: user.getGoals()) {
             if (!goal.isCompleted() && !goal.isExpired()) {
                 // Checking if the goal is completed as it is currently marked as incomplete
@@ -45,6 +46,7 @@ public class CheckGoals {
                 }
             }
         }
+        db.closeConnection();
     }
 
 
