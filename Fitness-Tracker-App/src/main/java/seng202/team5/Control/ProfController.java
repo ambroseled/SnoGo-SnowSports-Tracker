@@ -145,7 +145,7 @@ public class ProfController {
      */
     private boolean checkName(String name) {
         // Checking the name is of valid length and is all alphabetical
-        if (name.length() > 4 && name.length() < 30 && name.matches("[a-zA-Z]+")) {
+        if (name.length() > 4 && name.length() < 30) {
             return true;
         } else {
             return false;
