@@ -25,8 +25,7 @@ public class AlertController {
     @FXML
     private TableView alertTable;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
-    // Getting database controller and current user
-    private User currentUser = App.getCurrentUser();
+    // Getting database controller
     private DataBaseController db = App.getDb();
 
 
@@ -38,10 +37,10 @@ public class AlertController {
      */
     public void viewData() {
         // Checking if the table needs to be refilled
-        if (alertTable.getItems().size() != currentUser.getAlerts().size()) {
+        if (alertTable.getItems().size() != App.getCurrentUser().getAlerts().size()) {
             alertTable.getItems().clear();
             // Getting the users alerts
-            alerts.addAll(db.getAlerts(currentUser.getId()));
+            alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
             // Setting table columns
             nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
             desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
@@ -69,7 +68,7 @@ public class AlertController {
             alertTable.getItems().clear();
         }
         // Refilling the table
-        alerts.addAll(db.getAlerts(currentUser.getId()));
+        alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
         alertTable.setItems(alerts);
 
     }
@@ -86,7 +85,7 @@ public class AlertController {
         // Removing the alert from the user and the database
         if (alert != null) {
             db.removeAlert(alert);
-            currentUser.setAlerts(db.getAlerts(currentUser.getId()));
+            App.getCurrentUser().setAlerts(db.getAlerts(App.getCurrentUser().getId()));
             // Refreshing the data in teh table
             refreshData();
         }

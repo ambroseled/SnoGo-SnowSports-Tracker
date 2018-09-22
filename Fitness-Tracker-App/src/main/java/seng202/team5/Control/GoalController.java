@@ -57,7 +57,6 @@ public class GoalController {
     private CheckBox globalCheck;
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     // Getting database controller and current user
-    private User currentUser = App.getCurrentUser();
     private DataBaseController db = App.getDb();
 
 
@@ -69,11 +68,11 @@ public class GoalController {
      */
     public void viewData() {
         // Checking if the data in the table is current
-        if (goalTable.getItems().size() != db.getGoals(currentUser.getId()).size()) {
+        if (goalTable.getItems().size() != db.getGoals(App.getCurrentUser().getId()).size()) {
             goalTable.getItems().clear();
             goals.clear();
             // Getting the users goals
-            goals.addAll(db.getGoals(currentUser.getId()));
+            goals.addAll(db.getGoals(App.getCurrentUser().getId()));
             // Setting up the tables columns
             nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             metricCol.setCellValueFactory(new PropertyValueFactory<>("metric"));
@@ -239,23 +238,23 @@ public class GoalController {
         // Creating the new Goal
         Goal newGoal = new Goal(name, metric, value, dateString, global);
         // Checking if any alerts need to be created for the new goal
-        newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
+        newGoal.setCompleted(CheckGoals.checkGoal(newGoal, App.getCurrentUser().getActivities(), App.getCurrentUser()));
         newGoal.setExpired(CheckGoals.checkExpired(newGoal));
         if (newGoal.isExpired()) {
             // Creating an expired goal alert
             Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
-            db.storeAlert(alert, currentUser.getId());
-            currentUser.addAlert(alert);
+            db.storeAlert(alert, App.getCurrentUser().getId());
+            App.getCurrentUser().addAlert(alert);
         } else if (newGoal.isCompleted()) {
             // Creating a completed goal alert
             Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
-            db.storeAlert(alert, currentUser.getId());
-            currentUser.addAlert(alert);
+            db.storeAlert(alert, App.getCurrentUser().getId());
+            App.getCurrentUser().addAlert(alert);
         }
         // Storing the goal in the database
-        db.storeGoal(newGoal, currentUser.getId());
+        db.storeGoal(newGoal, App.getCurrentUser().getId());
         // Adding the goal to the user
-        currentUser.addGoal(newGoal);
+        App.getCurrentUser().addGoal(newGoal);
         // Resetting all the entry fields and check boxes
         nameCheck.setSelected(false);
         metricCheck.setSelected(false);
@@ -319,7 +318,7 @@ public class GoalController {
         // Removing the goal from the database and the user
         if (goal != null) {
             db.removeGoal(goal);
-            currentUser.setGoals(db.getGoals(currentUser.getId()));
+            App.getCurrentUser().setGoals(db.getGoals(App.getCurrentUser().getId()));
             // Refreshing the goal table
             viewData();
         }

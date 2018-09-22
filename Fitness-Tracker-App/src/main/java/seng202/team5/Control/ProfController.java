@@ -36,17 +36,17 @@ public class ProfController {
     private DataBaseController db = App.getDb();
     // Setting the date format for the users birth date
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private boolean editing = false;
 
 
     @FXML
     /**
-     * Called by a mouse movement on teh anchor pane, this method displays all of the users
+     * Called by a mouse movement on the anchor pane, this method displays all of the users
      * personal information.
      */
     public void viewProfile() {
         // Checking if all entry fields are empty
-        if (nameText.getText().isEmpty() && ageText.getText().isEmpty() && heightText.getText().isEmpty() &&
-                weightText.getText().isEmpty() && bmiText.getText().isEmpty() && dateText.getText().isEmpty())
+        if (!nameText.getText().equals(App.getCurrentUser().getName()) && !editing)
         {
             // Setting all entry fields to the users current personal information
             nameText.setText(App.getCurrentUser().getName());
@@ -83,6 +83,7 @@ public class ProfController {
             db.updateUser(App.getCurrentUser());
             // Disabling update button as data in entry fields is the same as the user object
             updateButton.setDisable(true);
+            editing = false;
         } catch (Exception e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error updating user information");
@@ -97,6 +98,7 @@ public class ProfController {
      * the updateButton is enabled but if the data is invalid the button is disabled.
      */
     public void checkProfile() {
+        editing = true;
         // Getting all information from entry fields
         String name = nameText.getText();
         String weight = weightText.getText();

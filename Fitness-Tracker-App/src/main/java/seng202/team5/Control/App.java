@@ -2,9 +2,11 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.User;
@@ -17,12 +19,26 @@ import java.net.URL;
 public class App extends Application {
 
 
+
+    @FXML
+    private Tab dataTab;
+    @FXML
+    private Tab statsTab;
+    @FXML
+    private Tab mapTab;
+    @FXML
+    private Tab alertsTab;
+    @FXML
+    private Tab goalsTab;
+    @FXML
+    private Tab profTab;
+
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser = db.getUsers().get(0);
+    private static User currentUser;
     ////////////
 
 
@@ -50,6 +66,27 @@ public class App extends Application {
      */
     public void stop(){
         db.closeConnection();
+    }
+
+
+
+    public void enableTabs() {
+        dataTab.setDisable(false);
+        statsTab.setDisable(false);
+        mapTab.setDisable(false);
+        alertsTab.setDisable(false);
+        goalsTab.setDisable(false);
+        profTab.setDisable(false);
+    }
+
+
+    public void disableTabs() {
+        dataTab.setDisable(true);
+        statsTab.setDisable(true);
+        mapTab.setDisable(true);
+        alertsTab.setDisable(true);
+        goalsTab.setDisable(true);
+        profTab.setDisable(true);
     }
 
 

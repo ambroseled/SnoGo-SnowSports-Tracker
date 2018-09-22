@@ -249,7 +249,7 @@ public class UserController {
         try {
             String finalName = newUserName.getText();
             double finalWeight = Double.parseDouble(newUserWeight.getText());
-            double finalHeight = Double.parseDouble(newUserHeight.getText());
+            double finalHeight = Double.parseDouble(newUserHeight.getText()) / 100;
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date finalBirth = dateTimeFormat.parse(newUserBirth.getText());
             User user = new User(finalName, calculatedAge, finalHeight, finalWeight, finalBirth);

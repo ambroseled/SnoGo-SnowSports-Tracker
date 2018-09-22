@@ -59,9 +59,9 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="newUserName" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <TextField fx:id="newUserHeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <TextField fx:id="newUserName" promptText="Enter name" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="newUserHeight" onKeyTyped="#restrictNumbers" promptText="Enter height" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" promptText="Enter Weight" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
@@ -73,7 +73,7 @@
                </font>
             </Label>
             <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField fx:id="newUserBirth" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <TextField fx:id="newUserBirth" promptText="Enter birth date: dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="1" />
             <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />

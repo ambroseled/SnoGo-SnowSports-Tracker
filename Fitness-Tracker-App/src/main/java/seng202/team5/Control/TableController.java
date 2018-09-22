@@ -30,7 +30,6 @@ public class TableController {
     private ArrayList<Activity> activities;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
-    private User currentUser = App.getCurrentUser();
 
 
     /**
@@ -50,8 +49,8 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        if (accordion.getPanes().size() != currentUser.getActivities().size()) {
-            ArrayList<Activity> inputActivities = currentUser.getActivities();
+        if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
+            ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
             setActivities(inputActivities);
             initialise();
         }
@@ -81,7 +80,7 @@ public class TableController {
         }
 
         DataAnalyser analyser = new DataAnalyser();
-        analyser.setCurrentUser(currentUser);
+        analyser.setCurrentUser(App.getCurrentUser());
         for (Activity activity : inputActivities) {
             analyser.analyseActivity(activity);
         }
@@ -89,7 +88,7 @@ public class TableController {
         //Tests if activity is equal to any others
         for (int i = 0; i < inputActivities.size(); i++) {
             boolean notDuplicate = true;
-            for (Activity activity: currentUser.getActivities()) {
+            for (Activity activity: App.getCurrentUser().getActivities()) {
                 if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
                     String message = "Activity "+inputActivities.get(i).getName();
                     message += " is a duplicate of existing activity\n";
@@ -101,19 +100,19 @@ public class TableController {
                 }
             }
             if (notDuplicate) {
-                db.storeActivity(inputActivities.get(i), currentUser.getId());
-                currentUser.addActivity(inputActivities.get(i));
+                db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
+                App.getCurrentUser().addActivity(inputActivities.get(i));
             }
         }
 
         setActivities(inputActivities);
 
 
-        CheckGoals.markGoals(currentUser, App.getDb(), inputActivities);
-        Alert countAlert = AlertHandler.activityAlert(currentUser);
+        CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
+        Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
         if (countAlert != null) {
-            db.storeAlert(countAlert, currentUser.getId());
-            currentUser.addAlert(countAlert);
+            db.storeAlert(countAlert, App.getCurrentUser().getId());
+            App.getCurrentUser().addAlert(countAlert);
         }
 
         initialise();

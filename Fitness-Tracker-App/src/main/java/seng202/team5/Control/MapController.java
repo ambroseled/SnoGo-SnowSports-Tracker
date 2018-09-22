@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  * Controller class for the mapView.fxml class.
- * Displays the activities of a user onto a map (using the Google Maps API).
+ * Displays the activities of a App.getCurrentUser() onto a map (using the Google Maps API).
  */
 public class MapController {
 
@@ -30,7 +30,6 @@ public class MapController {
 
     private ArrayList<Activity> activities;
     private WebEngine webEngine;
-    private User user = App.getCurrentUser();
     private DataBaseController db = App.getDb();
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
 
@@ -78,12 +77,12 @@ public class MapController {
     @FXML
     /**
      * Called by a mouse movement on the anchor pane. Fills the table with all of
-     * the users activities if the number of activities in the table is not equal
-     * to the number of activities the user has.
+     * the App.getCurrentUser()s activities if the number of activities in the table is not equal
+     * to the number of activities the App.getCurrentUser() has.
      */
     public void fillTable() {
-        if (actTable.getItems().size() != user.getActivities().size()) {
-            activities = db.getActivities(user.getId());
+        if (actTable.getItems().size() != App.getCurrentUser().getActivities().size()) {
+            activities = db.getActivities(App.getCurrentUser().getId());
             actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             activityNames.addAll(activities);
             actTable.setItems(activityNames);

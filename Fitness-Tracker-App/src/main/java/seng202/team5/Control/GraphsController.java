@@ -69,7 +69,6 @@ public class GraphsController{
     private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
-    private User currentUser = App.getCurrentUser();
 
 
     /**
@@ -297,7 +296,7 @@ public class GraphsController{
         }
         resetData();
 
-        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
         setActivities(inputActivities);
 
         ObservableList<Activity> activityNames = FXCollections.observableArrayList();
@@ -352,7 +351,7 @@ public class GraphsController{
      * Creates the lineCharts for all activities
      */
     private void setOverallStats() {
-        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
+        ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
         setActivities(inputActivities);
 
         XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance");
