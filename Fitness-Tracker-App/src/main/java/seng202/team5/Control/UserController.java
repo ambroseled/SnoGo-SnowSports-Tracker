@@ -277,11 +277,11 @@ public class UserController {
         }
     }
 
-
-/*
-    private void setCurrentUser(){
+    @FXML
+    private void setSelectedUser(){
+        App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
+        System.out.println(App.getCurrentUser());
     }
-*/
 
 
     private void clearEntries(){
