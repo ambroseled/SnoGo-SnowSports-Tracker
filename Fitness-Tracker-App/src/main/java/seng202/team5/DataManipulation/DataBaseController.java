@@ -106,7 +106,7 @@ public class DataBaseController {
                     ");";
 
 
-            String goalTable = "CREATE TABLE IF NOT EXISTS Goal (\n" +
+            String goalTable = "UPDATE TABLE Goal (\n" +
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                     "Metric STRING NOT NULL,\n" +
                     "MetricGoal DOUBLE NOT NULL,\n" +
@@ -115,7 +115,7 @@ public class DataBaseController {
                     "CompletionDate STRING NOT NULL,\n" +
                     "Global BOOLEAN NOT NULL,\n" +
                     "EXPIRED BOOLEAN NOT NULL,\n" +
-                    "User INTEGER REFERENCES Activity (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
+                    "User INTEGER REFERENCES User (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL" +
                     ");";
 
 
