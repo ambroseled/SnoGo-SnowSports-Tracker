@@ -57,8 +57,11 @@ public class DataBaseController {
 
     public void dropDb() {
         try {
-            String sql = "DROP DATABASE SnoGo";
+            String sql = "ALTER TABLE Goal DROP FOREIGN KEY User";
             Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            sql = "ALTER TABLE Goal ADD FOREIGN KEY User INTEGER REFERENCES User (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL";
+            stmt = connection.createStatement();
             stmt.executeUpdate(sql);
         } catch (Exception e) {
 

@@ -37,7 +37,6 @@ public class DataBaseControllerTest {
 
     @Test
     public void testUserFunc() {
-        db.dropDb();
         db.storeNewUser(user);
         ArrayList<User> users = db.getUsers();
         User testUser = users.get(users.size() - 1);
@@ -139,12 +138,11 @@ public class DataBaseControllerTest {
 
     @Test
     public void testGoalFunc() {
+        db.dropDb();
         Goal goal = new Goal("test goal", "test", 5, "08/08/2018", false);
         db.storeNewUser(user);
         db.storeGoal(goal, user.getId());
         ArrayList<Goal> goals = db.getGoals(user.getId());
-        System.out.println(goals.get(0));
-        System.out.println("size " + goals.size());
 
         assertEquals(goal.getName(), goals.get(goals.size() - 1).getName());
 
