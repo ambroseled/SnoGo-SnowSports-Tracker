@@ -55,21 +55,6 @@ public class DataBaseController {
     }
 
 
-    public void dropDb() {
-        try {
-            String sql = "ALTER TABLE Goal DROP FOREIGN KEY User";
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(sql);
-            sql = "ALTER TABLE Goal ADD FOREIGN KEY User INTEGER REFERENCES User (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL";
-            stmt = connection.createStatement();
-            stmt.executeUpdate(sql);
-        } catch (Exception e) {
-
-        }
-
-    }
-
-
     /**
      *  Creates a new data for the application if it does not already exist and creates the databases structure (tables
      *  and attributes). The data is stored in the project's directory and consists of four tables:
