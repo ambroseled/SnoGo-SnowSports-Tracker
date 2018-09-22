@@ -91,6 +91,10 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
     public String getName() {
         return name;
