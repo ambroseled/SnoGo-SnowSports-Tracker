@@ -43,7 +43,7 @@
             <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <WebView fx:id="webView" opacity="0.9" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <WebView fx:id="webView" opacity="0.8" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2" />
             <TableView fx:id="actTable" onMouseReleased="#showData" opacity="0.75" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="6" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <columns>
                 <TableColumn fx:id="actCol" prefWidth="243.41497802734375" text="Activities" />
