@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -43,7 +44,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="userTable" editable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" opacity="0.8" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
               <columns>
                 <TableColumn fx:id="userCol" prefWidth="284.0" text="User" />
               </columns>
@@ -63,16 +64,21 @@
             <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date (dd/mm/yyyy)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (m)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight (kg)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Button fx:id="commitDetails" mnemonicParsing="false" onMouseClicked="#detailValidator" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Button fx:id="commitDetails" mnemonicParsing="false" onAction="#checkDuplicates" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label fx:id="detailConfirm" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#detailValidator" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <TextField fx:id="newUserBirth" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Button>
+            <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>

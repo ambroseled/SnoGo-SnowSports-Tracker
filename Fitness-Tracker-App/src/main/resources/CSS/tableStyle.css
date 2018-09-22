@@ -34,3 +34,7 @@
     -fx-text-fill: white;
 }
 
+.userTable {
+
+    -fx-translate-x: 40;
+}

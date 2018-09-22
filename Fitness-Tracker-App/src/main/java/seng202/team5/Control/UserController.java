@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.User;
 import java.text.DateFormat;
@@ -41,6 +42,12 @@ public class UserController {
     private TextField newUserHeight;
     @FXML
     private TextField newUserWeight;
+    @FXML
+    private Button removeButton;
+    @FXML
+    private Button selectButton;
+
+    private String heightString;
 
     private int calculatedAge;
 
@@ -54,10 +61,12 @@ public class UserController {
 
     private ObservableList<User> userNames = FXCollections.observableArrayList();
 
-    // TODO Unlock database (Ambrose -> ERSKINE)
-    // TODO Change currently selected user upon click (Theoretically simple but to my knowledge javaFX tableview doesn't allow this)
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+
+
     // TODO Duplicate detection (Need access to database -> ERSKINE)
-    // TODO User removal (Need access to database -> ERSKINE)
+
 
 
     @FXML
@@ -76,6 +85,13 @@ public class UserController {
 
     }
 
+    private void refreshTable(){
+        users = db.getUsers();
+        userTable.getItems().clear();
+        userCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        userNames.addAll(users);
+        userTable.setItems(userNames);
+    }
 
     /**
      * Called by the fillTable() method; this sets the current text fields to be focused on allowing a singular reference
@@ -104,7 +120,7 @@ public class UserController {
     private void confirmLabel() {
         detailConfirm.setVisible(true);
         commitDetails.setVisible(false);
-        commitDetails.setDisable(true);
+        detailConfirm.setDisable(true);
         confirmUser.setDisable(false);
         confirmUser.setVisible(true);
     }
@@ -150,18 +166,45 @@ public class UserController {
      */
     private void detailValidator() {
         try {
+            double heightConverted = (Double.parseDouble(newUserHeight.getText()) / 100);
+            heightString = Double.toString(heightConverted);
+            calcAge(newUserBirth.getText());
             if (checkName(newUserName.getText()) && detailChecker.checkWeight(newUserWeight.getText()) &&
-                    detailChecker.checkHeight(newUserHeight.getText())) {
-                calcAge(newUserBirth.getText());
-                System.out.println(calcAge(newUserBirth.getText()));
-                confirmLabel();
-                createNewUser();
-            }
+                    detailChecker.checkHeight(heightString) && (calculatedAge < 100)) {
+            confirmLabel();
+        }
         } catch(NumberFormatException e){
-
+            ErrorController.displayError("Invalid user syntax!");
         }
     }
 
+    @FXML
+    private void checkDuplicates(){
+        boolean duplicate = false;
+        try {
+            for (User user : db.getUsers()) {
+                String birthString = dateTimeFormat.format(user.getBirthDate());
+                if ((user.getName().equals(newUserName.getText())) && (birthString.equals(newUserBirth.getText()))) {
+                    duplicate = true;
+                }
+            }
+            if (duplicate == true) {
+                duplicateAlert();
+                ErrorController.displayError("Duplicate Users!");
+            } else {
+                detailValidator();
+            }
+        } catch (NumberFormatException e){
+            ErrorController.displayError("Error with duplicate check");
+        }
+    }
+
+
+
+    private void duplicateAlert(){
+        detailConfirm.setVisible(true);
+        detailConfirm.setText("WARNING DUPLICATE USER!");
+    }
 
     @FXML
     /**
@@ -169,9 +212,10 @@ public class UserController {
      * allowing the process to restart.
      */
     private void resetState(){
+        detailConfirm.setText("Check all details are correct!");
         detailConfirm.setVisible(false);
         commitDetails.setVisible(true);
-        commitDetails.setDisable(false);
+        detailConfirm.setDisable(false);
         confirmUser.setDisable(true);
         confirmUser.setVisible(false);
     }
@@ -210,11 +254,42 @@ public class UserController {
             Date finalBirth = dateTimeFormat.parse(newUserBirth.getText());
             User user = new User(finalName, calculatedAge, finalHeight, finalWeight, finalBirth);
             db.storeNewUser(user);
+            refreshTable();
+            clearEntries();
         } catch(Exception e) {
-
+            ErrorController.displayError("Failed to create new user");
         }
     }
 
+    @FXML
+    private void deleteUser(){
+        User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
+        db.removeUser(selectedUser);
+        refreshTable();
+
+    }
+
+    @FXML
+    private void checkUserSelected(){
+        if (userTable.getSelectionModel().getSelectedItem() != null){
+            removeButton.setDisable(false);
+            selectButton.setDisable(false);
+        }
+    }
+
+    @FXML
+    private void setSelectedUser(){
+        App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
+        System.out.println(App.getCurrentUser());
+    }
+
+
+    private void clearEntries(){
+        newUserBirth.clear();
+        newUserWeight.clear();
+        newUserHeight.clear();
+        newUserName.clear();
+    }
 
 }
 

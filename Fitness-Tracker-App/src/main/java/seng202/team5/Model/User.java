@@ -28,7 +28,7 @@ public class User {
     private ArrayList<Goal> goals = new ArrayList<>();
 
     // The date format used to parse the birth date string
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/mm/yyyy");
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
 
