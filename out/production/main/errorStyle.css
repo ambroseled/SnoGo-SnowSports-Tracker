@@ -1,0 +1,28 @@
+.error {
+
+    -fx-background-color: rgb(0, 119, 193);
+}
+
+.error > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.error > *.button-bar > *.container{
+    -fx-background-color: rgb(0, 119, 193);
+}
+.error > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.error > *.header-panel{
+    -fx-background-color: #1da5f9;
+}
+.error > *.header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-text-fill: white;
+}

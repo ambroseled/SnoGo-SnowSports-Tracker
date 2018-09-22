@@ -175,7 +175,7 @@ public class ProfController {
      * @param value The weight value to be checked.
      * @return A boolean flag holding the result of the check.
      */
-    private boolean checkWeight(String value) {
+    boolean checkWeight(String value) {
         // Trying to parse string to double returning if the parse was successful
         try {
             double x = Double.parseDouble(value);
@@ -197,7 +197,7 @@ public class ProfController {
      * @param height The height value to be checked.
      * @return A boolean flag holding the result of the check.
      */
-    private boolean checkHeight(String height) {
+    boolean checkHeight(String height) {
         // Trying to parse string to double returning if the parse was successful
         try {
             // Checking height is within a reasonable range
@@ -219,7 +219,7 @@ public class ProfController {
      * @param date The date string to be checked.
      * @return A boolean flag holding the result of the check.
      */
-    private boolean checkDate(String date, int newAge) {
+    boolean checkDate(String date, int newAge) {
         // Trying to parse string to double returning if the parse was successful
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
