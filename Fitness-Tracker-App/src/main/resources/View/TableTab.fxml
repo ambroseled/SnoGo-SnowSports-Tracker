@@ -44,11 +44,6 @@
            <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
        </rowConstraints>
        <children>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Activities" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <font>
-               <Font size="38.0" />
-            </font>
-         </Text>
          <ScrollPane hbarPolicy="NEVER" opacity="0.75" prefHeight="488.0" prefWidth="655.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
             <content>
                <AnchorPane opacity="0.75" prefHeight="485.0" prefWidth="757.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css">
