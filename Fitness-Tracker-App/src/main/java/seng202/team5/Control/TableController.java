@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * This class handles the controls for the data view tab of the application. It
- * handles the display of raw data as well as the loading of files.
+ * This class handles the controls for the data view tab of the application.
+ * It handles the display of raw data as well as the loading of files.
  */
 public class TableController {
 
