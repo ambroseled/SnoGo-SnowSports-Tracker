@@ -62,6 +62,11 @@ public class App extends Application {
     }
 
 
+    public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
+
     /**
      * Gets the dataBaseController which is used by other controllers of the application
      * @return The current DataBaseController

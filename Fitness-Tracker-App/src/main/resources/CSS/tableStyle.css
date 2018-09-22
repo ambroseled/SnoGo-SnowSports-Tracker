@@ -22,8 +22,8 @@
 .table-row-cell:selected {
     -fx-background-color: whitesmoke;
     -fx-text-background-color:  #0400FF;
-
 }
+
 
 
 .scroll-bar:horizontal .thumb,

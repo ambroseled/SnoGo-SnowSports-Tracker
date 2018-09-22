@@ -67,6 +67,7 @@ public class UserController {
     private void fillTable() {
         users = db.getUsers();
         if (userTable.getItems().size() != users.size()) {
+            userTable.getItems().clear();
             userCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             userNames.addAll(users);
             userTable.setItems(userNames);
@@ -209,7 +210,6 @@ public class UserController {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date finalBirth = dateTimeFormat.parse(newUserBirth.getText());
             User user = new User(finalName, calculatedAge, finalHeight, finalWeight, finalBirth);
-            DataBaseController db = new DataBaseController();
             db.storeNewUser(user);
         } catch(Exception e) {
 

@@ -238,19 +238,19 @@ public class GoalController {
         boolean global = globalCheck.isSelected();
         // Creating the new Goal
         Goal newGoal = new Goal(name, metric, value, dateString, global);
-        // Checking if the goal has been completed
+        // Checking if any alerts need to be created for the new goal
         newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
         newGoal.setExpired(CheckGoals.checkExpired(newGoal));
         if (newGoal.isExpired()) {
+            // Creating an expired goal alert
             Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
             db.storeAlert(alert, currentUser.getId());
             currentUser.addAlert(alert);
-        } else  {
-            if (newGoal.isCompleted()) {
-                Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
-                db.storeAlert(alert, currentUser.getId());
-                currentUser.addAlert(alert);
-            }
+        } else if (newGoal.isCompleted()) {
+            // Creating a completed goal alert
+            Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
+            db.storeAlert(alert, currentUser.getId());
+            currentUser.addAlert(alert);
         }
         // Storing the goal in the database
         db.storeGoal(newGoal, currentUser.getId());
@@ -318,10 +318,8 @@ public class GoalController {
         Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
         // Removing the goal from the database and the user
         if (goal != null) {
-            System.out.println(currentUser.getGoals().size());
             db.removeGoal(goal);
             currentUser.setGoals(db.getGoals(currentUser.getId()));
-            System.out.println(currentUser.getGoals().size());
             // Refreshing the goal table
             viewData();
         }
