@@ -63,16 +63,18 @@
             <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Button fx:id="commitDetails" mnemonicParsing="false" onMouseClicked="#detailValidator" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight (kg)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Button fx:id="commitDetails" mnemonicParsing="false" onAction="#checkDuplicates" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label fx:id="detailConfirm" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#detailValidator" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <TextField fx:id="newUserBirth" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" text="Remove User" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setCurrentUser" text="Select User" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>
