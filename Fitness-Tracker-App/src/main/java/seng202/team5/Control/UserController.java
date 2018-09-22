@@ -149,10 +149,9 @@ public class UserController {
      * formatting criteria are met.
      */
     private void detailValidator() {
-
         try {
             if (checkName(newUserName.getText()) && detailChecker.checkWeight(newUserWeight.getText()) &&
-                    detailChecker.checkHeight(newUserWeight.getText())) {
+                    detailChecker.checkHeight(newUserHeight.getText())) {
                 calcAge(newUserBirth.getText());
                 System.out.println(calcAge(newUserBirth.getText()));
                 confirmLabel();

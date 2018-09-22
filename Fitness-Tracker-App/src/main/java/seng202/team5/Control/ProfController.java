@@ -41,7 +41,7 @@ public class ProfController {
 
     @FXML
     /**
-     * Called by a mouse movement on teh anchor pane, this method displays all of the users
+     * Called by a mouse movement on the anchor pane, this method displays all of the users
      * personal information.
      */
     public void viewProfile() {

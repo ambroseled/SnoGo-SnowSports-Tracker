@@ -62,9 +62,9 @@
             <TextField fx:id="newUserHeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date (dd/mm/yyyy)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (m)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight (kg)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
             <Button fx:id="commitDetails" mnemonicParsing="false" onMouseClicked="#detailValidator" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label fx:id="detailConfirm" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
