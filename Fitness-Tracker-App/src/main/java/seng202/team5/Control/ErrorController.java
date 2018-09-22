@@ -2,6 +2,7 @@ package seng202.team5.Control;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.scene.layout.Region;
 
 /**
  * This class is in charge of displaying an error message.
@@ -23,6 +24,7 @@ public class ErrorController {
         DialogPane dialogPane = errorPopup.getDialogPane();
         dialogPane.getStylesheets().add("errorStyle.css");
         dialogPane.getStyleClass().add("error");
+        dialogPane.setMinHeight(Region.USE_PREF_SIZE);
 
         errorPopup.showAndWait();
 
