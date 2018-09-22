@@ -3,22 +3,22 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
+
+//TODO: fix table
 
 /**
- * 
+ * Controller class for the mapView.fxml class.
+ * Displays the activities of a user onto a map (using the Google Maps API).
  */
-public class MapController implements Initializable {
+public class MapController {
 
     // Java fx elements used in controller
     @FXML
@@ -27,60 +27,33 @@ public class MapController implements Initializable {
     private TableView actTable;
     @FXML
     private TableColumn<Activity, String> actCol;
+
     private ArrayList<Activity> activities;
     private WebEngine webEngine;
     private User user = App.getCurrentUser();
-    private ArrayList<DataPoint> dataPoints;
     private DataBaseController db = App.getDb();
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
-    private Route skiRoute;
-
-
-    @Override
-    /**
-     *
-     */
-    public void initialize(URL location, ResourceBundle resources) {
-        initMap();
-/*
-        routeSelection.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == routeARadioButton) {
-                displayRoute(skiRoute);
-            } else {
-                displayRoute(skiRoute);
-            }
-        });
-        */
-    }
 
 
     /**
-     *
+     * Initialises the web engine.
      */
-    private void initMap() {
+    public void initialize() {
         webEngine = webView.getEngine();
         webEngine.load(MapController.class.getResource("/View/map.html").toExternalForm());
     }
 
 
     /**
+     * Given a route, displays the route (path) on the map.
+     * Calls webEngine, so the method requires an internet connection.
+     * However, if there is no internet connection, the error is caught earlier in the stack trace.
      *
-     * @param newRoute
+     * @param newRoute Route to be displayed
      */
     private void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);
-    }
-
-
-    /**
-     *
-     * @param act
-     */
-    private void displayAct(Activity act) {
-        dataPoints = act.getDataSet().getDataPoints();
-        skiRoute = new Route(dataPoints);
-        displayRoute(skiRoute);
     }
 
 
@@ -89,10 +62,16 @@ public class MapController implements Initializable {
      * Called by a mouse click on the activity table. Shows the selected activity on the map
      */
     public void showData() {
-        Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
-        if (activity != null) {
-            displayAct(activity);
+        try {
+            Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+            if (activity != null) {
+                Route route = new Route(activity.getDataSet().getDataPoints());
+                displayRoute(route);
+            }
+        } catch (netscape.javascript.JSException e) {
+            ErrorController.displayError("Internet connection is need to view map");
         }
+
     }
 
 

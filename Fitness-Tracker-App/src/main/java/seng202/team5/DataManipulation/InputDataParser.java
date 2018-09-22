@@ -1,7 +1,6 @@
 package seng202.team5.DataManipulation;
 
 
-import seng202.team5.Control.ErrorController;
 import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -38,11 +37,9 @@ public class InputDataParser {
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-            // Showing error dialogue to user
-            ErrorController.displayError("File not found");
+			e.printStackTrace();
 		} catch (IOException e) {
-            // Showing error dialogue to user
-            ErrorController.displayError("Error parsing data");
+			e.printStackTrace();
 		}
 
 		return lines;
@@ -165,6 +162,7 @@ public class InputDataParser {
 	public static void main(String[] args) {
 		InputDataParser inputDataParser = new InputDataParser();
 		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("TestFiles/validationTestFiles/missingLastValues.csv");
+		//System.out.println(activities);
 
 		DataValidator validator = new DataValidator();
 		for (Activity activity : activities) {
@@ -173,6 +171,7 @@ public class InputDataParser {
 		}
 	}
 	*/
+
 
 
 }

@@ -22,7 +22,7 @@ public class App extends Application {
     private static DataBaseController db = new DataBaseController();
     ////////////
     // Used for testing will later be the actual current user.
-    private static User currentUser;
+    private static User currentUser = db.getUsers().get(0);
     ////////////
 
 
@@ -37,9 +37,10 @@ public class App extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setTitle("SnoGo");
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
-       // currentUser = db.getUsers().get(0);
+        primaryStage.setResizable(false);
     }
 
 

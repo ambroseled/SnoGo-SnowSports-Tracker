@@ -16,7 +16,13 @@ import seng202.team5.Model.User;
 
 import java.util.ArrayList;
 
-
+/**
+ * This class is the controller class for the GraphsTab.fxml class.
+ * It produces graphs for speed, distance, heart rate, distance, calories.
+ * The values are retrieved from the DataPoint class, as each data point has
+ * attributes that store information about each of these areas.
+ *
+ */
 public class GraphsController{
 
     private ArrayList<Activity> activities;

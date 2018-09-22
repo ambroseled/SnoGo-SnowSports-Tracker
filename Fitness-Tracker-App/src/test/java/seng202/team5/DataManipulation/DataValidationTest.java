@@ -4,6 +4,10 @@ import seng202.team5.Model.Activity;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
+/**
+ *
+ */
 public class DataValidationTest {
 
 
@@ -13,7 +17,7 @@ public class DataValidationTest {
     @Test
     public void testMissingData() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingDataValues.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingDataValues.csv").get(0);
         DataValidator validator = new DataValidator();
 
         try {
@@ -33,7 +37,7 @@ public class DataValidationTest {
     @Test
     public void testMissingFirstPoint() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingFirstValues.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingFirstValues.csv").get(0);
 
 
         DataValidator validator = new DataValidator();
@@ -54,7 +58,7 @@ public class DataValidationTest {
     @Test
     public void testMissingHeartRateColumn() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingHeartRateColumn.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingHeartRateColumn.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -75,7 +79,7 @@ public class DataValidationTest {
     @Test
     public void testMissingPositionalColumn() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingPositionalColumn.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingPositionalColumn.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -98,7 +102,7 @@ public class DataValidationTest {
     @Test
     public void testMissingLastValues() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingLastValues.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingLastValues.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -119,7 +123,7 @@ public class DataValidationTest {
     @Test
     public void testMissingLastDate() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/missingLastDate.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/missingLastDate.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -140,7 +144,7 @@ public class DataValidationTest {
     @Test
     public void testEmptyDataSet() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/emptyDataSet.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/emptyDataSet.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -161,7 +165,7 @@ public class DataValidationTest {
     @Test
     public void testOneHeartRateValue() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/oneHeartRateValue.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/oneHeartRateValue.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -182,7 +186,7 @@ public class DataValidationTest {
     @Test
     public void testOneLatitudeValue() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/oneLatitudeValue.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/oneLatitudeValue.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -203,7 +207,7 @@ public class DataValidationTest {
     @Test
     public void testOutrageousValues() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/validationTestFiles/outrageousValues.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/validationTestFiles/outrageousValues.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -224,7 +228,7 @@ public class DataValidationTest {
     @Test
     public void testCorruptFile() {
         InputDataParser parser = new InputDataParser();
-        Activity activity = parser.parseCSVToActivities("TestFiles/parserTestFiles/corruptFile.csv").get(0);
+        Activity activity = parser.parseCSVToActivities("src/main/resources/TestFiles/parserTestFiles/corruptFile.csv").get(0);
 
         DataValidator validator = new DataValidator();
 
@@ -239,7 +243,6 @@ public class DataValidationTest {
             assert(false);
         }
     }
-
 
 
 }

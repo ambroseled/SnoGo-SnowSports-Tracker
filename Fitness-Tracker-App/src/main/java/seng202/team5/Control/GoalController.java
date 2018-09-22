@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
+import seng202.team5.Model.Alert;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -62,13 +63,15 @@ public class GoalController {
 
     @FXML
     /**
-     * Called by a press of the viewButton, this method fills the goal table
+     * Called by a move of the mouse on the anchor pane, this method fills the goal table
      * with all of the users goals, if the number of goals in teh table
      * does not match teh number of goals the user has.;
      */
     public void viewData() {
         // Checking if the data in the table is current
-        if (goalTable.getItems().size() != currentUser.getGoals().size()) {
+        if (goalTable.getItems().size() != db.getGoals(currentUser.getId()).size()) {
+            goalTable.getItems().clear();
+            goals.clear();
             // Getting the users goals
             goals.addAll(db.getGoals(currentUser.getId()));
             // Setting up the tables columns
@@ -80,21 +83,6 @@ public class GoalController {
             // Filling the table
             goalTable.setItems(goals);
         }
-    }
-
-
-    @FXML
-    /**
-     * This method clears and then refills
-     * the goal table with all of the users goals.
-     */
-    public void refreshData() {
-        // Emptying the table
-        goalTable.getItems().clear();
-        // Re-filling the table
-        goals.addAll(db.getGoals(currentUser.getId()));
-        goalTable.setItems(goals);
-
     }
 
 
@@ -251,6 +239,18 @@ public class GoalController {
         Goal newGoal = new Goal(name, metric, value, dateString, global);
         // Checking if the goal has been completed
         newGoal.setCompleted(CheckGoals.checkGoal(newGoal, currentUser.getActivities(), currentUser));
+        newGoal.setExpired(CheckGoals.checkExpired(newGoal));
+        if (newGoal.isExpired()) {
+            Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
+            db.storeAlert(alert, currentUser.getId());
+            currentUser.addAlert(alert);
+        } else  {
+            if (newGoal.isCompleted()) {
+                Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
+                db.storeAlert(alert, currentUser.getId());
+                currentUser.addAlert(alert);
+            }
+        }
         // Storing the goal in the database
         db.storeGoal(newGoal, currentUser.getId());
         // Adding the goal to the user
@@ -266,7 +266,7 @@ public class GoalController {
         dateEntry.clear();
         valueCombo.getItems().clear();
         // Refreshing the goal table
-        refreshData();
+        viewData();
     }
 
 
@@ -316,10 +316,14 @@ public class GoalController {
         // Getting the selected goal
         Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
         // Removing the goal from the database and the user
-        db.removeGoal(goal);
-        currentUser.removeGoal(goal);
-        // Refreshing the goal table
-        refreshData();
+        if (goal != null) {
+            System.out.println(currentUser.getGoals().size());
+            db.removeGoal(goal);
+            currentUser.setGoals(db.getGoals(currentUser.getId()));
+            System.out.println(currentUser.getGoals().size());
+            // Refreshing the goal table
+            viewData();
+        }
     }
 
 
