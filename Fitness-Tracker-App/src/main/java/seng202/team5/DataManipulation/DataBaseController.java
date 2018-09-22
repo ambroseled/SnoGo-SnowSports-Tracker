@@ -129,7 +129,7 @@ public class DataBaseController {
                     ");";
 
 
-            executeStmt("DROP Goal");
+            executeStmt("DROP TABLE Goal");
             executeStmt(actTable);
             executeStmt(alertTable);
             executeStmt(pointTable);
