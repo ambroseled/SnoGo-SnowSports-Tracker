@@ -33,7 +33,7 @@ public class User {
 
 
     /**
-     * Constructor used to create a new user
+     * Constructor used to create a new user with new activities
      * @param name
      * @param age
      * @param height
@@ -76,7 +76,7 @@ public class User {
     }
 
     /**
-     * Constructor used to create a new user
+     * Constructor used to create a new user without activities
      * @param name
      * @param age
      * @param height

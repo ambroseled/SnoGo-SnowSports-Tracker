@@ -3,7 +3,11 @@ package seng202.team5.Control;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 
-
+/**
+ * This class is in charge of displaying an error message.
+ * The error message appears if a user tries to load a corrupt
+ * or invalid file.
+ */
 public class ErrorController {
 
     /**
