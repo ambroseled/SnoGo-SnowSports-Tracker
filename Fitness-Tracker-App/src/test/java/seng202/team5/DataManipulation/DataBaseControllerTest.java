@@ -171,5 +171,6 @@ public class DataBaseControllerTest {
         db.removeAlert(alert);
 
         assertEquals(alerts.size() - 1, db.getGoals(user.getId()).size());
+        db.removeUser(user);
     }
 }
