@@ -197,6 +197,7 @@ public class GoalController {
             for (double i = 300; i < 2000; i += 5) {
                 values.add(i);
             }
+            valueCombo.getItems().addAll(values);
         }
     }
 
