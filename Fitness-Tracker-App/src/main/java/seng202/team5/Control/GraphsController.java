@@ -282,14 +282,6 @@ public class GraphsController{
         double newTime = currentTime - startTime;
         newTime = newTime / 1000;
         String timeScale = "Seconds";
-/*        if (newTime > 60) {
-            newTime = newTime / 60;
-            timeScale = "Minutes";
-            if (newTime > 60) {
-                newTime = newTime / 60;
-                timeScale = "Hours";
-            }
-        }*/
 
         lineChart.getXAxis().setLabel("Time (" + timeScale + ")");
         return newTime;
