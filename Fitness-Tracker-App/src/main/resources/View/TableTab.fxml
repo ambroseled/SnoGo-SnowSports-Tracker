@@ -29,8 +29,8 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
            <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
            <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="267.0" />
-           <ColumnConstraints hgrow="SOMETIMES" maxWidth="492.0" minWidth="10.0" prefWidth="275.0" />
-           <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="263.0" />
+           <ColumnConstraints hgrow="SOMETIMES" maxWidth="492.0" minWidth="10.0" prefWidth="235.0" />
+           <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="271.0" />
            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="252.0" />
            <ColumnConstraints />
            <ColumnConstraints />
@@ -49,7 +49,7 @@
                <Font size="38.0" />
             </font>
          </Text>
-         <ScrollPane hbarPolicy="NEVER" opacity="0.75" prefHeight="72.0" prefWidth="221.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+         <ScrollPane hbarPolicy="NEVER" opacity="0.75" prefHeight="488.0" prefWidth="655.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
             <content>
                <AnchorPane opacity="0.75" prefHeight="485.0" prefWidth="757.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css">
                   <children>

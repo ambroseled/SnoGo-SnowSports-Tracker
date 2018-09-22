@@ -137,7 +137,7 @@ public class DataBaseControllerTest {
 
 
     //TODO: fix on build server
-   // @Test
+    @Test
     public void testGoalFunc() {
         Goal goal = new Goal("test goal", "test", 5, "08/08/2018", false);
         db.storeNewUser(user);
