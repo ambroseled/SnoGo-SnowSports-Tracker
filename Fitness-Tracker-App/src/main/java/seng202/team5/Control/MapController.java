@@ -87,6 +87,7 @@ public class MapController {
             actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             activityNames.addAll(activities);
             actTable.setItems(activityNames);
+            actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
     }
 
