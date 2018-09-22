@@ -2,6 +2,10 @@ package seng202.team5.Control;
 
 
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,23 +23,13 @@ import java.net.URL;
 public class App extends Application {
 
 
-
     @FXML
     private Tab dataTab;
-    @FXML
-    private Tab statsTab;
-    @FXML
-    private Tab mapTab;
-    @FXML
-    private Tab alertsTab;
-    @FXML
-    private Tab goalsTab;
-    @FXML
-    private Tab profTab;
 
     private static FXMLLoader loader = new FXMLLoader();
     private Class c = getClass();
     private static DataBaseController db = new DataBaseController();
+    private static BooleanProperty userSelected = new SimpleBooleanProperty();
     ////////////
     // Used for testing will later be the actual current user.
     private static User currentUser;
@@ -48,6 +42,19 @@ public class App extends Application {
      * @throws Exception IOException
      */
     public void start(Stage primaryStage) throws Exception {
+
+/*
+        userSelected.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    dataTab.setDisable(false);
+                } else {
+                    dataTab.setDisable(true);
+                }
+            }
+        });*/
+
         URL value1 = c.getResource("/View/tabMain.fxml");
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
@@ -70,26 +77,6 @@ public class App extends Application {
 
 
 
-    public void enableTabs() {
-        dataTab.setDisable(false);
-        statsTab.setDisable(false);
-        mapTab.setDisable(false);
-        alertsTab.setDisable(false);
-        goalsTab.setDisable(false);
-        profTab.setDisable(false);
-    }
-
-
-    public void disableTabs() {
-        dataTab.setDisable(true);
-        statsTab.setDisable(true);
-        mapTab.setDisable(true);
-        alertsTab.setDisable(true);
-        goalsTab.setDisable(true);
-        profTab.setDisable(true);
-    }
-
-
     /**
      * Gets the current user which is used by other controllers of the application
      * @return The current user
@@ -110,6 +97,11 @@ public class App extends Application {
      */
     public static DataBaseController getDb() {
         return db;
+    }
+
+
+    public static void setUserSelected(boolean value) {
+        userSelected.setValue(value);
     }
 
 

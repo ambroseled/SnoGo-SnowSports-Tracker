@@ -291,22 +291,25 @@ public class GraphsController{
      * Sets up the choiceBox to show all activities for current User
      */
     public void setChoiceBox() {
-        if (visited) {
-            return;
+        if (App.getCurrentUser() != null) {
+            if (activityChoice.getItems().size() != db.getActivities(App.getCurrentUser().getId()).size()) {
+                resetData();
+
+                ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
+                setActivities(inputActivities);
+
+                ObservableList<Activity> activityNames = FXCollections.observableArrayList();
+                for (Activity activity: activities) {
+                    activityNames.add(activity);
+                }
+                activityChoice.setItems(activityNames);
+                visited = true;
+
+                setOverallStats();
+            }
+
         }
-        resetData();
 
-        ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
-        setActivities(inputActivities);
-
-        ObservableList<Activity> activityNames = FXCollections.observableArrayList();
-        for (Activity activity: activities) {
-            activityNames.add(activity);
-        }
-        activityChoice.setItems(activityNames);
-        visited = true;
-
-        setOverallStats();
     }
 
     /**

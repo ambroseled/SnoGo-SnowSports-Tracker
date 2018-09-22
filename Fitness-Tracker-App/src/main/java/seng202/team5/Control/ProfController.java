@@ -3,7 +3,6 @@ package seng202.team5.Control;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.Model.User;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,9 +44,9 @@ public class ProfController {
      * personal information.
      */
     public void viewProfile() {
-        // Checking if all entry fields are empty
-        if (!nameText.getText().equals(App.getCurrentUser().getName()) && !editing)
-        {
+        if (App.getCurrentUser() != null) {
+            // Checking if all entry fields are empty
+            if (!nameText.getText().equals(App.getCurrentUser().getName()) && !editing) {
             // Setting all entry fields to the users current personal information
             nameText.setText(App.getCurrentUser().getName());
             ageText.setText(Integer.toString(App.getCurrentUser().getAge()));
@@ -56,6 +55,7 @@ public class ProfController {
             bmiText.setText(Double.toString(App.getCurrentUser().getBmi()));
             String dateString = dateTimeFormat.format(App.getCurrentUser().getBirthDate());
             dateText.setText(dateString);
+            }
         }
     }
 
@@ -98,43 +98,51 @@ public class ProfController {
      * the updateButton is enabled but if the data is invalid the button is disabled.
      */
     public void checkProfile() {
-        editing = true;
-        // Getting all information from entry fields
-        String name = nameText.getText();
-        String weight = weightText.getText();
-        String age = ageText.getText();
-        String date = dateText.getText();
-        String height = heightText.getText();
-        try {
+        if (App.getCurrentUser() != null) {
+            editing = true;
+            // Getting all information from entry fields
+            String name = nameText.getText();
+            String weight = weightText.getText();
+            String age = ageText.getText();
+            String date = dateText.getText();
+            String height = heightText.getText();
+            try {
             // Checking all entry fields values are valid
-            if (checkName(name) && checkWeight(weight) && checkHeight(height) && checkInt(age) & checkDate(date, Integer.parseInt(age))) {
-                // Parsing the none string values
-                double weightVal = Double.parseDouble(weight);
-                double heightVal = Double.parseDouble(height);
-                int ageVal = Integer.parseInt(age);
-                try {
-                    Date dateVal = dateTimeFormat.parse(date);
-                    // Checking that newly entered data isn't the same ass the users information
-                    if (weightVal == App.getCurrentUser().getWeight() && heightVal == App.getCurrentUser().getHeight() && ageVal == App.getCurrentUser().getAge()
-                            && name.equals(App.getCurrentUser().getName()) && dateVal == App.getCurrentUser().getBirthDate()) {
-                        // Disabling update button
-                        updateButton.setDisable(true);
-                    } else {
-                        // Enabling the update button
-                        updateButton.setDisable(false);
-                        updateButton.setVisible(true);
-                    }
-                } catch (ParseException e) {
-                    // Disabling update button
-                    updateButton.setDisable(true);
+            if (checkName(name)
+                && checkWeight(weight)
+                && checkHeight(height)
+                && checkInt(age) & checkDate(date, Integer.parseInt(age))) {
+              // Parsing the none string values
+              double weightVal = Double.parseDouble(weight);
+              double heightVal = Double.parseDouble(height);
+              int ageVal = Integer.parseInt(age);
+              try {
+                Date dateVal = dateTimeFormat.parse(date);
+                // Checking that newly entered data isn't the same ass the users information
+                if (weightVal == App.getCurrentUser().getWeight()
+                    && heightVal == App.getCurrentUser().getHeight()
+                    && ageVal == App.getCurrentUser().getAge()
+                    && name.equals(App.getCurrentUser().getName())
+                    && dateVal == App.getCurrentUser().getBirthDate()) {
+                  // Disabling update button
+                  updateButton.setDisable(true);
+                } else {
+                  // Enabling the update button
+                  updateButton.setDisable(false);
+                  updateButton.setVisible(true);
                 }
-            } else {
+              } catch (ParseException e) {
                 // Disabling update button
                 updateButton.setDisable(true);
+              }
+            } else {
+              // Disabling update button
+              updateButton.setDisable(true);
             }
-        } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
             // Disabling update button
             updateButton.setDisable(true);
+            }
         }
     }
 

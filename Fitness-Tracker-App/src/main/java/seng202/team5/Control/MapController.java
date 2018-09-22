@@ -61,34 +61,36 @@ public class MapController {
      * Called by a mouse click on the activity table. Shows the selected activity on the map
      */
     public void showData() {
-        try {
-            Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
-            if (activity != null) {
-                Route route = new Route(activity.getDataSet().getDataPoints());
-                displayRoute(route);
+        if (App.getCurrentUser() != null) {
+            try {
+                Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+                if (activity != null) {
+                    Route route = new Route(activity.getDataSet().getDataPoints());
+                    displayRoute(route);
+                }
+            } catch (netscape.javascript.JSException e) {
+                ErrorController.displayError("Internet connection is need to view map");
             }
-        } catch (netscape.javascript.JSException e) {
-            ErrorController.displayError("Internet connection is need to view map");
-        }
-
-    }
-
-
-    @FXML
-    /**
-     * Called by a mouse movement on the anchor pane. Fills the table with all of
-     * the App.getCurrentUser()s activities if the number of activities in the table is not equal
-     * to the number of activities the App.getCurrentUser() has.
-     */
-    public void fillTable() {
-        if (actTable.getItems().size() != App.getCurrentUser().getActivities().size()) {
-            activities = db.getActivities(App.getCurrentUser().getId());
-            actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            activityNames.addAll(activities);
-            actTable.setItems(activityNames);
-            actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
     }
+
+  @FXML
+  /**
+   * Called by a mouse movement on the anchor pane. Fills the table with all of the
+   * App.getCurrentUser()s activities if the number of activities in the table is not equal to the
+   * number of activities the App.getCurrentUser() has.
+   */
+  public void fillTable() {
+      if (App.getCurrentUser() != null) {
+          if (actTable.getItems().size() != App.getCurrentUser().getActivities().size()) {
+          activities = db.getActivities(App.getCurrentUser().getId());
+          actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+          activityNames.addAll(activities);
+          actTable.setItems(activityNames);
+          actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+          }
+      }
+  }
 
 
 }

@@ -1,5 +1,6 @@
 package seng202.team5.Control;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -266,6 +267,9 @@ public class UserController {
         User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
         db.removeUser(selectedUser);
         refreshTable();
+        if (App.getCurrentUser() == null) {
+            App.setUserSelected(false);
+        }
 
     }
 
@@ -280,7 +284,10 @@ public class UserController {
     @FXML
     private void setSelectedUser(){
         App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
-        System.out.println(App.getCurrentUser());
+        if (App.getCurrentUser() != null) {
+            App.setUserSelected(true);
+        }
+
     }
 
 

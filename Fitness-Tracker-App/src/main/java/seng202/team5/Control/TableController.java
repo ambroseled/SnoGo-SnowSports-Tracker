@@ -18,7 +18,7 @@ import seng202.team5.Model.Alert;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-//TODO: Needs styling
+
 /**
  * This class handles the controls for the data view tab of the application.
  * It handles the display of raw data as well as the loading of files.
@@ -45,77 +45,84 @@ public class TableController {
 
     @FXML
     /**
-     * Called by a press of the viewButton, this method displays the users current
+     * Called by mouse movement on teh anchor pane, this method displays the users current
      * activities in the application.
      */
     public void viewData() {
-        if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
-            ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
-            setActivities(inputActivities);
-            initialise();
+        if (App.getCurrentUser() != null) {
+            if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
+                ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
+                setActivities(inputActivities);
+                initialise();
+            }
         }
     }
 
 
     @FXML
     /**
-     * Called by a press of the viewButton, this method displays the users current
+     * Called by teh loadfile button, this method displays the users current
      * activities in the application.
      */
     public void viewData(String filePath) {
+        if (App.getCurrentUser() != null) {
+              InputDataParser inputDataParser = new InputDataParser();
+              ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
 
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+              for (Activity activity : inputActivities) {
+                DataValidator validator = new DataValidator();
+                validator.validateActivity(activity);
 
-        for (Activity activity : inputActivities) {
-            DataValidator validator = new DataValidator();
-            validator.validateActivity(activity);
+                if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
+                  String message = "Activity: " + activity.getName() + "\n";
+                  message +=
+                      "Points deleted: "
+                          + validator.getPointsDeleted()
+                          + "/"
+                          + validator.getInitialDataSetSize()
+                          + "\n";
+                  message += "Values fixed: " + validator.getDataValidated();
+                  ErrorController.displayError(message);
+                }
+              }
 
-            if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
-                String message = "Activity: "+ activity.getName()+"\n";
-                message += "Points deleted: "+validator.getPointsDeleted()+"/"+validator.getInitialDataSetSize()+"\n";
-                message += "Values fixed: "+validator.getDataValidated();
-                ErrorController.displayError(message);
-            }
-        }
+              DataAnalyser analyser = new DataAnalyser();
+              analyser.setCurrentUser(App.getCurrentUser());
+              for (Activity activity : inputActivities) {
+                analyser.analyseActivity(activity);
+              }
 
-        DataAnalyser analyser = new DataAnalyser();
-        analyser.setCurrentUser(App.getCurrentUser());
-        for (Activity activity : inputActivities) {
-            analyser.analyseActivity(activity);
-        }
-
-        //Tests if activity is equal to any others
-        for (int i = 0; i < inputActivities.size(); i++) {
-            boolean notDuplicate = true;
-            for (Activity activity: App.getCurrentUser().getActivities()) {
-                if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
-                    String message = "Activity "+inputActivities.get(i).getName();
+              // Tests if activity is equal to any others
+              for (int i = 0; i < inputActivities.size(); i++) {
+                boolean notDuplicate = true;
+                for (Activity activity : App.getCurrentUser().getActivities()) {
+                  if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
+                    String message = "Activity " + inputActivities.get(i).getName();
                     message += " is a duplicate of existing activity\n";
                     message += "It will not be added";
                     ErrorController.displayError(message);
                     inputActivities.remove(i);
                     i--;
                     notDuplicate = false;
+                  }
                 }
-            }
-            if (notDuplicate) {
-                db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
-                App.getCurrentUser().addActivity(inputActivities.get(i));
-            }
-        }
+                if (notDuplicate) {
+                  db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
+                  App.getCurrentUser().addActivity(inputActivities.get(i));
+                }
+              }
 
-        setActivities(inputActivities);
+              setActivities(inputActivities);
 
+              CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
+              Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
+              if (countAlert != null) {
+                db.storeAlert(countAlert, App.getCurrentUser().getId());
+                App.getCurrentUser().addAlert(countAlert);
+              }
 
-        CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
-        Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
-        if (countAlert != null) {
-            db.storeAlert(countAlert, App.getCurrentUser().getId());
-            App.getCurrentUser().addAlert(countAlert);
-        }
-
-        initialise();
+              initialise();
+       }
     }
 
 
@@ -125,17 +132,18 @@ public class TableController {
      * to select and upload a csv file into the application.
      */
     public void loadFile() {
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load CSV File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("CSV", "*.csv")
-        );
-        File f = fileChooser.showOpenDialog(null);
-        try {
-            viewData(f.getAbsolutePath());
-        } catch (Exception e) {
-            ErrorController.displayError("File loading error");
+        if (App.getCurrentUser() != null) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load CSV File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("CSV", "*.csv")
+            );
+            File f = fileChooser.showOpenDialog(null);
+            try {
+                viewData(f.getAbsolutePath());
+            } catch (Exception e) {
+                ErrorController.displayError("File loading error");
+            }
         }
     }
 
