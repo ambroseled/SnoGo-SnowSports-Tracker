@@ -43,7 +43,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="userTable" editable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <TableView fx:id="userTable" editable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
               <columns>
                 <TableColumn fx:id="userCol" prefWidth="284.0" text="User" />
               </columns>
