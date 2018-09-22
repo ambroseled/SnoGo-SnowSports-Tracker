@@ -72,7 +72,13 @@ public class TableController {
         for (Activity activity : inputActivities) {
             DataValidator validator = new DataValidator();
             validator.validateActivity(activity);
-            //Add in messages to user for when and what data was manipulated
+
+            if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
+                String message = "Activity: "+ activity.getName()+"\n";
+                message += "Points deleted: "+validator.getPointsDeleted()+"/"+validator.getInitialDataSetSize()+"\n";
+                message += "Values fixed: "+validator.getDataValidated();
+                ErrorController.displayError(message);
+            }
         }
 
         DataAnalyser analyser = new DataAnalyser();
@@ -80,16 +86,28 @@ public class TableController {
             analyser.analyseActivity(activity);
         }
 
+        //Tests if activity is equal to any others
+        for (int i = 0; i < inputActivities.size(); i++) {
+            boolean notDuplicate = true;
+            for (Activity activity: currentUser.getActivities()) {
+                if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
+                    String message = "Activity "+inputActivities.get(i).getName();
+                    message += " is a duplicate of existing activity\n";
+                    message += "It will not be added";
+                    ErrorController.displayError(message);
+                    inputActivities.remove(i);
+                    i--;
+                    notDuplicate = false;
+                }
+            }
+            if (notDuplicate) {
+                db.storeActivity(inputActivities.get(i), currentUser.getId());
+                currentUser.addActivity(inputActivities.get(i));
+            }
+        }
 
         setActivities(inputActivities);
 
-    // Uncomment to enable file loading into database
-        /*
-        for (Activity activity : inputActivities) {
-            db.storeActivity(activity, currentUser.getId());
-            currentUser.addActivity(activity);
-        }
-        */
 
         CheckGoals.markGoals(currentUser, App.getDb(), inputActivities);
         Alert countAlert = AlertHandler.activityAlert(currentUser);
@@ -134,8 +152,6 @@ public class TableController {
         } catch (Exception e) {
             ErrorController.displayError("No file selected");
         }
-
-
     }
 
 

@@ -11,9 +11,6 @@ import seng202.team5.Model.DataPoint;
  */
 public class DataValidator {
 
-
-	//TODO: are these used?????? YESS THEY ARE! :)
-
 	// This attribute is used to keep track of how many points have been deleted
 	private int pointsDeleted = 0;
 	/**
@@ -441,24 +438,5 @@ public class DataValidator {
 
 	}
 
-
-	/**
-	 * This method checks the uniqueness of an activity against other activities, by testing if
-	 * their datetime ranges intersect.
-	 * @param activity the subject activity on which to test the uniqueness
-	 * @param activities the activities on which to test against
-	 * @return boolean value of whether the activity is unique or not
-	 */
-
-/*	public boolean isActivityDuplicate(Activity activty, ArrayList<Activity> activities) {
-		boolean isActivityUnique = true;
-
-		for (Activity otherActivity : activities) {
-			isActivityUnique = activities.equals(otherActivity);
-		}
-
-		return isActivityUnique;
-	}
-*/
 }
 
