@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -33,10 +37,11 @@
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="223.0" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="205.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="508.0" minWidth="10.0" prefWidth="216.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="508.0" minWidth="10.0" prefWidth="220.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="198.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="204.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="54.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="508.0" minWidth="10.0" prefWidth="209.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="49.0" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="185.0" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="106.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="110.0" />
          <ColumnConstraints />
          <ColumnConstraints />
          <ColumnConstraints />
@@ -59,52 +64,27 @@
              <TableColumn fx:id="metricCol" prefWidth="167.0" text="Goal Metric" />
                <TableColumn fx:id="valueCol" prefWidth="148.0" text="Goal Metric Value" />
                <TableColumn fx:id="dateCol" prefWidth="176.0" text="Goal Completion Date" />
-               <TableColumn fx:id="compCol" prefWidth="84.0" text="Achieved" />
+               <TableColumn fx:id="compCol" prefWidth="78.0" text="Achieved" />
            </columns>
          </TableView>
-         <Button fx:id="createButton" disable="true" mnemonicParsing="false" onAction="#createGoal" opacity="0.5" prefHeight="59.0" prefWidth="147.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Goal" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-         <ComboBox fx:id="metricCombo" onAction="#checkMetricCombo" opacity="0.8" prefHeight="27.0" prefWidth="233.0" promptText="Select Goal Metric" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Completion Date" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-            <font>
-               <Font size="19.0" />
-            </font>
-         </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Metric" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-            <font>
-               <Font size="19.0" />
-            </font>
-         </Text>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goal Name" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-            <font>
-               <Font size="19.0" />
-            </font>
-         </Text>
-         <TextField fx:id="goalName" onKeyReleased="#nameEntry" opacity="0.8" prefHeight="27.0" prefWidth="170.0" promptText="Enter Goal Name" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-         <CheckBox fx:id="nameCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-         <CheckBox fx:id="metricCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-         <CheckBox fx:id="dateCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-         <ComboBox fx:id="valueCombo" disable="true" onAction="#checkValueCombo" prefHeight="27.0" prefWidth="248.0" promptText="Select Metric Value" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metric Value" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
-            <font>
-               <Font size="19.0" />
-            </font>
-         </Text>
-         <CheckBox fx:id="valueCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create A Goal" textAlignment="CENTER" underline="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-            <font>
-               <Font size="30.0" />
-            </font>
-         </Text>
-            <CheckBox fx:id="globalCheck" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <TextField editable="false" opacity="0.8" text="Measured over all data?" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+         <Button fx:id="createButton" disable="true" mnemonicParsing="false" onAction="#createGoal" opacity="0.5" prefHeight="59.0" prefWidth="147.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Goal" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+         <ComboBox fx:id="metricCombo" onAction="#checkMetricCombo" opacity="0.8" prefHeight="27.0" prefWidth="292.0" promptText="Select Goal Metric" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+         <TextField fx:id="goalName" onKeyReleased="#nameEntry" opacity="0.8" prefHeight="27.0" prefWidth="350.0" promptText="Enter Goal Name" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+         <CheckBox fx:id="nameCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+         <CheckBox fx:id="metricCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+         <CheckBox fx:id="dateCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+         <ComboBox fx:id="valueCombo" disable="true" onAction="#checkValueCombo" prefHeight="27.0" prefWidth="298.0" promptText="Select Metric Value" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+         <CheckBox fx:id="valueCheck" disable="true" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <CheckBox fx:id="globalCheck" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <TextField editable="false" opacity="0.8" text="Measured over all data?" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#removeGoal" opacity="0.7" prefHeight="61.0" prefWidth="175.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Goal" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scope" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <TextField fx:id="dateEntry" onKeyReleased="#checkDate" opacity="0.8" promptText="Completion date: dd/MM/yyy" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Text opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Create A Goal" textAlignment="JUSTIFY" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
-                  <Font size="19.0" />
+                  <Font size="45.0" />
                </font>
             </Text>
-            <TextField fx:id="dateEntry" onKeyReleased="#checkDate" opacity="0.8" promptText="dd/MM/yyy" GridPane.columnIndex="5" GridPane.rowIndex="3" />
       </children>
    </GridPane>
    </children>

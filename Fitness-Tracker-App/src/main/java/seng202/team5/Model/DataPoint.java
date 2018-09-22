@@ -168,4 +168,30 @@ public class DataPoint {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
                 ", Distance: "+distance+", Speed: "+speed;
     }
+
+    /**
+     * Tests two data points for equality. Equal if each of the given data's are equal.
+     * @param otherDataPoint the point which is being compared to.
+     * @return true if they are equal, false if not.
+     */
+    public boolean equals(DataPoint otherDataPoint) {
+
+        if (!this.dateTime.equals(otherDataPoint.getDateTime())) {
+            return false;
+        }
+        if (!(this.heartRate == otherDataPoint.getHeartRate())) {
+            return false;
+        }
+        if (!(this.latitude == otherDataPoint.getLatitude())) {
+            return false;
+        }
+        if (!(this.longitude == otherDataPoint.getLongitude())) {
+            return false;
+        }
+        if (!(this.elevation == otherDataPoint.getElevation())) {
+            return false;
+        }
+
+        return true;
+    }
 }

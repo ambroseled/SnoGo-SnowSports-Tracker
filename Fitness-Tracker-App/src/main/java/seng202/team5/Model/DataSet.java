@@ -159,4 +159,26 @@ public class DataSet {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    /**
+     * This method is used for comparing two data sets to see if they have the exact same, set of data points
+     * The equals method compares every data point in the data set to see if they are equal.
+     * The method returns false as soon as two points are not equal, so most of the time it take O(1), only when
+     * the two sets are equal will it take O(n).
+     * @param otherDataSet the data set which is being compared
+     * @return true, if the sets are equal, false if not.
+     */
+    public boolean equals(DataSet otherDataSet) {
+
+        if (this.dataPoints.size() == otherDataSet.getDataPoints().size()) {
+            for (int i = 0; i < this.dataPoints.size(); i++) {
+                if (!(this.dataPoints.get(i).equals(otherDataSet.getDataPoints().get(i)))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 }
