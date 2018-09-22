@@ -30,14 +30,16 @@ public class DataBaseController {
             connection = DriverManager.getConnection(dbString);
             createDatabase();
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            ErrorController.displayError("Error connecting to database");
         }
     }
 
 
     public static void closeConnection() {
         try {
-            connection.close();
+            if (connection != null) {
+                connection.close();
+            }
         } catch (SQLException e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error closing connection to database");

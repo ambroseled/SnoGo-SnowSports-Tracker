@@ -18,7 +18,7 @@ import seng202.team5.Model.Alert;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-
+//TODO: Needs styling
 /**
  * This class handles the controls for the data view tab of the application.
  * It handles the display of raw data as well as the loading of files.
@@ -96,21 +96,6 @@ public class TableController {
             db.storeAlert(countAlert, currentUser.getId());
             currentUser.addAlert(countAlert);
         }
-
-        initialise();
-    }
-
-
-    @FXML
-    /**
-     * Called by a press of the resetButton, this method clears and then refills the display
-     * of the users activities.
-     */
-    public void resetData() {
-        accordion.getPanes().clear();
-
-        ArrayList<Activity> inputActivities = db.getActivities(currentUser.getId());
-        setActivities(inputActivities);
 
         initialise();
     }

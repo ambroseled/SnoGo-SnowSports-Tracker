@@ -12,6 +12,8 @@ import seng202.team5.Model.*;
 import java.util.ArrayList;
 
 
+//TODO: fix table
+
 /**
  * Controller class for the mapView.fxml class.
  * Displays the activities of a user onto a map (using the Google Maps API).

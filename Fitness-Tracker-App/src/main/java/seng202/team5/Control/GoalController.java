@@ -63,7 +63,7 @@ public class GoalController {
 
     @FXML
     /**
-     * Called by a press of the viewButton, this method fills the goal table
+     * Called by a move of the mouse on the anchor pane, this method fills the goal table
      * with all of the users goals, if the number of goals in teh table
      * does not match teh number of goals the user has.;
      */
@@ -71,6 +71,7 @@ public class GoalController {
         // Checking if the data in the table is current
         if (goalTable.getItems().size() != db.getGoals(currentUser.getId()).size()) {
             goalTable.getItems().clear();
+            goals.clear();
             // Getting the users goals
             goals.addAll(db.getGoals(currentUser.getId()));
             // Setting up the tables columns
@@ -82,21 +83,6 @@ public class GoalController {
             // Filling the table
             goalTable.setItems(goals);
         }
-    }
-
-
-    @FXML
-    /**
-     * This method clears and then refills
-     * the goal table with all of the users goals.
-     */
-    public void refreshData() {
-        // Emptying the table
-        goalTable.getItems().clear();
-        // Re-filling the table
-        goals.addAll(db.getGoals(currentUser.getId()));
-        goalTable.setItems(goals);
-
     }
 
 
@@ -280,7 +266,7 @@ public class GoalController {
         dateEntry.clear();
         valueCombo.getItems().clear();
         // Refreshing the goal table
-        refreshData();
+        viewData();
     }
 
 
@@ -336,7 +322,7 @@ public class GoalController {
             currentUser.setGoals(db.getGoals(currentUser.getId()));
             System.out.println(currentUser.getGoals().size());
             // Refreshing the goal table
-            refreshData();
+            viewData();
         }
     }
 
