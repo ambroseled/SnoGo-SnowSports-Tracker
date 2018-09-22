@@ -21,6 +21,8 @@ public class DataBaseControllerTest {
     private ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataBaseTest.csv");
 
 
+
+
     @Before
     public void  before() {
         db = new DataBaseController();
@@ -35,6 +37,7 @@ public class DataBaseControllerTest {
 
     @Test
     public void testUserFunc() {
+        db.dropDb();
         db.storeNewUser(user);
         ArrayList<User> users = db.getUsers();
         User testUser = users.get(users.size() - 1);

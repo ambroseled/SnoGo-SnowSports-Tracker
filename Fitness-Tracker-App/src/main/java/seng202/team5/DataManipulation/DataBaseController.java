@@ -55,6 +55,18 @@ public class DataBaseController {
     }
 
 
+    public void dropDb() {
+        try {
+            String sql = "DROP DATABASE SnoGo";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (Exception e) {
+
+        }
+
+    }
+
+
     /**
      *  Creates a new data for the application if it does not already exist and creates the databases structure (tables
      *  and attributes). The data is stored in the project's directory and consists of four tables:
@@ -106,7 +118,7 @@ public class DataBaseController {
                     ");";
 
 
-            String goalTable = "UPDATE TABLE Goal (\n" +
+            String goalTable = "CREATE TABLE IF NOT EXISTS Goal (\n" +
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                     "Metric STRING NOT NULL,\n" +
                     "MetricGoal DOUBLE NOT NULL,\n" +
