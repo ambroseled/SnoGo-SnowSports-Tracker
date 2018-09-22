@@ -33,7 +33,6 @@ public class ProfController {
     @FXML
     private Button updateButton;
     // Getting the database controller and current user
-    private User currentUser = App.getCurrentUser();
     private DataBaseController db = App.getDb();
     // Setting the date format for the users birth date
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -50,12 +49,12 @@ public class ProfController {
                 weightText.getText().isEmpty() && bmiText.getText().isEmpty() && dateText.getText().isEmpty())
         {
             // Setting all entry fields to the users current personal information
-            nameText.setText(currentUser.getName());
-            ageText.setText(Integer.toString(currentUser.getAge()));
-            heightText.setText(Double.toString(currentUser.getHeight()));
-            weightText.setText(Double.toString(currentUser.getWeight()));
-            bmiText.setText(Double.toString(currentUser.getBmi()));
-            String dateString = dateTimeFormat.format(currentUser.getBirthDate());
+            nameText.setText(App.getCurrentUser().getName());
+            ageText.setText(Integer.toString(App.getCurrentUser().getAge()));
+            heightText.setText(Double.toString(App.getCurrentUser().getHeight()));
+            weightText.setText(Double.toString(App.getCurrentUser().getWeight()));
+            bmiText.setText(Double.toString(App.getCurrentUser().getBmi()));
+            String dateString = dateTimeFormat.format(App.getCurrentUser().getBirthDate());
             dateText.setText(dateString);
         }
     }
@@ -75,13 +74,13 @@ public class ProfController {
             int age = Integer.parseInt(ageText.getText());
             Date date = dateTimeFormat.parse(dateText.getText());
             // Setting the new values of the users information
-            currentUser.setName(name);
-            currentUser.setWeight(weight);
-            currentUser.setHeight(height);
-            currentUser.setAge(age);
-            currentUser.setBirthDate(date);
+            App.getCurrentUser().setName(name);
+            App.getCurrentUser().setWeight(weight);
+            App.getCurrentUser().setHeight(height);
+            App.getCurrentUser().setAge(age);
+            App.getCurrentUser().setBirthDate(date);
             // Updating the user in the database
-            db.updateUser(currentUser);
+            db.updateUser(App.getCurrentUser());
             // Disabling update button as data in entry fields is the same as the user object
             updateButton.setDisable(true);
         } catch (Exception e) {
@@ -114,8 +113,8 @@ public class ProfController {
                 try {
                     Date dateVal = dateTimeFormat.parse(date);
                     // Checking that newly entered data isn't the same ass the users information
-                    if (weightVal == currentUser.getWeight() && heightVal == currentUser.getHeight() && ageVal == currentUser.getAge()
-                            && name.equals(currentUser.getName()) && dateVal == currentUser.getBirthDate()) {
+                    if (weightVal == App.getCurrentUser().getWeight() && heightVal == App.getCurrentUser().getHeight() && ageVal == App.getCurrentUser().getAge()
+                            && name.equals(App.getCurrentUser().getName()) && dateVal == App.getCurrentUser().getBirthDate()) {
                         // Disabling update button
                         updateButton.setDisable(true);
                     } else {
