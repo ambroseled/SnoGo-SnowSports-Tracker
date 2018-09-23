@@ -6,10 +6,15 @@ import seng202.team5.DataManipulation.DataBaseController;
 import java.util.Date;
 import static org.junit.Assert.*;
 
-
+/**
+ * This class provides a test for the getBmi() method within
+ * the User class.
+ */
 public class UserTest {
 
-
+    /**
+     * Tests the method that computes bmi within the User class.
+     */
     @Test
     public void testBmiNew() {
         Date date = new Date();
