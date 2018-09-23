@@ -110,12 +110,12 @@ public class App extends Application {
         Parent root = loader.load(value1);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.show();
         primaryStage.setTitle("SnoGo");
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("logo.png"));
+        primaryStage.show();
     }
 
 
