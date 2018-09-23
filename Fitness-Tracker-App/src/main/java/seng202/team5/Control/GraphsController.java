@@ -69,50 +69,11 @@ public class GraphsController{
     private LineChart<Number,Number> avgSpeedChart;
     @FXML
     private LineChart<Number,Number> runningDistChart;
-    @FXML
-    private ImageView skier1;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
 
 
-    private boolean backwards = false;
-    private boolean down = false;
 
-
-
-    public void initialize() {
-        AnimationTimer timer = new AnimationTimer(){
-            @Override
-            public void handle(long now) {
-                if (skier1.getX() > 1100) {
-                    backwards = true;
-                } else if (skier1.getX() < 10) {
-                    backwards = false;
-                }
-                if (skier1.getY() > 500) {
-                    down = false;
-                } else if (skier1.getY() < 10) {
-                    down = true;
-                }
-
-
-                if (backwards) {
-                    skier1.setX(skier1.getX() - 10.0 );
-                } else {
-                    skier1.setX(skier1.getX() + 5.0 );
-                }
-
-                if (down) {
-                    skier1.setY(skier1.getY() + 5.0 );
-                } else {
-                    skier1.setY(skier1.getY() - 7.5 );
-                }
-
-
-            }
-        };
-        timer.start();
-    }
 
 
     /**
