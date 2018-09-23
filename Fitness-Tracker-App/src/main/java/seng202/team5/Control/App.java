@@ -227,11 +227,13 @@ public class App extends Application {
      */
     private void deleteUser(){
         User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
-        db.removeUser(selectedUser);
-        refreshTable();
-        if (App.getCurrentUser() == selectedUser) {
-            currentUser =  null;
-            disableTabs();
+        if (selectedUser != null) {
+            db.removeUser(selectedUser);
+            refreshTable();
+            if (App.getCurrentUser() == selectedUser) {
+                currentUser =  null;
+                disableTabs();
+            }
         }
     }
 
@@ -244,6 +246,9 @@ public class App extends Application {
         if (userTable.getSelectionModel().getSelectedItem() != null){
             removeButton.setDisable(false);
             selectButton.setDisable(false);
+        } else {
+            removeButton.setDisable(true);
+            selectButton.setDisable(true);
         }
     }
 
@@ -430,7 +435,7 @@ public class App extends Application {
                         if (weightVal == user.getWeight()
                                 && heightVal == user.getHeight()
                                 && nameText.getText().equals(user.getName())
-                                && dateVal == user.getBirthDate()) {
+                                && dateText.getText().equals(dateTimeFormat.format(user.getBirthDate()))) {
                             // Disabling update button
                             duplicate = true;
                             clearChecks();
@@ -438,6 +443,12 @@ public class App extends Application {
                     }
                     if (!duplicate) {
                         // Enabling the update button
+                        if (editing) {
+                            editButton.setDisable(false);
+                        } else {
+                            createButton.setDisable(false);
+                        }
+                    } else {
                         if (editing) {
                             editButton.setDisable(true);
                         } else {
