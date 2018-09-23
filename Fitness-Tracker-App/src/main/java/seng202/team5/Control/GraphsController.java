@@ -372,7 +372,7 @@ public class GraphsController{
         XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
         setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
 
-        XYChart.Series runningDistSeries = createGraph(runningDistChart, "Running Distance");
+        XYChart.Series runningDistSeries = createOverallGraph(runningDistChart, "Running Distance");
         setRunningDistChart(runningDistChart, runningDistSeries);
     }
 
