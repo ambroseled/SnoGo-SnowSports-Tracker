@@ -106,7 +106,7 @@ public class App extends Application {
 
     private boolean backwards = false;
     private boolean down = false;
-    private int rotate = 0;
+    private double rotate = 0;
 
 
 
@@ -114,6 +114,7 @@ public class App extends Application {
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
+
                 if (skier1.getX() > 1050) {
                     backwards = true;
                 } else if (skier1.getX() < 30) {
@@ -127,19 +128,20 @@ public class App extends Application {
 
 
                 if (backwards) {
-                    skier1.setX(skier1.getX() - 5 );
+                    skier1.setX(skier1.getX() - 2 );
                 } else {
-                    skier1.setX(skier1.getX() + 5 );
+                    skier1.setX(skier1.getX() + 2 );
                 }
 
                 if (down) {
-                    skier1.setY(skier1.getY() + 5 );
+                    skier1.setY(skier1.getY() + 2 );
                 } else {
-                    skier1.setY(skier1.getY() - 5 );
+                    skier1.setY(skier1.getY() - 2 );
                 }
 
+
                 skier1.setRotate(rotate);
-                rotate += 5;
+                rotate += 3;
             }
         };
         timer.start();
@@ -584,8 +586,15 @@ public class App extends Application {
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date x = dateTimeFormat.parse(date);
-            dateCheck.setSelected(true);
-            return true;
+            Date current = new Date();
+            if (x.getTime() > current.getTime()) {
+                dateCheck.setSelected(false);
+                return false;
+            } else {
+                dateCheck.setSelected(true);
+                return true;
+            }
+
         } catch (ParseException e) {
             dateCheck.setSelected(false);
             return false;
