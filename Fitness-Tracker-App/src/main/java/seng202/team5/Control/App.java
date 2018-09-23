@@ -1,6 +1,7 @@
 package seng202.team5.Control;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
@@ -23,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static seng202.team5.Model.CheckGoals.convertDate;
 
 
 /**
@@ -80,6 +81,8 @@ public class App extends Application {
     private Text bmiLabel;
     @FXML
     private Text ageLabel;
+    @FXML
+    private ImageView skier1;
 
 
     boolean editing = false;
@@ -99,6 +102,47 @@ public class App extends Application {
     private static User currentUser;
 
 
+    private boolean backwards = false;
+    private boolean down = false;
+    private int rotate = 0;
+
+
+
+    public void initialize() {
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                if (skier1.getX() > 1100) {
+                    backwards = true;
+                } else if (skier1.getX() < 10) {
+                    backwards = false;
+                }
+                if (skier1.getY() > 530) {
+                    down = false;
+                } else if (skier1.getY() < 10) {
+                    down = true;
+                }
+
+
+                if (backwards) {
+                    skier1.setX(skier1.getX() - 10.0 );
+                } else {
+                    skier1.setX(skier1.getX() + 5.0 );
+                }
+
+                if (down) {
+                    skier1.setY(skier1.getY() + 5.0 );
+                } else {
+                    skier1.setY(skier1.getY() - 7.5 );
+                }
+                skier1.setRotate(rotate);
+                rotate += 5;
+            }
+        };
+        timer.start();
+    }
+
+
 
     /**
      * Creates the application GUI scene, based on tabMain.fxml file
@@ -116,6 +160,8 @@ public class App extends Application {
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("logo.png"));
+
+
     }
 
 

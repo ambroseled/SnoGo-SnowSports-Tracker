@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -28,7 +29,15 @@
          <content>
             <AnchorPane onMouseMoved="#fillTable" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
                <children>
-                  <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="375.0" layoutY="80.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="skier1" fitHeight="134.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../skier1.png" />
+                     </image>
+                     <effect>
+                        <GaussianBlur radius="4.0" />
+                     </effect>
+                  </ImageView>
+                  <ImageView fx:id="beans" fitHeight="500.0" fitWidth="500.0" layoutX="375.0" layoutY="80.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../logo.png" />
                      </image>
@@ -123,6 +132,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
+                  
                </children>
             </AnchorPane>
          </content>

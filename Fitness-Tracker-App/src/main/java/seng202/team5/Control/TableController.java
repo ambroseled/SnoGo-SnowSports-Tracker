@@ -1,6 +1,7 @@
 package seng202.team5.Control;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,11 +14,10 @@ import seng202.team5.DataManipulation.DataValidator;
 import seng202.team5.DataManipulation.InputDataParser;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
-
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import javafx.scene.image.ImageView;
 
 /**
  * This class handles the controls for the data view tab of the application.
@@ -30,6 +30,10 @@ public class TableController {
     private ArrayList<Activity> activities;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
+    private boolean backwards = false;
+    private boolean down = false;
+    @FXML
+    private ImageView skier1;
 
 
     /**
@@ -41,6 +45,36 @@ public class TableController {
         for (int i = 0; i < (numActivities); i += 1) {
             addActivityPanels(i);
         }
+
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                if (skier1.getX() > 1100) {
+                    backwards = true;
+                } else if (skier1.getX() < 10) {
+                    backwards = false;
+                }
+                if (skier1.getY() > 500) {
+                    down = false;
+                } else if (skier1.getY() < 10) {
+                    down = true;
+                }
+
+
+                if (backwards) {
+                    skier1.setX(skier1.getX() - 10.0 );
+                } else {
+                    skier1.setX(skier1.getX() + 7.5 );
+                }
+
+                if (down) {
+                    skier1.setY(skier1.getY() + 10.0 );
+                } else {
+                    skier1.setY(skier1.getY() - 7.5 );
+                }
+            }
+        };
+        timer.start();
     }
 
 
