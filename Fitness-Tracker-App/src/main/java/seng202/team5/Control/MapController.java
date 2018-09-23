@@ -81,6 +81,7 @@ public class MapController {
    * number of activities the App.getCurrentUser() has.
    */
   public void fillTable() {
+      actTable.getItems().clear();
       if (App.getCurrentUser() != null) {
           if (actTable.getItems().size() != App.getCurrentUser().getActivities().size()) {
           activities = db.getActivities(App.getCurrentUser().getId());

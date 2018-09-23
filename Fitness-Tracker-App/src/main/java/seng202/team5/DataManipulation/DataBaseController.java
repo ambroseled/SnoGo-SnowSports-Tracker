@@ -773,17 +773,6 @@ public class DataBaseController {
     }
 
 
-    public static void main(String[] args) {
-        try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date birth = dateTimeFormat.parse("07/06/2000");
-            User user = new User("Steve Jones", 18, 1.7, 75.6, birth);
-            DataBaseController db = new DataBaseController();
-            db.storeNewUser(user);
-        } catch(Exception e) {
-
-        }
-    }
 
 
 }
