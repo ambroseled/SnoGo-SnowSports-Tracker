@@ -80,7 +80,7 @@
             <TextField editable="false" opacity="0.8" text="Measured over all data?" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#removeGoal" opacity="0.7" prefHeight="61.0" prefWidth="175.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Goal" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <TextField fx:id="dateEntry" onKeyReleased="#checkDate" opacity="0.8" promptText="Completion date: dd/MM/yyy" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <Text opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Create A Goal" textAlignment="JUSTIFY" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Text fill="WHITE" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Create A Goal" textAlignment="JUSTIFY" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font size="45.0" />
                </font>

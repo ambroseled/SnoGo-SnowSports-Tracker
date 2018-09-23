@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
+
+import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -82,9 +84,7 @@ public class App extends Application {
     @FXML
     private Text ageLabel;
     @FXML
-    private ImageView skier1;
-    @FXML
-    private ImageView logo;
+    private ImageView pingu;
 
 
     boolean editing = false;
@@ -105,7 +105,6 @@ public class App extends Application {
 
 
     private boolean backwards = false;
-    private boolean down = false;
     private double rotate = 0;
 
 
@@ -115,33 +114,24 @@ public class App extends Application {
             @Override
             public void handle(long now) {
 
-                if (skier1.getX() > 1050) {
+                if (pingu.getX() > 1100) {
                     backwards = true;
-                } else if (skier1.getX() < 30) {
+                    Image image = new Image("pingu2.png");
+                    pingu.setImage(image);
+                } else if (pingu.getX() < 10) {
                     backwards = false;
+                    Image image = new Image("Pingu3D.png");
+                    pingu.setImage(image);
                 }
-                if (skier1.getY() > 530) {
-                    down = false;
-                } else if (skier1.getY() < 30) {
-                    down = true;
-                }
+
 
 
                 if (backwards) {
-                    skier1.setX(skier1.getX() - 2 );
+                    pingu.setX(pingu.getX() - 7.5 );
                 } else {
-                    skier1.setX(skier1.getX() + 2 );
+                    pingu.setX(pingu.getX() + 7.5 );
                 }
 
-                if (down) {
-                    skier1.setY(skier1.getY() + 2 );
-                } else {
-                    skier1.setY(skier1.getY() - 2 );
-                }
-
-
-                skier1.setRotate(rotate);
-                rotate += 3;
             }
         };
         timer.start();
@@ -442,19 +432,16 @@ public class App extends Application {
                                 && nameText.getText().equals(user.getName())
                                 && dateVal == user.getBirthDate()) {
                             // Disabling update button
-                            if (editing) {
-                                editButton.setDisable(true);
-                            } else {
-                                createButton.setDisable(true);
-                            }
+                            duplicate = true;
+                            clearChecks();
                         }
                     }
                     if (!duplicate) {
                         // Enabling the update button
                         if (editing) {
-                            editButton.setDisable(false);
+                            editButton.setDisable(true);
                         } else {
-                            createButton.setDisable(false);
+                            createButton.setDisable(true);
                         }
                     }
                 } catch (ParseException e) {
@@ -515,7 +502,7 @@ public class App extends Application {
      */
     private boolean checkName(String name) {
         // Checking the name is of valid length and is all alphabetical
-        if (name.length() > 4 && name.length() < 30) {
+        if (name.length() > 3 && name.length() < 30) {
             nameCheck.setSelected(true);
             return true;
         } else {
