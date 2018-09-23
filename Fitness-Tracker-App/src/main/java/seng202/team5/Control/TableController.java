@@ -70,7 +70,8 @@ public class TableController {
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
 
         if (inputActivities.size() == 0) {
-            ErrorController.displayError("File has no activities or is missing '#start' tag.\nPlease check file");
+            ErrorController.displayError("File has no activities or is missing '#start' tag.\n" +
+                    "Please check file");
         }
 
         for (Activity activity : inputActivities) {
@@ -93,7 +94,9 @@ public class TableController {
         DataAnalyser analyser = new DataAnalyser();
         analyser.setCurrentUser(App.getCurrentUser());
         for (Activity activity : inputActivities) {
-            analyser.analyseActivity(activity);
+           if (activity.getDataSet().getDataPoints().size() > 0) {
+                analyser.analyseActivity(activity);
+           }
         }
 
         // Tests if activity is equal to any others
