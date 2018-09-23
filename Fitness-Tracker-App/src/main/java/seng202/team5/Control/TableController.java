@@ -46,7 +46,7 @@ public class TableController {
 
     @FXML
     /**
-     * Called by mouse movement on teh anchor pane, this method displays the users current
+     * Called by mouse movement on the anchor pane, this method displays the users current
      * activities in the application.
      */
     public void viewData() {

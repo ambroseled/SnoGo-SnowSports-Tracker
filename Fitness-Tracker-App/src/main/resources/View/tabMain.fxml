@@ -53,9 +53,8 @@
                         <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                         <TextField fx:id="nameText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                         <TextField fx:id="weightText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <TextField fx:id="ageText" onKeyReleased="#checkProfile" opacity="0.8" prefHeight="27.0" prefWidth="256.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                         <TextField fx:id="dateText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                        <TextField fx:id="heightText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                        <TextField fx:id="heightText" onKeyReleased="#checkProfile" opacity="0.8" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                         <TextField fx:id="bmiText" opacity="0.8" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <font>
@@ -67,17 +66,12 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (m)" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (m)" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -101,10 +95,15 @@
                         </Text>
                         <CheckBox fx:id="nameCheck" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="weightCheck" layoutX="916.0" layoutY="269.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <CheckBox fx:id="ageCheck" layoutX="916.0" layoutY="269.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="dateCheck" layoutX="806.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <CheckBox fx:id="heightCheck" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <CheckBox fx:id="heightCheck" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <TextField fx:id="ageText" editable="false" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                        <Text fx:id="ageLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -152,11 +151,6 @@
           <content>
               <fx:include fx:id="goalTab" source="goalView.fxml" />
           </content>
-      </Tab>
-      <Tab fx:id="profTab" disable="true" text="Profile">
-         <content>
-            <fx:include source="profView.fxml" />
-         </content>
       </Tab>
   </tabs>
 </TabPane>

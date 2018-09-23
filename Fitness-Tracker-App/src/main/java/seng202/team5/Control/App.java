@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
 import java.net.URL;
 import java.text.DateFormat;
@@ -40,8 +41,6 @@ public class App extends Application {
     @FXML
     private Tab goalsTab;
     @FXML
-    private Tab profTab;
-    @FXML
     private TableView userTable;
     @FXML
     private TableColumn<User, String> userCol;
@@ -66,8 +65,6 @@ public class App extends Application {
     @FXML
     private CheckBox weightCheck;
     @FXML
-    private CheckBox ageCheck;
-    @FXML
     private CheckBox dateCheck;
     @FXML
     private CheckBox heightCheck;
@@ -79,6 +76,8 @@ public class App extends Application {
     private Button createButton;
     @FXML
     private Text bmiLabel;
+    @FXML
+    private Text ageLabel;
 
 
     boolean editing = false;
@@ -211,7 +210,6 @@ public class App extends Application {
         mapTab.setDisable(true);
         alertsTab.setDisable(true);
         goalsTab.setDisable(true);
-        profTab.setDisable(true);
     }
 
 
@@ -221,14 +219,14 @@ public class App extends Application {
         mapTab.setDisable(false);
         alertsTab.setDisable(false);
         goalsTab.setDisable(false);
-        profTab.setDisable(false);
     }
 
 
     @FXML
     public void viewProfile() {
-        bmiText.setDisable(false);
         bmiText.setVisible(true);
+        ageLabel.setVisible(true);
+        ageText.setVisible(true);
         bmiLabel.setVisible(true);
         editButton.setVisible(true);
         abortButton.setVisible(true);
@@ -249,9 +247,10 @@ public class App extends Application {
 
     @FXML
     public void showCreate() {
-        bmiText.setDisable(true);
         bmiText.setVisible(false);
         bmiLabel.setVisible(false);
+        ageText.setVisible(false);
+        ageLabel.setVisible(false);
         editButton.setVisible(false);
         editButton.setDisable(true);
         abortButton.setVisible(false);
@@ -268,7 +267,6 @@ public class App extends Application {
     private void clearFields() {
         nameText.clear();
         weightText.clear();
-        ageText.clear();
         dateText.clear();
         heightText.clear();
     }
@@ -278,7 +276,6 @@ public class App extends Application {
     private void clearChecks() {
         nameCheck.setSelected(false);
         weightCheck.setSelected(false);
-        ageCheck.setSelected(false);
         dateCheck.setSelected(false);
         heightCheck.setSelected(false);
     }
@@ -296,8 +293,8 @@ public class App extends Application {
             String name = nameText.getText();
             double weight = Double.parseDouble(weightText.getText());
             double height = Double.parseDouble(heightText.getText());
-            int age = Integer.parseInt(ageText.getText());
             Date date = dateTimeFormat.parse(dateText.getText());
+            int age = calcAge(date);
             // Setting the new values of the users information
             currentUser.setName(name);
             currentUser.setWeight(weight);
@@ -316,6 +313,22 @@ public class App extends Application {
     }
 
 
+    /**
+     *
+     * @param birth
+     * @return
+     */
+    private int calcAge(Date birth) {
+        Date age = new Date();
+        String[] vals = dateTimeFormat.format(age).split("/");
+        int[] intVals = CheckGoals.convertDate(vals);
+        int[] ageVals = CheckGoals.convertDate(dateTimeFormat.format(birth).split("/"));
+        System.out.println(intVals[2]);
+        System.out.println(ageVals[2]);
+        return intVals[2] - ageVals[2];
+    }
+
+
     @FXML
     /**
      * Called by a key release on any of the editable text fields in the profile view. This
@@ -328,15 +341,13 @@ public class App extends Application {
         try {
             boolean name = checkName(nameText.getText());
             boolean weight = checkWeight(weightText.getText());
-            boolean age = checkAge(ageText.getText());
-            boolean date = checkDate(dateText.getText(), Integer.parseInt(ageText.getText()));
+            boolean date = checkDate(dateText.getText());
             boolean height = checkHeight(heightText.getText());
             // Checking all entry fields values are valid
-            if (name && weight && age && date && height) {
+            if (name && weight && date && height) {
                 // Parsing the none string values
                 double weightVal = Double.parseDouble(weightText.getText());
                 double heightVal = Double.parseDouble(heightText.getText());
-                int ageVal = Integer.parseInt(ageText.getText());
                 try {
                     Date dateVal = dateTimeFormat.parse(dateText.getText());
                     // Checking that newly entered data isn't the same ass the users information
@@ -344,7 +355,6 @@ public class App extends Application {
                     for (User user : db.getUsers()) {
                         if (weightVal == user.getWeight()
                                 && heightVal == user.getHeight()
-                                && ageVal == user.getAge()
                                 && nameText.getText().equals(user.getName())
                                 && dateVal == user.getBirthDate()) {
                             // Disabling update button
@@ -397,8 +407,8 @@ public class App extends Application {
             String name = nameText.getText();
             double weight = Double.parseDouble(weightText.getText());
             double height = Double.parseDouble(heightText.getText());
-            int age = Integer.parseInt(ageText.getText());
             Date date = dateTimeFormat.parse(dateText.getText());
+            int age = calcAge(date);
             User user = new User(name, age, height, weight, date);
             db.storeNewUser(user);
             refreshTable();
@@ -423,28 +433,6 @@ public class App extends Application {
             return true;
         } else {
             nameCheck.setSelected(false);
-            return false;
-        }
-    }
-
-
-    /**
-     * This method checks if a newly entered int value is valid.
-     * @param value The int value to check.
-     * @return A boolean flag holding the result of the check.
-     */
-    private boolean checkAge(String value) {
-        // Trying to parse string to int returning if the parse was successful
-        try {
-            int x = Integer.parseInt(value);
-            if (x > 115 | x < 0) {
-                ageCheck.setSelected(false);
-                return false;
-            }
-            ageCheck.setSelected(true);
-            return true;
-        } catch (NumberFormatException e) {
-            ageCheck.setSelected(false);
             return false;
         }
     }
@@ -506,22 +494,13 @@ public class App extends Application {
      * @param date The date string to be checked.
      * @return A boolean flag holding the result of the check.
      */
-    private boolean checkDate(String date, int newAge) {
+    private boolean checkDate(String date) {
         // Trying to parse string to double returning if the parse was successful
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date x = dateTimeFormat.parse(date);
-            Date current = new Date();
-            // Checking that the birth date lines up with the users age
-            int[] currentDate = convertDate(dateTimeFormat.format(current).split("/"));
-            int[] compDate = convertDate(date.split("/"));
-            if (compDate[2] != currentDate[2] - newAge) {
-                dateCheck.setSelected(false);
-                return false;
-            } else {
-                dateCheck.setSelected(true);
-                return true;
-            }
+            dateCheck.setSelected(true);
+            return true;
         } catch (ParseException e) {
             dateCheck.setSelected(false);
             return false;

@@ -162,7 +162,12 @@ public class GoalController {
             try {
                 DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = dateTimeFormat.parse(text);
-                dateCheck.setSelected(true);
+                Date current = new Date();
+                if (date.getTime() > current.getTime()) {
+                    dateCheck.setSelected(false);
+                } else {
+                    dateCheck.setSelected(true);
+                }
             } catch (ParseException e) {
                 dateCheck.setSelected(false);
             }
@@ -323,20 +328,18 @@ public class GoalController {
      * goal from the goal table and removes it from teh user and the database. The
      * goal table is then updated.
      */
-    private void removeGoal() {
-        if (App.getCurrentUser() != null) {
-            // Getting the selected goal
-            Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
-            // Removing the goal from the database and the user
-            if (goal != null) {
-                db.removeGoal(goal);
-                App.getCurrentUser().setGoals(db.getGoals(App.getCurrentUser().getId()));
-                // Refreshing the goal table
-                viewData();
-            }
+    public void removeGoal() {
+        // Getting the selected goal
+        Goal goal = (Goal) goalTable.getSelectionModel().getSelectedItem();
+        // Removing the goal from the database and the user
+        if (goal != null) {
+            db.removeGoal(goal);
+            App.getCurrentUser().setGoals(db.getGoals(App.getCurrentUser().getId()));
+            // Refreshing the goal table
+            viewData();
         }
-
     }
+
 
 
 }
