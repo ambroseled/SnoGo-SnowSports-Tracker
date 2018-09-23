@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 
-//TODO: Comment about how the analysis is ski dependent
-
 /**
  * This class performs analytics on the data uploaded into the application by the user.
  * The results of these calculations are then added to the DataSet and DataPoints of the

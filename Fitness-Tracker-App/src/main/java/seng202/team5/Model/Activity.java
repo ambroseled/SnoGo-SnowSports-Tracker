@@ -62,43 +62,25 @@ public class Activity {
         return dataSet;
     }
 
-    /**
-     *
-     * @return id The ID of the activity
-     */
+
     public int getId() {
         return id;
     }
 
-    /**
-     *
-     * @return A string which describes the activity using its name, time, and date.
-     */
+
     public String toString() {
         return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
     }
 
-    /**
-     *
-     * @param dataSet The dataset corresponding to the activity
-     */
-    public void setDataSet(DataSet dataSet) {
-        this.dataSet = dataSet;
-    }
 
-    /**
-     *
-     * @return name The name of the activity
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     *
-     * @param id ID of the activity
-     */
+
     public void setId(int id) {
         this.id = id;
     }
+
+
 }

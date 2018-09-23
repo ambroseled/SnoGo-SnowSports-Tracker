@@ -24,8 +24,9 @@ import java.util.Date;
 
 import static seng202.team5.Model.CheckGoals.convertDate;
 
+
 /**
- *
+ * This class runs the application and also provides the profile functionality.
  */
 public class App extends Application {
 
@@ -125,7 +126,6 @@ public class App extends Application {
     }
 
 
-
     /**
      * Gets the current user which is used by other controllers of the application
      * @return The current user
@@ -164,6 +164,9 @@ public class App extends Application {
     }
 
 
+    /**
+     * Refreshes the user table.
+     */
     private void refreshTable(){
         users = db.getUsers();
         userTable.getItems().clear();
@@ -175,6 +178,9 @@ public class App extends Application {
 
 
     @FXML
+    /**
+     * Deletes a selected user from the database.
+     */
     private void deleteUser(){
         User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
         db.removeUser(selectedUser);
@@ -185,7 +191,11 @@ public class App extends Application {
         }
     }
 
+
     @FXML
+    /**
+     * Enabling buttons if a user is selected
+     */
     private void checkUserSelected(){
         if (userTable.getSelectionModel().getSelectedItem() != null){
             removeButton.setDisable(false);
@@ -193,7 +203,11 @@ public class App extends Application {
         }
     }
 
+
     @FXML
+    /**
+     * Setting the current user of the App class
+     */
     private void setSelectedUser(){
         App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
         if (App.getCurrentUser() != null) {
@@ -204,6 +218,9 @@ public class App extends Application {
     }
 
 
+    /**
+     * Disabling all the tabs as the current user is null
+     */
     private void disableTabs() {
         dataTab.setDisable(true);
         statsTab.setDisable(true);
@@ -213,6 +230,9 @@ public class App extends Application {
     }
 
 
+    /**
+     * Enabling all tabs as the current user is no not null
+     */
     private void enableTabs() {
         dataTab.setDisable(false);
         statsTab.setDisable(false);
@@ -223,6 +243,9 @@ public class App extends Application {
 
 
     @FXML
+    /**
+     * Setting the text fields for viewing a user
+     */
     public void viewProfile() {
         bmiText.setVisible(true);
         ageLabel.setVisible(true);
@@ -246,6 +269,9 @@ public class App extends Application {
 
 
     @FXML
+    /**
+     * Setting the fields ready to create a new user.
+     */
     public void showCreate() {
         bmiText.setVisible(false);
         bmiLabel.setVisible(false);
@@ -263,7 +289,9 @@ public class App extends Application {
     }
 
 
-
+    /**
+     * Clearing all entry fields
+     */
     private void clearFields() {
         nameText.clear();
         weightText.clear();
@@ -272,7 +300,9 @@ public class App extends Application {
     }
 
 
-
+    /**
+     * Clearing all the check boxes
+     */
     private void clearChecks() {
         nameCheck.setSelected(false);
         weightCheck.setSelected(false);
@@ -314,9 +344,9 @@ public class App extends Application {
 
 
     /**
-     *
-     * @param birth
-     * @return
+     * Calculates the age of a user according to the current year.
+     * @param birth The users birth date
+     * @return The users age
      */
     private int calcAge(Date birth) {
         Date age = new Date();
@@ -401,6 +431,9 @@ public class App extends Application {
 
 
     @FXML
+    /**
+     * Creating a new user from the entry fields values. The user is added to the database and user table
+     */
     public void createUser() {
         try {
             // Getting data from entry fields

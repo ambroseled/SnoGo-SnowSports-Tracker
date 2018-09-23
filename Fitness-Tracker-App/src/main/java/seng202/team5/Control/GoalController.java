@@ -163,7 +163,7 @@ public class GoalController {
                 DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = dateTimeFormat.parse(text);
                 Date current = new Date();
-                if (date.getTime() > current.getTime()) {
+                if (current.getTime() > date.getTime()) {
                     dateCheck.setSelected(false);
                 } else {
                     dateCheck.setSelected(true);

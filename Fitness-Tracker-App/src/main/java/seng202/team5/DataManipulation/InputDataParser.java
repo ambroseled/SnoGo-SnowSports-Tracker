@@ -158,20 +158,6 @@ public class InputDataParser {
 		return activities;
 	}
 
-	/*
-	public static void main(String[] args) {
-		InputDataParser inputDataParser = new InputDataParser();
-		ArrayList<Activity> activities = inputDataParser.parseCSVToActivities("TestFiles/validationTestFiles/missingLastValues.csv");
-		//System.out.println(activities);
-
-		DataValidator validator = new DataValidator();
-		for (Activity activity : activities) {
-			System.out.println(activity.getDataSet());
-			validator.validateActivity(activity);
-		}
-	}
-	*/
-
 
 
 }

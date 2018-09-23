@@ -10,7 +10,7 @@ import java.util.Date;
 
 
 /**
- *
+ * This class provides the functionality for a user of the application
  */
 public class User {
 
@@ -34,11 +34,11 @@ public class User {
 
     /**
      * Constructor used to create a new user with new activities
-     * @param name
-     * @param age
-     * @param height
-     * @param weight
-     * @param activities
+     * @param name The name of the user
+     * @param age The age of the user
+     * @param height The height of the user
+     * @param weight The weight of the user
+     * @param activities The activities related to the user
      */
     public User(String name, int age, double height, double weight, ArrayList<Activity> activities, Date birthDate){
         this.name = name;
@@ -53,12 +53,12 @@ public class User {
 
     /**
      * Constructor used to read a user from the database
-     * @param id
-     * @param name
-     * @param age
-     * @param height
-     * @param weight
-     * @param activities
+     * @param id The db id of the user
+     * @param name the name of the user
+     * @param age The age of the user
+     * @param height The height of the user
+     * @param weight The weight of the user
+     * @param activities The activities related ot the user
      */
     public User(String name, int age, double height, double weight, ArrayList<Activity> activities, int id, String dateString) {
         this.id = id;
@@ -77,10 +77,10 @@ public class User {
 
     /**
      * Constructor used to create a new user without activities
-     * @param name
-     * @param age
-     * @param height
-     * @param weight
+     * @param name The name of the user
+     * @param age The age of the user
+     * @param height The height of the user
+     * @param weight The weight of the user
      */
     public User(String name, int age, double height, double weight, Date birthDate) {
         this.name = name;
@@ -195,19 +195,9 @@ public class User {
         this.activities = activities;
     }
 
-    public void removeGoal(Goal goal) {
-
-        goals.remove(goal);
-    }
-
 
     public void addAlert(Alert alert) {
         alerts.add(alert);
-    }
-
-
-    public void removeAlert(Alert alert) {
-        alerts.remove(alert);
     }
 
 

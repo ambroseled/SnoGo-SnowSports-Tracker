@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 /**
- *
+ * This class handles the creation of alerts in the application
  */
 public class AlertHandler {
 
@@ -65,6 +65,11 @@ public class AlertHandler {
     }
 
 
+    /**
+     * This method creates a new alert for a goal that is expired.
+     * @param goalName The name of the goal
+     * @return The alert for the expired goal
+     */
     public static Alert expiredGoalAlert(String goalName) {
         String date = dateTimeFormat.format(new Date());
         String message = "Goal: " + goalName + " expired";
