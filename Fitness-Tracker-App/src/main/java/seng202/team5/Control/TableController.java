@@ -91,13 +91,13 @@ public class TableController {
               for (Activity activity : inputActivities) {
                 analyser.analyseActivity(activity);
               }
-
+             // /*
               // Tests if activity is equal to any others
               for (int i = 0; i < inputActivities.size(); i++) {
                 boolean notDuplicate = true;
                 for (Activity activity : App.getCurrentUser().getActivities()) {
                   if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
-                    String message = "Activity " + inputActivities.get(i).getName();
+                    String message = "Activity '" + inputActivities.get(i).getName()+"'";
                     message += " is a duplicate of existing activity\n";
                     message += "It will not be added";
                     ErrorController.displayError(message);
@@ -111,6 +111,14 @@ public class TableController {
                   App.getCurrentUser().addActivity(inputActivities.get(i));
                 }
               }
+             // */
+
+              // Dont add empty files
+
+//              for (int i = 0; i < inputActivities.size(); i++) {
+//                  db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
+//                  App.getCurrentUser().addActivity(inputActivities.get(i));
+//              }
 
               setActivities(inputActivities);
 
