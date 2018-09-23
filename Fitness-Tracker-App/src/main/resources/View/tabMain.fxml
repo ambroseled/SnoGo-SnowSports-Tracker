@@ -1,41 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.App">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.App">
   <tabs>
       <Tab text="User Entry">
-          <content>
-              <fx:include source="userEntry.fxml" />
-          </content>
+         <content>
+            <AnchorPane onMouseMoved="#fillTable" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
+               <children>
+                  <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="375.0" layoutY="80.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logo.png" />
+                     </image>
+                  </ImageView>
+                  <GridPane layoutY="-5.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
+                     <children>
+                        <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" opacity="0.8" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                           <columns>
+                              <TableColumn fx:id="userCol" prefWidth="284.0" text="User" />
+                           </columns>
+                        </TableView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select User" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create New User" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="newUserName" promptText="Enter name" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="newUserHeight" onKeyTyped="#restrictNumbers" promptText="Enter height" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" promptText="Enter Weight" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date (dd/mm/yyyy)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight (kg)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Button fx:id="commitDetails" mnemonicParsing="false" onAction="#checkDuplicates" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <Label fx:id="detailConfirm" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <TextField fx:id="newUserBirth" promptText="Enter birth date: dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
-    <Tab fx:id="dataTab" text="Data">
+    <Tab fx:id="dataTab" disable="true" text="Data">
          <content>
              <fx:include fx:id="tableTab" source="TableTab.fxml" />
          </content></Tab>
 
-    <Tab fx:id="stastab" text="Statistics">
+    <Tab fx:id="statsTab" disable="true" text="Statistics">
          <content>
              <fx:include fx:id="statTab" source="GraphsTab.fxml" />
          </content>
     </Tab>
-      <Tab fx:id="mapTab" text="Map">
+      <Tab fx:id="mapTab" disable="true" text="Map">
          <content>
-             <fx:include fx:id="mapTab" source="mapView.fxml" />
+             <fx:include fx:id="mapsTab" source="mapView.fxml" />
          </content>
       </Tab>
-      <Tab fx:id="alertsTab" text="Alerts">
+      <Tab fx:id="alertsTab" disable="true" text="Alerts">
           <content>
               <fx:include source="alertView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="goalsTab" text="Goals">
+      <Tab fx:id="goalsTab" disable="true" text="Goals">
           <content>
               <fx:include fx:id="goalTab" source="goalView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="profTab" text="Profile">
+      <Tab fx:id="profTab" disable="true" text="Profile">
          <content>
             <fx:include source="profView.fxml" />
          </content>

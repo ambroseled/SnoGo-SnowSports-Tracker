@@ -36,19 +36,17 @@ public class AlertController {
      * of alerts in teh table is not equal to teh number of alerts the user has.
      */
     public void viewData() {
-        if (App.getCurrentUser() != null) {
-            // Checking if the table needs to be refilled
-            if (alertTable.getItems().size() != App.getCurrentUser().getAlerts().size()) {
-                alertTable.getItems().clear();
-                // Getting the users alerts
-                alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
-                // Setting table columns
-                nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-                desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
-                dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
-                // Adding alerts to the table
-                alertTable.setItems(alerts);
-            }
+        // Checking if the table needs to be refilled
+        if (alertTable.getItems().size() != App.getCurrentUser().getAlerts().size()) {
+            alertTable.getItems().clear();
+            // Getting the users alerts
+            alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
+            // Setting table columns
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+            // Adding alerts to the table
+            alertTable.setItems(alerts);
         }
 
     }
@@ -60,21 +58,15 @@ public class AlertController {
      * refills it with all of the users alerts.
      */
     public void refreshData() {
-        if (App.getCurrentUser() != null) {
-            if (alertTable.getItems().isEmpty()) {
-                // Setting table columns
-                nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-                desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
-                dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
-            } else {
-                // Emptying the table
-                alertTable.getItems().clear();
-            }
-            // Refilling the table
-            alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
-            alertTable.setItems(alerts);
-        }
-
+        // Setting table columns
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        // Emptying the table
+        alertTable.getItems().clear();
+        // Refilling the table
+        alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
+        alertTable.setItems(alerts);
 
     }
 
@@ -85,18 +77,15 @@ public class AlertController {
      * goal table is then updated.
      */
     private void removeAlert() {
-        if (App.getCurrentUser() != null) {
-            // Getting the selected alert
-            Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
-            // Removing the alert from the user and the database
-            if (alert != null) {
-                db.removeAlert(alert);
-                App.getCurrentUser().setAlerts(db.getAlerts(App.getCurrentUser().getId()));
-                // Refreshing the data in teh table
-                refreshData();
-            }
+        // Getting the selected alert
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        // Removing the alert from the user and the database
+        if (alert != null) {
+            db.removeAlert(alert);
+            App.getCurrentUser().setAlerts(db.getAlerts(App.getCurrentUser().getId()));
+            // Refreshing the data in teh table
+            refreshData();
         }
-
 
     }
 

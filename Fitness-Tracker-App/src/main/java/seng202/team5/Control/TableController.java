@@ -36,6 +36,7 @@ public class TableController {
      *
      */
     private void initialise() {
+        accordion.getPanes().clear();
         int numActivities = activities.size();
         for (int i = 0; i < (numActivities); i += 1) {
             addActivityPanels(i);
@@ -49,12 +50,11 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-        if (App.getCurrentUser() != null) {
-            if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
-                ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
-                setActivities(inputActivities);
-                initialise();
-            }
+
+        if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
+            ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
+            setActivities(inputActivities);
+            initialise();
         }
     }
 
@@ -65,72 +65,71 @@ public class TableController {
      * activities in the application.
      */
     public void viewData(String filePath) {
-        if (App.getCurrentUser() != null) {
-              InputDataParser inputDataParser = new InputDataParser();
-              ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
 
-              for (Activity activity : inputActivities) {
-                DataValidator validator = new DataValidator();
-                validator.validateActivity(activity);
+        if (inputActivities.size() == 0) {
+            ErrorController.displayError("File has no activities or is missing '#start' tag.\nPlease check file");
+        }
 
-                if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
-                  String message = "Activity: " + activity.getName() + "\n";
-                  message +=
-                      "Points deleted: "
-                          + validator.getPointsDeleted()
-                          + "/"
-                          + validator.getInitialDataSetSize()
-                          + "\n";
-                  message += "Values fixed: " + validator.getDataValidated();
-                  ErrorController.displayError(message);
-                }
-              }
+        for (Activity activity : inputActivities) {
+            DataValidator validator = new DataValidator();
+            validator.validateActivity(activity);
 
-              DataAnalyser analyser = new DataAnalyser();
-              analyser.setCurrentUser(App.getCurrentUser());
-              for (Activity activity : inputActivities) {
-                analyser.analyseActivity(activity);
-              }
-             // /*
-              // Tests if activity is equal to any others
-              for (int i = 0; i < inputActivities.size(); i++) {
-                boolean notDuplicate = true;
-                for (Activity activity : App.getCurrentUser().getActivities()) {
-                  if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
+            if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
+                String message = "Activity: " + activity.getName() + "\n";
+                message +=
+                        "Points deleted: "
+                                + validator.getPointsDeleted()
+                                + "/"
+                                + validator.getInitialDataSetSize()
+                                + "\n";
+                message += "Values fixed: " + validator.getDataValidated();
+                ErrorController.displayError(message);
+            }
+        }
+
+        DataAnalyser analyser = new DataAnalyser();
+        analyser.setCurrentUser(App.getCurrentUser());
+        for (Activity activity : inputActivities) {
+            analyser.analyseActivity(activity);
+        }
+
+        // Tests if activity is equal to any others
+        for (int i = 0; i < inputActivities.size(); i++) {
+            boolean addActivity = true;
+            for (Activity activity : App.getCurrentUser().getActivities()) {
+                if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
                     String message = "Activity '" + inputActivities.get(i).getName()+"'";
                     message += " is a duplicate of existing activity\n";
                     message += "It will not be added";
                     ErrorController.displayError(message);
-                    inputActivities.remove(i);
-                    i--;
-                    notDuplicate = false;
-                  }
+                    addActivity = false;
                 }
-                if (notDuplicate) {
-                  db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
-                  App.getCurrentUser().addActivity(inputActivities.get(i));
-                }
-              }
-             // */
+            }
+            if (inputActivities.get(i).getDataSet().getDataPoints().size() == 0) {
+                String message = "Activity '" + inputActivities.get(i).getName()+"'";
+                message += " is empty.\n";
+                message += "It will not be added";
+                ErrorController.displayError(message);
+                addActivity = false;
+            }
+            if (addActivity) {
+                db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
+                App.getCurrentUser().addActivity(inputActivities.get(i));
+            }
+        }
 
-              // Dont add empty files
+          setActivities(db.getActivities(App.getCurrentUser().getId()));
 
-//              for (int i = 0; i < inputActivities.size(); i++) {
-//                  db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
-//                  App.getCurrentUser().addActivity(inputActivities.get(i));
-//              }
+          CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
+          Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
+          if (countAlert != null) {
+            db.storeAlert(countAlert, App.getCurrentUser().getId());
+            App.getCurrentUser().addAlert(countAlert);
+          }
 
-              setActivities(inputActivities);
-
-              CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
-              Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
-              if (countAlert != null) {
-                db.storeAlert(countAlert, App.getCurrentUser().getId());
-                App.getCurrentUser().addAlert(countAlert);
-              }
-
-              initialise();
-       }
+          initialise();
     }
 
 
