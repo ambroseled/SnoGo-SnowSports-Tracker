@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
@@ -114,6 +115,7 @@ public class App extends Application {
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("logo.png"));
     }
 
 
