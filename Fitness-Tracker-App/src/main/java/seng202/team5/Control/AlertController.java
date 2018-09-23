@@ -48,7 +48,6 @@ public class AlertController {
             // Adding alerts to the table
             alertTable.setItems(alerts);
         }
-
     }
 
 
