@@ -24,7 +24,7 @@
                      <children>
                         <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" opacity="0.8" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
                            <columns>
-                              <TableColumn fx:id="userCol" prefWidth="284.0" text="User" />
+                              <TableColumn fx:id="userCol" prefWidth="256.0" text="User" />
                            </columns>
                         </TableView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select User" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -32,32 +32,32 @@
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create New User" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="newUserName" promptText="Enter name" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <TextField fx:id="newUserHeight" onKeyTyped="#restrictNumbers" promptText="Enter height" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TextField fx:id="newUserName" maxWidth="205.0" promptText="Enter name" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="newUserHeight" maxWidth="205.0" onKeyTyped="#restrictNumbers" promptText="Enter height" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                         <TextField fx:id="newUserWeight" onKeyTyped="#restrictNumbers" promptText="Enter Weight" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date (dd/mm/yyyy)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height (cm)" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight (kg)" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                         <Button fx:id="commitDetails" mnemonicParsing="false" onAction="#checkDuplicates" text="Add User" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <Label fx:id="detailConfirm" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                        <Label fx:id="detailConfirm" prefHeight="19.0" prefWidth="341.0" text="Check all details are correct!" textFill="WHITE" visible="false" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Button fx:id="confirmUser" disable="true" layoutX="1108.0" layoutY="485.0" mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#confirmLabel" text="Confirm" visible="false" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                         <TextField fx:id="newUserBirth" promptText="Enter birth date: dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                        <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -65,9 +65,9 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="0.0" prefWidth="191.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="141.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="0.0" prefWidth="0.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
