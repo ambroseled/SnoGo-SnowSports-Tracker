@@ -10,7 +10,9 @@ import java.util.Date;
 
 
 /**
- * This class provides the functionality for a user of the application
+ * This class provides the functionality for a user of the application,
+ * by storing all their data as attributes, and providing getters and
+ * setters.
  */
 public class User {
 
