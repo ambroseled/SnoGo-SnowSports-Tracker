@@ -83,6 +83,8 @@ public class App extends Application {
     private Text ageLabel;
     @FXML
     private ImageView skier1;
+    @FXML
+    private ImageView logo;
 
 
     boolean editing = false;
@@ -112,34 +114,36 @@ public class App extends Application {
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
-                if (skier1.getX() > 1100) {
+                if (skier1.getX() > 1050) {
                     backwards = true;
-                } else if (skier1.getX() < 10) {
+                } else if (skier1.getX() < 30) {
                     backwards = false;
                 }
                 if (skier1.getY() > 530) {
                     down = false;
-                } else if (skier1.getY() < 10) {
+                } else if (skier1.getY() < 30) {
                     down = true;
                 }
 
 
                 if (backwards) {
-                    skier1.setX(skier1.getX() - 10.0 );
+                    skier1.setX(skier1.getX() - 5 );
                 } else {
-                    skier1.setX(skier1.getX() + 5.0 );
+                    skier1.setX(skier1.getX() + 5 );
                 }
 
                 if (down) {
-                    skier1.setY(skier1.getY() + 5.0 );
+                    skier1.setY(skier1.getY() + 5 );
                 } else {
-                    skier1.setY(skier1.getY() - 7.5 );
+                    skier1.setY(skier1.getY() - 5 );
                 }
+
                 skier1.setRotate(rotate);
                 rotate += 5;
             }
         };
         timer.start();
+        fillTable();
     }
 
 
