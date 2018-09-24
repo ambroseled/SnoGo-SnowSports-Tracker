@@ -35,7 +35,7 @@
                   </ImageView>
                   <GridPane layoutY="-5.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
                      <children>
-                        <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" opacity="0.8" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                        <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" prefHeight="200.0" prefWidth="200.0" styleClass="userTable" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
                            <columns>
                               <TableColumn fx:id="userCol" prefWidth="256.0" text="User" />
                            </columns>
@@ -46,11 +46,11 @@
                            </GridPane.margin>
                         </Button>
                         <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                        <TextField fx:id="nameText" onKeyReleased="#checkProfile" opacity="0.8" promptText="Between 3 and 30 characters" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                        <TextField fx:id="weightText" onKeyReleased="#checkProfile" opacity="0.8" promptText="Between 25 and 175 kg" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <TextField fx:id="dateText" onKeyReleased="#checkProfile" opacity="0.8" promptText="dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                        <TextField fx:id="heightText" onKeyReleased="#checkProfile" opacity="0.8" promptText="Between 0.7 m and 3 m" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                        <TextField fx:id="bmiText" editable="false" opacity="0.8" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                        <TextField fx:id="nameText" onKeyReleased="#checkProfile" promptText="Between 3 and 30 characters" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="weightText" onKeyReleased="#checkProfile" promptText="Between 25 and 175 kg" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <TextField fx:id="dateText" onKeyReleased="#checkProfile" promptText="dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <TextField fx:id="heightText" onKeyReleased="#checkProfile" promptText="Between 0.7 m and 3 m" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <TextField fx:id="bmiText" editable="false" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <font>
                               <Font size="25.0" />
