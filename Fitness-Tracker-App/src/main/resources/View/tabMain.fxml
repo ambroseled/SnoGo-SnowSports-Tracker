@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -17,13 +23,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.App">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.App">
   <tabs>
       <Tab text="User">
          <content>
             <AnchorPane onMouseMoved="#fillTable" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
                <children>
-                  <ImageView fx:id="pingu" fitHeight="150.0" fitWidth="200.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="pingu" fitHeight="150.0" fitWidth="200.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../Pingu3D.png" />
                      </image>
@@ -40,12 +46,12 @@
                               <TableColumn fx:id="userCol" prefWidth="256.0" text="User" />
                            </columns>
                         </TableView>
-                        <Button fx:id="removeButton" styleClass="round-blue-user1" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" styleClass="round-blue-user1" stylesheets="@../CSS/buttonStyle.css" text="Remove Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="selectButton" styleClass="round-blue-user2" stylesheets="@../CSS/buttonStyle.css" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                        <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" styleClass="round-blue-user2" stylesheets="@../CSS/buttonStyle.css" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                         <TextField fx:id="nameText" onKeyReleased="#checkProfile" promptText="Between 3 and 30 characters" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                         <TextField fx:id="weightText" onKeyReleased="#checkProfile" promptText="Between 25 and 175 kg" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                         <TextField fx:id="dateText" onKeyReleased="#checkProfile" promptText="dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="2" />
@@ -76,8 +82,8 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <Button fx:id="createButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" mnemonicParsing="false" onAction="#createUser" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button fx:id="editButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#updateProfile" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createUser" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#updateProfile" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <Text fx:id="createText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Creation" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="35.0" />
@@ -92,7 +98,7 @@
                         <CheckBox fx:id="weightCheck" disable="true" layoutX="916.0" layoutY="269.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="dateCheck" disable="true" layoutX="806.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="heightCheck" disable="true" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Button fx:id="abortButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#showCreate" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <TextField fx:id="ageText" editable="false" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                         <Text fx:id="ageLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <font>
@@ -118,11 +124,6 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <ImageView fx:id="snowFlake" fitHeight="60.0" fitWidth="66.0" layoutX="620.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../snowFlake4.png" />
-                     </image>
-                  </ImageView>
                   
                </children>
             </AnchorPane>
