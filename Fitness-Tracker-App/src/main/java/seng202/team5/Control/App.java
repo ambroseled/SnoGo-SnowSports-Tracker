@@ -233,8 +233,8 @@ public class App extends Application {
             if (App.getCurrentUser() == selectedUser) {
                 currentUser =  null;
                 disableTabs();
-                clearFields();
             }
+            showCreate();
         }
     }
 
