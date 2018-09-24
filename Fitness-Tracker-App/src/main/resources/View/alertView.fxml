@@ -31,7 +31,7 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <TableView fx:id="alertTable" opacity="0.75" prefHeight="95.0" prefWidth="397.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
+         <TableView fx:id="alertTable" prefHeight="95.0" prefWidth="397.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
              <placeholder>
                  <Label text="No alerts in application" />
              </placeholder>
@@ -41,7 +41,7 @@
                <TableColumn fx:id="desCol" prefWidth="399.0" text="Description" />
            </columns>
          </TableView>
-            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" opacity="0.7" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeAlert" prefHeight="52.0" prefWidth="194.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Selected Alert" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       </children>
    </GridPane>
    </children>
