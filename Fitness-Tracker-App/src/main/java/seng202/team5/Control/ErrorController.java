@@ -22,8 +22,8 @@ public class ErrorController {
         errorPopup.setContentText(errorMessage);
 
         DialogPane dialogPane = errorPopup.getDialogPane();
-        dialogPane.getStylesheets().add("errorStyle.css");
-        dialogPane.getStyleClass().add("error");
+        //dialogPane.getStylesheets().add("errorStyle.css");
+        //dialogPane.getStyleClass().add("error");
         dialogPane.setMinHeight(Region.USE_PREF_SIZE);
 
         errorPopup.showAndWait();

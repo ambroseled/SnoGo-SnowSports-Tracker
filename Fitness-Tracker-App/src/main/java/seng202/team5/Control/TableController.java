@@ -153,7 +153,7 @@ public class TableController {
             try {
                 viewData(f.getAbsolutePath());
             } catch (Exception e) {
-                ErrorController.displayError("File loading error");
+                //ErrorController.displayError("File loading error");
             }
         }
     }
