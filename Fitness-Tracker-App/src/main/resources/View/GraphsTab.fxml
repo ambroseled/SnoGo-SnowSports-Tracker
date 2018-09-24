@@ -52,9 +52,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-          <ScrollPane fx:id="scrollPane" maxWidth="550.0" opacity="0.8" prefHeight="608.0" prefWidth="520.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+          <ScrollPane fx:id="scrollPane" maxWidth="550.0" prefHeight="608.0" prefWidth="520.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
             <content>
-              <GridPane maxWidth="540.0" opacity="0.8" prefHeight="908.0" prefWidth="545.0">
+              <GridPane maxWidth="540.0" prefHeight="908.0" prefWidth="545.0">
                 <children>
                   <LineChart fx:id="speedChart" maxWidth="535.0" prefHeight="260.0" prefWidth="535.0" GridPane.columnSpan="3" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <xAxis>
@@ -97,8 +97,8 @@
               </GridPane>
             </content>
           </ScrollPane>
-            <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" opacity="0.7" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Select" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-          <ChoiceBox fx:id="activityChoice" minHeight="24.0" opacity="0.8" prefHeight="24.0" prefWidth="286.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Select" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+          <ChoiceBox fx:id="activityChoice" minHeight="24.0" prefHeight="24.0" prefWidth="286.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label prefHeight="28.0" prefWidth="197.0" text="Activity Statistics" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
             <font>
               <Font size="22.0" />
@@ -107,7 +107,7 @@
                   <Insets top="10.0" />
                </padding>
           </Label>
-            <ScrollPane fx:id="scrollPane1" maxWidth="545.0" opacity="0.8" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <ScrollPane fx:id="scrollPane1" maxWidth="545.0" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <content>
                   <GridPane maxWidth="535.0" prefHeight="908.0" prefWidth="540.0">
                      <children>
@@ -190,7 +190,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <AnchorPane fx:id="tablePane" opacity="0.8" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
+            <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" width="987.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="32.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="987.0" />
