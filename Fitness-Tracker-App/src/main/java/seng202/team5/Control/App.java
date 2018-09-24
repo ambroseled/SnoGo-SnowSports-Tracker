@@ -87,6 +87,8 @@ public class App extends Application {
     private ImageView pingu;
     @FXML
     private ImageView snowFlake;
+    @FXML
+    private ImageView logo;
 
 
     boolean editing = false;
@@ -133,7 +135,8 @@ public class App extends Application {
                 } else {
                     pingu.setX(pingu.getX() + 7.5 );
                 }
-                snowFlake.setRotate(rotate++);
+                snowFlake.setRotate(rotate);
+                //logo.setRotate(rotate++);
             }
         };
         timer.start();
