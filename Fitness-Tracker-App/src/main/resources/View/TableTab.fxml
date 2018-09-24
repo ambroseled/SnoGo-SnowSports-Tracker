@@ -38,9 +38,9 @@
            <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
        </rowConstraints>
        <children>
-         <ScrollPane hbarPolicy="NEVER" opacity="0.75" prefHeight="488.0" prefWidth="655.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
+         <ScrollPane hbarPolicy="NEVER" prefHeight="488.0" prefWidth="655.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css" vbarPolicy="ALWAYS" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
             <content>
-               <AnchorPane opacity="0.75" prefHeight="485.0" prefWidth="757.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css">
+               <AnchorPane prefHeight="485.0" prefWidth="757.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css">
                   <children>
                      <Accordion fx:id="accordion" maxHeight="-Infinity" prefHeight="488.0" prefWidth="752.0" styleClass="backGround-blue" stylesheets="@../CSS/accordionStyle.css">
                   </Accordion>
@@ -48,7 +48,7 @@
                </AnchorPane>
             </content>
          </ScrollPane>
-         <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" opacity="0.7" prefHeight="99.0" prefWidth="287.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="99.0" prefWidth="287.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font></Button>
