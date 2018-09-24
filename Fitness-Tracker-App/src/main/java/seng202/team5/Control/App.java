@@ -261,6 +261,7 @@ public class App extends Application {
         App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
         if (App.getCurrentUser() != null) {
             enableTabs();
+            viewProfile();
             if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
                 pinguActivated = true;
                 pingu.setVisible(true);
