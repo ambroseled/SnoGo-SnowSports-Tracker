@@ -187,6 +187,7 @@ public class App extends Application {
 
     public static void setCurrentUser(User user) {
         currentUser = user;
+
     }
 
 
@@ -269,15 +270,20 @@ public class App extends Application {
         if (App.getCurrentUser() != null) {
             enableTabs();
             viewProfile();
-            if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
-                pinguActivated = true;
-                pingu.setVisible(true);
-            } else {
-                pinguActivated = false;
-                pingu.setVisible(false);
-            }
+            checkPingu();
         }
 
+    }
+
+
+    private void checkPingu() {
+        if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
+            pinguActivated = true;
+            pingu.setVisible(true);
+        } else {
+            pinguActivated = false;
+            pingu.setVisible(false);
+        }
     }
 
 
@@ -399,6 +405,12 @@ public class App extends Application {
             clearChecks();
             clearFields();
             viewProfile();
+            users = db.getUsers();
+            userTable.getItems().clear();
+            userCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            userNames.addAll(users);
+            userTable.setItems(userNames);
+            checkPingu();
         } catch (Exception e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error updating user information");
