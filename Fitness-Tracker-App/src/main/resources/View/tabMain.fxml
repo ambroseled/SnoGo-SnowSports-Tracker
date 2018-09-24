@@ -118,6 +118,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
+                  <ImageView fx:id="snowFlake" fitHeight="60.0" fitWidth="66.0" layoutX="620.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../snowFlake4.png" />
+                     </image>
+                  </ImageView>
                   
                </children>
             </AnchorPane>

@@ -85,6 +85,8 @@ public class App extends Application {
     private Text ageLabel;
     @FXML
     private ImageView pingu;
+    @FXML
+    private ImageView snowFlake;
 
 
     boolean editing = false;
@@ -131,7 +133,7 @@ public class App extends Application {
                 } else {
                     pingu.setX(pingu.getX() + 7.5 );
                 }
-
+                snowFlake.setRotate(rotate++);
             }
         };
         timer.start();
