@@ -85,10 +85,6 @@ public class App extends Application {
     private Text ageLabel;
     @FXML
     private ImageView pingu;
-    @FXML
-    private ImageView snowFlake;
-    @FXML
-    private ImageView logo;
 
 
     boolean editing = false;
@@ -109,7 +105,7 @@ public class App extends Application {
 
 
     private boolean backwards = false;
-    private double rotate = 0;
+    private boolean pinguActivated = false;
 
 
 
@@ -117,26 +113,26 @@ public class App extends Application {
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
+                if (pinguActivated) {
+                    if (pingu.getX() > 1100) {
+                        backwards = true;
+                        Image image = new Image("pingu2.png");
+                        pingu.setImage(image);
+                    } else if (pingu.getX() < 10) {
+                        backwards = false;
+                        Image image = new Image("Pingu3D.png");
+                        pingu.setImage(image);
+                    }
 
-                if (pingu.getX() > 1100) {
-                    backwards = true;
-                    Image image = new Image("pingu2.png");
-                    pingu.setImage(image);
-                } else if (pingu.getX() < 10) {
-                    backwards = false;
-                    Image image = new Image("Pingu3D.png");
-                    pingu.setImage(image);
+
+
+                    if (backwards) {
+                        pingu.setX(pingu.getX() - 7.5 );
+                    } else {
+                        pingu.setX(pingu.getX() + 7.5 );
+                    }
                 }
 
-
-
-                if (backwards) {
-                    pingu.setX(pingu.getX() - 7.5 );
-                } else {
-                    pingu.setX(pingu.getX() + 7.5 );
-                }
-                snowFlake.setRotate(rotate);
-                //logo.setRotate(rotate++);
             }
         };
         timer.start();
@@ -265,7 +261,13 @@ public class App extends Application {
         App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
         if (App.getCurrentUser() != null) {
             enableTabs();
-            viewProfile();
+            if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
+                pinguActivated = true;
+                pingu.setVisible(true);
+            } else {
+                pinguActivated = false;
+                pingu.setVisible(false);
+            }
         }
 
     }
@@ -406,8 +408,6 @@ public class App extends Application {
         String[] vals = dateTimeFormat.format(age).split("/");
         int[] intVals = CheckGoals.convertDate(vals);
         int[] ageVals = CheckGoals.convertDate(dateTimeFormat.format(birth).split("/"));
-        System.out.println(intVals[2]);
-        System.out.println(ageVals[2]);
         return intVals[2] - ageVals[2];
     }
 
