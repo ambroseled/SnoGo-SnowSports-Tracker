@@ -40,12 +40,12 @@
                               <TableColumn fx:id="userCol" prefWidth="256.0" text="User" />
                            </columns>
                         </TableView>
-                        <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="removeButton" styleClass="round-blue-user1" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="397.0" text="Remove Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                        <Button fx:id="selectButton" styleClass="round-blue-user2" stylesheets="@../CSS/buttonStyle.css" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                         <TextField fx:id="nameText" onKeyReleased="#checkProfile" promptText="Between 3 and 30 characters" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                         <TextField fx:id="weightText" onKeyReleased="#checkProfile" promptText="Between 25 and 175 kg" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                         <TextField fx:id="dateText" onKeyReleased="#checkProfile" promptText="dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="2" />
@@ -76,8 +76,8 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createUser" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#updateProfile" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="createButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" mnemonicParsing="false" onAction="#createUser" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="editButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#updateProfile" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <Text fx:id="createText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Creation" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="35.0" />
@@ -92,7 +92,7 @@
                         <CheckBox fx:id="weightCheck" disable="true" layoutX="916.0" layoutY="269.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="dateCheck" disable="true" layoutX="806.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="heightCheck" disable="true" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="abortButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" disable="true" mnemonicParsing="false" onAction="#showCreate" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <TextField fx:id="ageText" editable="false" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                         <Text fx:id="ageLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <font>

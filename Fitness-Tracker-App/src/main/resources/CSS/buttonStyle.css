@@ -7,6 +7,34 @@
     -fx-background-radius: 4px;
 }
 
+.round-blue-user1 {
+    -fx-background-color: #005e99;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-translate-x: -12px;
+    -fx-min-width: 255px;
+    -fx-translate-y: 15px;
+}
+
+.round-blue-user2 {
+    -fx-background-color: #005e99;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-translate-y: 10px;
+    -fx-translate-x: -12px;
+    -fx-min-width: 255px;
+
+}
+
+.round-blue-user1:hover {
+    -fx-background-color: #1da5f9;
+}
+
+.round-blue-user2:hover {
+    -fx-background-color: #1da5f9;
+
+}
+
 .round-blue:hover {
     -fx-background-color: #1da5f9;
 
