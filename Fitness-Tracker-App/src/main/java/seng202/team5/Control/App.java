@@ -114,7 +114,7 @@ public class App extends Application {
 
     public void initialize() {
         AnimationTimer timer = new AnimationTimer(){
-            @Override
+            @Override 
             public void handle(long now) {
                 if (pinguActivated) {
                     if (pingu.getX() > 1100) {
