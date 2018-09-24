@@ -21,10 +21,11 @@
 
 .grid-pane {
 
-    -fx-background-color: rgba(0, 119, 193, 0.6);
+    /*-fx-background-color: rgba(0, 119, 193, 0.6);*/
+    -fx-background-color: transparent;
 }
 
-.root {
+.root2 {
 
     -fx-background-image: url("backgrounds/background3.png");
     -fx-background-repeat: stretch;
@@ -32,6 +33,11 @@
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
+
+.root {
+    -fx-background-color: linear-gradient(to right bottom, #1da5f9, #0067a8);
+}
+
 
 .general-title {
     -fx-text-fill: white;
