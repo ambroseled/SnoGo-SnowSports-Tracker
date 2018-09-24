@@ -1,3 +1,28 @@
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #004DFF;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .track{
+    -fx-background-color: linear-gradient(to top, #0078FF, #0078FF);
+    -fx-padding: 0px;
+}
+
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+
+}
+
+
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-background-color:  #0400FF;
@@ -43,4 +68,7 @@
     -fx-shape : " ";
 
 }
+
+
+
 
