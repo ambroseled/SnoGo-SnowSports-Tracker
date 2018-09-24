@@ -38,7 +38,7 @@
     }
 
     function displayRoute(flightPath) {
-        // CLEAR EXISTING MARKERS
+        // Clear existing markers of previously displayed routes.
         if (marker1 !== undefined && marker2 !== undefined && path !== undefined) {
             marker1.setMap(null);
             marker2.setMap(null);
@@ -50,9 +50,7 @@
         }
 
 
-
-
-        // CREATE MARKERS AT START AND FINISH
+        // Create markers at beginning and end of route.
         marker1 = new google.maps.Marker({
             position: flightPath[0],
             map: map
@@ -64,7 +62,7 @@
             map: map
         });
 
-        // DRAW POLYLINE FOR ROUTE
+        // Draw polyline for route.
         path = new google.maps.Polyline({
             path: flightPath,
             geodesic: true,
