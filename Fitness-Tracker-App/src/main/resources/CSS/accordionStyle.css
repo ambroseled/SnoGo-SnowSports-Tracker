@@ -7,24 +7,28 @@
     -fx-background-color: transparent;
 }
 
+.titled-pane {
+    -fx-text-fill: #1da5f9;
+}
+
 
 .titled-pane:expanded {
     -fx-text-fill: white;
-    -fx-background-color: blue;
+    -fx-background-color: #1da5f9;
 }
 
 .titled-pane:expanded > .title {
-    -fx-base: #0078FF;
+    -fx-base: #1da5f9;
     -fx-text-fill: white;
 }
 
 .titled-pane:hover > .title {
-    -fx-base: #00C1FF;
+    -fx-base: #1da5f9;
 }
 
 .titled-pane:hover {
     -fx-text-fill: white;
-    -fx-background-color: #00C1FF;
+    -fx-background-color: #1da5f9;
 }
 
 .titled-pane .arrow {
@@ -40,61 +44,83 @@
 }
 
 .backGround-blue {
-    -fx-background-color: #0078FF;
+    -fx-background-color: white;
 }
 
-
-.table-view .column-header,
-.table-view .column-header-background .filler {
-    -fx-background-color:  #0400FF;
-}
-.table-view .column-header .label{
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-alignment: CENTER_LEFT;
-}
-.table-view .cell{
-    -fx-cell-size: 35;
-    -fx-alignment: center-left;
-    -fx-background-color: #0078FF;
-    -fx-text-fill: white;
-    -fx-alignment: CENTER_LEFT;
-
-}
-.table-row-cell:selected {
-    -fx-background-color: whitesmoke;
-    -fx-text-background-color:  #0400FF;
-
-}
 
 .table-view {
-    -fx-border-radius: 16px;
+    -fx-background-color: white;
+
 }
+
+.table-view:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0, 0, 0;
+}
+
+.table-view .column-header-background .label{
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: #005e99;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: #1da5f9;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, white;
+}
+
+.table-row-cell:selected{
+    -fx-background-color: -fx-table-cell-border-color, #1da5f9;
+}
+
+.table-row-cell:selected .table-cell{
+    -fx-background-color: -fx-table-cell-border-color, #1da5f9;
+    -fx-text-fill: white;
+}
+
 
 .scroll-pane {
     -fx-translate-x: 40px;
 }
 
-.scroll-bar:horizontal .thumb,
-.scroll-bar:vertical .thumb {
-    -fx-background-color: #004DFF;
-    -fx-background-radius: 10px;
+
+
+.scroll-bar:vertical .track{
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:0px;
 }
 
-.scroll-bar .track{
-    -fx-background-color: linear-gradient(to top, #0078FF, #0078FF);
-    -fx-padding: 0px;
-}
 
-.scroll-bar .increment-button ,
-.scroll-bar .decrement-button {
-    -fx-background-radius : 0.0em;
-    -fx-padding :0.0 10.0 0.0 0.0;
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
 
 }
 
 .scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow{
+.scroll-bar .decrement-arrow {
     -fx-shape : " ";
 
 }
+
+
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #005e99;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+
