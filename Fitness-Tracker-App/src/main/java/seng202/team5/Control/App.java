@@ -85,6 +85,8 @@ public class App extends Application {
     private Text ageLabel;
     @FXML
     private ImageView pingu;
+    @FXML
+    private ImageView logo;
 
 
     boolean editing = false;
@@ -106,6 +108,7 @@ public class App extends Application {
 
     private boolean backwards = false;
     private boolean pinguActivated = false;
+    private double rotate = 0;
 
 
 
@@ -131,6 +134,10 @@ public class App extends Application {
                     } else {
                         pingu.setX(pingu.getX() + 7.5 );
                     }
+                    logo.setRotate(rotate++);
+                }
+                else {
+                    logo.setRotate(0);
                 }
 
             }
