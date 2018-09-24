@@ -187,7 +187,6 @@ public class GoalController {
         // Enabling and emptying the combo box
         valueCombo.setDisable(false);
         valueCombo.getItems().clear();
-        valueCombo.setOpacity(0.8);
         ObservableList<Double> values = FXCollections.observableArrayList();
         // Getting teh values to fill the combo box with according to the selected metric type
         if (metric.equals("Top Speed, (m/s)")) {
