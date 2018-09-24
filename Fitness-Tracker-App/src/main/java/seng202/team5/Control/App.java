@@ -1,6 +1,7 @@
 package seng202.team5.Control;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,11 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
+
+import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static seng202.team5.Model.CheckGoals.convertDate;
 
 
 /**
@@ -80,6 +83,10 @@ public class App extends Application {
     private Text bmiLabel;
     @FXML
     private Text ageLabel;
+    @FXML
+    private ImageView pingu;
+    @FXML
+    private ImageView snowFlake;
 
 
     boolean editing = false;
@@ -97,6 +104,41 @@ public class App extends Application {
     private static DataBaseController db = new DataBaseController();
 
     private static User currentUser;
+
+
+    private boolean backwards = false;
+    private double rotate = 0;
+
+
+
+    public void initialize() {
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+
+                if (pingu.getX() > 1100) {
+                    backwards = true;
+                    Image image = new Image("pingu2.png");
+                    pingu.setImage(image);
+                } else if (pingu.getX() < 10) {
+                    backwards = false;
+                    Image image = new Image("Pingu3D.png");
+                    pingu.setImage(image);
+                }
+
+
+
+                if (backwards) {
+                    pingu.setX(pingu.getX() - 7.5 );
+                } else {
+                    pingu.setX(pingu.getX() + 7.5 );
+                }
+                snowFlake.setRotate(rotate++);
+            }
+        };
+        timer.start();
+        fillTable();
+    }
 
 
 
@@ -185,11 +227,14 @@ public class App extends Application {
      */
     private void deleteUser(){
         User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
-        db.removeUser(selectedUser);
-        refreshTable();
-        if (App.getCurrentUser() == selectedUser) {
-            currentUser =  null;
-            disableTabs();
+        if (selectedUser != null) {
+            db.removeUser(selectedUser);
+            refreshTable();
+            if (App.getCurrentUser() == selectedUser) {
+                currentUser =  null;
+                disableTabs();
+                clearFields();
+            }
         }
     }
 
@@ -202,6 +247,9 @@ public class App extends Application {
         if (userTable.getSelectionModel().getSelectedItem() != null){
             removeButton.setDisable(false);
             selectButton.setDisable(false);
+        } else {
+            removeButton.setDisable(true);
+            selectButton.setDisable(true);
         }
     }
 
@@ -388,13 +436,10 @@ public class App extends Application {
                         if (weightVal == user.getWeight()
                                 && heightVal == user.getHeight()
                                 && nameText.getText().equals(user.getName())
-                                && dateVal == user.getBirthDate()) {
+                                && dateText.getText().equals(dateTimeFormat.format(user.getBirthDate()))) {
                             // Disabling update button
-                            if (editing) {
-                                editButton.setDisable(true);
-                            } else {
-                                createButton.setDisable(true);
-                            }
+                            duplicate = true;
+                            clearChecks();
                         }
                     }
                     if (!duplicate) {
@@ -403,6 +448,12 @@ public class App extends Application {
                             editButton.setDisable(false);
                         } else {
                             createButton.setDisable(false);
+                        }
+                    } else {
+                        if (editing) {
+                            editButton.setDisable(true);
+                        } else {
+                            createButton.setDisable(true);
                         }
                     }
                 } catch (ParseException e) {
@@ -463,7 +514,7 @@ public class App extends Application {
      */
     private boolean checkName(String name) {
         // Checking the name is of valid length and is all alphabetical
-        if (name.length() > 4 && name.length() < 30) {
+        if (name.length() > 3 && name.length() < 30) {
             nameCheck.setSelected(true);
             return true;
         } else {
@@ -534,8 +585,15 @@ public class App extends Application {
         try {
             DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date x = dateTimeFormat.parse(date);
-            dateCheck.setSelected(true);
-            return true;
+            Date current = new Date();
+            if (x.getTime() > current.getTime()) {
+                dateCheck.setSelected(false);
+                return false;
+            } else {
+                dateCheck.setSelected(true);
+                return true;
+            }
+
         } catch (ParseException e) {
             dateCheck.setSelected(false);
             return false;

@@ -1,5 +1,6 @@
 package seng202.team5.Control;
 
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
@@ -69,6 +71,9 @@ public class GraphsController{
     private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
+
+
+
 
 
     /**

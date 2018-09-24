@@ -1,6 +1,7 @@
 package seng202.team5.Control;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,11 +14,10 @@ import seng202.team5.DataManipulation.DataValidator;
 import seng202.team5.DataManipulation.InputDataParser;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
-
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import javafx.scene.image.ImageView;
 
 /**
  * This class handles the controls for the data view tab of the application.
@@ -41,6 +41,7 @@ public class TableController {
         for (int i = 0; i < (numActivities); i += 1) {
             addActivityPanels(i);
         }
+
     }
 
 
@@ -69,7 +70,8 @@ public class TableController {
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
 
         if (inputActivities.size() == 0) {
-            ErrorController.displayError("File has no activities or is missing '#start' tag.\nPlease check file");
+            ErrorController.displayError("File has no activities or is missing '#start' tag.\n" +
+                    "Please check file");
         }
 
         for (Activity activity : inputActivities) {
@@ -92,7 +94,9 @@ public class TableController {
         DataAnalyser analyser = new DataAnalyser();
         analyser.setCurrentUser(App.getCurrentUser());
         for (Activity activity : inputActivities) {
-            analyser.analyseActivity(activity);
+           if (activity.getDataSet().getDataPoints().size() > 0) {
+                analyser.analyseActivity(activity);
+           }
         }
 
         // Tests if activity is equal to any others
