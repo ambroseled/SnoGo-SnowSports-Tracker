@@ -55,7 +55,7 @@
          <RowConstraints maxHeight="283.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
+         <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" styleClass="margin" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
              <placeholder>
                  <Label text="No goals in application" />
              </placeholder>

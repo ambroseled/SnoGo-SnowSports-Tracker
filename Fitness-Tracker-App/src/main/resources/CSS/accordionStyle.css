@@ -71,6 +71,9 @@
     -fx-border-radius: 16px;
 }
 
+.scroll-pane {
+    -fx-translate-x: 40px;
+}
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
