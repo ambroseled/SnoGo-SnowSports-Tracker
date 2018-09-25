@@ -233,6 +233,7 @@ public class TableController {
         Date startDateTime = activity.getDataSet().getDateTime(0);
         Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
         dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+
         titledPane.setText(dropdownText);
         titledPane.setMinHeight(320);
 
@@ -266,5 +267,12 @@ public class TableController {
      */
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
+    }
+
+
+    public void exportActivity() {
+        //TODO: How do i get the activity out of this?
+        String title = accordion.getExpandedPane().getText();
+        System.out.println(title);
     }
 }
