@@ -111,7 +111,9 @@ public class App extends Application {
     private double rotate = 0;
 
 
-
+    /**
+     * Setting timer for ester egg
+     */
     public void initialize() {
         AnimationTimer timer = new AnimationTimer(){
             @Override 
