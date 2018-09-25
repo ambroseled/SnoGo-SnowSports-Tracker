@@ -154,10 +154,5 @@
               <fx:include fx:id="goalTab" source="goalView.fxml" />
           </content>
       </Tab>
-      <Tab text="Video">
-          <content>
-              <fx:include fx:id="beans" source="vireodTest.fxml" />
-          </content>
-      </Tab>
   </tabs>
 </TabPane>
