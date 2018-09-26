@@ -27,7 +27,18 @@ public class ErrorController {
         dialogPane.setMinHeight(Region.USE_PREF_SIZE);
 
         errorPopup.showAndWait();
+    }
 
 
+    public static void displaymessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info Dialog");
+        alert.setHeaderText("File Export Successful");
+        alert.setContentText(message);
+
+        DialogPane dodialog = alert.getDialogPane();
+        dodialog.setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
     }
 }

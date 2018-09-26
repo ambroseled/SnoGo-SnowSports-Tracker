@@ -1,7 +1,8 @@
 package seng202.team5.DataManipulation;
 
 
-import au.com.bytecode.opencsv.CSVWriter;
+
+import com.opencsv.CSVWriter;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 
@@ -22,16 +23,17 @@ public class DataExporter {
      * @param activities The ArrayList of activities to be written.
      * @param filename The name of the file to be made.
      */
-    public static void exportData(ArrayList<Activity> activities, String filename) {
+    public static boolean exportData(ArrayList<Activity> activities, String filename) {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("user.home") + "/" + filename
-                    + ".csv"));
+                    + ".csv"), ',', CSVWriter.NO_QUOTE_CHARACTER);
             for (Activity activity : activities) {
                 exportActivity(activity, writer);
             }
             writer.close();
+            return true;
         } catch (IOException e) {
-            System.out.println(e.getLocalizedMessage());
+            return false;
         }
     }
 

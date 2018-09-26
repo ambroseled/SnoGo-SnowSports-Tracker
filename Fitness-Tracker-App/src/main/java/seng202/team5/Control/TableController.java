@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import seng202.team5.DataManipulation.DataAnalyser;
-import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.DataManipulation.DataValidator;
-import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
 import java.io.File;
@@ -270,9 +267,53 @@ public class TableController {
     }
 
 
+    /**
+     * Called by a press of the export file button. This method exports the selected
+     * activity to a csv file in the users home directory.
+     */
     public void exportActivity() {
-        //TODO: How do i get the activity out of this?
         String title = accordion.getExpandedPane().getText();
-        System.out.println(title);
+        Activity selectedAct = null;
+        for (Activity activity : db.getActivities(App.getCurrentUser().getId())) {
+            String name = activity.getName();
+            Date startDateTime = activity.getDataSet().getDateTime(0);
+            Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
+            String dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+            if (title.equals(dropdownText)) {
+                selectedAct = activity;
+                break;
+            }
+        }
+        if (selectedAct != null) {
+            ArrayList<Activity> activities = new ArrayList<>();
+            activities.add(selectedAct);
+            String filename = makeFilename(selectedAct.getName());
+            boolean status = DataExporter.exportData(activities, filename);
+            if (status) {
+                ErrorController.displaymessage("File exported as " + filename + ".csv");
+            } else {
+                ErrorController.displayError("File export failed");
+            }
+        }
+    }
+
+
+    /**
+     * Used by the exportActivity method. This method turns an activity name into
+     * a filename.
+     * @param actName The activity name.
+     * @return The corresponding filename.
+     */
+    private String makeFilename(String actName) {
+        String[] words = actName.split(" ");
+        String filename = "";
+        for (int i = 0; i < words.length; i++) {
+            filename += words[i];
+        }
+        if (filename.equals("")) {
+            return "snoGoExportedData.csv";
+        } else {
+            return filename;
+        }
     }
 }
