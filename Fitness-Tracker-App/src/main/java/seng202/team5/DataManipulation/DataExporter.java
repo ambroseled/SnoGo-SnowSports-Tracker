@@ -26,7 +26,7 @@ public class DataExporter {
     public static boolean exportData(ArrayList<Activity> activities, String filename) {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("user.home") + "/" + filename
-                    + ".csv"));
+                    + ".csv"), ',', CSVWriter.NO_QUOTE_CHARACTER);
             for (Activity activity : activities) {
                 exportActivity(activity, writer);
             }
