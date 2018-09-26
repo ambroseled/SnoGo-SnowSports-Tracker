@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import seng202.team5.DataManipulation.DataAnalyser;
-import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.DataManipulation.DataValidator;
-import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
 import java.io.File;
@@ -271,8 +268,24 @@ public class TableController {
 
 
     public void exportActivity() {
-        //TODO: How do i get the activity out of this?
+        //TODO: Add a filename picker
         String title = accordion.getExpandedPane().getText();
-        System.out.println(title);
+        Activity selectedAct = null;
+        for (Activity activity : db.getActivities(App.getCurrentUser().getId())) {
+            String name = activity.getName();
+            Date startDateTime = activity.getDataSet().getDateTime(0);
+            Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
+            String dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+            if (title.equals(dropdownText)) {
+                selectedAct = activity;
+                break;
+            }
+        }
+        if (selectedAct != null) {
+            ArrayList<Activity> activities = new ArrayList<>();
+            activities.add(selectedAct);
+            DataExporter.exportData(activities, "exportedData.csv");
+        }
+
     }
 }
