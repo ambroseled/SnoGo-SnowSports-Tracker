@@ -267,8 +267,11 @@ public class TableController {
     }
 
 
+    /**
+     * Called by a press of the export file button. This method exports the selected
+     * activity to a csv file in the users home directory.
+     */
     public void exportActivity() {
-        //TODO: Add a filename picker
         String title = accordion.getExpandedPane().getText();
         Activity selectedAct = null;
         for (Activity activity : db.getActivities(App.getCurrentUser().getId())) {
@@ -284,8 +287,27 @@ public class TableController {
         if (selectedAct != null) {
             ArrayList<Activity> activities = new ArrayList<>();
             activities.add(selectedAct);
-            DataExporter.exportData(activities, "exportedData.csv");
+            DataExporter.exportData(activities, makeFilename(selectedAct.getName()));
         }
+    }
 
+
+    /**
+     * Used by the exportActivity method. This method turns an activity name into
+     * a filename.
+     * @param actName The activity name.
+     * @return The corresponding filename.
+     */
+    private String makeFilename(String actName) {
+        String[] words = actName.split(" ");
+        String filename = "";
+        for (int i = 0; i < words.length; i++) {
+            filename += words[i];
+        }
+        if (filename.equals("")) {
+            return "snoGoExportedData.csv";
+        } else {
+            return filename;
+        }
     }
 }
