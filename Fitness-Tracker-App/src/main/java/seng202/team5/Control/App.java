@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-
+//TODO: Text change to profile editing when editing
 /**
  * This class runs the application and also provides the profile functionality.
  */
