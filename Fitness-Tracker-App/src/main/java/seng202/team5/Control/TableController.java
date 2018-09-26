@@ -287,7 +287,13 @@ public class TableController {
         if (selectedAct != null) {
             ArrayList<Activity> activities = new ArrayList<>();
             activities.add(selectedAct);
-            DataExporter.exportData(activities, makeFilename(selectedAct.getName()));
+            String filename = makeFilename(selectedAct.getName());
+            boolean status = DataExporter.exportData(activities, filename);
+            if (status) {
+                ErrorController.displaymessage("File exported as " + filename + ".csv");
+            } else {
+                ErrorController.displayError("File export failed");
+            }
         }
     }
 
