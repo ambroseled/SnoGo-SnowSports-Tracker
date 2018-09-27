@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import seng202.team5.DataManipulation.DataAnalyser;
-import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.DataManipulation.DataValidator;
-import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
 import java.io.File;
@@ -66,67 +63,12 @@ public class TableController {
      * activities in the application.
      */
     public void viewData(String filePath) {
-        InputDataParser inputDataParser = new InputDataParser();
-        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
-
-        if (inputActivities.size() == 0) {
-            ErrorController.displayError("File has no activities or is missing '#start' tag.\n" +
-                    "Please check file");
-        }
-
-        for (Activity activity : inputActivities) {
-            DataValidator validator = new DataValidator();
-            validator.validateActivity(activity);
-
-            if (validator.getPointsDeleted() > 0 || validator.getDataValidated() > 0) {
-                String message = "Activity: " + activity.getName() + "\n";
-                message +=
-                        "Points deleted: "
-                                + validator.getPointsDeleted()
-                                + "/"
-                                + validator.getInitialDataSetSize()
-                                + "\n";
-                message += "Values fixed: " + validator.getDataValidated();
-                ErrorController.displayError(message);
-            }
-        }
-
-        DataAnalyser analyser = new DataAnalyser();
-        analyser.setCurrentUser(App.getCurrentUser());
-        for (Activity activity : inputActivities) {
-           if (activity.getDataSet().getDataPoints().size() > 0) {
-                analyser.analyseActivity(activity);
-           }
-        }
-
-        // Tests if activity is equal to any others
-        for (int i = 0; i < inputActivities.size(); i++) {
-            boolean addActivity = true;
-            for (Activity activity : App.getCurrentUser().getActivities()) {
-                if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
-                    String message = "Activity '" + inputActivities.get(i).getName()+"'";
-                    message += " is a duplicate of existing activity\n";
-                    message += "It will not be added";
-                    ErrorController.displayError(message);
-                    addActivity = false;
-                }
-            }
-            if (inputActivities.get(i).getDataSet().getDataPoints().size() == 0) {
-                String message = "Activity '" + inputActivities.get(i).getName()+"'";
-                message += " is empty.\n";
-                message += "It will not be added";
-                ErrorController.displayError(message);
-                addActivity = false;
-            }
-            if (addActivity) {
-                db.storeActivity(inputActivities.get(i), App.getCurrentUser().getId());
-                App.getCurrentUser().addActivity(inputActivities.get(i));
-            }
-        }
+        DataUpload uploader = new DataUpload();
+        uploader.uploadData(filePath);
 
           setActivities(db.getActivities(App.getCurrentUser().getId()));
 
-          CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
+          CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), uploader.getNewActvities());
           Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
           if (countAlert != null) {
             db.storeAlert(countAlert, App.getCurrentUser().getId());
@@ -153,6 +95,7 @@ public class TableController {
             try {
                 viewData(f.getAbsolutePath());
             } catch (Exception e) {
+                e.printStackTrace();
                 ErrorController.displayError("File loading error");
             }
         }
