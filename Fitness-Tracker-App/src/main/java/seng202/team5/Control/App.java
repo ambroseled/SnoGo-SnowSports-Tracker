@@ -89,6 +89,10 @@ public class App extends Application {
     private ImageView logo;
 
 
+    @FXML
+    private TableController tablesController;
+
+
     boolean editing = false;
 
     private ArrayList<User> users;
