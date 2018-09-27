@@ -1,7 +1,6 @@
 package seng202.team5.Control;
 
 
-import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import seng202.team5.Model.Alert;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import javafx.scene.image.ImageView;
 
 /**
  * This class handles the controls for the data view tab of the application.
@@ -26,7 +24,15 @@ public class TableController {
     private Accordion accordion;
     private ArrayList<Activity> activities;
     // Getting database controller and current user
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
+    @FXML
+    private GraphsController statsController;
+    @FXML
+    private AlertController alertsController;
+    @FXML
+    private MapController mapsController;
+    @FXML
+    private HomeController homeController;
 
 
     /**
@@ -48,34 +54,40 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-
-        if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
-            ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
+        if (accordion.getPanes().size() != HomeController.getCurrentUser().getActivities().size()) {
+            ArrayList<Activity> inputActivities = HomeController.getCurrentUser().getActivities();
             setActivities(inputActivities);
             initialise();
         }
     }
 
 
+
     @FXML
     /**
-     * Called by teh loadfile button, this method displays the users current
+     * Called by the loadfile button, this method displays the users current
      * activities in the application.
      */
     public void viewData(String filePath) {
+
         DataUpload uploader = new DataUpload();
         uploader.uploadData(filePath);
 
-          setActivities(db.getActivities(App.getCurrentUser().getId()));
 
-          CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), uploader.getNewActvities());
-          Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
-          if (countAlert != null) {
-            db.storeAlert(countAlert, App.getCurrentUser().getId());
-            App.getCurrentUser().addAlert(countAlert);
-          }
+        setActivities(db.getActivities(HomeController.getCurrentUser().getId()));
 
-          initialise();
+        CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), inputActivities);
+        Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
+        if (countAlert != null) {
+        db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
+        HomeController.getCurrentUser().addAlert(countAlert);
+        }
+
+        //TODO Implement proper
+
+       // homeController.updateTabs();
+
+        initialise();
     }
 
 
@@ -85,7 +97,7 @@ public class TableController {
      * to select and upload a csv file into the application.
      */
     public void loadFile() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Load CSV File");
             fileChooser.getExtensionFilters().addAll(
@@ -95,8 +107,7 @@ public class TableController {
             try {
                 viewData(f.getAbsolutePath());
             } catch (Exception e) {
-                e.printStackTrace();
-                ErrorController.displayError("File loading error");
+                //ErrorController.displayError("File loading error");
             }
         }
     }
@@ -111,9 +122,9 @@ public class TableController {
 
 
         table.getItems().clear();
-        if (App.getCurrentUser() != null) {
-            if (table.getItems().size() != App.getCurrentUser().getActivities().size()) {
-                activities = db.getActivities(App.getCurrentUser().getId());
+        if (HomeController.getCurrentUser() != null) {
+            if (table.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
+                activities = db.getActivities(HomeController.getCurrentUser().getId());
                 // date and time column
                 TableColumn<DataPoint, Date> dateTimeCol = new TableColumn("Date and Time");
                 dateTimeCol.setCellValueFactory(new PropertyValueFactory("dateTime"));
@@ -176,6 +187,7 @@ public class TableController {
         Date startDateTime = activity.getDataSet().getDateTime(0);
         Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
         dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+
         titledPane.setText(dropdownText);
         titledPane.setMinHeight(320);
 
@@ -209,5 +221,56 @@ public class TableController {
      */
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
+    }
+
+
+    /**
+     * Called by a press of the export file button. This method exports the selected
+     * activity to a csv file in the users home directory.
+     */
+    public void exportActivity() {
+        String title = accordion.getExpandedPane().getText();
+        Activity selectedAct = null;
+        for (Activity activity : db.getActivities(HomeController.getCurrentUser().getId())) {
+            String name = activity.getName();
+            Date startDateTime = activity.getDataSet().getDateTime(0);
+            Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
+            String dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
+            if (title.equals(dropdownText)) {
+                selectedAct = activity;
+                break;
+            }
+        }
+        if (selectedAct != null) {
+            ArrayList<Activity> activities = new ArrayList<>();
+            activities.add(selectedAct);
+            String filename = makeFilename(selectedAct.getName());
+            boolean status = DataExporter.exportData(activities, filename);
+            if (status) {
+                ErrorController.displaymessage("File exported as " + filename + ".csv");
+            } else {
+                ErrorController.displayError("File export failed");
+            }
+        }
+    }
+
+
+    /**
+     * Used by the exportActivity method. This method turns an activity name into
+     * a filename.
+     * @param actName The activity name.
+     * @return The corresponding filename.
+     */
+    private String makeFilename(String actName) {
+        String[] words = actName.split(" ");
+        String filename = "";
+        for (int i = 0; i < words.length; i++) {
+            filename += words[i];
+        }
+        if (filename.equals("")) {
+            return "snoGoExportedData.csv";
+        } else {
+            return filename;
+        }
     }
 }

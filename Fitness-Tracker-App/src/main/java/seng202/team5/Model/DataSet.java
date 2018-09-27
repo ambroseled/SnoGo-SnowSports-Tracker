@@ -161,6 +161,14 @@ public class DataSet {
     }
 
 
+
+    public String toLine() {
+        return String.format("%f, %f, %f, %d, %f, %f", topSpeed, totalDistance, verticalDistance, avgHeartRate,
+                caloriesBurned, avgSpeed);
+    }
+
+
+
     /**
      * This method is used for comparing two data sets to see if they have the exact same, set of data points
      * The equals method compares every data point in the data set to see if they are equal.

@@ -1,6 +1,6 @@
 package seng202.team5.DataManipulation;
 
-import seng202.team5.Control.App;
+import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.Activity;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DataUpload {
 
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
 
     private ArrayList<Activity> newActivities = new ArrayList<Activity>();
 
@@ -28,8 +28,8 @@ public class DataUpload {
         checkDuplicates(inputActivities);
 
         for (Activity activity : newActivities) {
-            db.storeActivity(activity, App.getCurrentUser().getId());
-            App.getCurrentUser().addActivity(activity);
+            db.storeActivity(activity, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addActivity(activity);
         }
 
     }
@@ -65,7 +65,7 @@ public class DataUpload {
     private void analyseActivities(ArrayList<Activity> inputActivities) {
 
         DataAnalyser analyser = new DataAnalyser();
-        analyser.setCurrentUser(App.getCurrentUser());
+        analyser.setCurrentUser(HomeController.getCurrentUser());
         for (Activity activity : inputActivities) {
             if (activity.getDataSet().getDataPoints().size() > 0) {
                 analyser.analyseActivity(activity);
@@ -77,7 +77,7 @@ public class DataUpload {
         // Tests if activity is equal to any others
         for (int i = 0; i < inputActivities.size(); i++) {
             boolean notDuplicate = true;
-            for (Activity activity : App.getCurrentUser().getActivities()) {
+            for (Activity activity : HomeController.getCurrentUser().getActivities()) {
                 if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
                     String message = "Activity '" + inputActivities.get(i).getName()+"'";
                     message += " is a duplicate of existing activity\n";

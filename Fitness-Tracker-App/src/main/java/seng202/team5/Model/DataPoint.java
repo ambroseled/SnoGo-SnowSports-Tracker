@@ -23,6 +23,8 @@ public class DataPoint {
     private double speed;
     private boolean active;
 
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
 
     /**
      * The constructor used to make a new DataPoint when the data is being parsed from a csv file.
@@ -65,7 +67,6 @@ public class DataPoint {
         this.active = active;
 
         try {
-            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
             this.dateTime = dateTimeFormat.parse(date);
         } catch (ParseException e) {
             System.out.println("Error parsing date: " + e.getLocalizedMessage());
@@ -168,6 +169,14 @@ public class DataPoint {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
                 ", Distance: "+distance+", Speed: "+speed;
     }
+
+
+    public String toLine() {
+        String[] date = dateTimeFormat.format(dateTime).split(" ");
+        return String.format("%s, %s, %d, %f, %f, %f, %f, %f", date[0], date[1], heartRate, latitude,
+                longitude, elevation, distance, speed);
+    }
+
 
     /**
      * Tests two data points for equality. Equal if each of the given data's are equal.

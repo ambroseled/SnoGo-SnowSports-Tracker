@@ -22,12 +22,23 @@ public class ErrorController {
         errorPopup.setContentText(errorMessage);
 
         DialogPane dialogPane = errorPopup.getDialogPane();
-        dialogPane.getStylesheets().add("errorStyle.css");
-        dialogPane.getStyleClass().add("error");
+        //dialogPane.getStylesheets().add("errorStyle.css");
+        //dialogPane.getStyleClass().add("error");
         dialogPane.setMinHeight(Region.USE_PREF_SIZE);
 
         errorPopup.showAndWait();
+    }
 
 
+    public static void displaymessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info Dialog");
+        alert.setHeaderText("File Export Successful");
+        alert.setContentText(message);
+
+        DialogPane dodialog = alert.getDialogPane();
+        dodialog.setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
     }
 }
