@@ -388,7 +388,7 @@ public class GraphsController{
 
         activities.add(activity);
         actTable.setItems(activities);
-        actTable.setVisible(false);
+        actTable.setVisible(true);
     }
 
 

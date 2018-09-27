@@ -186,12 +186,12 @@
                <columns>
                   <TableColumn fx:id="nameCol" prefWidth="233.0" text="Name" />
                   <TableColumn fx:id="actDateCol" prefWidth="136.0" text="Date" />
-                  <TableColumn fx:id="distCol" prefWidth="138.0" text="Total Distance m" />
-                  <TableColumn fx:id="vertCol" prefWidth="154.0" text="Vertical Distance m" />
-                  <TableColumn fx:id="heartCol" prefWidth="190.0" text="Average Heart Rate bpm" />
+                  <TableColumn fx:id="distCol" prefWidth="138.0" text="Total Distance (m)" />
+                  <TableColumn fx:id="vertCol" prefWidth="154.0" text="Vertical Distance (m)" />
+                  <TableColumn fx:id="heartCol" prefWidth="190.0" text="Average Heart Rate (bpm)" />
                   <TableColumn fx:id="calCol" prefWidth="123.0" text="Calories Burned" />
-                  <TableColumn fx:id="avgSpeedCol" prefWidth="149.0" text="Average speed m/s" />
-                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed m/s" />
+                  <TableColumn fx:id="avgSpeedCol" prefWidth="149.0" text="Average speed (m/s)" />
+                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed (m/s)" />
                </columns>
                <placeholder>
                   <Label text="No Activities for Selected Date" />
