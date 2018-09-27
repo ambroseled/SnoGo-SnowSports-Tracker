@@ -11,7 +11,7 @@
   <tabs>
       <Tab text="User">
          <content>
-            <AnchorPane onMouseMoved="#fillTable" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
                <children>
                   <ImageView fx:id="pingu" fitHeight="150.0" fitWidth="200.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
@@ -38,7 +38,6 @@
                         <Button fx:id="selectButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#setSelectedUser" prefHeight="31.0" prefWidth="525.0" styleClass="round-blue-user2" stylesheets="@../CSS/buttonStyle.css" text="Select Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                         <TextField fx:id="nameText" onKeyReleased="#checkProfile" promptText="Between 3 and 30 characters" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                         <TextField fx:id="weightText" onKeyReleased="#checkProfile" promptText="Between 25 and 175 kg" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <TextField fx:id="dateText" onKeyReleased="#checkProfile" promptText="dd/mm/yyy" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                         <TextField fx:id="heightText" onKeyReleased="#checkProfile" promptText="Between 0.7 m and 3 m" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                         <TextField fx:id="bmiText" editable="false" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -89,6 +88,7 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
+                        <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -113,37 +113,37 @@
             </AnchorPane>
          </content>
       </Tab>
-    <Tab fx:id="dataTab" disable="true" text="Data">
+    <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data">
          <content>
              <fx:include fx:id="tables" source="TableTab.fxml" />
          </content></Tab>
 
-    <Tab fx:id="statsTab" disable="true" text="Statistics">
+    <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Statistics">
          <content>
              <fx:include fx:id="stats" source="GraphsTab.fxml" />
          </content>
     </Tab>
-      <Tab fx:id="mapTab" disable="true" text="Map">
+      <Tab fx:id="mapTab" disable="true" onSelectionChanged="#setUpMap" text="Map">
          <content>
              <fx:include fx:id="maps" source="mapView.fxml" />
          </content>
       </Tab>
-      <Tab fx:id="alertsTab" disable="true" text="Alerts">
+      <Tab fx:id="alertsTab" disable="true" onSelectionChanged="#setUpAlerts" text="Alerts">
           <content>
               <fx:include fx:id="alerts" source="alertView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="goalsTab" disable="true" text="Goals">
+      <Tab fx:id="goalsTab" disable="true" onSelectionChanged="#setUpGoals" text="Goals">
           <content>
               <fx:include fx:id="goals" source="goalView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="calTab" disable="true" text="Calendar">
+      <Tab fx:id="calTab" disable="true" onSelectionChanged="#setUpCal" text="Calendar">
           <content>
               <fx:include fx:id="cal" source="calView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="compTab" disable="true" text="Data Comparison">
+      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Data Comparison">
           <content>
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>

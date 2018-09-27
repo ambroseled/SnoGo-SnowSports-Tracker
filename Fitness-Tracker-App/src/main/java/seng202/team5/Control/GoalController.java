@@ -13,6 +13,7 @@ import seng202.team5.Model.Alert;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 
 
@@ -46,7 +47,7 @@ public class GoalController {
     @FXML
     private ComboBox<String> metricCombo;
     @FXML
-    private TextField dateEntry;
+    private DatePicker datePicker;
     @FXML
     private CheckBox dateCheck;
     @FXML
@@ -55,18 +56,17 @@ public class GoalController {
     private CheckBox valueCheck;
     @FXML
     private CheckBox globalCheck;
-    @FXML
-    private AlertController alertsController;
+
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
-    // Getting database controller and current user
     private DataBaseController db = HomeController.getDb();
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
 
 
     @FXML
     /**
-     * Called by a move of the mouse on the anchor pane, this method fills the goal table
+     * This method fills the goal table
      * with all of the users goals, if the number of goals in teh table
      * does not match teh number of goals the user has.;
      */
@@ -154,26 +154,20 @@ public class GoalController {
 
     @FXML
     /**
-     * This method is called a key release on the dateEntry textField. It checks if
+     * This method is called an action on the datePicker. It checks if
      * the entered date is valid and then sets the state of the dateCheck checkBox
      * accordingly.
      */
     public void checkDate() {
         if (HomeController.getCurrentUser() != null) {
             // Getting the entered date string
-            String text = dateEntry.getText();
+            Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
-            try {
-                DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = dateTimeFormat.parse(text);
-                Date current = new Date();
-                if (current.getTime() > date.getTime()) {
-                    dateCheck.setSelected(false);
-                } else {
-                    dateCheck.setSelected(true);
-                }
-            } catch (ParseException e) {
+            Date current = new Date();
+            if (current.getTime() > date.getTime()) {
                 dateCheck.setSelected(false);
+            } else {
+                dateCheck.setSelected(true);
             }
             // Checking if all fields are now valid
             checkChecks();
@@ -249,7 +243,7 @@ public class GoalController {
             String name = goalName.getText();
             String metric = metricCombo.getSelectionModel().getSelectedItem();
             double value = valueCombo.getSelectionModel().getSelectedItem();
-            String dateString = dateEntry.getText();
+            String dateString = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             metric = getMetric(metric);
             boolean global = globalCheck.isSelected();
             // Creating the new Goal
@@ -268,8 +262,6 @@ public class GoalController {
                 db.storeAlert(alert, HomeController.getCurrentUser().getId());
                 HomeController.getCurrentUser().addAlert(alert);
             }
-            //TODO: Implement this
-            //alertsController.viewData();
             // Storing the goal in the database
             db.storeGoal(newGoal, HomeController.getCurrentUser().getId());
             // Adding the goal to the user
@@ -282,7 +274,7 @@ public class GoalController {
             globalCheck.setSelected(false);
             goalName.clear();
             metricCombo.getItems().clear();
-            dateEntry.clear();
+            datePicker.getEditor().clear();
             valueCombo.getItems().clear();
             // Refreshing the goal table
             viewData();

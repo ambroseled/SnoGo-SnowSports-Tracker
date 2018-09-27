@@ -168,7 +168,10 @@ public class CompController {
             setColours(heartBox, heartBox1, heartText, heartText1, heartLabel, heartLabel1);
         } else if (set.getAvgHeartRate()  < set1.getAvgHeartRate() ) {
             setColours(heartBox1, heartBox, heartText, heartText1, heartLabel, heartLabel1);
-        } */
+        }
+
+        pulseHeart(heartBox, set.getAvgHeartRate());
+        pulseHeart(heartBox1, set1.getAvgHeartRate()); */
 
         if (set.getCaloriesBurned() > set1.getCaloriesBurned() ) {
             setColours(calBox, calBox1, calText, calText1, calLabel, calLabel1);
@@ -182,6 +185,21 @@ public class CompController {
             setColours(avgSpeedBox1, avgSpeedBox, avgSpeedText, avgSpeedText1, avgSpeedLabel, avgSpeedLabel1);
         }
     }
+
+
+    /* Pulse at heart rate
+    private void pulseHeart(Rectangle box, double rate) {
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setNode(box);
+        scaleTransition.setFromX(1);
+        scaleTransition.setFromY(1);
+        scaleTransition.setByX(0.1);
+        scaleTransition.setByY(0.1);
+        scaleTransition.setCycleCount(4);
+        scaleTransition.setDuration(Duration.seconds(60/rate));
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.play();
+    }*/
 
 
     private void setColours(Rectangle green, Rectangle red, Text label1, Text label2, Text label3, Text label4) {
