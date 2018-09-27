@@ -1,6 +1,7 @@
 package seng202.team5.DataManipulation;
 
 
+import org.sqlite.SQLiteConfig;
 import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
@@ -26,11 +27,18 @@ public class DataBaseController {
     public DataBaseController() {
         try {
             Class.forName(driver);
-            connection = DriverManager.getConnection(dbString);
+            connection = DriverManager.getConnection(dbString, config().toProperties());
             createDatabase();
         } catch (Exception e) {
             ErrorController.displayError("Error connecting to database");
         }
+    }
+
+
+    private static SQLiteConfig config() {
+        SQLiteConfig sqlConfig = new SQLiteConfig();
+        sqlConfig.enforceForeignKeys(true);
+        return sqlConfig;
     }
 
 
@@ -501,6 +509,7 @@ public class DataBaseController {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
         }
     }
+
 
 
     /**
