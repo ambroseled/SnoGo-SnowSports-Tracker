@@ -75,7 +75,7 @@ public class TableController {
 
         setActivities(db.getActivities(HomeController.getCurrentUser().getId()));
 
-        CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), inputActivities);
+        CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), uploader.getNewActvities());
         Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
         if (countAlert != null) {
         db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
