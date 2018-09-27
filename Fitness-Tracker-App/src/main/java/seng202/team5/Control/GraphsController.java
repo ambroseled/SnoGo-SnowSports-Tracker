@@ -349,7 +349,7 @@ public class GraphsController{
     /**
      * Resets all graphs to base state
      */
-    private void resetData() {
+    public void resetData() {
         totDistChart.getData().clear();
         vertDistChart.getData().clear();
         avgHeartRateChart.getData().clear();
@@ -361,7 +361,7 @@ public class GraphsController{
     /**
      * Creates the lineCharts for all activities
      */
-    private void setOverallStats() {
+    public void setOverallStats() {
         ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
         setActivities(inputActivities);
 

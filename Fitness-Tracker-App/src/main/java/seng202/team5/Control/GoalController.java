@@ -3,6 +3,7 @@ package seng202.team5.Control;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -55,9 +56,13 @@ public class GoalController {
     private CheckBox valueCheck;
     @FXML
     private CheckBox globalCheck;
+    @FXML
+    private AlertController alertsController;
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
+
+
 
 
     @FXML
@@ -264,6 +269,8 @@ public class GoalController {
                 db.storeAlert(alert, App.getCurrentUser().getId());
                 App.getCurrentUser().addAlert(alert);
             }
+            //TODO: Implement this
+            //alertsController.viewData();
             // Storing the goal in the database
             db.storeGoal(newGoal, App.getCurrentUser().getId());
             // Adding the goal to the user

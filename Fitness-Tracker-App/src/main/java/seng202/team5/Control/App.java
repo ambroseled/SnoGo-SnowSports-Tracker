@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
-
 import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
@@ -29,6 +29,7 @@ import java.util.Date;
 
 
 //TODO: Text change to profile editing when editing
+//TODO: Make a general update tabs method to be called from other controllers
 /**
  * This class runs the application and also provides the profile functionality.
  */
@@ -88,7 +89,14 @@ public class App extends Application {
     @FXML
     private ImageView logo;
 
-
+    @FXML
+    private GoalController goalsController;
+    @FXML
+    private AlertController alertsController;
+    @FXML
+    private GraphsController statsController;
+    @FXML
+    private MapController mapsController;
     @FXML
     private TableController tablesController;
 
@@ -193,7 +201,6 @@ public class App extends Application {
 
     public static void setCurrentUser(User user) {
         currentUser = user;
-
     }
 
 
@@ -277,6 +284,12 @@ public class App extends Application {
             enableTabs();
             viewProfile();
             checkPingu();
+            goalsController.viewData();
+            alertsController.viewData();
+            mapsController.fillTable();
+            statsController.setChoiceBox();
+            statsController.setOverallStats();
+            tablesController.viewData();
         }
 
     }

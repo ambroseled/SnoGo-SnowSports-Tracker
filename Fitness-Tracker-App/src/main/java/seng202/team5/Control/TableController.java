@@ -14,6 +14,8 @@ import seng202.team5.Model.Alert;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+
 import javafx.scene.image.ImageView;
 
 /**
@@ -27,6 +29,12 @@ public class TableController {
     private ArrayList<Activity> activities;
     // Getting database controller and current user
     private DataBaseController db = App.getDb();
+    @FXML
+    private GraphsController statsController;
+    @FXML
+    private AlertController alertsController;
+    @FXML
+    private MapController mapsController;
 
 
     /**
@@ -48,7 +56,6 @@ public class TableController {
      * activities in the application.
      */
     public void viewData() {
-
         if (accordion.getPanes().size() != App.getCurrentUser().getActivities().size()) {
             ArrayList<Activity> inputActivities = App.getCurrentUser().getActivities();
             setActivities(inputActivities);
@@ -57,9 +64,10 @@ public class TableController {
     }
 
 
+
     @FXML
     /**
-     * Called by teh loadfile button, this method displays the users current
+     * Called by the loadfile button, this method displays the users current
      * activities in the application.
      */
     public void viewData(String filePath) {
@@ -121,16 +129,30 @@ public class TableController {
             }
         }
 
-          setActivities(db.getActivities(App.getCurrentUser().getId()));
+        setActivities(db.getActivities(App.getCurrentUser().getId()));
 
-          CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
-          Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
-          if (countAlert != null) {
-            db.storeAlert(countAlert, App.getCurrentUser().getId());
-            App.getCurrentUser().addAlert(countAlert);
-          }
+        CheckGoals.markGoals(App.getCurrentUser(), App.getDb(), inputActivities);
+        Alert countAlert = AlertHandler.activityAlert(App.getCurrentUser());
+        if (countAlert != null) {
+        db.storeAlert(countAlert, App.getCurrentUser().getId());
+        App.getCurrentUser().addAlert(countAlert);
+        }
 
-          initialise();
+        //TODO: Implement this corretcly
+        /*
+        alertsController.refreshData();*/
+
+        //TODO: Implement this too
+        /*
+        mapsController.fillTable();*/
+
+        //TODO: Implement this correctly
+        /*
+        statsController.resetData();
+        statsController.setChoiceBox();
+        */
+
+        initialise();
     }
 
 
