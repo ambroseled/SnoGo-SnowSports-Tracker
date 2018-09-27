@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  * Controller class for the mapView.fxml class.
- * Displays the activities of a App.getCurrentUser() onto a map (using the Google Maps API).
+ * Displays the activities of a HomeController.getCurrentUser() onto a map (using the Google Maps API).
  */
 public class MapController {
 
@@ -30,7 +30,7 @@ public class MapController {
 
     private ArrayList<Activity> activities;
     private WebEngine webEngine;
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
 
 
@@ -61,7 +61,7 @@ public class MapController {
      * Called by a mouse click on the activity table. Shows the selected activity on the map
      */
     public void showData() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             try {
                 Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
                 if (activity != null) {
@@ -77,14 +77,14 @@ public class MapController {
   @FXML
   /**
    * Called by a mouse movement on the anchor pane. Fills the table with all of the
-   * App.getCurrentUser()s activities if the number of activities in the table is not equal to the
-   * number of activities the App.getCurrentUser() has.
+   * HomeController.getCurrentUser()s activities if the number of activities in the table is not equal to the
+   * number of activities the HomeController.getCurrentUser() has.
    */
   public void fillTable() {
       actTable.getItems().clear();
-      if (App.getCurrentUser() != null) {
-          if (actTable.getItems().size() != App.getCurrentUser().getActivities().size()) {
-          activities = db.getActivities(App.getCurrentUser().getId());
+      if (HomeController.getCurrentUser() != null) {
+          if (actTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
+          activities = db.getActivities(HomeController.getCurrentUser().getId());
           actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
           activityNames.addAll(activities);
           actTable.setItems(activityNames);

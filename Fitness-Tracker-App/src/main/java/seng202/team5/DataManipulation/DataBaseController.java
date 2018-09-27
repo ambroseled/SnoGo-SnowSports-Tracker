@@ -1,14 +1,13 @@
 package seng202.team5.DataManipulation;
 
 
-import seng202.team5.Control.App;
+import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.*;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 /**
@@ -563,7 +562,7 @@ public class DataBaseController {
                         metricGoal, name, comp, compDate, global, expired, goal.getId());
                 stmt.executeUpdate(query);
             } else {
-                storeGoal(goal, App.getCurrentUser().getId());
+                storeGoal(goal, HomeController.getCurrentUser().getId());
             }
         } catch (SQLException e) {
             // Printing an error message

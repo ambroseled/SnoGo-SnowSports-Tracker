@@ -3,7 +3,6 @@ package seng202.team5.Control;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -60,7 +59,7 @@ public class GoalController {
     private AlertController alertsController;
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     // Getting database controller and current user
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
 
 
 
@@ -72,13 +71,13 @@ public class GoalController {
      * does not match teh number of goals the user has.;
      */
     public void viewData() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             // Checking if the data in the table is current
-            if (goalTable.getItems().size() != db.getGoals(App.getCurrentUser().getId()).size()) {
+            if (goalTable.getItems().size() != db.getGoals(HomeController.getCurrentUser().getId()).size()) {
                 goalTable.getItems().clear();
                 goals.clear();
                 // Getting the users goals
-                goals.addAll(db.getGoals(App.getCurrentUser().getId()));
+                goals.addAll(db.getGoals(HomeController.getCurrentUser().getId()));
                 // Setting up the tables columns
                 nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
                 metricCol.setCellValueFactory(new PropertyValueFactory<>("metric"));
@@ -99,7 +98,7 @@ public class GoalController {
      * state of the nameCheck checkBox accordingly.
      */
     public void nameEntry() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             // Getting the current name text
             String text = goalName.getText();
             // Checking the length of the name then setting the name check box accordingly
@@ -160,7 +159,7 @@ public class GoalController {
      * accordingly.
      */
     public void checkDate() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             // Getting the entered date string
             String text = dateEntry.getText();
             // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
@@ -245,7 +244,7 @@ public class GoalController {
      * the database after wwhich the goal table is updated.
      */
     public void createGoal() {
-        if (App.getCurrentUser() != null) {
+        if (HomeController.getCurrentUser() != null) {
             // Getting all entered data
             String name = goalName.getText();
             String metric = metricCombo.getSelectionModel().getSelectedItem();
@@ -256,25 +255,25 @@ public class GoalController {
             // Creating the new Goal
             Goal newGoal = new Goal(name, metric, value, dateString, global);
             // Checking if any alerts need to be created for the new goal
-            newGoal.setCompleted(CheckGoals.checkGoal(newGoal, App.getCurrentUser().getActivities(), App.getCurrentUser()));
+            newGoal.setCompleted(CheckGoals.checkGoal(newGoal, HomeController.getCurrentUser().getActivities(), HomeController.getCurrentUser()));
             newGoal.setExpired(CheckGoals.checkExpired(newGoal));
             if (newGoal.isExpired()) {
                 // Creating an expired goal alert
                 Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
-                db.storeAlert(alert, App.getCurrentUser().getId());
-                App.getCurrentUser().addAlert(alert);
+                db.storeAlert(alert, HomeController.getCurrentUser().getId());
+                HomeController.getCurrentUser().addAlert(alert);
             } else if (newGoal.isCompleted()) {
                 // Creating a completed goal alert
                 Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
-                db.storeAlert(alert, App.getCurrentUser().getId());
-                App.getCurrentUser().addAlert(alert);
+                db.storeAlert(alert, HomeController.getCurrentUser().getId());
+                HomeController.getCurrentUser().addAlert(alert);
             }
             //TODO: Implement this
             //alertsController.viewData();
             // Storing the goal in the database
-            db.storeGoal(newGoal, App.getCurrentUser().getId());
+            db.storeGoal(newGoal, HomeController.getCurrentUser().getId());
             // Adding the goal to the user
-            App.getCurrentUser().addGoal(newGoal);
+            HomeController.getCurrentUser().addGoal(newGoal);
             // Resetting all the entry fields and check boxes
             nameCheck.setSelected(false);
             metricCheck.setSelected(false);
@@ -340,7 +339,7 @@ public class GoalController {
         // Removing the goal from the database and the user
         if (goal != null) {
             db.removeGoal(goal);
-            App.getCurrentUser().setGoals(db.getGoals(App.getCurrentUser().getId()));
+            HomeController.getCurrentUser().setGoals(db.getGoals(HomeController.getCurrentUser().getId()));
             // Refreshing the goal table
             viewData();
         }

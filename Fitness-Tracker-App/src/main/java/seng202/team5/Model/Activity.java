@@ -1,6 +1,9 @@
 package seng202.team5.Model;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * This class holds a single activity that is in the application.
  * It stores the name of the activity, the data set corresponding to the activity,
@@ -80,6 +83,12 @@ public class Activity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public String getDate() {
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        return dateTimeFormat.format(dataSet.getDateTime(0));
     }
 
 

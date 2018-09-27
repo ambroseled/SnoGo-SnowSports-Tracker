@@ -1,6 +1,5 @@
 package seng202.team5.Control;
 
-import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,13 +7,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
 
 import java.util.ArrayList;
 
@@ -70,7 +67,7 @@ public class GraphsController{
     @FXML
     private LineChart<Number,Number> runningDistChart;
     // Getting database controller and current user
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
 
 
 
@@ -296,10 +293,10 @@ public class GraphsController{
      * Sets up the choiceBox to show all activities for current User
      */
     public void setChoiceBox() {
-        if (activityChoice.getItems().size() != db.getActivities(App.getCurrentUser().getId()).size()) {
+        if (activityChoice.getItems().size() != db.getActivities(HomeController.getCurrentUser().getId()).size()) {
             resetData();
 
-            ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
+            ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
             if (inputActivities != activities) {
                 speedChart.getData().clear();
                 distanceChart.getData().clear();
@@ -362,7 +359,7 @@ public class GraphsController{
      * Creates the lineCharts for all activities
      */
     public void setOverallStats() {
-        ArrayList<Activity> inputActivities = db.getActivities(App.getCurrentUser().getId());
+        ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
         setActivities(inputActivities);
 
         XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance");

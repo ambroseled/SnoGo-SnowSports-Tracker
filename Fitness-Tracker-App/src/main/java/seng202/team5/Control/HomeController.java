@@ -2,25 +2,17 @@ package seng202.team5.Control;
 
 
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
-import java.io.File;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +25,7 @@ import java.util.Date;
 /**
  * This class runs the application and also provides the profile functionality.
  */
-public class App extends Application {
+public class HomeController {
 
 
     @FXML
@@ -99,6 +91,8 @@ public class App extends Application {
     private MapController mapsController;
     @FXML
     private TableController tablesController;
+    @FXML
+    private CompController compController;
 
 
     boolean editing = false;
@@ -109,11 +103,9 @@ public class App extends Application {
 
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    private static FXMLLoader loader = new FXMLLoader();
 
-    private Class c = getClass();
 
-    private static DataBaseController db = new DataBaseController();
+    private static DataBaseController db;
 
     private static User currentUser;
 
@@ -162,32 +154,7 @@ public class App extends Application {
 
 
 
-    /**
-     * Creates the application GUI scene, based on tabMain.fxml file
-     * @param primaryStage
-     * @throws Exception IOException
-     */
-    public void start(Stage primaryStage) throws Exception {
-        URL value1 = c.getResource("/View/tabMain.fxml");
-        Parent root = loader.load(value1);
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("SnoGo");
-        primaryStage.setMinHeight(750);
-        primaryStage.setMinWidth(1280);
-        primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("logo.png"));
-        primaryStage.show();
-    }
 
-
-    @Override
-    /**
-     * Closing the database connection when the application is closed
-     */
-    public void stop(){
-        db.closeConnection();
-    }
 
 
     /**
@@ -250,7 +217,7 @@ public class App extends Application {
         if (selectedUser != null) {
             db.removeUser(selectedUser);
             refreshTable();
-            if (App.getCurrentUser() == selectedUser) {
+            if (HomeController.getCurrentUser() == selectedUser) {
                 currentUser =  null;
                 disableTabs();
             }
@@ -276,22 +243,31 @@ public class App extends Application {
 
     @FXML
     /**
-     * Setting the current user of the App class
+     * Setting the current user of the HomeController class
      */
     private void setSelectedUser(){
-        App.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
-        if (App.getCurrentUser() != null) {
+        HomeController.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
+        if (HomeController.getCurrentUser() != null) {
             enableTabs();
             viewProfile();
             checkPingu();
-            goalsController.viewData();
-            alertsController.viewData();
-            mapsController.fillTable();
-            statsController.setChoiceBox();
-            statsController.setOverallStats();
-            tablesController.viewData();
+            updateTabs();
         }
+    }
 
+
+    /**
+     *
+     */
+    public void updateTabs() {
+        goalsController.viewData();
+        alertsController.viewData();
+        mapsController.fillTable();
+        statsController.setChoiceBox();
+        statsController.setOverallStats();
+        tablesController.viewData();
+        compController.fillActTables();
+        compController.clearBoxes();
     }
 
 
@@ -346,12 +322,12 @@ public class App extends Application {
         createButton.setVisible(false);
         editing = true;
         // Setting all entry fields to the users current personal information
-        nameText.setText(App.getCurrentUser().getName());
-        ageText.setText(Integer.toString(App.getCurrentUser().getAge()));
-        heightText.setText(Double.toString(App.getCurrentUser().getHeight()));
-        weightText.setText(Double.toString(App.getCurrentUser().getWeight()));
-        bmiText.setText(Double.toString(App.getCurrentUser().getBmi()));
-        String dateString = dateTimeFormat.format(App.getCurrentUser().getBirthDate());
+        nameText.setText(HomeController.getCurrentUser().getName());
+        ageText.setText(Integer.toString(HomeController.getCurrentUser().getAge()));
+        heightText.setText(Double.toString(HomeController.getCurrentUser().getHeight()));
+        weightText.setText(Double.toString(HomeController.getCurrentUser().getWeight()));
+        bmiText.setText(Double.toString(HomeController.getCurrentUser().getBmi()));
+        String dateString = dateTimeFormat.format(HomeController.getCurrentUser().getBirthDate());
         dateText.setText(dateString);
     }
 
@@ -420,7 +396,7 @@ public class App extends Application {
             currentUser.setAge(age);
             currentUser.setBirthDate(date);
             // Updating the user in the database
-            db.updateUser(App.getCurrentUser());
+            db.updateUser(HomeController.getCurrentUser());
             clearChecks();
             clearFields();
             viewProfile();
@@ -643,8 +619,12 @@ public class App extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
+
+    public static void setDb(DataBaseController newDb) {
+        db = newDb;
     }
+
+
+
 }
 

@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
-import seng202.team5.Model.User;
 
 /**
  * This class is used to control the alerts view of the application.
@@ -26,7 +25,7 @@ public class AlertController {
     private TableView alertTable;
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
     // Getting database controller
-    private DataBaseController db = App.getDb();
+    private DataBaseController db = HomeController.getDb();
 
 
     @FXML
@@ -37,10 +36,10 @@ public class AlertController {
      */
     public void viewData() {
         // Checking if the table needs to be refilled
-        if (alertTable.getItems().size() != App.getCurrentUser().getAlerts().size()) {
+        if (alertTable.getItems().size() != HomeController.getCurrentUser().getAlerts().size()) {
             alertTable.getItems().clear();
             // Getting the users alerts
-            alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
+            alerts.addAll(db.getAlerts(HomeController.getCurrentUser().getId()));
             // Setting table columns
             nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
             desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
@@ -64,7 +63,7 @@ public class AlertController {
         // Emptying the table
         alertTable.getItems().clear();
         // Refilling the table
-        alerts.addAll(db.getAlerts(App.getCurrentUser().getId()));
+        alerts.addAll(db.getAlerts(HomeController.getCurrentUser().getId()));
         alertTable.setItems(alerts);
 
     }
@@ -81,7 +80,7 @@ public class AlertController {
         // Removing the alert from the user and the database
         if (alert != null) {
             db.removeAlert(alert);
-            App.getCurrentUser().setAlerts(db.getAlerts(App.getCurrentUser().getId()));
+            HomeController.getCurrentUser().setAlerts(db.getAlerts(HomeController.getCurrentUser().getId()));
             // Refreshing the data in teh table
             refreshData();
         }
