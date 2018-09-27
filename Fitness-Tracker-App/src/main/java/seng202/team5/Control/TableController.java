@@ -50,8 +50,7 @@ public class TableController {
 
     @FXML
     /**
-     * Called by mouse movement on the anchor pane, this method displays the users current
-     * activities in the application.
+     * This method displays the users current activities in the application.
      */
     public void viewData() {
         if (accordion.getPanes().size() != HomeController.getCurrentUser().getActivities().size()) {
@@ -136,11 +135,14 @@ public class TableController {
         HomeController.getCurrentUser().addAlert(countAlert);
         }
 
+        initialise();
         //TODO Implement proper
 
-       // homeController.updateTabs();
+      //  homeController.updateTabs();
+       // statsController.resetData();
+        statsController.setOverallStats();
 
-        initialise();
+
     }
 
 

@@ -30,8 +30,7 @@ public class AlertController {
 
     @FXML
     /**
-     * Called by mouse movement on the anchor pane. It
-     * fills the alerts table with all of the users alerts if the number
+     * This method fills the alerts table with all of the users alerts if the number
      * of alerts in teh table is not equal to teh number of alerts the user has.
      */
     public void viewData() {

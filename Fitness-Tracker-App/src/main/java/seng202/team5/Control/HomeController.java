@@ -16,6 +16,7 @@ import seng202.team5.Model.User;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -62,7 +63,7 @@ public class HomeController {
     @FXML
     private TextField bmiText;
     @FXML
-    private TextField dateText;
+    private DatePicker datePicker;
     @FXML
     private CheckBox nameCheck;
     @FXML
@@ -189,7 +190,7 @@ public class HomeController {
 
     @FXML
     /**
-     * Called by mouse movement onto the tab; this method populated the shown table with the current users in the database
+     * This method populated the shown table with the current users in the database
      */
     private void fillTable() {
         users = db.getUsers();
@@ -263,20 +264,6 @@ public class HomeController {
     }
 
 
-    /**
-     *
-     */
-    public void updateTabs() {
-        goalsController.viewData();
-        alertsController.viewData();
-        mapsController.fillTable();
-        statsController.setChoiceBox();
-        statsController.setOverallStats();
-        tablesController.viewData();
-        compController.fillActTables();
-        compController.clearBoxes();
-        calController.setCurrent();
-    }
 
 
     private void checkPingu() {
@@ -339,8 +326,7 @@ public class HomeController {
         heightText.setText(Double.toString(HomeController.getCurrentUser().getHeight()));
         weightText.setText(Double.toString(HomeController.getCurrentUser().getWeight()));
         bmiText.setText(Double.toString(HomeController.getCurrentUser().getBmi()));
-        String dateString = dateTimeFormat.format(HomeController.getCurrentUser().getBirthDate());
-        dateText.setText(dateString);
+        datePicker.setValue(HomeController.getCurrentUser().getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
 
@@ -371,7 +357,7 @@ public class HomeController {
     private void clearFields() {
         nameText.clear();
         weightText.clear();
-        dateText.clear();
+        datePicker.getEditor().clear();
         heightText.clear();
     }
 
@@ -399,7 +385,7 @@ public class HomeController {
             String name = nameText.getText();
             double weight = Double.parseDouble(weightText.getText());
             double height = Double.parseDouble(heightText.getText());
-            Date date = dateTimeFormat.parse(dateText.getText());
+            Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             int age = calcAge(date);
             // Setting the new values of the users information
             currentUser.setName(name);
@@ -451,43 +437,35 @@ public class HomeController {
         try {
             boolean name = checkName(nameText.getText());
             boolean weight = checkWeight(weightText.getText());
-            boolean date = checkDate(dateText.getText());
+            String dateText = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            boolean date = checkDate(dateText);
             boolean height = checkHeight(heightText.getText());
             // Checking all entry fields values are valid
             if (name && weight && date && height) {
                 // Parsing the none string values
                 double weightVal = Double.parseDouble(weightText.getText());
                 double heightVal = Double.parseDouble(heightText.getText());
-                try {
-                    Date dateVal = dateTimeFormat.parse(dateText.getText());
-                    // Checking that newly entered data isn't the same ass the users information
-                    boolean duplicate = false;
-                    for (User user : db.getUsers()) {
-                        if (weightVal == user.getWeight()
-                                && heightVal == user.getHeight()
-                                && nameText.getText().equals(user.getName())
-                                && dateText.getText().equals(dateTimeFormat.format(user.getBirthDate()))) {
-                            // Disabling update button
-                            duplicate = true;
-                            clearChecks();
-                        }
+                Date dateVal = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                // Checking that newly entered data isn't the same ass the users information
+                boolean duplicate = false;
+                for (User user : db.getUsers()) {
+                    if (weightVal == user.getWeight()
+                            && heightVal == user.getHeight()
+                            && nameText.getText().equals(user.getName())
+                            && dateText.equals(dateTimeFormat.format(user.getBirthDate()))) {
+                        // Disabling update button
+                        duplicate = true;
+                        clearChecks();
                     }
-                    if (!duplicate) {
-                        // Enabling the update button
-                        if (editing) {
-                            editButton.setDisable(false);
-                        } else {
-                            createButton.setDisable(false);
-                        }
+                }
+                if (!duplicate) {
+                    // Enabling the update button
+                    if (editing) {
+                        editButton.setDisable(false);
                     } else {
-                        if (editing) {
-                            editButton.setDisable(true);
-                        } else {
-                            createButton.setDisable(true);
-                        }
+                        createButton.setDisable(false);
                     }
-                } catch (ParseException e) {
-                    // Disabling update button
+                } else {
                     if (editing) {
                         editButton.setDisable(true);
                     } else {
@@ -518,21 +496,17 @@ public class HomeController {
      * Creating a new user from the entry fields values. The user is added to the database and user table
      */
     public void createUser() {
-        try {
-            // Getting data from entry fields
-            String name = nameText.getText();
-            double weight = Double.parseDouble(weightText.getText());
-            double height = Double.parseDouble(heightText.getText());
-            Date date = dateTimeFormat.parse(dateText.getText());
-            int age = calcAge(date);
-            User user = new User(name, age, height, weight, date);
-            db.storeNewUser(user);
-            refreshTable();
-            clearChecks();
-            clearFields();
-        } catch (ParseException e) {
-            ErrorController.displayError("Error parsing birth date");
-        }
+        // Getting data from entry fields
+        String name = nameText.getText();
+        double weight = Double.parseDouble(weightText.getText());
+        double height = Double.parseDouble(heightText.getText());
+        Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        int age = calcAge(date);
+        User user = new User(name, age, height, weight, date);
+        db.storeNewUser(user);
+        refreshTable();
+        clearChecks();
+        clearFields();
     }
 
 
@@ -628,6 +602,56 @@ public class HomeController {
             dateCheck.setSelected(false);
             return false;
         }
+    }
+
+
+    public void setUpStats() {
+        statsController.setOverallStats();
+        statsController.setChoiceBox();
+    }
+
+
+    public void setUpMap() {
+        mapsController.fillTable();
+    }
+
+
+    public void setUpAlerts() {
+        alertsController.viewData();
+    }
+
+
+    public void setUpGoals() {
+        goalsController.viewData();
+    }
+
+
+    public void setUpCal() {
+        calController.setCurrent();
+    }
+
+
+    public void setUpComp() {
+        compController.fillActTables();
+        compController.clearBoxes();
+    }
+
+    public void setUpTables() {
+        tablesController.viewData();
+    }
+
+
+    /**
+     *
+     */
+    public void updateTabs() {
+        setUpTables();
+        setUpMap();
+        setUpStats();
+        setUpAlerts();
+        setUpCal();
+        setUpComp();
+        setUpGoals();
     }
 
 

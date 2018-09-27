@@ -76,9 +76,8 @@ public class MapController {
 
   @FXML
   /**
-   * Called by a mouse movement on the anchor pane. Fills the table with all of the
-   * HomeController.getCurrentUser()s activities if the number of activities in the table is not equal to the
-   * number of activities the HomeController.getCurrentUser() has.
+   *Fills the table with all of the HomeController.getCurrentUser()s activities if the number of
+   * activities in the table is not equal to the number of activities the HomeController.getCurrentUser() has.
    */
   public void fillTable() {
       actTable.getItems().clear();
