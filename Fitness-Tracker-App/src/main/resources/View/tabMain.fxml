@@ -138,12 +138,12 @@
               <fx:include fx:id="goals" source="goalView.fxml" />
           </content>
       </Tab>
-      <Tab text="Calendar">
+      <Tab fx:id="calTab" disable="true" text="Calendar">
           <content>
               <fx:include fx:id="cal" source="calView.fxml" />
           </content>
       </Tab>
-      <Tab text="Data Comparison">
+      <Tab fx:id="compTab" disable="true" text="Data Comparison">
           <content>
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>

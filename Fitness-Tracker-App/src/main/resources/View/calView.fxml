@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.CalController">
    <children>
       <GridPane prefHeight="670.0" prefWidth="1280.0">
         <columnConstraints>
@@ -25,36 +29,53 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
-              <columns>
-                <TableColumn prefWidth="195.0" text="Name" />
-                <TableColumn prefWidth="126.0" text="Date" />
-                  <TableColumn prefWidth="149.0" text="Total Distance (m)" />
-                  <TableColumn prefWidth="164.0" text="Vertical Distance (m)" />
-                  <TableColumn prefWidth="207.0" text="Average Heart Rate (bpm)" />
-                  <TableColumn prefWidth="134.0" text="Calories Burned" />
-                  <TableColumn prefWidth="171.0" text="Average speed (m/s)" />
-                  <TableColumn prefWidth="133.0" text="Top Speed (m/s)" />
+            <TableView fx:id="actTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
+                <placeholder>
+                    <Label text="No Activities for Selected Date" />
+                </placeholder>
+                <columns>
+                <TableColumn fx:id="nameCol" prefWidth="273.0" text="Name" />
+                <TableColumn fx:id="actDateCol" prefWidth="154.0" text="Date" />
+                  <TableColumn fx:id="distCol" prefWidth="146.0" text="Total Distance (m)" />
+                  <TableColumn fx:id="vertCol" prefWidth="136.0" text="Vertical Distance (m)" />
+                  <TableColumn fx:id="heartCol" prefWidth="174.0" text="Average Heart Rate (bpm)" />
+                  <TableColumn fx:id="calCol" prefWidth="110.0" text="Calories Burned" />
+                  <TableColumn fx:id="avgSpeedCol" prefWidth="137.0" text="Average speed (m/s)" />
+                  <TableColumn fx:id="topSpeedCol" prefWidth="109.0" text="Top Speed (m/s)" />
               </columns>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </GridPane.margin>
             </TableView>
-            <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-              <columns>
-                <TableColumn prefWidth="142.0" text="Alert Type" />
-                <TableColumn minWidth="8.0" prefWidth="177.0" text="Date" />
-                  <TableColumn minWidth="0.0" prefWidth="296.0" text="Descrption" />
+            <TableView fx:id="alertTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                <placeholder>
+                    <Label text="No Alerts for Selected Date" />
+                </placeholder>
+                <columns>
+                <TableColumn fx:id="typeCol" prefWidth="142.0" text="Alert Type" />
+                <TableColumn fx:id="alertDateCol" minWidth="8.0" prefWidth="177.0" text="Date" />
+                  <TableColumn fx:id="desCol" minWidth="0.0" prefWidth="276.0" text="Descrption" />
               </columns>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
             </TableView>
-            <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-              <columns>
-                <TableColumn prefWidth="138.0" text="Goal Name" />
-                <TableColumn prefWidth="130.0" text="Goal Metric" />
-                  <TableColumn prefWidth="96.0" text="Value" />
-                  <TableColumn prefWidth="136.0" text="Completion Date" />
-                  <TableColumn prefWidth="110.0" text="Achieved" />
+            <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                <placeholder>
+                    <Label text="No Goals for Selected Date" />
+                </placeholder>
+                <columns>
+                <TableColumn fx:id="goalNameCol" prefWidth="138.0" text="Goal Name" />
+                <TableColumn fx:id="metricCol" prefWidth="130.0" text="Goal Metric" />
+                  <TableColumn fx:id="valCol" prefWidth="96.0" text="Value" />
+                  <TableColumn fx:id="goalDateCol" prefWidth="136.0" text="Completion Date" />
+                  <TableColumn fx:id="compCol" prefWidth="90.0" text="Achieved" />
               </columns>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
             </TableView>
-            <DatePicker prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" text="View Selected Date" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

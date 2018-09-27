@@ -20,8 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-//TODO: Text change to profile editing when editing
-//TODO: Make a general update tabs method to be called from other controllers
+//TODO: Make a general update tabs method to be called from other controllers -- kinda working
+
+
 /**
  * This class runs the application and also provides the profile functionality.
  */
@@ -38,6 +39,10 @@ public class HomeController {
     private Tab alertsTab;
     @FXML
     private Tab goalsTab;
+    @FXML
+    private Tab calTab;
+    @FXML
+    private Tab compTab;
     @FXML
     private TableView userTable;
     @FXML
@@ -93,6 +98,8 @@ public class HomeController {
     private TableController tablesController;
     @FXML
     private CompController compController;
+    @FXML
+    private CalController calController;
 
 
     boolean editing = false;
@@ -268,6 +275,7 @@ public class HomeController {
         tablesController.viewData();
         compController.fillActTables();
         compController.clearBoxes();
+        calController.setCurrent();
     }
 
 
@@ -291,6 +299,8 @@ public class HomeController {
         mapTab.setDisable(true);
         alertsTab.setDisable(true);
         goalsTab.setDisable(true);
+        calTab.setDisable(true);
+        compTab.setDisable(true);
     }
 
 
@@ -303,6 +313,8 @@ public class HomeController {
         mapTab.setDisable(false);
         alertsTab.setDisable(false);
         goalsTab.setDisable(false);
+        calTab.setDisable(false);
+        compTab.setDisable(false);
     }
 
 

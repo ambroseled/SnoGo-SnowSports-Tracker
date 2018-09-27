@@ -14,7 +14,7 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
 import java.util.ArrayList;
-
+//TODO Update act table when user is changed, will change to an actual table to
 /**
  * This class is the controller class for the GraphsTab.fxml class.
  * It produces graphs for speed, distance, heart rate, distance, calories.

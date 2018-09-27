@@ -91,5 +91,34 @@ public class Activity {
         return dateTimeFormat.format(dataSet.getDateTime(0));
     }
 
+    public double getTopSpeed() {
+        return dataSet.getTopSpeed();
+    }
+
+
+    public double getTotalDistance() {
+        return dataSet.getTotalDistance();
+    }
+
+
+    public int getAvgHeartRate() {
+        return dataSet.getAvgHeartRate();
+    }
+
+
+    public double getVerticalDistance() {
+        return dataSet.getVerticalDistance();
+    }
+
+
+    public double getCaloriesBurned() {
+        return dataSet.getCaloriesBurned();
+    }
+
+
+    public double getAvgSpeed() {
+        return dataSet.getAvgSpeed();
+    }
+
 
 }

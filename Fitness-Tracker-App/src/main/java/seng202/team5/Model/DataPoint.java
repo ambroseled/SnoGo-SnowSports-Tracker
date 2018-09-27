@@ -23,7 +23,7 @@ public class DataPoint {
     private double speed;
     private boolean active;
 
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
 
     /**

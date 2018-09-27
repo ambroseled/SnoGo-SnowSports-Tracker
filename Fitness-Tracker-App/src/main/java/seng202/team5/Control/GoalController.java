@@ -319,7 +319,6 @@ public class GoalController {
         if (valueCheck.isSelected() && metricCheck.isSelected() && dateCheck.isSelected() && nameCheck.isSelected()) {
             // Enabling the create button
             createButton.setDisable(false);
-            createButton.setOpacity(0.7);
         } else {
             // Disabling the create button
             createButton.setDisable(true);
