@@ -7,6 +7,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
@@ -14,7 +15,8 @@ import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
 import java.util.ArrayList;
-//TODO Update act table when user is changed, will change to an actual table to
+
+
 /**
  * This class is the controller class for the GraphsTab.fxml class.
  * It produces graphs for speed, distance, heart rate, distance, calories.
@@ -38,21 +40,6 @@ public class GraphsController{
     private  LineChart<Number,Number> distanceChart;
     @FXML
     private  LineChart<Number,Number> heartRateChart;
-    //Table FXML elements
-    @FXML
-    private AnchorPane tablePane;
-    @FXML
-    private Label activityName;
-    @FXML
-    private Label totalDistance;
-    @FXML
-    private Label vertDistance;
-    @FXML
-    private Label avgHeartRate;
-    @FXML
-    private Label calories;
-    @FXML
-    private Label avgSpeed;
     //Overall Stats FXML elements
     @FXML
     private LineChart<Number,Number> totDistChart;
@@ -66,6 +53,24 @@ public class GraphsController{
     private LineChart<Number,Number> avgSpeedChart;
     @FXML
     private LineChart<Number,Number> runningDistChart;
+    @FXML
+    private TableView actTable;
+    @FXML
+    private TableColumn<Activity, String> nameCol;
+    @FXML
+    private TableColumn<Activity, String> actDateCol;
+    @FXML
+    private TableColumn<Activity, Double> distCol;
+    @FXML
+    private TableColumn<Activity, Double> vertCol;
+    @FXML
+    private TableColumn<Activity, Integer> heartCol;
+    @FXML
+    private TableColumn<Activity, Double> calCol;
+    @FXML
+    private TableColumn<Activity, Double> avgSpeedCol;
+    @FXML
+    private TableColumn<Activity, Double> topSpeedCol;
     // Getting database controller and current user
     private DataBaseController db = HomeController.getDb();
 
@@ -359,12 +364,35 @@ public class GraphsController{
             XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate (bpm)");
             setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
 
-            setTable(currentActivity);
-            tablePane.setVisible(true);
+            showActivity(currentActivity);
 
             scrollPane.setVisible(true);
         }
     }
+
+
+
+    private void showActivity(Activity activity) {
+        ObservableList<Activity> activities = FXCollections.observableArrayList();
+        actTable.getItems().clear();
+        activities.clear();
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        actDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        distCol.setCellValueFactory(new PropertyValueFactory<>("totalDistance"));
+        vertCol.setCellValueFactory(new PropertyValueFactory<>("verticalDistance"));
+        heartCol.setCellValueFactory(new PropertyValueFactory<>("avgHeartRate"));
+        calCol.setCellValueFactory(new PropertyValueFactory<>("caloriesBurned"));
+        avgSpeedCol.setCellValueFactory(new PropertyValueFactory<>("avgSpeed"));
+        topSpeedCol.setCellValueFactory(new PropertyValueFactory<>("topSpeed"));
+
+        activities.add(activity);
+        actTable.setItems(activities);
+        actTable.setVisible(false);
+    }
+
+
+
 
     /**
      * Resets all graphs to base state
@@ -376,6 +404,7 @@ public class GraphsController{
         caloriesChart.getData().clear();
         avgSpeedChart.getData().clear();
         runningDistChart.getData().clear();
+        actTable.setVisible(false);
     }
 
     /**
@@ -417,18 +446,6 @@ public class GraphsController{
     }
 
 
-    /**
-     * Sets a table at the bottom to show textual statistics of activity
-     * @param activity the currently selected activity
-     */
-    private void setTable(Activity activity) {
-        activityName.setText(activity.getName());
-        totalDistance.setText(Double.toString(activity.getDataSet().getTotalDistance()));
-        vertDistance.setText(Double.toString(activity.getDataSet().getVerticalDistance()));
-        avgHeartRate.setText(Double.toString(activity.getDataSet().getAvgHeartRate()));
-        calories.setText(Double.toString(activity.getDataSet().getCaloriesBurned()));
-        avgSpeed.setText(Double.toString(activity.getDataSet().getAvgSpeed()));
-    }
 
     /**
      * @param activity the currently selected activity in the choiceBox
