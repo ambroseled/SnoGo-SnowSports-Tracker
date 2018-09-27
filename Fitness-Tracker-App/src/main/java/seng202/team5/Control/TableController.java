@@ -83,13 +83,6 @@ public class TableController {
         }
 
         initialise();
-        //TODO Implement proper
-
-      //  homeController.updateTabs();
-       // statsController.resetData();
-        statsController.setOverallStats();
-
-
     }
 
 
