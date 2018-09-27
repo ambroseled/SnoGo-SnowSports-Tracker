@@ -133,9 +133,14 @@ public class GraphsController{
      * @param activity currently selected activity
      */
     private void setSpeedChart(LineChart lineChart, XYChart.Series series, Activity activity) {
-        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
+        ObservableList<DataPoint> dataList = getDataPointsList(activity);
+
+        long startTime = dataList.get(0).getDateTime().getTime();
+        long endTime = dataList.get(dataList.size() - 1).getDateTime().getTime();
+
+        double timeDivisor = setTime(startTime, endTime, lineChart);
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint, lineChart);
+            double timeVal = ((dataPoint.getDateTime().getTime()) - startTime) / timeDivisor;
             double speedVal = dataPoint.getSpeed();
             series.getData().add(new XYChart.Data(timeVal, speedVal));
         }
@@ -150,9 +155,14 @@ public class GraphsController{
      * @param activity currently selected activity
      */
     private void setDistanceChart(LineChart lineChart, XYChart.Series series, Activity activity) {
-        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
+        ObservableList<DataPoint> dataList = getDataPointsList(activity);
+
+        long startTime = dataList.get(0).getDateTime().getTime();
+        long endTime = dataList.get(dataList.size() - 1).getDateTime().getTime();
+
+        double timeDivisor = setTime(startTime, endTime, lineChart);
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint, lineChart);
+            double timeVal = ((dataPoint.getDateTime().getTime()) - startTime) / timeDivisor;
             double distanceVal = dataPoint.getDistance();
             series.getData().add(new XYChart.Data(timeVal, distanceVal));
         }
@@ -167,9 +177,14 @@ public class GraphsController{
      * @param activity currently selected activity
      */
     private void setHeartRateChart(LineChart lineChart, XYChart.Series series, Activity activity) {
-        long startTime = getDataPointsList(activity).get(0).getDateTime().getTime();
+        ObservableList<DataPoint> dataList = getDataPointsList(activity);
+
+        long startTime = dataList.get(0).getDateTime().getTime();
+        long endTime = dataList.get(dataList.size() - 1).getDateTime().getTime();
+
+        double timeDivisor = setTime(startTime, endTime, lineChart);
         for (DataPoint dataPoint : getDataPointsList(activity)) {
-            double timeVal = setTime(startTime, dataPoint, lineChart);
+            double timeVal = ((dataPoint.getDateTime().getTime()) - startTime) / timeDivisor;
             int heartRateVal = dataPoint.getHeartRate();
             series.getData().add(new XYChart.Data(timeVal, heartRateVal));
         }
@@ -275,17 +290,25 @@ public class GraphsController{
 
     /**
      * @param startTime Point when the activity started
-     * @param dataPoint Currently studied datapoint
+     * @param endTime Point when the activity ends
      * @return the time of the current datapoint relative to the start of the activity
      */
-    private double setTime(long startTime, DataPoint dataPoint, LineChart lineChart) {
-        long currentTime = dataPoint.getDateTime().getTime();
-        double newTime = currentTime - startTime;
-        newTime = newTime / 1000;
+    private double setTime(long startTime, long endTime, LineChart lineChart) {
+        double totalTime = endTime - startTime;
+        double timeDivisor = 1000;
         String timeScale = "Seconds";
 
+        if (totalTime > 60000) {
+            timeDivisor *= 60;
+            timeScale = "Minutes";
+            if (totalTime > 3600000) {
+                timeDivisor *= 60;
+                timeScale = "Hours";
+            }
+        }
+
         lineChart.getXAxis().setLabel("Time (" + timeScale + ")");
-        return newTime;
+        return timeDivisor;
     }
 
     /**
@@ -329,11 +352,11 @@ public class GraphsController{
             distanceChart.getData().clear();
             heartRateChart.getData().clear();
 
-            XYChart.Series speedSeries = createGraph(speedChart, "Speed");
+            XYChart.Series speedSeries = createGraph(speedChart, "Speed (m/s)");
             setSpeedChart(speedChart, speedSeries, currentActivity);
-            XYChart.Series distanceSeries = createGraph(distanceChart, "Distance");
+            XYChart.Series distanceSeries = createGraph(distanceChart, "Distance (m)");
             setDistanceChart(distanceChart, distanceSeries, currentActivity);
-            XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate");
+            XYChart.Series heartRateSeries = createGraph(heartRateChart, "Heart Rate (bpm)");
             setHeartRateChart(heartRateChart, heartRateSeries, currentActivity);
 
             setTable(currentActivity);
@@ -362,10 +385,10 @@ public class GraphsController{
         ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
         setActivities(inputActivities);
 
-        XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance");
+        XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance (m)");
         setTotalDistChart(totDistChart, totalDistSeries);
 
-        XYChart.Series vertDistSeries = createOverallGraph(vertDistChart, "Vertical Distance");
+        XYChart.Series vertDistSeries = createOverallGraph(vertDistChart, "Vertical Distance (m)");
         setVertDistChart(vertDistChart, vertDistSeries);
 
         XYChart.Series avgHeartRateSeries = createOverallGraph(avgHeartRateChart, "Average Heart Rate");
@@ -374,10 +397,10 @@ public class GraphsController{
         XYChart.Series caloriesSeries = createOverallGraph(caloriesChart, "Calories Burned");
         setCaloriesChart(caloriesChart, caloriesSeries);
 
-        XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed");
+        XYChart.Series avgSpeedSeries = createOverallGraph(avgSpeedChart, "Average Speed (m/s)");
         setAvgSpeedChart(avgSpeedChart, avgSpeedSeries);
 
-        XYChart.Series runningDistSeries = createOverallGraph(runningDistChart, "Running Distance");
+        XYChart.Series runningDistSeries = createOverallGraph(runningDistChart, "Running Distance (m)");
         setRunningDistChart(runningDistChart, runningDistSeries);
     }
 
