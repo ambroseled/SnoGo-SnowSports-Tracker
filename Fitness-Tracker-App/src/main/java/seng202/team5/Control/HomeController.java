@@ -364,7 +364,12 @@ public class HomeController {
     private void clearFields() {
         nameText.clear();
         weightText.clear();
-        datePicker.getEditor().clear();
+        try {
+            Date date = dateTimeFormat.parse("08/09/1990");
+            datePicker.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        } catch (ParseException e) {
+
+        }
         heightText.clear();
     }
 
