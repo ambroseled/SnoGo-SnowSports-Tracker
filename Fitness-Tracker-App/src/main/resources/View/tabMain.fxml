@@ -148,7 +148,7 @@
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="videoTab" disable="true" onSelectionChanged="#setUpVideo" text="Videos">
+      <Tab fx:id="videoTab" disable="true" onSelectionChanged="#setUpVideo" text="Videos&#x1F4F9;">
           <content>
               <fx:include fx:id="video" source="videoView.fxml" />
           </content>
