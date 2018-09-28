@@ -9,7 +9,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.HomeController">
   <tabs>
-      <Tab text="User">
+      <Tab text="User⛷">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../CSS/paneStyle.css">
                <children>
@@ -113,37 +113,37 @@
             </AnchorPane>
          </content>
       </Tab>
-    <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data">
+    <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data&#x1F4C3;">
          <content>
              <fx:include fx:id="tables" source="TableTab.fxml" />
          </content></Tab>
 
-    <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Statistics">
+    <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Stats📈">
          <content>
              <fx:include fx:id="stats" source="GraphsTab.fxml" />
          </content>
     </Tab>
-      <Tab fx:id="mapTab" disable="true" onSelectionChanged="#setUpMap" text="Map">
+      <Tab fx:id="mapTab" disable="true" onSelectionChanged="#setUpMap" text="Map🗺">
          <content>
              <fx:include fx:id="maps" source="mapView.fxml" />
          </content>
       </Tab>
-      <Tab fx:id="alertsTab" disable="true" onSelectionChanged="#setUpAlerts" text="Alerts">
+      <Tab fx:id="alertsTab" disable="true" onSelectionChanged="#setUpAlerts" text="Alerts⚠">
           <content>
               <fx:include fx:id="alerts" source="alertView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="goalsTab" disable="true" onSelectionChanged="#setUpGoals" text="Goals">
+      <Tab fx:id="goalsTab" disable="true" onSelectionChanged="#setUpGoals" text="Goals🞋">
           <content>
               <fx:include fx:id="goals" source="goalView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="calTab" disable="true" onSelectionChanged="#setUpCal" text="Calendar">
+      <Tab fx:id="calTab" disable="true" onSelectionChanged="#setUpCal" text="Calendar📅">
           <content>
               <fx:include fx:id="cal" source="calView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Compare">
+      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Compare⇵">
           <content>
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>

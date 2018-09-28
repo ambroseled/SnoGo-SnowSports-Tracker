@@ -49,7 +49,7 @@
                <font>
                   <Font size="25.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#exportActivity" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export Selected Files" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#exportActivity" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export Selected Activity" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
        </children>
    </GridPane>
    </children>
