@@ -69,7 +69,7 @@ public class CalController {
     private ObservableList<Activity> activities = FXCollections.observableArrayList();
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     private ObservableList<Alert> alerts = FXCollections.observableArrayList();
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy");
     private DataBaseController db = HomeController.getDb();
 
 
@@ -122,7 +122,7 @@ public class CalController {
     private ArrayList<Goal> findGoals(Date date) {
         ArrayList<Goal> gls = new ArrayList<>();
         for (Goal goal : db.getGoals(HomeController.getCurrentUser().getId())) {
-            if (goal.getDateString().equals(dateTimeFormat.format(date))) {
+            if (dateTimeFormat.format(goal.getCompletionDate()).equals(dateTimeFormat.format(date))) {
                 gls.add(goal);
             }
         }
@@ -138,7 +138,7 @@ public class CalController {
     private ArrayList<Alert> findAlerts(Date date) {
         ArrayList<Alert> alts = new ArrayList<>();
         for (Alert alert : db.getAlerts(HomeController.getCurrentUser().getId())) {
-            if (alert.getDateString().equals(dateTimeFormat.format(date))) {
+            if (dateTimeFormat.format(alert.getDate()).equals(dateTimeFormat.format(date))) {
                 alts.add(alert);
             }
         }

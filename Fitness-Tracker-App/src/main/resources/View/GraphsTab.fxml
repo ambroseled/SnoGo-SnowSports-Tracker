@@ -182,7 +182,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <TableView fx:id="actTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" visible="false" GridPane.columnSpan="8" GridPane.rowIndex="4">
+            <TableView fx:id="actTable" editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" visible="false" GridPane.columnSpan="8" GridPane.rowIndex="4">
                <columns>
                   <TableColumn fx:id="nameCol" prefWidth="233.0" text="Name" />
                   <TableColumn fx:id="actDateCol" prefWidth="136.0" text="Date" />

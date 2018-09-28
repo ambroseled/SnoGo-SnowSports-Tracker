@@ -21,6 +21,15 @@
     -fx-text-fill: #1da5f9;
 }
 
+
+.table-view .scroll-bar:horizontal .increment-arrow,
+.table-view .scroll-bar:horizontal .decrement-arrow,
+.table-view .scroll-bar:horizontal .increment-button,
+.table-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+
 .table-row-cell{
     -fx-background-color: -fx-table-cell-border-color, white;
 }
@@ -38,3 +47,6 @@
 
     -fx-translate-x: 40;
 }
+
+
+

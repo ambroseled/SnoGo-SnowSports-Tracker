@@ -269,6 +269,7 @@ public class HomeController {
             viewProfile();
             checkPingu();
             updateTabs();
+            statsController.resetData();
         }
     }
 
@@ -624,6 +625,7 @@ public class HomeController {
     public void setUpStats() {
         statsController.setOverallStats();
         statsController.setChoiceBox();
+
     }
 
 
