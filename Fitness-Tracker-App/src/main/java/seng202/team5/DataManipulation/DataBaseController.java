@@ -416,8 +416,8 @@ public class DataBaseController {
                 String query = String.format("INSERT INTO Activity (Name, User) Values ('%s', %d)",
                         toAdd.getName(), userId);
                 stmt.executeUpdate(query);
-                storeDataSet(toAdd.getDataSet(), findId("Activity"));
                 int actId = findId("Activity");
+                stmt.close();
                 storeDataSet(toAdd.getDataSet(), actId);
                 toAdd.setId(findId("Activity"));
             }
@@ -470,11 +470,17 @@ public class DataBaseController {
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
                         toAdd.getVerticalDistance(), actId, toAdd.getCaloriesBurned(), toAdd.getSlopeTime(), toAdd.getAvgSpeed());
                 stmt.executeUpdate(query);
+
+                /*
                 int setId = findId("DataSet");
                 for (DataPoint x : toAdd.getDataPoints()) {
                     storeDatePoint(x, setId);
-                }
+                }*/
+                stmt.close();
                 toAdd.setId(findId("DataSet"));
+                storeDataPoints(toAdd.getDataPoints(), toAdd.getId());
+
+
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
@@ -498,15 +504,50 @@ public class DataBaseController {
                 DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                 String dateString = dateTimeFormat.format(toAdd.getDateTime());
                 Statement stmt = connection.createStatement();
+
                 String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
                                 "Elevation, Speed, Active, DataSet, Distance) Values ('%s', %d, %f, %f, %f, %f, %b," +
                                 "%d, %f)", dateString, toAdd.getHeartRate(), toAdd.getLatitude(), toAdd.getLongitude(),
                         toAdd.getElevation(), toAdd.getSpeed(), toAdd.isActive(), setId, toAdd.getDistance());
                 stmt.executeUpdate(query);
                 toAdd.setId(findId("DataPoint"));
+
             }
         } catch (SQLException e) {
             System.out.println("Error when adding DataSet: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    private void storeDataPoints(ArrayList<DataPoint> points, int setId) {
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        try {
+            connection.setAutoCommit(false);
+            Statement stmt = connection.createStatement();
+           // stmt.execute("BEGIN TRANSACTION;");
+            PreparedStatement prepStmnt = connection.prepareStatement("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
+                    "Elevation, Speed, Active, DataSet, Distance) Values (?, ?, ?, ?, ?, ?, ?," +
+                    "?, ?)");
+            for (DataPoint x : points) {
+                if (!checkId("DataPoint", x.getId())) {
+                    prepStmnt.setString(1, dateTimeFormat.format(x.getDateTime()));
+                    prepStmnt.setInt(2, x.getHeartRate());
+                    prepStmnt.setDouble(3, x.getLatitude());
+                    prepStmnt.setDouble(4, x.getLongitude());
+                    prepStmnt.setDouble(5, x.getElevation());
+                    prepStmnt.setDouble(6, x.getSpeed());
+                    prepStmnt.setBoolean(7, x.isActive());
+                    prepStmnt.setInt(8, setId);
+                    prepStmnt.setDouble(9, x.getDistance());
+                    prepStmnt.executeUpdate();
+                }
+            }
+          //  stmt.execute("END TRANSACTION;");
+            stmt.close();
+            connection.setAutoCommit(true);
+
+        } catch (SQLException e) {
+            System.out.println("Error when adding DataPoint: " + e.getLocalizedMessage());
         }
     }
 
@@ -691,7 +732,7 @@ public class DataBaseController {
 
     /**
      * Gets an ArrayList of Alerts from the database that are related to a passed
-     * user id.
+     * user id.stmt.executeUpdate(query);
      * @param userId The user id to find alerts for.
      * @return An ArrayList holding all the found Alerts.
      */
