@@ -412,17 +412,14 @@ public class DataBaseController {
             int id = toAdd.getId();
             if (!checkId("Activity", id) && checkId("User", userId)) {
                 // Creating a statement and executing an update to store the activity
-                connection.setAutoCommit(false);
                 Statement stmt = connection.createStatement();
-                stmt.execute("BEGIN TRANSACTION;");
                 String query = String.format("INSERT INTO Activity (Name, User) Values ('%s', %d)",
                         toAdd.getName(), userId);
                 stmt.executeUpdate(query);
                 int actId = findId("Activity");
-                storeDataSet(toAdd.getDataSet(), actId, stmt);
+                stmt.close();
+                storeDataSet(toAdd.getDataSet(), actId);
                 toAdd.setId(findId("Activity"));
-                stmt.execute("END TRANSACTION;");
-                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             // Printing an error message
@@ -460,26 +457,28 @@ public class DataBaseController {
      * @param toAdd The DataSet to be stored.
      * @param actId The related activty for the DataSet being stored.
      */
-    private void storeDataSet(DataSet toAdd, int actId, Statement stmt) {
+    private void storeDataSet(DataSet toAdd, int actId) {
         // Try-catch is used to catch any exception that are throw wile executing the update
         try {
             // Checking that the DataSet is not already in the database and that the activity passed is in the database
             int id = toAdd.getId();
             if (!checkId("DataSet", id) && checkId("Activity", actId)) {
                 // Creating a statement and executing an update to store the DataSet
-
+                Statement stmt = connection.createStatement();
                 String query = String.format("INSERT INTO DataSet (TopSpeed, TotalDist, AvgHeartRate, VerticalDistance, " +
                                 "Activity, Calories, SlopeTime, AvgSpeed) Values (%f, %f, %d, %f, %d, %f, %f, %f)",
                         toAdd.getTopSpeed(), toAdd.getTotalDistance(), toAdd.getAvgHeartRate(),
                         toAdd.getVerticalDistance(), actId, toAdd.getCaloriesBurned(), toAdd.getSlopeTime(), toAdd.getAvgSpeed());
                 stmt.executeUpdate(query);
-                int setId = findId("DataSet");
+
                 /*
+                int setId = findId("DataSet");
                 for (DataPoint x : toAdd.getDataPoints()) {
                     storeDatePoint(x, setId);
                 }*/
+                stmt.close();
                 toAdd.setId(findId("DataSet"));
-                storeDataPoints(toAdd.getDataPoints(), toAdd.getId(), stmt);
+                storeDataPoints(toAdd.getDataPoints(), toAdd.getId());
 
 
             }
@@ -520,19 +519,32 @@ public class DataBaseController {
     }
 
 
-    private void storeDataPoints(ArrayList<DataPoint> points, int setId, Statement stmt) {
+    private void storeDataPoints(ArrayList<DataPoint> points, int setId) {
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         try {
-
+            connection.setAutoCommit(false);
+            Statement stmt = connection.createStatement();
+           // stmt.execute("BEGIN TRANSACTION;");
+            PreparedStatement prepStmnt = connection.prepareStatement("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
+                    "Elevation, Speed, Active, DataSet, Distance) Values (?, ?, ?, ?, ?, ?, ?," +
+                    "?, ?)");
             for (DataPoint x : points) {
                 if (!checkId("DataPoint", x.getId())) {
-                    String query = String.format("INSERT INTO DataPoint (DateTime, HeartRate, Latitude, Longitude, " +
-                                    "Elevation, Speed, Active, DataSet, Distance) Values ('%s', %d, %f, %f, %f, %f, %b," +
-                                    "%d, %f)", dateTimeFormat.format(x.getDateTime()), x.getHeartRate(), x.getLatitude(), x.getLongitude(),
-                            x.getElevation(), x.getSpeed(), x.isActive(), setId, x.getDistance());
-                    stmt.executeUpdate(query);
+                    prepStmnt.setString(1, dateTimeFormat.format(x.getDateTime()));
+                    prepStmnt.setInt(2, x.getHeartRate());
+                    prepStmnt.setDouble(3, x.getLatitude());
+                    prepStmnt.setDouble(4, x.getLongitude());
+                    prepStmnt.setDouble(5, x.getElevation());
+                    prepStmnt.setDouble(6, x.getSpeed());
+                    prepStmnt.setBoolean(7, x.isActive());
+                    prepStmnt.setInt(8, setId);
+                    prepStmnt.setDouble(9, x.getDistance());
+                    prepStmnt.executeUpdate();
                 }
             }
+          //  stmt.execute("END TRANSACTION;");
+            stmt.close();
+            connection.setAutoCommit(true);
 
         } catch (SQLException e) {
             System.out.println("Error when adding DataPoint: " + e.getLocalizedMessage());
@@ -720,7 +732,7 @@ public class DataBaseController {
 
     /**
      * Gets an ArrayList of Alerts from the database that are related to a passed
-     * user id.
+     * user id.stmt.executeUpdate(query);
      * @param userId The user id to find alerts for.
      * @return An ArrayList holding all the found Alerts.
      */
