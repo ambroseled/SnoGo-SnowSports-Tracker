@@ -1,15 +1,24 @@
 package seng202.team5.Control;
 
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
@@ -46,6 +55,8 @@ public class HomeController {
     private Tab compTab;
     @FXML
     private Tab videoTab;
+    @FXML
+    private Tab userTab;
     @FXML
     private TableView userTable;
     @FXML
@@ -144,11 +155,13 @@ public class HomeController {
                     }
 
 
-
+                    // TEsting color flash to alert the user of an alert
                     if (backwards) {
                         pingu.setX(pingu.getX() - 7.5 );
+                        userTab.setStyle("-fx-background-color: red;");
                     } else {
                         pingu.setX(pingu.getX() + 7.5 );
+                        userTab.setStyle("-fx-background-color: #005e99;");
                     }
                     logo.setRotate(rotate++);
                 }
@@ -160,6 +173,7 @@ public class HomeController {
         };
         timer.start();
         fillTable();
+
     }
 
 
