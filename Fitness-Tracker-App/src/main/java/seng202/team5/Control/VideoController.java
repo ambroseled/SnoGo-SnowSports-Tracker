@@ -29,6 +29,9 @@ public class VideoController {
 
     public void playVideo(String path) {
 
-        //yo
+        media = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.play();
     }
 }

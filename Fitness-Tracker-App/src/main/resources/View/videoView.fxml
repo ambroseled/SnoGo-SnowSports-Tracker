@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="720" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
    <children>
-      <MediaView fitHeight="480.0" fitWidth="640.0" layoutX="304.0" layoutY="120.0" />
+      <MediaView fx:id="mediaView" fitHeight="480.0" fitWidth="640.0" layoutX="304.0" layoutY="120.0" />
       <Button layoutX="611.0" layoutY="544.0" mnemonicParsing="false" onAction="#selectVideo" text="Button" />
    </children>
 </AnchorPane>
