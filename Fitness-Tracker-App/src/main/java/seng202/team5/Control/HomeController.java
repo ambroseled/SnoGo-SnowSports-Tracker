@@ -45,6 +45,8 @@ public class HomeController {
     @FXML
     private Tab compTab;
     @FXML
+    private Tab videoTab;
+    @FXML
     private TableView userTable;
     @FXML
     private TableColumn<User, String> userCol;
@@ -295,6 +297,7 @@ public class HomeController {
         goalsTab.setDisable(true);
         calTab.setDisable(true);
         compTab.setDisable(true);
+        videoTab.setDisable(true);
     }
 
 
@@ -309,6 +312,7 @@ public class HomeController {
         goalsTab.setDisable(false);
         calTab.setDisable(false);
         compTab.setDisable(false);
+        videoTab.setDisable(false);
     }
 
 
@@ -648,6 +652,10 @@ public class HomeController {
         compController.clearBoxes();
     }
 
+    public void setUpVideo() {
+        System.out.println("Selected video view");
+    }
+
     public void setUpTables() {
         tablesController.viewData();
     }
@@ -664,6 +672,7 @@ public class HomeController {
         setUpCal();
         setUpComp();
         setUpGoals();
+        setUpVideo();
     }
 
 

@@ -102,7 +102,11 @@ public class TableController {
             try {
                 viewData(f.getAbsolutePath());
             } catch (Exception e) {
-                //ErrorController.displayError("File loading error");
+                //      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Data Comparison">
+                //          <content>
+                //              <fx:include fx:id="comp" source="dataCompView.fxml" />
+                //          </content>
+                //      </Tab>ErrorController.displayError("File loading error");
             }
         }
     }
