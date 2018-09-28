@@ -1,25 +1,19 @@
 package seng202.team5.Control;
 
 
-import javafx.animation.Animation;
+
 import javafx.animation.AnimationTimer;
-import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.Model.Alert;
 import seng202.team5.Model.CheckGoals;
 import seng202.team5.Model.User;
 import java.text.DateFormat;
@@ -30,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-//TODO: Make a general update tabs method to be called from other controllers -- kinda working
+//TODO: Change color of border of tab when selected
 
 
 /**
@@ -45,8 +39,6 @@ public class HomeController {
     private Tab statsTab;
     @FXML
     private Tab mapTab;
-    @FXML
-    private Tab alertsTab;
     @FXML
     private Tab goalsTab;
     @FXML
@@ -99,11 +91,10 @@ public class HomeController {
     private ImageView pingu;
     @FXML
     private ImageView logo;
-
+    @FXML
+    private GridPane gridPane;
     @FXML
     private GoalController goalsController;
-    @FXML
-    private AlertController alertsController;
     @FXML
     private GraphsController statsController;
     @FXML
@@ -114,8 +105,20 @@ public class HomeController {
     private CompController compController;
     @FXML
     private CalController calController;
-
-
+    @FXML
+    private TableColumn<seng202.team5.Model.Alert, String> nameCol;
+    @FXML
+    private TableColumn<seng202.team5.Model.Alert, String> dateCol;
+    @FXML
+    private TableColumn<seng202.team5.Model.Alert, String> desCol;
+    @FXML
+    private TableView alertTable;
+    @FXML
+    private Button alertsButton;
+    @FXML
+    private Button hideButton;
+    @FXML
+    private Button deleteButton;
     boolean editing = false;
 
     private ArrayList<User> users;
@@ -123,6 +126,8 @@ public class HomeController {
     private ObservableList<User> userNames = FXCollections.observableArrayList();
 
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    private static ObservableList<seng202.team5.Model.Alert> alerts = FXCollections.observableArrayList();
 
 
 
@@ -134,6 +139,20 @@ public class HomeController {
     private boolean backwards = false;
     private boolean pinguActivated = false;
     private double rotate = 0;
+    private static boolean alert = false;
+    private int count = 0;
+
+
+
+    public ObservableList<seng202.team5.Model.Alert> getALerts() {
+        return alerts;
+    }
+
+
+    public static void addAlert(seng202.team5.Model.Alert toAdd) {
+        alert = true;
+        alerts.add(toAdd);
+    }
 
 
     /**
@@ -155,18 +174,30 @@ public class HomeController {
                     }
 
 
-                    // TEsting color flash to alert the user of an alert
+                    // Testing color flash to alert the user of an alert
                     if (backwards) {
                         pingu.setX(pingu.getX() - 7.5 );
-                        userTab.setStyle("-fx-background-color: red;");
                     } else {
                         pingu.setX(pingu.getX() + 7.5 );
-                        userTab.setStyle("-fx-background-color: #005e99;");
                     }
                     logo.setRotate(rotate++);
                 }
                 else {
                     logo.setRotate(0);
+                }
+
+                if (alert) {
+                    if (count <= 25) {
+                        userTab.setStyle("-fx-background-color: red;");
+                        alertsButton.setStyle("-fx-background-color: #005e99;");
+                    } else {
+                        userTab.setStyle("-fx-background-color: #005e99;");
+                        alertsButton.setStyle("-fx-background-color: red;");
+                    }
+                    count++;
+                    if (count > 50) {
+                        count = 0;
+                    }
                 }
 
             }
@@ -176,6 +207,58 @@ public class HomeController {
 
     }
 
+
+
+    public void showAlerts() {
+        alertsButton.setVisible(false);
+        alertsButton.setDisable(true);
+        hideButton.setDisable(false);
+        hideButton.setVisible(true);
+        deleteButton.setDisable(false);
+        deleteButton.setVisible(true);
+        gridPane.setOpacity(0.5);
+        gridPane.setDisable(true);
+        alertTable.setVisible(true);
+        alertTable.setDisable(false);
+        alert = false;
+        userTab.setStyle("-fx-background-color: #005e99;");
+        alertsButton.setStyle("-fx-background-color: #005e99;");
+       // alertTable.getItems().clear();
+        // Setting table columns
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        // Adding alerts to the table
+        alertTable.setItems(alerts);
+    }
+
+
+    public void hideAlerts() {
+        alertsButton.setVisible(true);
+        alertsButton.setDisable(false);
+        hideButton.setDisable(true);
+        hideButton.setVisible(false);
+        gridPane.setOpacity(1);
+        gridPane.setDisable(false);
+        alertTable.setVisible(false);
+        alertTable.setDisable(true);
+        deleteButton.setDisable(true);
+        deleteButton.setVisible(false);
+    }
+
+
+    public void removeAlert() {
+        // Getting the selected alert
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        // Removing the alert from the user and the database
+        if (alert != null) {
+            db.removeAlert(alert);
+            currentUser.setAlerts(db.getAlerts(HomeController.getCurrentUser().getId()));
+            alerts.clear();
+            alerts.addAll(currentUser.getAlerts());
+            showAlerts();
+        }
+    }
 
 
 
@@ -284,12 +367,16 @@ public class HomeController {
             checkPingu();
             updateTabs();
             statsController.resetData();
+            alerts.clear();
+            alerts.addAll(currentUser.getAlerts());
+            alertsButton.setDisable(false);
         }
     }
 
 
-
-
+    /**
+     * Checking if the users name is 'pingu' or 'Pingu'. Used for eater egg.
+     */
     private void checkPingu() {
         if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
             pinguActivated = true;
@@ -308,7 +395,6 @@ public class HomeController {
         dataTab.setDisable(true);
         statsTab.setDisable(true);
         mapTab.setDisable(true);
-        alertsTab.setDisable(true);
         goalsTab.setDisable(true);
         calTab.setDisable(true);
         compTab.setDisable(true);
@@ -323,7 +409,6 @@ public class HomeController {
         dataTab.setDisable(false);
         statsTab.setDisable(false);
         mapTab.setDisable(false);
-        alertsTab.setDisable(false);
         goalsTab.setDisable(false);
         calTab.setDisable(false);
         compTab.setDisable(false);
@@ -648,11 +733,6 @@ public class HomeController {
     }
 
 
-    public void setUpAlerts() {
-        alertsController.viewData();
-    }
-
-
     public void setUpGoals() {
         goalsController.viewData();
     }
@@ -684,7 +764,6 @@ public class HomeController {
         setUpTables();
         setUpMap();
         setUpStats();
-        setUpAlerts();
         setUpCal();
         setUpComp();
         setUpGoals();

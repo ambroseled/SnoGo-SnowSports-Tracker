@@ -256,11 +256,13 @@ public class GoalController {
                 Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
                 db.storeAlert(alert, HomeController.getCurrentUser().getId());
                 HomeController.getCurrentUser().addAlert(alert);
+                HomeController.addAlert(alert);
             } else if (newGoal.isCompleted()) {
                 // Creating a completed goal alert
                 Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
                 db.storeAlert(alert, HomeController.getCurrentUser().getId());
                 HomeController.getCurrentUser().addAlert(alert);
+                HomeController.addAlert(alert);
             }
             // Storing the goal in the database
             db.storeGoal(newGoal, HomeController.getCurrentUser().getId());

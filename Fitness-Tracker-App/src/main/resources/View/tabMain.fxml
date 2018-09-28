@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -34,7 +35,7 @@
                         <Image url="@../logo.png" />
                      </image>
                   </ImageView>
-                  <GridPane layoutY="-5.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
+                  <GridPane fx:id="gridPane" layoutY="-5.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
                      <children>
                         <TableView fx:id="userTable" editable="true" onMouseReleased="#checkUserSelected" prefHeight="200.0" prefWidth="200.0" styleClass="margin" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
                            <columns>
@@ -76,8 +77,8 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createUser" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#updateProfile" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createUser" prefWidth="144.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Create Profile" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#updateProfile" prefWidth="144.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Edit Profile" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <Text fx:id="createText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Creation" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="35.0" />
@@ -92,7 +93,7 @@
                         <CheckBox fx:id="weightCheck" disable="true" layoutX="916.0" layoutY="269.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="dateCheck" disable="true" layoutX="806.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="heightCheck" disable="true" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" prefWidth="144.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <TextField fx:id="ageText" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                         <Text fx:id="ageLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <font>
@@ -119,6 +120,19 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
+                  <TableView fx:id="alertTable" layoutX="300.0" layoutY="107.0" prefHeight="446.0" prefWidth="680.0" stylesheets="@../CSS/tableStyle.css" visible="false">
+                     <placeholder>
+                        <Label text="No alerts in application" />
+                     </placeholder>
+                     <columns>
+                        <TableColumn fx:id="nameCol" prefWidth="173.0" text="Alert Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="170.0" text="Date" />
+                        <TableColumn fx:id="desCol" prefWidth="336.0" text="Description" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="deleteButton" disable="true" layoutX="300.0" layoutY="600.0" mnemonicParsing="false" onAction="#removeAlert" prefHeight="27.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Alert" visible="false" />
+                  <Button fx:id="alertsButton" disable="true" layoutX="560.0" layoutY="600.0" mnemonicParsing="false" onAction="#showAlerts" prefHeight="27.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Alerts" />
+                  <Button fx:id="hideButton" disable="true" layoutX="820.0" layoutY="600.0" mnemonicParsing="false" onAction="#hideAlerts" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Hide Alerts" visible="false" />
                   
                </children>
             </AnchorPane>
@@ -138,11 +152,6 @@
          <content>
              <fx:include fx:id="maps" source="mapView.fxml" />
          </content>
-      </Tab>
-      <Tab fx:id="alertsTab" disable="true" onSelectionChanged="#setUpAlerts" text="Alerts">
-          <content>
-              <fx:include fx:id="alerts" source="alertView.fxml" />
-          </content>
       </Tab>
       <Tab fx:id="goalsTab" disable="true" onSelectionChanged="#setUpGoals" text="Goals">
           <content>

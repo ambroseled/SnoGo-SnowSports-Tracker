@@ -85,7 +85,6 @@ public class AlertController {
             // Refreshing the data in teh table
             refreshData();
         }
-
     }
 
 
