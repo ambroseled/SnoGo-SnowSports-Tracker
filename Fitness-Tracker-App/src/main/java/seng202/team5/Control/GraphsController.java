@@ -321,28 +321,17 @@ public class GraphsController{
      * Sets up the choiceBox to show all activities for current User
      */
     public void setChoiceBox() {
-        if (activityChoice.getItems().size() != db.getActivities(HomeController.getCurrentUser().getId()).size()) {
-            resetData();
+        ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
+        setActivities(inputActivities);
 
-            ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
-            if (inputActivities != activities) {
-                speedChart.getData().clear();
-                distanceChart.getData().clear();
-                heartRateChart.getData().clear();
-                scrollPane.setVisible(false);
-            }
-            setActivities(inputActivities);
-
-            ObservableList<Activity> activityNames = FXCollections.observableArrayList();
-            for (Activity activity: activities) {
-                activityNames.add(activity);
-            }
-            activityChoice.setItems(activityNames);
-            visited = true;
-
-            setOverallStats();
+        ObservableList<Activity> activityNames = FXCollections.observableArrayList();
+        for (Activity activity: activities) {
+            activityNames.add(activity);
         }
+        activityChoice.setItems(activityNames);
+        visited = true;
 
+        setOverallStats();
     }
 
     /**
@@ -367,6 +356,7 @@ public class GraphsController{
             showActivity(currentActivity);
 
             scrollPane.setVisible(true);
+            scrollPane.setDisable(false);
         }
     }
 
@@ -404,6 +394,8 @@ public class GraphsController{
         caloriesChart.getData().clear();
         avgSpeedChart.getData().clear();
         runningDistChart.getData().clear();
+        scrollPane.setVisible(false);
+        scrollPane.setDisable(true);
         actTable.setVisible(false);
     }
 

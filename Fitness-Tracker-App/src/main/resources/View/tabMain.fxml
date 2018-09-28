@@ -143,7 +143,7 @@
               <fx:include fx:id="cal" source="calView.fxml" />
           </content>
       </Tab>
-      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Data Comparison">
+      <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Compare">
           <content>
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>
