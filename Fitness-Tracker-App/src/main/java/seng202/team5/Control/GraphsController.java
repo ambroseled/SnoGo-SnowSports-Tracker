@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 /**
- * This class is the controller class for the GraphsTab.fxml class.
+ * This class is the controller class for the GraphsTab.fxml file.
  * It produces graphs for speed, distance, heart rate, distance, calories.
  * The values are retrieved from the DataPoint class, as each data point has
  * attributes that store information about each of these areas.
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class GraphsController{
 
     private ArrayList<Activity> activities;
-    private boolean visited = false;
 
     @FXML
     private ChoiceBox activityChoice;
@@ -329,7 +328,6 @@ public class GraphsController{
             activityNames.add(activity);
         }
         activityChoice.setItems(activityNames);
-        visited = true;
 
         setOverallStats();
     }
@@ -361,12 +359,16 @@ public class GraphsController{
     }
 
 
-
+    /**
+     * This method fills the activity table with the information from a passed activity
+     * @param activity The activity to put in the table
+     */
     private void showActivity(Activity activity) {
+        // Defining an ObservableList to use to fill the table
         ObservableList<Activity> activities = FXCollections.observableArrayList();
+        // Clearing the activity table
         actTable.getItems().clear();
-        activities.clear();
-
+        // Configuring the columns of the activity table
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         actDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         distCol.setCellValueFactory(new PropertyValueFactory<>("totalDistance"));
@@ -375,7 +377,7 @@ public class GraphsController{
         calCol.setCellValueFactory(new PropertyValueFactory<>("caloriesBurned"));
         avgSpeedCol.setCellValueFactory(new PropertyValueFactory<>("avgSpeed"));
         topSpeedCol.setCellValueFactory(new PropertyValueFactory<>("topSpeed"));
-
+        // Filling the table
         activities.add(activity);
         actTable.setItems(activities);
         actTable.setVisible(true);
@@ -429,13 +431,7 @@ public class GraphsController{
         activities = inputActivities;
     }
 
-    /**
-     * Resets choice box and overall stats
-     */
-    public void setVisited() {
-        visited = false;
-        setChoiceBox();
-    }
+
 
 
 

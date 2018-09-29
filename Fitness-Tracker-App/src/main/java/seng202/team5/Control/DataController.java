@@ -39,7 +39,7 @@ public class DataController {
     @FXML
     private TableView rawDataTable;
     @FXML
-    private TableColumn<DataPoint, Date> dateTimeCol;
+    private TableColumn<DataPoint, String> dateTimeCol;
     @FXML
     private TableColumn<DataPoint, Integer> heartRateCol;
     @FXML
@@ -89,7 +89,7 @@ public class DataController {
             if (rawDataTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
                 activities = db.getActivities(HomeController.getCurrentUser().getId());
                 // date and time column
-                dateTimeCol.setCellValueFactory(new PropertyValueFactory("dateTime"));
+                dateTimeCol.setCellValueFactory(new PropertyValueFactory("formattedDate"));
 
                 //heart rate column
                 heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
