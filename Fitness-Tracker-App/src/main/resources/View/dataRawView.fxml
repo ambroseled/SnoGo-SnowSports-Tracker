@@ -43,7 +43,7 @@
                 </TableView>
                 <TableView fx:id="actTable" onMouseReleased="#showActivityData" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="actCol" prefWidth="243.41497802734375" text="Activities" />
+                        <TableColumn fx:id="actCol" onEditCommit="#renameActivity" prefWidth="243.41497802734375" text="Activities" />
                     </columns>
                 </TableView>
                 <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />

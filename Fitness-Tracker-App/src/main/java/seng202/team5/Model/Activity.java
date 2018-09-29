@@ -85,6 +85,8 @@ public class Activity {
         this.id = id;
     }
 
+    public void setName(String name) {this.name = name; }
+
 
     public String getDate() {
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");

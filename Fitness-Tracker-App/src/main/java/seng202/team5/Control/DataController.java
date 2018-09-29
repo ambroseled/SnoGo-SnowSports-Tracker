@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
@@ -155,6 +156,9 @@ public class DataController {
                 actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             }
         }
+        actTable.setEditable(true);
+        actCol.setCellFactory(TextFieldTableCell.forTableColumn());
+//        rawDataTable.setEditable(true);
 
     }
 
@@ -190,6 +194,15 @@ public class DataController {
             ErrorController.displayError("No Activity Selected");
         }
     }
+
+    public void renameActivity(TableColumn.CellEditEvent<Activity, String> activityStringCellEditEvent) {
+        Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
+        selectedAct.setName(activityStringCellEditEvent.getNewValue());
+        db.updateActivityName(selectedAct);
+    }
+
+//    public void renameActivity() {
+//    }
 
 
     /**
@@ -247,6 +260,5 @@ public class DataController {
     }
 
 
-}
 
-//table.setEditable(true);
+}

@@ -584,6 +584,23 @@ public class DataBaseController {
         }
     }
 
+    public void updateActivityName(Activity activty) {
+        try {
+            if (checkId("Activity", activty.getId())) {
+                Statement stmt = connection.createStatement();
+
+                String name = activty.getName();
+                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", name, activty.getId());
+
+                stmt.executeUpdate(query);
+            }
+        }
+        catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when updating activity name: " + e.getLocalizedMessage());
+        }
+    }
+
 
     /**
      * Updates a passed goal in the database. If the passed goal is not in
