@@ -46,8 +46,9 @@
                         <TableColumn fx:id="actCol" prefWidth="243.41497802734375" text="Activities" />
                     </columns>
                 </TableView>
-                <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <Button mnemonicParsing="false" onAction="#exportActivity" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export Selected File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                <Button mnemonicParsing="false" onAction="#exportActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export Selected" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <Button mnemonicParsing="false" onAction="#deleteActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Delete Selected" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
         <Pane layoutX="38.0" layoutY="565.0" prefHeight="40.0" prefWidth="100.0" />

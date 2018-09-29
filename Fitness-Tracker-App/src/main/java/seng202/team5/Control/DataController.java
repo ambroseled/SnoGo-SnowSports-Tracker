@@ -179,6 +179,19 @@ public class DataController {
         }
     }
 
+    public void deleteActivity() {
+        //System.out.println("Deleted, Right?");
+        Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
+        if (selectedAct != null) {
+            db.removeActivity(selectedAct);
+            fillTable();
+        }
+        else {
+            ErrorController.displayError("No Activity Selected");
+        }
+    }
+
+
     /**
      * Called by a press of the export file button. This method exports the selected
      * activity to a csv file in the users home directory.
