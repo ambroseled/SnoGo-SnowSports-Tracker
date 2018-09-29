@@ -1,5 +1,7 @@
 package seng202.team5.Model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -20,6 +22,9 @@ public class DataSet {
     private double caloriesBurned = 0;
     private double slopeTime;
     private double avgSpeed;
+
+
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
     /**
      * Constructor used while parsing data.

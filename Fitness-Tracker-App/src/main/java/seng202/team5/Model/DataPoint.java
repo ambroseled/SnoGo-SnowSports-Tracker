@@ -167,6 +167,11 @@ public class DataPoint {
     }
 
 
+    public String getFormattedDate() {
+        return dateTimeFormat.format(dateTime);
+    }
+
+
     public String toString() {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
                 ", Distance: "+distance+", Speed: "+speed;
