@@ -28,6 +28,8 @@ public class AlertController {
     private DataBaseController db = HomeController.getDb();
 
 
+
+
     @FXML
     /**
      * This method fills the alerts table with all of the users alerts if the number
@@ -83,7 +85,6 @@ public class AlertController {
             // Refreshing the data in teh table
             refreshData();
         }
-
     }
 
 

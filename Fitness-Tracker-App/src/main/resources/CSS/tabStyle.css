@@ -1,8 +1,9 @@
 .tab {
 
     -fx-background-color: #005e99;
-    -fx-pref-width: 178;
+    -fx-pref-width: 140;
     -fx-background-insets: 0px;
+    -fx-border-color: transparent;
 }
 
 
@@ -11,6 +12,7 @@
     -fx-background-color: #1da5f9;
     -fx-focus-color: #1da5f9;
     -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 
 

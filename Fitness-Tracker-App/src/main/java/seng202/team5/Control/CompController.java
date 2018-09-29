@@ -30,7 +30,6 @@ public class CompController {
     private TableColumn<Activity, String> nameCol1;
     @FXML
     private TableColumn<Activity, String> dateCol1;
-
     @FXML
     private Text totDistText;
     @FXML
@@ -163,15 +162,13 @@ public class CompController {
         } else if (set.getTotalDistance() < set1.getTotalDistance()) {
             setColours(totalDistBox1, totalDistBox, totDistText, totDistText1, totDistLabel, totDistLabel1);
         }
+        
     /* Not sure if heart rate should be coloured as not sure if a higher heart rate is better
         if (set.getAvgHeartRate() > set1.getAvgHeartRate() ) {
             setColours(heartBox, heartBox1, heartText, heartText1, heartLabel, heartLabel1);
         } else if (set.getAvgHeartRate()  < set1.getAvgHeartRate() ) {
             setColours(heartBox1, heartBox, heartText, heartText1, heartLabel, heartLabel1);
-        }
-
-        pulseHeart(heartBox, set.getAvgHeartRate());
-        pulseHeart(heartBox1, set1.getAvgHeartRate()); */
+        } */
 
         if (set.getCaloriesBurned() > set1.getCaloriesBurned() ) {
             setColours(calBox, calBox1, calText, calText1, calLabel, calLabel1);
@@ -185,21 +182,6 @@ public class CompController {
             setColours(avgSpeedBox1, avgSpeedBox, avgSpeedText, avgSpeedText1, avgSpeedLabel, avgSpeedLabel1);
         }
     }
-
-
-    /* Pulse at heart rate
-    private void pulseHeart(Rectangle box, double rate) {
-        ScaleTransition scaleTransition = new ScaleTransition();
-        scaleTransition.setNode(box);
-        scaleTransition.setFromX(1);
-        scaleTransition.setFromY(1);
-        scaleTransition.setByX(0.1);
-        scaleTransition.setByY(0.1);
-        scaleTransition.setCycleCount(4);
-        scaleTransition.setDuration(Duration.seconds(60/rate));
-        scaleTransition.setAutoReverse(true);
-        scaleTransition.play();
-    }*/
 
 
     private void setColours(Rectangle green, Rectangle red, Text label1, Text label2, Text label3, Text label4) {
@@ -275,6 +257,20 @@ public class CompController {
         heartLabel1.setFill(Color.BLACK);
         calLabel1.setFill(Color.BLACK);
         avgSpeedLabel1.setFill(Color.BLACK);
+
+        topSpeedText.setText("");
+        totDistText.setText("");
+        vertText.setText("");
+        heartText.setText("");
+        calText.setText("");
+        avgSpeedText.setText("");
+
+        topSpeedText1.setText("");
+        totDistText1.setText("");
+        vertText1.setText("");
+        heartText1.setText("");
+        calText1.setText("");
+        avgSpeedText1.setText("");
     }
 
 

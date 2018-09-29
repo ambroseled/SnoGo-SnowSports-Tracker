@@ -87,7 +87,7 @@ public class Activity {
 
 
     public String getDate() {
-        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
         return dateTimeFormat.format(dataSet.getDateTime(0));
     }
 
