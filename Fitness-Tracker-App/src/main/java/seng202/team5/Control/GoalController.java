@@ -17,6 +17,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 
+//TODO Work out y goal button is fadded
+
 /**
  * This class handles controlling the goal view of the application. It provides functionality to view, remove
  * and create goals.
@@ -71,22 +73,20 @@ public class GoalController {
      * does not match teh number of goals the user has.;
      */
     public void viewData() {
-        if (HomeController.getCurrentUser() != null) {
-            // Checking if the data in the table is current
-            if (goalTable.getItems().size() != db.getGoals(HomeController.getCurrentUser().getId()).size()) {
-                goalTable.getItems().clear();
-                goals.clear();
-                // Getting the users goals
-                goals.addAll(db.getGoals(HomeController.getCurrentUser().getId()));
-                // Setting up the tables columns
-                nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-                metricCol.setCellValueFactory(new PropertyValueFactory<>("metric"));
-                valueCol.setCellValueFactory(new PropertyValueFactory<>("metricGoal"));
-                dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
-                compCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
-                // Filling the table
-                goalTable.setItems(goals);
-            }
+        // Checking if the data in the table is current
+        if (goalTable.getItems().size() != db.getGoals(HomeController.getCurrentUser().getId()).size()) {
+            goalTable.getItems().clear();
+            goals.clear();
+            // Getting the users goals
+            goals.addAll(db.getGoals(HomeController.getCurrentUser().getId()));
+            // Setting up the tables columns
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            metricCol.setCellValueFactory(new PropertyValueFactory<>("metric"));
+            valueCol.setCellValueFactory(new PropertyValueFactory<>("metricGoal"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+            compCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
+            // Filling the table
+            goalTable.setItems(goals);
         }
     }
 
@@ -98,23 +98,20 @@ public class GoalController {
      * state of the nameCheck checkBox accordingly.
      */
     public void nameEntry() {
-        if (HomeController.getCurrentUser() != null) {
-            // Getting the current name text
-            String text = goalName.getText();
-            // Checking the length of the name then setting the name check box accordingly
-            if (text.length() > 4 && text.length() < 30) {
-                nameCheck.setSelected(true);
-            } else {
-                nameCheck.setSelected(false);
-            }
-            // Filling the metric picker combo box
-            if (metricCombo.getItems().size() == 0) {
-                fillCombo();
-            }
-            // Checking if all fields are now valid
-            checkChecks();
+        // Getting the current name text
+        String text = goalName.getText();
+        // Checking the length of the name then setting the name check box accordingly
+        if (text.length() > 4 && text.length() < 30) {
+            nameCheck.setSelected(true);
+        } else {
+            nameCheck.setSelected(false);
         }
-
+        // Filling the metric picker combo box
+        if (metricCombo.getItems().size() == 0) {
+            fillCombo();
+        }
+        // Checking if all fields are now valid
+        checkChecks();
     }
 
 
@@ -159,20 +156,17 @@ public class GoalController {
      * accordingly.
      */
     public void checkDate() {
-        if (HomeController.getCurrentUser() != null) {
-            // Getting the entered date string
-            Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
-            Date current = new Date();
-            if (current.getTime() > date.getTime()) {
-                dateCheck.setSelected(false);
-            } else {
-                dateCheck.setSelected(true);
-            }
-            // Checking if all fields are now valid
-            checkChecks();
+        // Getting the entered date string
+        Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
+        Date current = new Date();
+        if (current.getTime() > date.getTime()) {
+            dateCheck.setSelected(false);
+        } else {
+            dateCheck.setSelected(true);
         }
-
+        // Checking if all fields are now valid
+        checkChecks();
     }
 
 
@@ -183,7 +177,6 @@ public class GoalController {
      */
     private void fillValueCombo(String metric) {
         // Enabling and emptying the combo box
-        valueCombo.setDisable(false);
         valueCombo.getItems().clear();
         ObservableList<Double> values = FXCollections.observableArrayList();
         // Getting teh values to fill the combo box with according to the selected metric type
@@ -238,50 +231,47 @@ public class GoalController {
      * the database after wwhich the goal table is updated.
      */
     public void createGoal() {
-        if (HomeController.getCurrentUser() != null) {
-            // Getting all entered data
-            String name = goalName.getText();
-            String metric = metricCombo.getSelectionModel().getSelectedItem();
-            double value = valueCombo.getSelectionModel().getSelectedItem();
-            String dateString = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            metric = getMetric(metric);
-            boolean global = globalCheck.isSelected();
-            // Creating the new Goal
-            Goal newGoal = new Goal(name, metric, value, dateString, global);
-            // Checking if any alerts need to be created for the new goal
-            newGoal.setCompleted(CheckGoals.checkGoal(newGoal, HomeController.getCurrentUser().getActivities(), HomeController.getCurrentUser()));
-            newGoal.setExpired(CheckGoals.checkExpired(newGoal));
-            if (newGoal.isExpired()) {
-                // Creating an expired goal alert
-                Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
-                db.storeAlert(alert, HomeController.getCurrentUser().getId());
-                HomeController.getCurrentUser().addAlert(alert);
-                HomeController.addAlert(alert);
-            } else if (newGoal.isCompleted()) {
-                // Creating a completed goal alert
-                Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
-                db.storeAlert(alert, HomeController.getCurrentUser().getId());
-                HomeController.getCurrentUser().addAlert(alert);
-                HomeController.addAlert(alert);
-            }
-            // Storing the goal in the database
-            db.storeGoal(newGoal, HomeController.getCurrentUser().getId());
-            // Adding the goal to the user
-            HomeController.getCurrentUser().addGoal(newGoal);
-            // Resetting all the entry fields and check boxes
-            nameCheck.setSelected(false);
-            metricCheck.setSelected(false);
-            dateCheck.setSelected(false);
-            valueCheck.setSelected(false);
-            globalCheck.setSelected(false);
-            goalName.clear();
-            metricCombo.getItems().clear();
-            datePicker.getEditor().clear();
-            valueCombo.getItems().clear();
-            // Refreshing the goal table
-            viewData();
+        // Getting all entered data
+        String name = goalName.getText();
+        String metric = metricCombo.getSelectionModel().getSelectedItem();
+        double value = valueCombo.getSelectionModel().getSelectedItem();
+        String dateString = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        metric = getMetric(metric);
+        boolean global = globalCheck.isSelected();
+        // Creating the new Goal
+        Goal newGoal = new Goal(name, metric, value, dateString, global);
+        // Checking if any alerts need to be created for the new goal
+        newGoal.setCompleted(CheckGoals.checkGoal(newGoal, HomeController.getCurrentUser().getActivities(), HomeController.getCurrentUser()));
+        newGoal.setExpired(CheckGoals.checkExpired(newGoal));
+        if (newGoal.isExpired()) {
+            // Creating an expired goal alert
+            Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
+            db.storeAlert(alert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(alert);
+            HomeController.addAlert(alert);
+        } else if (newGoal.isCompleted()) {
+            // Creating a completed goal alert
+            Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
+            db.storeAlert(alert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(alert);
+            HomeController.addAlert(alert);
         }
-
+        // Storing the goal in the database
+        db.storeGoal(newGoal, HomeController.getCurrentUser().getId());
+        // Adding the goal to the user
+        HomeController.getCurrentUser().addGoal(newGoal);
+        // Resetting all the entry fields and check boxes
+        nameCheck.setSelected(false);
+        metricCheck.setSelected(false);
+        dateCheck.setSelected(false);
+        valueCheck.setSelected(false);
+        globalCheck.setSelected(false);
+        goalName.clear();
+        metricCombo.getItems().clear();
+        datePicker.getEditor().clear();
+        valueCombo.getItems().clear();
+        // Refreshing the goal table
+        viewData();
     }
 
 

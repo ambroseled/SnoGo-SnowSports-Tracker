@@ -10,7 +10,8 @@ import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 
 /**
- * This class is used to control the alerts view of the application.
+ * This class was used to control the alerts view of the application. Is no longer used
+ * as views are now integrated into the user view
  */
 public class AlertController {
 

@@ -25,14 +25,17 @@ import java.util.Date;
 
 
 //TODO: Change color of border of tab when selected
+//TODO Clean up current user use
 
 
 /**
- * This class runs the application and also provides the profile functionality.
+ * This is the controller for the tabMain.fxml file. it provides the user entry, deletion and creation functionality,
+ * the alerts viewing and deletion functionality, as well as the connectivity functionality of the entire application.
  */
 public class HomeController {
 
 
+    // FXML objects used by the controller
     @FXML
     private Tab dataTab;
     @FXML
@@ -119,36 +122,33 @@ public class HomeController {
     private Button hideButton;
     @FXML
     private Button deleteButton;
+
     boolean editing = false;
-
+    // An array list and observable list of users used to display all users in the user table
     private ArrayList<User> users;
-
     private ObservableList<User> userNames = FXCollections.observableArrayList();
-
+    // The date formatter used in profile operations
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-
+    // an observable list used to display the users alerts
     private static ObservableList<seng202.team5.Model.Alert> alerts = FXCollections.observableArrayList();
-
-
-
+    // The database connection used by the application
     private static DataBaseController db;
-
+    // The current user
     private static User currentUser;
-
-
+    // Variables used for the easter egg
     private boolean backwards = false;
     private boolean pinguActivated = false;
     private double rotate = 0;
+    // Variables used for displaying alerts
     private static boolean alert = false;
     private int count = 0;
 
 
-
-    public ObservableList<seng202.team5.Model.Alert> getALerts() {
-        return alerts;
-    }
-
-
+    /**
+     * A method used when an alert is created to add to the alerts list. This method also sets a flag to notify the
+     * user that the have a new alert.
+     * @param toAdd The alert to add
+     */
     public static void addAlert(seng202.team5.Model.Alert toAdd) {
         alert = true;
         alerts.add(toAdd);
@@ -156,7 +156,8 @@ public class HomeController {
 
 
     /**
-     * Setting timer for ester egg
+     * This method fills the user table on opening of the application and also defines a timer used for the eater egg
+     * and to notify the user of an unseen alert.
      */
     public void initialize() {
         AnimationTimer timer = new AnimationTimer(){
@@ -185,8 +186,9 @@ public class HomeController {
                 else {
                     logo.setRotate(0);
                 }
-
+                // Checking if the user needs to be alerted of an alert
                 if (alert) {
+                    // Periodically changing the colour of the User tab to signify that there is unread alerts
                     if (count <= 25) {
                         userTab.setStyle("-fx-background-color: red;");
                         alertsButton.setStyle("-fx-background-color: #005e99;");
@@ -199,17 +201,20 @@ public class HomeController {
                         count = 0;
                     }
                 }
-
             }
         };
         timer.start();
+        // Filling the user table
         fillTable();
-
     }
 
 
-
+    /**
+     * This method is called by the 'View Alerts' button. It disables the bulk of the table and makes the alerts
+     * functionality available to the user.
+     */
     public void showAlerts() {
+        // Disabling and enabling features of the application
         alertsButton.setVisible(false);
         alertsButton.setDisable(true);
         hideButton.setDisable(false);
@@ -220,19 +225,25 @@ public class HomeController {
         gridPane.setDisable(true);
         alertTable.setVisible(true);
         alertTable.setDisable(false);
+        // Stopping the alerts notification
         alert = false;
         userTab.setStyle("-fx-background-color: #005e99;");
         alertsButton.setStyle("-fx-background-color: #005e99;");
        // alertTable.getItems().clear();
         // Setting table columns
+        // Configuring the columns of the alerts table
         nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         desCol.setCellValueFactory(new PropertyValueFactory<>("message"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
-        // Adding alerts to the table
+        // Filling the alerts table
         alertTable.setItems(alerts);
     }
 
 
+    /**
+     * This method is called by a press of the 'Hide Alerts' button. It disables the alerts functionality of the
+     * application and rea-enables all other functionality to the user.
+     */
     public void hideAlerts() {
         alertsButton.setVisible(true);
         alertsButton.setDisable(false);
@@ -247,13 +258,16 @@ public class HomeController {
     }
 
 
+    /**
+     * This method is called by a press of the 'Remove Alert' button. It removes a selected alert from the application
+     */
     public void removeAlert() {
         // Getting the selected alert
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
         // Removing the alert from the user and the database
         if (alert != null) {
             db.removeAlert(alert);
-            currentUser.setAlerts(db.getAlerts(HomeController.getCurrentUser().getId()));
+            currentUser.setAlerts(db.getAlerts(currentUser.getId()));
             alerts.clear();
             alerts.addAll(currentUser.getAlerts());
             showAlerts();
@@ -273,6 +287,10 @@ public class HomeController {
     }
 
 
+    /**
+     * This method sets the current user of the application
+     * @param user The new current user
+     */
     public static void setCurrentUser(User user) {
         currentUser = user;
     }
@@ -292,20 +310,22 @@ public class HomeController {
      * This method populated the shown table with the current users in the database
      */
     private void fillTable() {
+        // Getting the users in the database
         users = db.getUsers();
         if (userTable.getItems().size() != users.size()) {
+            // Filling the table
             userTable.getItems().clear();
             userCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             userNames.addAll(users);
             userTable.setItems(userNames);
         }
+        // Setting the user entry/edit data picker
         try {
             Date date = dateTimeFormat.parse("08/09/1990");
             datePicker.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         } catch (ParseException e) {
 
         }
-
     }
 
 
@@ -326,12 +346,15 @@ public class HomeController {
     /**
      * Deletes a selected user from the database.
      */
-    private void deleteUser(){
+    private void deleteUser() {
+        // Getting the selected user
         User selectedUser = (User) userTable.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
+            // Removing the user
             db.removeUser(selectedUser);
             refreshTable();
-            if (HomeController.getCurrentUser() == selectedUser) {
+            if (currentUser == selectedUser) {
+                // Disabling the tabs as the current user was deleted
                 currentUser =  null;
                 disableTabs();
             }
@@ -360,8 +383,10 @@ public class HomeController {
      * Setting the current user of the HomeController class
      */
     private void setSelectedUser(){
-        HomeController.setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
-        if (HomeController.getCurrentUser() != null) {
+        // Setting the current user
+        setCurrentUser((User) userTable.getSelectionModel().getSelectedItem());
+        if (currentUser != null) {
+            // A user was selected, application functionality is now enabled
             enableTabs();
             viewProfile();
             checkPingu();
@@ -421,6 +446,7 @@ public class HomeController {
      * Setting the text fields for viewing a user
      */
     public void viewProfile() {
+        // Making extra user mechanisms visible
         bmiText.setVisible(true);
         ageLabel.setVisible(true);
         ageText.setVisible(true);
@@ -431,13 +457,13 @@ public class HomeController {
         createButton.setDisable(true);
         createButton.setVisible(false);
         editing = true;
-        // Setting all entry fields to the users current personal information
-        nameText.setText(HomeController.getCurrentUser().getName());
-        ageText.setText(Integer.toString(HomeController.getCurrentUser().getAge()));
-        heightText.setText(Double.toString(HomeController.getCurrentUser().getHeight()));
-        weightText.setText(Double.toString(HomeController.getCurrentUser().getWeight()));
-        bmiText.setText(Double.toString(HomeController.getCurrentUser().getBmi()));
-        datePicker.setValue(HomeController.getCurrentUser().getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        // Setting the text fields to that of the current user
+        nameText.setText(currentUser.getName());
+        ageText.setText(Integer.toString(currentUser.getAge()));
+        heightText.setText(Double.toString(currentUser.getHeight()));
+        weightText.setText(Double.toString(currentUser.getWeight()));
+        bmiText.setText(Double.toString(currentUser.getBmi()));
+        datePicker.setValue(currentUser.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
 
@@ -446,6 +472,7 @@ public class HomeController {
      * Setting the fields ready to create a new user.
      */
     public void showCreate() {
+        // Setting the user creation mechanisms back to creation state
         bmiText.setVisible(false);
         bmiLabel.setVisible(false);
         ageText.setVisible(false);
@@ -463,7 +490,7 @@ public class HomeController {
 
 
     /**
-     * Clearing all entry fields
+     * Clearing all user entry fields
      */
     private void clearFields() {
         nameText.clear();
@@ -510,7 +537,7 @@ public class HomeController {
             currentUser.setAge(age);
             currentUser.setBirthDate(date);
             // Updating the user in the database
-            db.updateUser(HomeController.getCurrentUser());
+            db.updateUser(currentUser);
             clearChecks();
             clearFields();
             viewProfile();
@@ -551,6 +578,7 @@ public class HomeController {
         // Getting all information from entry fields
 
         try {
+            // Checking if all entry fields are valid
             boolean name = checkName(nameText.getText());
             boolean weight = checkWeight(weightText.getText());
             String dateText = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -574,8 +602,8 @@ public class HomeController {
                         clearChecks();
                     }
                 }
+        // Enabling or disabling the create or edit button dependent of the result of the validity checks
                 if (!duplicate) {
-                    // Enabling the update button
                     if (editing) {
                         editButton.setDisable(false);
                     } else {
@@ -618,8 +646,11 @@ public class HomeController {
         double height = Double.parseDouble(heightText.getText());
         Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         int age = calcAge(date);
+        // Creating the user
         User user = new User(name, age, height, weight, date);
+        // Storing the new user in the database
         db.storeNewUser(user);
+        // Refreshing state of the page after the user creation
         refreshTable();
         clearChecks();
         clearFields();
@@ -728,37 +759,58 @@ public class HomeController {
     }
 
 
+    /**
+     * This method is called by a press on te 'Map' tab. it sets the data in the activity table
+     */
     public void setUpMap() {
         mapsController.fillTable();
     }
 
 
+    /**
+     * This method is called by a press on the 'Goals' tab, It sets the data in the goals table
+     */
     public void setUpGoals() {
         goalsController.viewData();
     }
 
 
+    /**
+     * This method is called by a press on the 'Calendar' tab. It fills both of the activity tables
+     */
     public void setUpCal() {
         calController.setCurrent();
     }
 
 
+    /**
+     * This method is called by a press on the 'Compare' tab. It fills both of the activity tables
+     */
     public void setUpComp() {
         compController.fillActTables();
         compController.clearBoxes();
     }
 
+
+    /**
+     * This method is called by a press of the 'Video' tab. ...
+     */
     public void setUpVideo() {
         System.out.println("Selected video view");
     }
 
+
+    /**
+     * This method is called by a press on the tables tab. ...
+     */
     public void setUpTables() {
         tablesController.viewData();
     }
 
 
     /**
-     *
+     * This method calls all of the on selection methods of all of the application tabs. It updates the state of
+     * all tabs
      */
     public void updateTabs() {
         setUpTables();
@@ -771,12 +823,13 @@ public class HomeController {
     }
 
 
-
+    /**
+     * This method sets DataBaseController of the application
+     * @param newDb The new DataBaseController to be used
+     */
     public static void setDb(DataBaseController newDb) {
         db = newDb;
     }
-
-
 
 }
 

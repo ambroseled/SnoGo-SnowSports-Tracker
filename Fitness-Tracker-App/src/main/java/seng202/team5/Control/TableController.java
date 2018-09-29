@@ -262,15 +262,20 @@ public class TableController {
      * @return The corresponding filename.
      */
     private String makeFilename(String actName) {
+        // Getting the words in the name of the activity
         String[] words = actName.split(" ");
         String filename = "";
+        // Making the file name
         for (int i = 0; i < words.length; i++) {
             filename += words[i];
         }
+        // Returning the filename made or a generic filename if the filename is empty
         if (filename.equals("")) {
             return "snoGoExportedData.csv";
         } else {
             return filename;
         }
     }
+
+
 }
