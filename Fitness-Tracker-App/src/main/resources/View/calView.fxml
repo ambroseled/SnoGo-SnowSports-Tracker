@@ -35,7 +35,7 @@
          <children>
             <TableView fx:id="actTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
                 <placeholder>
-                    <Label text="No Activities for Selected Date" />
+                    <Label text="No Activities for Selected Date Range" />
                 </placeholder>
                 <columns>
                 <TableColumn fx:id="nameCol" prefWidth="233.0" text="Name" />
@@ -53,12 +53,12 @@
             </TableView>
             <TableView fx:id="alertTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
                 <placeholder>
-                    <Label text="No Alerts for Selected Date" />
+                    <Label text="No Alerts for Selected Date Range" />
                 </placeholder>
                 <columns>
                 <TableColumn fx:id="typeCol" prefWidth="142.0" text="Alert Type" />
                 <TableColumn fx:id="alertDateCol" minWidth="8.0" prefWidth="177.0" text="Date" />
-                  <TableColumn fx:id="desCol" minWidth="0.0" prefWidth="276.0" text="Descrption" />
+                  <TableColumn fx:id="desCol" minWidth="0.0" prefWidth="276.0" text="Description" />
               </columns>
                <GridPane.margin>
                   <Insets right="20.0" />
@@ -66,7 +66,7 @@
             </TableView>
             <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
                 <placeholder>
-                    <Label text="No Goals for Selected Date" />
+                    <Label text="No Goals for Selected Date Range" />
                 </placeholder>
                 <columns>
                 <TableColumn fx:id="goalNameCol" prefWidth="138.0" text="Goal Name" />
@@ -79,7 +79,8 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </TableView>
-            <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <DatePicker fx:id="datePicker1" layoutX="196.0" layoutY="53.0" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

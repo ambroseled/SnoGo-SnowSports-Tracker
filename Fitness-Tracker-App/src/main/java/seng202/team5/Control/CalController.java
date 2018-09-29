@@ -12,6 +12,7 @@ import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class CalController {
 
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private DatePicker datePicker1;
     @FXML
     private TableView actTable;
     @FXML
@@ -78,10 +81,14 @@ public class CalController {
      *
      */
     public void showData() {
-        Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        fillActivities(findActivities(date));
-        fillGoals(findGoals(date));
-        fillAlerts(findAlerts(date));
+        // Catching case where one datePicker has a value but the other doesn't
+        if (datePicker.getValue() != null && datePicker1.getValue() != null) {
+            Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date date1 = Date.from(datePicker1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            fillActivities(findActivities(parseDate(date), parseDate(date1)));
+            fillGoals(findGoals(parseDate(date), parseDate(date1)));
+            fillAlerts(findAlerts(parseDate(date), parseDate(date1)));
+        }
     }
 
 
@@ -89,11 +96,25 @@ public class CalController {
      *
      */
     public void setCurrent() {
-        Date date = new Date();
-        datePicker.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        fillActivities(findActivities(date));
-        fillGoals(findGoals(date));
-        fillAlerts(findAlerts(date));
+        if (datePicker.getValue() == null || datePicker1.getValue() == null) {
+            Date date = new Date();
+            datePicker.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            datePicker1.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            fillActivities(findActivities(parseDate(date), parseDate(date)));
+            fillGoals(findGoals(parseDate(date), parseDate(date)));
+            fillAlerts(findAlerts(parseDate(date), parseDate(date)));
+        }
+
+    }
+
+
+    private Date parseDate(Date date) {
+        String dateString = dateTimeFormat.format(date);
+        try {
+            return dateTimeFormat.parse(dateString);
+        } catch(ParseException e) {
+            return null;
+        }
     }
 
 
@@ -103,10 +124,11 @@ public class CalController {
      * @param date
      * @return
      */
-    private ArrayList<Activity> findActivities(Date date) {
+    private ArrayList<Activity> findActivities(Date date, Date date1) {
         ArrayList<Activity> acts = new ArrayList<>();
         for (Activity activity : db.getActivities(HomeController.getCurrentUser().getId())) {
-            if (dateTimeFormat.format(activity.getDataSet().getDateTime(0)).equals(dateTimeFormat.format(date))) {
+            Date actDate = parseDate(activity.getDataSet().getDateTime(0));
+            if (actDate.getTime() >= date.getTime() && actDate.getTime() <= date1.getTime()) {
                 acts.add(activity);
             }
         }
@@ -119,10 +141,11 @@ public class CalController {
      * @param date
      * @return
      */
-    private ArrayList<Goal> findGoals(Date date) {
+    private ArrayList<Goal> findGoals(Date date, Date date1) {
         ArrayList<Goal> gls = new ArrayList<>();
         for (Goal goal : db.getGoals(HomeController.getCurrentUser().getId())) {
-            if (dateTimeFormat.format(goal.getCompletionDate()).equals(dateTimeFormat.format(date))) {
+            Date goalDate = parseDate(goal.getCompletionDate());
+            if (goalDate.getTime() >= date.getTime() && goalDate.getTime() <= date1.getTime()) {
                 gls.add(goal);
             }
         }
@@ -135,10 +158,11 @@ public class CalController {
      * @param date
      * @return
      */
-    private ArrayList<Alert> findAlerts(Date date) {
+    private ArrayList<Alert> findAlerts(Date date, Date date1) {
         ArrayList<Alert> alts = new ArrayList<>();
         for (Alert alert : db.getAlerts(HomeController.getCurrentUser().getId())) {
-            if (dateTimeFormat.format(alert.getDate()).equals(dateTimeFormat.format(date))) {
+            Date alertDate = parseDate(alert.getDate());
+            if (alertDate.getTime() >= date.getTime() && alertDate.getTime() <= date1.getTime()) {
                 alts.add(alert);
             }
         }
