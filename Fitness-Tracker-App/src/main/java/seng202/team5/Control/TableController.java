@@ -1,12 +1,17 @@
 package seng202.team5.Control;
 
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
@@ -120,7 +125,6 @@ public class TableController {
      */
     private void createTable(TableView table, int index) {
 
-
         table.getItems().clear();
         if (HomeController.getCurrentUser() != null) {
             if (table.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
@@ -152,8 +156,11 @@ public class TableController {
                 //speed column
                 TableColumn<DataPoint, Double> speedCol = new TableColumn("Speed");
                 speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
+
+
                 table.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol);
                 table.setItems(getDataPointsList(index));
+                table.setEditable(true);
                 table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             }
         }

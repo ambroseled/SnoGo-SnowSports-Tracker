@@ -138,11 +138,11 @@
             </AnchorPane>
          </content>
       </Tab>
-    <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data">
-         <content>
-             <fx:include fx:id="tables" source="TableTab.fxml" />
-         </content></Tab>
-
+      <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data">
+          <content>
+              <fx:include fx:id="data" source="dataRawView.fxml" />
+          </content>
+      </Tab>
     <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Stats">
          <content>
              <fx:include fx:id="stats" source="GraphsTab.fxml" />

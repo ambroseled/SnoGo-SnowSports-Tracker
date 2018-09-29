@@ -99,11 +99,13 @@ public class HomeController {
     @FXML
     private GoalController goalsController;
     @FXML
+    private DataController dataController;
+//    private TableController tablesController;
+
+    @FXML
     private GraphsController statsController;
     @FXML
     private MapController mapsController;
-    @FXML
-    private TableController tablesController;
     @FXML
     private CompController compController;
     @FXML
@@ -804,7 +806,7 @@ public class HomeController {
      * This method is called by a press on the tables tab. ...
      */
     public void setUpTables() {
-        tablesController.viewData();
+        dataController.fillTable();
     }
 
 

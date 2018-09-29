@@ -1,5 +1,7 @@
 package seng202.team5.Model;
 
+import javafx.scene.control.Button;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -200,7 +202,7 @@ public class DataPoint {
         if (!(this.elevation == otherDataPoint.getElevation())) {
             return false;
         }
-
+        //TODO //print each to see the problem
         return true;
     }
 }

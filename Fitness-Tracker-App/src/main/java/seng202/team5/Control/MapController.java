@@ -69,7 +69,7 @@ public class MapController {
                     displayRoute(route);
                 }
             } catch (netscape.javascript.JSException e) {
-                ErrorController.displayError("Internet connection is need to view map");
+                ErrorController.displayError("Internet connection is needed to view map");
             }
         }
     }
@@ -84,7 +84,7 @@ public class MapController {
       if (HomeController.getCurrentUser() != null) {
           if (actTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
           activities = db.getActivities(HomeController.getCurrentUser().getId());
-          actCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+          actCol.setCellValueFactory(new PropertyValueFactory("name"));
           activityNames.addAll(activities);
           actTable.setItems(activityNames);
           actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
