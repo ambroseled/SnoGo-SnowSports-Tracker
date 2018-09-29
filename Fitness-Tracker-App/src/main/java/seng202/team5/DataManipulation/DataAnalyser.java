@@ -1,11 +1,11 @@
 package seng202.team5.DataManipulation;
 
 
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
+import seng202.team5.Model.*;
+
 import java.util.ArrayList;
+import java.util.Date;
+
 import static java.lang.Math.abs;
 
 
@@ -402,6 +402,14 @@ public class DataAnalyser {
      */
     public void setCurrentUser(User user) {
         currentUser = user;
+    }
+
+    private void checkBradycardia(Activity activity){
+        for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
+            if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 60) {
+                //add alert
+            }
+        }
     }
 
 }
