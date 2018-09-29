@@ -92,11 +92,13 @@ public class HomeController {
     @FXML
     private AlertController alertsController;
     @FXML
+    private DataController dataController;
+//    private TableController tablesController;
+
+    @FXML
     private GraphsController statsController;
     @FXML
     private MapController mapsController;
-    @FXML
-    private TableController tablesController;
     @FXML
     private CompController compController;
     @FXML
@@ -637,7 +639,7 @@ public class HomeController {
     }
 
     public void setUpTables() {
-        tablesController.viewData();
+        dataController.fillTable();
     }
 
 
