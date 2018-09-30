@@ -118,7 +118,13 @@ public class CalController {
             fillGoals(findGoals(parseDate(date), parseDate(date)));
             fillAlerts(findAlerts(parseDate(date), parseDate(date)));
         }
-
+        // Getting the selected dates
+        Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date date1 = Date.from(datePicker1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        // Displaying the events for the selected date range
+        fillActivities(findActivities(parseDate(date), parseDate(date1)));
+        fillGoals(findGoals(parseDate(date), parseDate(date1)));
+        fillAlerts(findAlerts(parseDate(date), parseDate(date1)));
     }
 
 
@@ -244,8 +250,8 @@ public class CalController {
         goalNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         metricCol.setCellValueFactory(new  PropertyValueFactory<>("metric"));
         valCol.setCellValueFactory(new PropertyValueFactory<>("metricGoal"));
-        goalDateCol.setCellValueFactory(new PropertyValueFactory<>("completionDate"));
-        compCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        goalDateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        compCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
         // Filling the table
         goals.addAll(gls);
         goalTable.setItems(goals);
