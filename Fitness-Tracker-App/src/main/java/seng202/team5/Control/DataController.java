@@ -19,6 +19,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+//TODO If you delete an activity and then upload it again straight away it is caught as a double up activity - need to fix
+
+
 public class DataController {
 
     private ArrayList<Activity> activities;
@@ -56,7 +60,7 @@ public class DataController {
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
 
 
-    public void viewData(String filePath) {
+    private void viewData(String filePath) {
 
         DataUpload uploader = new DataUpload();
         uploader.uploadData(filePath);
@@ -117,7 +121,7 @@ public class DataController {
         }
     }
 
-    public ObservableList<DataPoint> getDataPointsList(Activity activity) {
+    private ObservableList<DataPoint> getDataPointsList(Activity activity) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
         DataSet dataSet = activity.getDataSet();

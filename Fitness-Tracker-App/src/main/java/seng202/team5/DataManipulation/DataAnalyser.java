@@ -1,28 +1,28 @@
 package seng202.team5.DataManipulation;
 
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import seng202.team5.Model.*;
-
 import java.util.ArrayList;
-import java.util.Date;
-
 import static java.lang.Math.abs;
 
 
 /**
  * This class performs analytics on the data uploaded into the application by the user.
  * The results of these calculations are then added to the DataSet and DataPoints of the
- * passed Activity.
+ * passed Activity. The analysis and calculations that are performed will not produced
+ * expected results for a lot of data as they have been designed to specifically handle
+ * skiing or snowboarding data.
  */
 public class DataAnalyser {
 
-    // Getting the current user
+
     private User currentUser;
 
 
     /**
-     *
-     * @param user
+     * This method sets the current user that is used for the analysis.
+     * @param user The user
      */
     public void setUser(User user) {
         currentUser = user;
@@ -358,7 +358,6 @@ public class DataAnalyser {
     }
 
 
-    //TODO: Look over this
     /**
      * Calculates the time the user spends on the slopes.
      * @param dataSet The DataSet to calculate slope time over.
@@ -370,10 +369,11 @@ public class DataAnalyser {
 
         for (int i = 1; i < dataSet.getDataPoints().size(); i++) {
             if (dataPoints.get(i).isActive()) {
-                time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i).getDateTime().getTime();
+                time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i - 1).getDateTime().getTime();
             }
         }
-        return roundNum(time / 60);
+        System.out.println(time / 1000);
+        return roundNum(time / 1000);
     }
 
 

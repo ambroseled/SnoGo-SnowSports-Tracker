@@ -17,6 +17,9 @@ import seng202.team5.Model.DataSet;
 import java.util.ArrayList;
 
 
+//TODO Fix slope time graph label
+
+
 /**
  * This class is the controller class for the GraphsTab.fxml file.
  * It produces graphs for speed, distance, heart rate, distance, calories.
@@ -52,6 +55,8 @@ public class GraphsController{
     private LineChart<Number,Number> avgSpeedChart;
     @FXML
     private LineChart<Number,Number> runningDistChart;
+    @FXML
+    private LineChart<Number,Number> slopeTimeChart;
     @FXML
     private TableView actTable;
     @FXML
@@ -292,6 +297,17 @@ public class GraphsController{
     }
 
 
+    private void setSlopeTimeChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            series.getData().add(new XYChart.Data(i, activity.getDataSet().getSlopeTime()));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+
+
     /**
      * @param startTime Point when the activity started
      * @param endTime Point when the activity ends
@@ -425,6 +441,9 @@ public class GraphsController{
 
         XYChart.Series runningDistSeries = createOverallGraph(runningDistChart, "Running Distance (m)");
         setRunningDistChart(runningDistChart, runningDistSeries);
+
+        XYChart.Series slopTimeSeries = createOverallGraph(slopeTimeChart, "Slope Time (m)");
+        setSlopeTimeChart(slopeTimeChart, slopTimeSeries);
     }
 
     private void setActivities(ArrayList<Activity> inputActivities) {
