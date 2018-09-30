@@ -17,7 +17,7 @@ import seng202.team5.Model.DataSet;
 import java.util.ArrayList;
 
 
-//TODO Fix slope time graph label
+//TODO Fix layout of new graphs
 
 
 /**
@@ -58,6 +58,8 @@ public class GraphsController{
     @FXML
     private LineChart<Number,Number> slopeTimeChart;
     @FXML
+    private LineChart<Number,Number> topSpeedChart;
+    @FXML
     private TableView actTable;
     @FXML
     private TableColumn<Activity, String> nameCol;
@@ -75,11 +77,11 @@ public class GraphsController{
     private TableColumn<Activity, Double> avgSpeedCol;
     @FXML
     private TableColumn<Activity, Double> topSpeedCol;
+    @FXML
+    private TableColumn<Activity, String> slopeCol;
+
     // Getting database controller and current user
     private DataBaseController db = HomeController.getDb();
-
-
-
 
 
     /**
@@ -297,10 +299,30 @@ public class GraphsController{
     }
 
 
+    /**
+     * Sets slope time graph, which adds each activity's slope time
+     * @param lineChart the slope time over activities graph
+     * @param series series storing slope time points for each activity in the 2D format
+     */
     private void setSlopeTimeChart(LineChart lineChart, XYChart.Series series) {
         int i = 0;
         for (Activity activity: activities) {
             series.getData().add(new XYChart.Data(i, activity.getDataSet().getSlopeTime()));
+            i += 1;
+        }
+        lineChart.getData().add(series);
+    }
+
+
+    /**
+     * Sets slope time graph, which adds each activity's slope time
+     * @param lineChart the slope time over activities graph
+     * @param series series storing slope time points for each activity in the 2D format
+     */
+    private void setTopSpeedChart(LineChart lineChart, XYChart.Series series) {
+        int i = 0;
+        for (Activity activity: activities) {
+            series.getData().add(new XYChart.Data(i, activity.getDataSet().getTopSpeed()));
             i += 1;
         }
         lineChart.getData().add(series);
@@ -331,6 +353,7 @@ public class GraphsController{
         return timeDivisor;
     }
 
+
     /**
      * Runs when the tab is first switched to
      * Sets up the choiceBox to show all activities for current User
@@ -347,6 +370,7 @@ public class GraphsController{
 
         setOverallStats();
     }
+
 
     /**
      * Clears all data from graphs
@@ -393,13 +417,12 @@ public class GraphsController{
         calCol.setCellValueFactory(new PropertyValueFactory<>("caloriesBurned"));
         avgSpeedCol.setCellValueFactory(new PropertyValueFactory<>("avgSpeed"));
         topSpeedCol.setCellValueFactory(new PropertyValueFactory<>("topSpeed"));
+        slopeCol.setCellValueFactory(new PropertyValueFactory<>("slopeTime"));
         // Filling the table
         activities.add(activity);
         actTable.setItems(activities);
         actTable.setVisible(true);
     }
-
-
 
 
     /**
@@ -412,10 +435,13 @@ public class GraphsController{
         caloriesChart.getData().clear();
         avgSpeedChart.getData().clear();
         runningDistChart.getData().clear();
+        slopeTimeChart.getData().clear();
+        topSpeedChart.getData().clear();
         scrollPane.setVisible(false);
         scrollPane.setDisable(true);
         actTable.setVisible(false);
     }
+
 
     /**
      * Creates the lineCharts for all activities
@@ -444,14 +470,19 @@ public class GraphsController{
 
         XYChart.Series slopTimeSeries = createOverallGraph(slopeTimeChart, "Slope Time (m)");
         setSlopeTimeChart(slopeTimeChart, slopTimeSeries);
+
+        XYChart.Series topSpeedSeries = createOverallGraph(topSpeedChart, "Top Speed (m/s)");
+        setTopSpeedChart(topSpeedChart, topSpeedSeries);
     }
 
+
+    /**
+     *
+     * @param inputActivities
+     */
     private void setActivities(ArrayList<Activity> inputActivities) {
         activities = inputActivities;
     }
-
-
-
 
 
     /**
@@ -465,4 +496,6 @@ public class GraphsController{
         dataPointsList.addAll(dataSet.getDataPoints());
         return dataPointsList;
     }
+
+
 }

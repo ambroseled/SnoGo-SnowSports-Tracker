@@ -782,7 +782,7 @@ public class HomeController {
      * This method is called by a press on the 'Calendar' tab. It fills both of the activity tables
      */
     public void setUpCal() {
-        calController.setCurrent();
+        calController.setCurrent(false);
     }
 
 
@@ -830,7 +830,7 @@ public class HomeController {
         setUpTables();
         setUpMap();
         setUpStats();
-        setUpCal();
+        calController.setCurrent(true);
         setUpComp();
         setUpGoals();
         setUpVideo();

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.CalController">
+<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.CalController">
    <children>
       <GridPane prefHeight="670.0" prefWidth="1280.0">
         <columnConstraints>
@@ -38,14 +34,15 @@
                     <Label text="No Activities for Selected Date Range" />
                 </placeholder>
                 <columns>
-                <TableColumn fx:id="nameCol" prefWidth="233.0" text="Name" />
-                <TableColumn fx:id="actDateCol" prefWidth="136.0" text="Date" />
-                  <TableColumn fx:id="distCol" prefWidth="138.0" text="Total Distance m" />
-                  <TableColumn fx:id="vertCol" prefWidth="154.0" text="Vertical Distance m" />
-                  <TableColumn fx:id="heartCol" prefWidth="190.0" text="Average Heart Rate bpm" />
-                  <TableColumn fx:id="calCol" prefWidth="123.0" text="Calories Burned" />
-                  <TableColumn fx:id="avgSpeedCol" prefWidth="149.0" text="Average speed m/s" />
-                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed m/s" />
+                <TableColumn fx:id="nameCol" prefWidth="214.0" text="Name" />
+                <TableColumn fx:id="actDateCol" prefWidth="133.0" text="Date" />
+                  <TableColumn fx:id="distCol" prefWidth="118.0" text="Total Distance m" />
+                  <TableColumn fx:id="vertCol" prefWidth="137.0" text="Vertical Distance m" />
+                  <TableColumn fx:id="heartCol" prefWidth="163.0" text="Average Heart Rate bpm" />
+                  <TableColumn fx:id="calCol" prefWidth="107.0" text="Calories Burned" />
+                  <TableColumn fx:id="avgSpeedCol" prefWidth="134.0" text="Average speed m/s" />
+                  <TableColumn fx:id="topSpeedCol" prefWidth="108.0" text="Top Speed m/s" />
+                  <TableColumn fx:id="slopeCol" prefWidth="125.0" text="Slope Time" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" />

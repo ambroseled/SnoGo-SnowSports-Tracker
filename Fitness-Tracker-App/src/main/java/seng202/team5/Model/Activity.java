@@ -1,6 +1,8 @@
 package seng202.team5.Model;
 
 
+import seng202.team5.Control.CompController;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -120,6 +122,11 @@ public class Activity {
 
     public double getAvgSpeed() {
         return dataSet.getAvgSpeed();
+    }
+
+
+    public String getSlopeTime() {
+        return CompController.formatTime(dataSet.getSlopeTime());
     }
 
 

@@ -89,35 +89,33 @@ public class DataController {
     private void createTable(Activity activity) {
 
         rawDataTable.getItems().clear();
-        if (HomeController.getCurrentUser() != null) {
-            if (rawDataTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
-                activities = db.getActivities(HomeController.getCurrentUser().getId());
-                // date and time column
-                dateTimeCol.setCellValueFactory(new PropertyValueFactory("formattedDate"));
+        if (rawDataTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
+            activities = db.getActivities(HomeController.getCurrentUser().getId());
+            // date and time column
+            dateTimeCol.setCellValueFactory(new PropertyValueFactory("formattedDate"));
 
-                //heart rate column
-                heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
+            //heart rate column
+            heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
 
-                //latitude column
-                latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
+            //latitude column
+            latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
 
-                //longitude column
-                longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
+            //longitude column
+            longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
 
-                //elevation column
-                elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
+            //elevation column
+            elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
 
-                //distance column
-                distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
+            //distance column
+            distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
 
-                //speed column
-                speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
+            //speed column
+            speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
 
 
-                //rawDataTable.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol, removeCol);
-                rawDataTable.setItems(getDataPointsList(activity));
-                rawDataTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            }
+            //rawDataTable.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol, removeCol);
+            rawDataTable.setItems(getDataPointsList(activity));
+            rawDataTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
     }
 
@@ -151,14 +149,12 @@ public class DataController {
 
         rawDataTable.getItems().clear();
         actTable.getItems().clear();
-        if (HomeController.getCurrentUser() != null) {
-            if (actTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
-                activities = db.getActivities(HomeController.getCurrentUser().getId());
-                actCol.setCellValueFactory(new PropertyValueFactory("name"));
-                activityNames.addAll(activities);
-                actTable.setItems(activityNames);
-                actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            }
+        if (actTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
+            activities = db.getActivities(HomeController.getCurrentUser().getId());
+            actCol.setCellValueFactory(new PropertyValueFactory("name"));
+            activityNames.addAll(activities);
+            actTable.setItems(activityNames);
+            actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
         actTable.setEditable(true);
         actCol.setCellFactory(TextFieldTableCell.forTableColumn());

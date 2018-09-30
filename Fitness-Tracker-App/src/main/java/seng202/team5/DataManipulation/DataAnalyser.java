@@ -372,8 +372,7 @@ public class DataAnalyser {
                 time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i - 1).getDateTime().getTime();
             }
         }
-        System.out.println(time / 1000);
-        return roundNum(time / 1000);
+        return roundNum(time);
     }
 
 
