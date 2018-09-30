@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.CalController">
+<AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.CalController">
    <children>
       <GridPane prefHeight="670.0" prefWidth="1280.0">
         <columnConstraints>
@@ -34,18 +38,18 @@
                     <Label text="No Activities for Selected Date Range" />
                 </placeholder>
                 <columns>
-                <TableColumn fx:id="nameCol" prefWidth="214.0" text="Name" />
-                <TableColumn fx:id="actDateCol" prefWidth="133.0" text="Date" />
-                  <TableColumn fx:id="distCol" prefWidth="118.0" text="Total Distance m" />
-                  <TableColumn fx:id="vertCol" prefWidth="137.0" text="Vertical Distance m" />
-                  <TableColumn fx:id="heartCol" prefWidth="163.0" text="Average Heart Rate bpm" />
-                  <TableColumn fx:id="calCol" prefWidth="107.0" text="Calories Burned" />
-                  <TableColumn fx:id="avgSpeedCol" prefWidth="134.0" text="Average speed m/s" />
-                  <TableColumn fx:id="topSpeedCol" prefWidth="108.0" text="Top Speed m/s" />
-                  <TableColumn fx:id="slopeCol" prefWidth="125.0" text="Slope Time" />
+                <TableColumn fx:id="nameCol" prefWidth="157.0" text="Name" />
+                <TableColumn fx:id="actDateCol" prefWidth="153.0" text="Date" />
+                  <TableColumn fx:id="distCol" prefWidth="130.0" text="Total Distance m" />
+                  <TableColumn fx:id="vertCol" prefWidth="153.0" text="Vertical Distance m" />
+                  <TableColumn fx:id="heartCol" prefWidth="189.0" text="Average Heart Rate bpm" />
+                  <TableColumn fx:id="calCol" prefWidth="123.0" text="Calories Burned" />
+                  <TableColumn fx:id="avgSpeedCol" prefWidth="149.0" text="Average speed m/s" />
+                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed m/s" />
+                  <TableColumn fx:id="slopeCol" prefWidth="89.0" text="Slope Time" />
               </columns>
                <GridPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" />
+                  <Insets bottom="20.0" left="10.0" right="10.0" />
                </GridPane.margin>
             </TableView>
             <TableView fx:id="alertTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
@@ -55,10 +59,10 @@
                 <columns>
                 <TableColumn fx:id="typeCol" prefWidth="142.0" text="Alert Type" />
                 <TableColumn fx:id="alertDateCol" minWidth="8.0" prefWidth="177.0" text="Date" />
-                  <TableColumn fx:id="desCol" minWidth="0.0" prefWidth="276.0" text="Description" />
+                  <TableColumn fx:id="desCol" minWidth="0.0" prefWidth="286.0" text="Description" />
               </columns>
                <GridPane.margin>
-                  <Insets right="20.0" />
+                  <Insets right="10.0" />
                </GridPane.margin>
             </TableView>
             <TableView fx:id="goalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
@@ -70,10 +74,10 @@
                 <TableColumn fx:id="metricCol" prefWidth="130.0" text="Goal Metric" />
                   <TableColumn fx:id="valCol" prefWidth="96.0" text="Value" />
                   <TableColumn fx:id="goalDateCol" prefWidth="136.0" text="Completion Date" />
-                  <TableColumn fx:id="compCol" prefWidth="90.0" text="Achieved" />
+                  <TableColumn fx:id="compCol" prefWidth="100.0" text="Achieved" />
               </columns>
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
             </TableView>
             <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
