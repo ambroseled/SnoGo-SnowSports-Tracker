@@ -10,7 +10,7 @@
 .tab:hover, .tab:selected {
 
     -fx-background-color: #1da5f9;
-    -fx-focus-color: #1da5f9;
+    -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-color: transparent;
 }
@@ -34,8 +34,4 @@
 .tab-pane > .tab-header-area > .headers-region > .tab {
     /*-fx-background-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
     -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;*/
-}
-
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
 }
