@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-//TODO: Change color of border of tab when selected
-//TODO Clean up current user use
+//TODO Change color of border of tab when selected
 
 
 /**
@@ -754,15 +753,17 @@ public class HomeController {
     }
 
 
+    /**
+     * This method is called by a press on the 'Stats' tab. It set up the overall graphs and the activity choice box
+     */
     public void setUpStats() {
         statsController.setOverallStats();
         statsController.setChoiceBox();
-
     }
 
 
     /**
-     * This method is called by a press on te 'Map' tab. it sets the data in the activity table
+     * This method is called by a press on te 'Map' tab. It sets the data in the activity table
      */
     public void setUpMap() {
         mapsController.fillTable();
@@ -781,7 +782,7 @@ public class HomeController {
      * This method is called by a press on the 'Calendar' tab. It fills both of the activity tables
      */
     public void setUpCal() {
-        calController.setCurrent();
+        calController.setCurrent(false);
     }
 
 
@@ -803,10 +804,21 @@ public class HomeController {
 
 
     /**
-     * This method is called by a press on the tables tab. ...
+     * This method is called by a press on the 'Data' tab. ...
      */
     public void setUpTables() {
         dataController.fillTable();
+    }
+
+
+    /**
+     * This method is called by a press on the 'User' tab. It checks if any of the users goals are now expired
+     * or completed
+     */
+    public void checkGoals() {
+        if (currentUser != null && db != null) {
+            CheckGoals.markGoals(currentUser, db, currentUser.getActivities());
+        }
     }
 
 
@@ -818,10 +830,11 @@ public class HomeController {
         setUpTables();
         setUpMap();
         setUpStats();
-        setUpCal();
+        calController.setCurrent(true);
         setUpComp();
         setUpGoals();
         setUpVideo();
+        checkGoals();
     }
 
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -16,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
   <children>
       <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
@@ -145,6 +151,22 @@
                                  <NumberAxis side="LEFT" />
                              </yAxis>
                          </LineChart>
+                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" minHeight="252.0" prefHeight="252.0" prefWidth="396.0" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.rowSpan="2">
+                           <xAxis>
+                              <NumberAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="topSpeedChart" layoutX="10.0" layoutY="1547.0" maxWidth="530.0" minHeight="252.0" prefHeight="252.0" prefWidth="396.0" GridPane.columnSpan="2" GridPane.rowIndex="14">
+                           <xAxis>
+                              <NumberAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="294.0" />
@@ -164,6 +186,10 @@
                          <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                          <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" />
                      </rowConstraints>
                   </GridPane>
                </content>
@@ -176,16 +202,17 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Text>
-            <TableView fx:id="actTable" editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" visible="false" GridPane.columnSpan="8" GridPane.rowIndex="4">
+            <TableView fx:id="actTable" editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="8" GridPane.rowIndex="4">
                <columns>
-                  <TableColumn fx:id="nameCol" prefWidth="233.0" text="Name" />
-                  <TableColumn fx:id="actDateCol" prefWidth="136.0" text="Date" />
-                  <TableColumn fx:id="distCol" prefWidth="138.0" text="Total Distance (m)" />
-                  <TableColumn fx:id="vertCol" prefWidth="154.0" text="Vertical Distance (m)" />
-                  <TableColumn fx:id="heartCol" prefWidth="190.0" text="Average Heart Rate (bpm)" />
+                  <TableColumn fx:id="nameCol" prefWidth="161.0" text="Name" />
+                  <TableColumn fx:id="actDateCol" prefWidth="131.0" text="Date" />
+                  <TableColumn fx:id="distCol" prefWidth="131.0" text="Total Distance m" />
+                  <TableColumn fx:id="vertCol" prefWidth="151.0" text="Vertical Distance m" />
+                  <TableColumn fx:id="heartCol" prefWidth="191.0" text="Average Heart Rate bpm" />
                   <TableColumn fx:id="calCol" prefWidth="123.0" text="Calories Burned" />
-                  <TableColumn fx:id="avgSpeedCol" prefWidth="149.0" text="Average speed (m/s)" />
-                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed (m/s)" />
+                  <TableColumn fx:id="avgSpeedCol" prefWidth="147.0" text="Average speed m/s" />
+                  <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed m/s" />
+                  <TableColumn fx:id="slopeCol" prefWidth="88.0" text="Slope TIme" />
                </columns>
                <placeholder>
                   <Label text="No Activities for Selected Date" />

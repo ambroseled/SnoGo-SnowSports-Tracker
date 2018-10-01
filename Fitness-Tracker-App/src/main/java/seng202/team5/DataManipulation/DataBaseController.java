@@ -577,21 +577,27 @@ public class DataBaseController {
                 pStmt.setBoolean(8, toAdd.isExpired());
                 pStmt.executeUpdate();
                 toAdd.setId(findId("Goal"));
+                pStmt.close();
             }
         } catch (SQLException e) {
             System.out.println("Error when adding goal: " + e.getLocalizedMessage());
         }
     }
 
+
+    /**
+     * This method is used to update the name of an activity.
+     * @param activity THe activity to be updated
+     */
     public void updateActivityName(Activity activity) {
         try {
             if (checkId("Activity", activity.getId())) {
                 Statement stmt = connection.createStatement();
 
-                String name = activity.getName();
-                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", name, activity.getId());
+                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", activity.getName(), activity.getId());
 
                 stmt.executeUpdate(query);
+                stmt.close();
             }
         }
         catch (SQLException e) {

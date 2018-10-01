@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataSet;
 
@@ -60,6 +61,14 @@ public class CompController {
     @FXML
     private Text avgSpeedText1;
     @FXML
+    private Text slopeText;
+    @FXML
+    private Text slopeText1;
+    @FXML
+    private Text timeText;
+    @FXML
+    private Text timeText1;
+    @FXML
     private Rectangle topSpeedBox;
     @FXML
     private Rectangle totalDistBox;
@@ -72,6 +81,10 @@ public class CompController {
     @FXML
     private Rectangle avgSpeedBox;
     @FXML
+    private Rectangle slopeBox;
+    @FXML
+    private Rectangle timeBox;
+    @FXML
     private Rectangle topSpeedBox1;
     @FXML
     private Rectangle totalDistBox1;
@@ -83,6 +96,10 @@ public class CompController {
     private Rectangle calBox1;
     @FXML
     private Rectangle avgSpeedBox1;
+    @FXML
+    private Rectangle slopeBox1;
+    @FXML
+    private Rectangle timeBox1;
     @FXML
     private Text topSpeedLabel;
     @FXML
@@ -107,6 +124,14 @@ public class CompController {
     private Text avgSpeedLabel;
     @FXML
     private Text avgSpeedLabel1;
+    @FXML
+    private Text slopeLabel;
+    @FXML
+    private Text slopeLabel1;
+    @FXML
+    private Text timeLabel;
+    @FXML
+    private Text timeLabel1;
 
 
     // Observable list used to hold the users activities to be displayed in the activity tables
@@ -148,8 +173,8 @@ public class CompController {
             // Clearing the display boxes
             clearBoxes();
             // Showing the data for the two activities
-            showText(act.getDataSet(), topSpeedText, totDistText, vertText, heartText, calText, avgSpeedText);
-            showText(act1.getDataSet(), topSpeedText1, totDistText1, vertText1, heartText1, calText1, avgSpeedText1);
+            showText(act.getDataSet(), topSpeedText, totDistText, vertText, heartText, calText, avgSpeedText, slopeText, timeText);
+            showText(act1.getDataSet(), topSpeedText1, totDistText1, vertText1, heartText1, calText1, avgSpeedText1, slopeText1, timeText1);
             // Performing the comparison of the two activities
             compareActivities(act.getDataSet(), act1.getDataSet());
         }
@@ -199,6 +224,18 @@ public class CompController {
         } else if (set.getAvgSpeed()  < set1.getAvgSpeed() ) {
             setColours(avgSpeedBox1, avgSpeedBox, avgSpeedText, avgSpeedText1, avgSpeedLabel, avgSpeedLabel1);
         }
+        // Comparing the slope time of the activities
+        if (set.getSlopeTime() > set1.getSlopeTime() ) {
+            setColours(slopeBox, slopeBox1, slopeText, slopeText1, slopeLabel, slopeLabel1);
+        } else if (set.getSlopeTime()  < set1.getSlopeTime() ) {
+            setColours(slopeBox1, slopeBox, slopeText, slopeText1, slopeLabel, slopeLabel1);
+        }
+        // Comparing the total time of the activities
+        if (getTime(set) > getTime(set1) ) {
+            setColours(timeBox, timeBox1, timeText, timeText1, timeLabel, timeLabel1);
+        } else if (getTime(set)  < getTime(set1) ) {
+            setColours(timeBox1, timeBox, timeText, timeText1, timeLabel, timeLabel1);
+        }
     }
 
 
@@ -245,7 +282,7 @@ public class CompController {
      * @param cal the calories burned text
      * @param avgSpeed the average speed text
      */
-    private void showText(DataSet set, Text speed, Text dist, Text vert, Text heart, Text cal, Text avgSpeed) {
+    private void showText(DataSet set, Text speed, Text dist, Text vert, Text heart, Text cal, Text avgSpeed, Text slope, Text time) {
         // Displaying all passed text objects with their values
         speed.setText(set.getTopSpeed() + " m/s");
         dist.setText(set.getTotalDistance() + " m");
@@ -253,6 +290,15 @@ public class CompController {
         heart.setText(set.getAvgHeartRate() + " bpm");
         cal.setText(Double.toString(set.getCaloriesBurned()));
         avgSpeed.setText(set.getAvgSpeed() + " m/s");
+        slope.setText(formatTime(set.getSlopeTime()));
+        time.setText(formatTime(getTime(set)) + " m");
+    }
+
+
+
+    private double getTime(DataSet set) {
+        double total = set.getDateTime(set.getDataPoints().size() - 1).getTime() - set.getDateTime(0).getTime();
+        return total;
     }
 
 
@@ -267,6 +313,8 @@ public class CompController {
         heartBox.setFill(Color.WHITE);
         calBox.setFill(Color.WHITE);
         avgSpeedBox.setFill(Color.WHITE);
+        slopeBox.setFill(Color.WHITE);
+        timeBox.setFill(Color.WHITE);
         // Resetting the colours of the second set of rectangles
         topSpeedBox1.setFill(Color.WHITE);
         totalDistBox1.setFill(Color.WHITE);
@@ -274,6 +322,8 @@ public class CompController {
         heartBox1.setFill(Color.WHITE);
         calBox1.setFill(Color.WHITE);
         avgSpeedBox1.setFill(Color.WHITE);
+        slopeBox1.setFill(Color.WHITE);
+        timeBox1.setFill(Color.WHITE);
         // Resetting the colours of the first set of text
         topSpeedText.setFill(Color.BLACK);
         totDistText.setFill(Color.BLACK);
@@ -281,6 +331,8 @@ public class CompController {
         heartText.setFill(Color.BLACK);
         calText.setFill(Color.BLACK);
         avgSpeedText.setFill(Color.BLACK);
+        slopeText.setFill(Color.BLACK);
+        timeText.setFill(Color.BLACK);
         // Resetting the colours of the second set of text
         topSpeedText1.setFill(Color.BLACK);
         totDistText1.setFill(Color.BLACK);
@@ -288,6 +340,8 @@ public class CompController {
         heartText1.setFill(Color.BLACK);
         calText1.setFill(Color.BLACK);
         avgSpeedText1.setFill(Color.BLACK);
+        slopeText1.setFill(Color.BLACK);
+        timeText1.setFill(Color.BLACK);
         // Resetting the colours of the first set of labels
         topSpeedLabel.setFill(Color.BLACK);
         totDistLabel.setFill(Color.BLACK);
@@ -295,6 +349,8 @@ public class CompController {
         heartLabel.setFill(Color.BLACK);
         calLabel.setFill(Color.BLACK);
         avgSpeedLabel.setFill(Color.BLACK);
+        slopeLabel.setFill(Color.BLACK);
+        timeLabel.setFill(Color.BLACK);
         // Resetting the colours of the second set of labels
         topSpeedLabel1.setFill(Color.BLACK);
         totDistLabel1.setFill(Color.BLACK);
@@ -302,6 +358,8 @@ public class CompController {
         heartLabel1.setFill(Color.BLACK);
         calLabel1.setFill(Color.BLACK);
         avgSpeedLabel1.setFill(Color.BLACK);
+        slopeLabel1.setFill(Color.BLACK);
+        timeLabel1.setFill(Color.BLACK);
         // Resetting the text values of the first set of text
         topSpeedText.setText("");
         totDistText.setText("");
@@ -309,6 +367,8 @@ public class CompController {
         heartText.setText("");
         calText.setText("");
         avgSpeedText.setText("");
+        slopeText.setText("");
+        timeText.setText("");
         // Resetting the text values of the second set of text
         topSpeedText1.setText("");
         totDistText1.setText("");
@@ -316,7 +376,31 @@ public class CompController {
         heartText1.setText("");
         calText1.setText("");
         avgSpeedText1.setText("");
+        slopeText1.setText("");
+        timeText1.setText("");
     }
 
+
+    /**
+     * This method converts a time value in milliseconds to the string format '{hours}h, {minutes}m, {seconds}s'
+     * @param timeMilli The time in milliseconds
+     * @return The formatted time string
+     */
+    public static String formatTime(double timeMilli) {
+        double seconds = timeMilli / 1000;
+        int hours = (int) seconds / 3600;
+        if (hours < 1) {
+            int minutes = (int) seconds / 60;
+            if (minutes < 1) {
+                return DataAnalyser.roundNum(seconds) + " s";
+            }
+            int sec = (int) seconds - (minutes * 60);
+            return minutes + "m " + sec + " s";
+        } else {
+            int minutes = (int) seconds - (hours * 3600);
+            int sec = (int) seconds - (minutes * 60 + hours * 3600);
+            return hours + "h " + minutes + "m " + sec + " s";
+        }
+    }
 
 }

@@ -50,6 +50,8 @@ public class CalController {
     @FXML
     private TableColumn<Activity, Double> topSpeedCol;
     @FXML
+    private TableColumn<Activity, String> slopeCol;
+    @FXML
     private TableView goalTable;
     @FXML
     private TableColumn<Goal, String> goalNameCol;
@@ -104,9 +106,9 @@ public class CalController {
      * a date selected it will put the current date into them to prevent null pointer exceptions from occuring
      * when showData is called.
      */
-    public void setCurrent() {
+    public void setCurrent(boolean reset) {
         // Checking if either DatePicker holds a null value
-        if (datePicker.getValue() == null || datePicker1.getValue() == null) {
+        if (datePicker.getValue() == null || datePicker1.getValue() == null || reset) {
             // Filling both DatePickers with the current date because at least one of them is null
             Date date = new Date();
             datePicker.setValue(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -116,7 +118,13 @@ public class CalController {
             fillGoals(findGoals(parseDate(date), parseDate(date)));
             fillAlerts(findAlerts(parseDate(date), parseDate(date)));
         }
-
+        // Getting the selected dates
+        Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date date1 = Date.from(datePicker1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        // Displaying the events for the selected date range
+        fillActivities(findActivities(parseDate(date), parseDate(date1)));
+        fillGoals(findGoals(parseDate(date), parseDate(date1)));
+        fillAlerts(findAlerts(parseDate(date), parseDate(date1)));
     }
 
 
@@ -223,6 +231,7 @@ public class CalController {
         calCol.setCellValueFactory(new PropertyValueFactory<>("caloriesBurned"));
         avgSpeedCol.setCellValueFactory(new PropertyValueFactory<>("avgSpeed"));
         topSpeedCol.setCellValueFactory(new PropertyValueFactory<>("topSpeed"));
+        slopeCol.setCellValueFactory(new PropertyValueFactory<>("slopeTime"));
         // Filling the table
         activities.addAll(acts);
         actTable.setItems(activities);
@@ -241,8 +250,8 @@ public class CalController {
         goalNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         metricCol.setCellValueFactory(new  PropertyValueFactory<>("metric"));
         valCol.setCellValueFactory(new PropertyValueFactory<>("metricGoal"));
-        goalDateCol.setCellValueFactory(new PropertyValueFactory<>("completionDate"));
-        compCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        goalDateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
+        compCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
         // Filling the table
         goals.addAll(gls);
         goalTable.setItems(goals);
