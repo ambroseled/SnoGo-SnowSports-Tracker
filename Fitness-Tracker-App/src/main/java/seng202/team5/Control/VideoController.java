@@ -21,6 +21,8 @@ public class VideoController {
     private boolean playing = false;
 
     public void initialize() {
+        String path = System.getProperty("user.home");
+        new File(path + "/SnoGo/Videos").mkdirs();
         mediaView.setFitHeight(360);
         mediaView.setFitWidth(640);
         mediaView.setPreserveRatio(true);
