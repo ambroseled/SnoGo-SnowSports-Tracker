@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.DataController">
     <children>
-        <GridPane layoutY="-1.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
+        <GridPane fx:id="gridPane" layoutY="-1.0" prefHeight="670.0" prefWidth="1280.0" styleClass="grid-pane">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="35.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="192.0" />
@@ -27,13 +27,13 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="483.0" minHeight="10.0" prefHeight="483.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="310.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="483.0" minHeight="10.0" prefHeight="458.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="310.0" minHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="78.0" minHeight="5.0" prefHeight="36.0" />
+            <RowConstraints maxHeight="78.0" minHeight="5.0" prefHeight="61.0" />
             </rowConstraints>
             <children>
-                <TableView fx:id="rawDataTable" prefHeight="337.0" prefWidth="857.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                <TableView fx:id="rawDataTable" prefHeight="337.0" prefWidth="857.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
                     <placeholder>
                         <Label text="Select an activity" />
                     </placeholder>
@@ -58,9 +58,31 @@
                 <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                 <Button mnemonicParsing="false" onAction="#exportActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <Button mnemonicParsing="false" onAction="#deleteActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Delete" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#showManual" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Maunual Entry" GridPane.columnIndex="6" GridPane.rowIndex="4" />
             </children>
         </GridPane>
         <Pane layoutX="38.0" layoutY="565.0" prefHeight="40.0" prefWidth="100.0" />
         <Pane layoutX="550.0" layoutY="580.0" prefHeight="40.0" prefWidth="365.0" />
+      <TableView fx:id="manualEntrytable" disable="true" layoutX="135.0" layoutY="60.0" prefHeight="337.0" prefWidth="876.0" stylesheets="@../CSS/tableStyle.css" visible="false">
+         <columns>
+            <TableColumn fx:id="dateTimeCol1" prefWidth="198.0" text="Date and Time" />
+            <TableColumn fx:id="heartRateCol1" prefWidth="147.0" text="Heart Rate" />
+            <TableColumn fx:id="latitudeCol1" minWidth="0.0" prefWidth="172.0" text="Latitude" />
+            <TableColumn fx:id="longitudeCol1" prefWidth="175.0" text="Longitude" />
+            <TableColumn fx:id="elevationCol1" prefWidth="183.0" text="Elevation" />
+         </columns>
+         <placeholder>
+            <Label text="Select an activity" />
+         </placeholder>
+      </TableView>
+      <DatePicker fx:id="datePicker" disable="true" layoutX="134.0" layoutY="500.0" prefHeight="25.0" prefWidth="140.0" promptText="Date" visible="false" />
+      <Button fx:id="confirmButton" disable="true" layoutX="900.0" layoutY="420.0" mnemonicParsing="false" text="Confirm Entry" visible="false" />
+      <TextField fx:id="nameEntry" disable="true" layoutX="133.0" layoutY="420.0" promptText="Activity Name" visible="false" />
+      <TextField fx:id="heartEntry" disable="true" layoutX="430.0" layoutY="500.0" prefHeight="25.0" prefWidth="133.0" promptText="Heart Rate (bpm)" visible="false" />
+      <TextField fx:id="latEntry" disable="true" layoutX="585.0" layoutY="500.0" prefHeight="25.0" prefWidth="127.0" promptText="Latitude" visible="false" />
+      <TextField fx:id="longEntry" disable="true" layoutX="735.0" layoutY="500.0" prefHeight="25.0" prefWidth="127.0" promptText="Longitude" visible="false" />
+      <TextField fx:id="eleEntry" disable="true" layoutX="885.0" layoutY="500.0" prefHeight="25.0" prefWidth="127.0" promptText="Elevation (m)" visible="false" />
+      <Button fx:id="enterLineButton" disable="true" layoutX="520.0" layoutY="550.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Confirm DataPoint" visible="false" />
+      <TextField fx:id="timeEntry" disable="true" layoutX="290.0" layoutY="500.0" prefHeight="25.0" prefWidth="127.0" promptText="hh:mm:ss" visible="false" />
     </children>
 </AnchorPane>

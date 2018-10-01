@@ -28,6 +28,10 @@
 .table-view .scroll-bar:horizontal .decrement-button {
     -fx-padding:0;
 }
+.table-view > .scroll-pane {
+
+    -fx-vbar-policy: always; /* Control the vertical ScrollBar (always,needed,never) */
+}
 
 
 .table-row-cell{

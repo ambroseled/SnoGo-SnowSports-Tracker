@@ -3,17 +3,17 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.DataExporter;
 import seng202.team5.DataManipulation.DataUpload;
 import seng202.team5.Model.*;
+import seng202.team5.Model.Alert;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,6 +56,29 @@ public class DataController {
     private TableColumn<DataPoint, Double> speedCol;
     @FXML
     private TableColumn<DataPoint, Double> distanceCol;
+    @FXML
+    private TableView manualEntrytable;
+    @FXML
+    private GridPane gridPane;
+    @FXML
+    private Button enterLineButton;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private TextField nameEntry;
+    @FXML
+    private TextField heartEntry;
+    @FXML
+    private TextField latEntry;
+    @FXML
+    private TextField longEntry;
+    @FXML
+    private TextField eleEntry;
+    @FXML
+    private TextField timeEntry;
+    @FXML
+    private DatePicker datePicker;
+
 
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
 
@@ -257,6 +280,32 @@ public class DataController {
         } else {
             return filename;
         }
+    }
+
+
+    @FXML
+    public void showManual() {
+        gridPane.setDisable(true);
+        manualEntrytable.setVisible(true);
+        manualEntrytable.setDisable(false);
+        timeEntry.setVisible(true);
+        confirmButton.setVisible(true);
+        enterLineButton.setVisible(true);
+        nameEntry.setVisible(true);
+        datePicker.setVisible(true);
+        heartEntry.setVisible(true);
+        latEntry.setVisible(true);
+        longEntry.setVisible(true);
+        eleEntry.setVisible(true);
+        eleEntry.setDisable(false);
+        longEntry.setDisable(false);
+        latEntry.setDisable(false);
+        heartEntry.setDisable(false);
+        datePicker.setDisable(false);
+        nameEntry.setDisable(false);
+        enterLineButton.setDisable(false);
+        confirmButton.setDisable(false);
+        timeEntry.setDisable(false);
     }
 
 
