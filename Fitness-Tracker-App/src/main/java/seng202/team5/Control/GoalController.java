@@ -59,6 +59,8 @@ public class GoalController {
     @FXML
     private CheckBox globalCheck;
 
+
+
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     private DataBaseController db = HomeController.getDb();
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");

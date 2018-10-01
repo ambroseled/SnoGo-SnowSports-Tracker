@@ -345,7 +345,7 @@ public class DataBaseController {
 
 
     /**
-     * Updates a row in teh User table to the passed User. If the passed User is not in
+     * Updates a row in the User table to the passed User. If the passed User is not in
      * the database then it will be stored.
      * @param user The User to be updated.
      */
