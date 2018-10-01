@@ -26,12 +26,6 @@ public class DataUpload {
         analyseActivities(inputActivities);
 
         checkDuplicates(inputActivities);
-
-        for (Activity activity : newActivities) {
-            db.storeActivity(activity, HomeController.getCurrentUser().getId());
-            HomeController.getCurrentUser().addActivity(activity);
-        }
-
     }
 
 
@@ -77,7 +71,7 @@ public class DataUpload {
         // Tests if activity is equal to any others
         for (int i = 0; i < inputActivities.size(); i++) {
             boolean notDuplicate = true;
-            for (Activity activity : HomeController.getCurrentUser().getActivities()) {
+            for (Activity activity : db.getActivities(HomeController.getCurrentUser().getId())) {
                 if (inputActivities.get(i).getDataSet().equals(activity.getDataSet())) {
                     String message = "Activity '" + inputActivities.get(i).getName()+"'";
                     message += " is a duplicate of existing activity\n";
@@ -102,6 +96,8 @@ public class DataUpload {
         }
         else {
             newActivities.add(activity);
+            db.storeActivity(activity, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addActivity(activity);
         }
     }
 

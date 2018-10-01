@@ -82,7 +82,6 @@ public class Activity {
         return name;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }

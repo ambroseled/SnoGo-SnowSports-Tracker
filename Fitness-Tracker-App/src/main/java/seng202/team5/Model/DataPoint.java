@@ -191,8 +191,7 @@ public class DataPoint {
      * @return true if they are equal, false if not.
      */
     public boolean equals(DataPoint otherDataPoint) {
-
-        if (!this.dateTime.equals(otherDataPoint.getDateTime())) {
+        if (!(this.dateTime.getTime()/1000 == otherDataPoint.getDateTime().getTime()/1000)) {
             return false;
         }
         if (!(this.heartRate == otherDataPoint.getHeartRate())) {
@@ -207,7 +206,6 @@ public class DataPoint {
         if (!(this.elevation == otherDataPoint.getElevation())) {
             return false;
         }
-        //TODO //print each to see the problem
         return true;
     }
 }
