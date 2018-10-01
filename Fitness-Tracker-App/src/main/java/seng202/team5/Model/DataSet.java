@@ -165,6 +165,8 @@ public class DataSet {
         this.id = id;
     }
 
+    public void removeDataPoint(DataPoint dataPoint) { dataPoints.remove(dataPoint); }
+
 
 
     public String toLine() {
