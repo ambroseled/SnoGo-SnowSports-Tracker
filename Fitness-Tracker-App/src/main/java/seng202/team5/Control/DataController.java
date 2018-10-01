@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.DataExporter;
 import seng202.team5.DataManipulation.DataUpload;
@@ -158,7 +161,52 @@ public class DataController {
         }
         actTable.setEditable(true);
         actCol.setCellFactory(TextFieldTableCell.forTableColumn());
-//        rawDataTable.setEditable(true);
+
+        rawDataTable.setEditable(true);
+        heartRateCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
+            @Override
+            public Integer fromString(String value) {
+                try {
+                    return super.fromString(value);
+                }
+                catch(NumberFormatException e) {
+                    return null;
+                }
+            }
+        }));
+        latitudeCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter() {
+            @Override
+            public Double fromString(String value) {
+                try {
+                    return super.fromString(value);
+                }
+                catch(NumberFormatException e) {
+                    return null;
+                }
+            }
+        }));
+        longitudeCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter() {
+            @Override
+            public Double fromString(String value) {
+                try {
+                    return super.fromString(value);
+                }
+                catch(NumberFormatException e) {
+                    return null;
+                }
+            }
+        }));
+        elevationCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter() {
+            @Override
+            public Double fromString(String value) {
+                try {
+                    return super.fromString(value);
+                }
+                catch(NumberFormatException e) {
+                    return null;
+                }
+            }
+        }));
 
     }
 
@@ -184,7 +232,6 @@ public class DataController {
     }
 
     public void deleteActivity() {
-        //System.out.println("Deleted, Right?");
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
         if (selectedAct != null) {
             db.removeActivity(selectedAct);
@@ -201,8 +248,104 @@ public class DataController {
         db.updateActivityName(selectedAct);
     }
 
-//    public void renameActivity() {
-//    }
+    public void changeHeartRate(TableColumn.CellEditEvent<DataPoint, Integer> dataPointIntegerCellEditEvent) {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+        try {
+            int newHeartRate = dataPointIntegerCellEditEvent.getNewValue();
+            if (newHeartRate > 26 && newHeartRate < 480) {
+                DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+                selectedPoint.setHeartRate(newHeartRate);
+
+                DataAnalyser analyser = new DataAnalyser();
+                analyser.setCurrentUser(HomeController.getCurrentUser());
+                analyser.analyseActivity(activity);
+
+                db.updateDataSet(activity);
+
+            } else {
+                ErrorController.displayError("Value must be between 26 and 480");
+            }
+        }
+        catch (NullPointerException e) {
+            ErrorController.displayError("New value must be a number");
+        }
+        createTable(activity);
+
+
+    }
+
+    public void changeLatitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+        try {
+            double newLatitude = dataPointDoubleCellEditEvent.getNewValue();
+            if (newLatitude > -90 && newLatitude < 90) {
+                DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+                selectedPoint.setLatitude(newLatitude);
+
+                DataAnalyser analyser = new DataAnalyser();
+                analyser.setCurrentUser(HomeController.getCurrentUser());
+                analyser.analyseActivity(activity);
+
+                db.updateDataSet(activity);
+
+            } else {
+                ErrorController.displayError("Value must be between -90.0 and 90.0");
+            }
+        }
+        catch (NullPointerException e) {
+            ErrorController.displayError("New value must be a decimal");
+        }
+        createTable(activity);
+    }
+
+    public void changeLongitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+        try {
+            double newLongitude = dataPointDoubleCellEditEvent.getNewValue();
+            if (newLongitude > -180 && newLongitude < 180) {
+                DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+                selectedPoint.setLongitude(newLongitude);
+
+                DataAnalyser analyser = new DataAnalyser();
+                analyser.setCurrentUser(HomeController.getCurrentUser());
+                analyser.analyseActivity(activity);
+
+                db.updateDataSet(activity);
+
+            } else {
+                ErrorController.displayError("Value must be between -180.0 and 180.0");
+            }
+        }
+        catch (NullPointerException e) {
+            ErrorController.displayError("New value must be a decimal");
+        }
+        createTable(activity);
+    }
+
+    public void changeElevation(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+        try {
+            double newElevation = dataPointDoubleCellEditEvent.getNewValue();
+            if (newElevation > -213 && newElevation < 8850) {
+                DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+                selectedPoint.setElevation(newElevation);
+
+                DataAnalyser analyser = new DataAnalyser();
+                analyser.setCurrentUser(HomeController.getCurrentUser());
+                analyser.analyseActivity(activity);
+
+                db.updateDataSet(activity);
+
+            } else {
+                ErrorController.displayError("Value must be between -213.0 and 8850.0");
+            }
+        }
+        catch (NullPointerException e) {
+            ErrorController.displayError("New value must be a decimal");
+        }
+        createTable(activity);
+    }
+
 
 
     /**
@@ -258,7 +401,4 @@ public class DataController {
             return filename;
         }
     }
-
-
-
 }
