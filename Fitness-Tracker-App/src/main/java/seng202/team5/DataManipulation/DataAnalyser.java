@@ -5,6 +5,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import seng202.team5.Model.*;
 import java.util.ArrayList;
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 
 
 /**
@@ -19,6 +20,7 @@ public class DataAnalyser {
 
     private User currentUser;
 
+    int HEART_RATE_STEADY = 3;
 
     /**
      * This method sets the current user that is used for the analysis.
@@ -109,46 +111,25 @@ public class DataAnalyser {
      */
     private String checkInactive(int index, ArrayList<DataPoint> dataPoints) {
         // Getting the location information out of the dataPoint to check
-        double startLat = dataPoints.get(index).getLatitude();
-        double startLong = dataPoints.get(index).getLongitude();
         double startAlt = dataPoints.get(index).getElevation();
-        // Finding end index to compare dataPoint to
-        boolean flag = false;
-        int endIndex = index + 5;
+
         int len = dataPoints.size();
-        if ((endIndex) >= len) {
-            endIndex = len - 1;
-            flag = true;
-        }
-        // It is the last dataPoint so the same active status as the previous point is returned
-        if (endIndex == index) {
-            if (dataPoints.get(index - 1).isActive()) {
-                return "Active";
-            } else {
-                return "Inactive";
-            }
+        int endIndex = getEndIndex(index, dataPoints);
+
+        double endAlt = dataPoints.get(endIndex).getElevation();
+        double movement = calculateMovement(index, endIndex, dataPoints);
+
+        double condition;
+        condition = 0.2 * (endIndex - index);
+
+        // Checking if the activity is active or not
+        if (movement < condition) {
+            return "Inactive";
         } else {
-            // Getting the location information out of the dataPoint 60 seconds on
-            double endLat = dataPoints.get(endIndex).getLatitude();
-            double endLong = dataPoints.get(endIndex).getLongitude();
-            double endAlt = dataPoints.get(endIndex).getElevation();
-            // Getting the distance change over the two points
-            double movement = oneDist(startLat, startLong, endLat, endLong);
-            double condition;
-            if (flag) {
-                condition = 0.2 * (dataPoints.size() - index);
-            } else{
-                condition = 1;
-            }
-            // Checking if the activity is active or not
-            if (movement < condition) {
+            if ((startAlt - endAlt) < 0) {
                 return "Inactive";
-            } else {
-                if ((startAlt - endAlt) < 0) {
-                    return "Inactive";
-                }
-                return "Active";
             }
+            return "Active";
         }
     }
 
@@ -405,10 +386,92 @@ public class DataAnalyser {
 
     private void checkBradycardia(Activity activity){
         for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
-            if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 60) {
+            if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
                 //add alert
             }
         }
     }
+
+    private int getEndIndex(int index, ArrayList<DataPoint> dataPoints) {
+        int endIndex =  + 5;
+        int len = dataPoints.size();
+        if ((endIndex) >= len) {
+            endIndex = len - 1;
+        }
+        return endIndex;
+    }
+
+    public void checkCardiovascularMortality(Activity activity) {
+        int index = 0;
+        ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
+        for (DataPoint dataPoint : dataPoints) {
+            if (checkResting(index, dataPoints) && dataPoint.getHeartRate() > 83) {
+                // add alert
+            }
+            index++;
+        }
+    }
+
+    public void checkTachycardia(Activity activity) {
+        int index = 0;
+
+        ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
+        for (DataPoint dataPoint : dataPoints) {
+            int heartRate = dataPoint.getHeartRate();
+            if (checkResting(index, dataPoints)) {
+                switch(currentUser.getAge()) {
+                    case 1: if (heartRate > 151) {
+                        // add alert
+                    }
+                }
+            }
+            index++;
+        }
+    }
+
+
+    private boolean checkResting(int index, ArrayList<DataPoint> dataPoints) {
+        int endIndex = getEndIndex(index, dataPoints);
+        if (!dataPoints.get(index).isActive()) {
+            double movement = calculateMovement(index, endIndex, dataPoints);
+            if (movement < 0.2 * (dataPoints.size() - index) && checkHeartRateSteady(index, dataPoints)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
+        int previousIndex = max(0, index - 5);
+        if (abs(dataPoints.get(index).getHeartRate() - dataPoints.get(previousIndex).getHeartRate()) > HEART_RATE_STEADY) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    private double calculateMovement(int index, int endIndex, ArrayList<DataPoint> dataPoints){
+        // Getting the location information out of the dataPoint to check
+        double startLat = dataPoints.get(index).getLatitude();
+        double startLong = dataPoints.get(index).getLongitude();
+        double startAlt = dataPoints.get(index).getElevation();
+        // Finding end index to compare dataPoint to
+
+
+        // It is the last dataPoint so the same active status as the previous point is returned
+
+            // Getting the location information out of the dataPoint 60 seconds on
+        double endLat = dataPoints.get(endIndex).getLatitude();
+        double endLong = dataPoints.get(endIndex).getLongitude();
+        double endAlt = dataPoints.get(endIndex).getElevation();
+        // Getting the distance change over the two points
+        double movement = oneDist(startLat, startLong, endLat, endLong);
+        return movement;
+
+    }
+
+
 
 }

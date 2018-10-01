@@ -6,7 +6,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
-import org.apache.commons.collections.functors.FalsePredicate;
 
 import java.io.File;
 
@@ -20,6 +19,12 @@ public class VideoController {
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean playing = false;
+
+    public void initialize() {
+        mediaView.setFitHeight(360);
+        mediaView.setFitWidth(640);
+        mediaView.setPreserveRatio(true);
+    }
 
     public void selectVideo() {
         FileChooser fileChooser = new FileChooser();
@@ -41,6 +46,18 @@ public class VideoController {
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.play();
+    }
+
+    public void rotateVideo() {
+        mediaView.setRotate(mediaView.getRotate() + 90);
+    }
+
+    public void toggleStretch() {
+        if (mediaView.isPreserveRatio()) {
+            mediaView.setPreserveRatio(false);
+        } else {
+            mediaView.setPreserveRatio(true);
+        }
     }
 
     public void togglePlayback() {
