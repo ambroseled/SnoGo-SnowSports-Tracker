@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.DataController">
@@ -17,8 +16,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="35.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="192.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="206.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="173.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="303.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="139.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.0" minWidth="10.0" prefWidth="337.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="85.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="10.0" prefWidth="241.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="35.0" />
@@ -42,7 +41,7 @@
                         <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="127.0" text="Longitude" />
                         <TableColumn fx:id="elevationCol" onEditCommit="#changeElevation" prefWidth="130.0" text="Elevation (m)" />
                         <TableColumn fx:id="distanceCol" prefWidth="111.0" text="Distance (m)" />
-                        <TableColumn fx:id="speedCol" prefWidth="100.0" text="Speed (m/s)" />
+                        <TableColumn fx:id="speedCol" prefWidth="104.0" text="Speed (m/s)" />
                     </columns>
                 </TableView>
                 <TableView fx:id="actTable" onMouseReleased="#showActivityData" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
@@ -56,9 +55,8 @@
                 <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                 <Button mnemonicParsing="false" onAction="#exportActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Export" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <Button mnemonicParsing="false" onAction="#deleteActivity" prefHeight="51.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Delete" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <Button mnemonicParsing="false" onAction="#deleteDataPoint" prefHeight="51.0" prefWidth="331.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Delete Selected Data Point" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
-        <Pane layoutX="38.0" layoutY="565.0" prefHeight="40.0" prefWidth="100.0" />
-        <Pane layoutX="550.0" layoutY="580.0" prefHeight="40.0" prefWidth="365.0" />
     </children>
 </AnchorPane>

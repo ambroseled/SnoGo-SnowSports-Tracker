@@ -2,6 +2,7 @@ package seng202.team5.Control;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -346,6 +347,26 @@ public class DataController {
         createTable(activity);
     }
 
+    public void deleteDataPoint() {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+        DataPoint dataPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+
+        if (dataPoint != null) {
+            activity.getDataSet().removeDataPoint(dataPoint);
+
+            DataAnalyser analyser = new DataAnalyser();
+            analyser.setCurrentUser(HomeController.getCurrentUser());
+            analyser.analyseActivity(activity);
+
+            db.updateDataSet(activity);
+
+            createTable(activity);
+        }
+        else {
+            ErrorController.displayError("No Data Point Selected");
+        }
+    }
+
 
 
     /**
@@ -401,4 +422,6 @@ public class DataController {
             return filename;
         }
     }
+
+
 }
