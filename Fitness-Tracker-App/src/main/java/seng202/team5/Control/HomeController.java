@@ -110,6 +110,8 @@ public class HomeController {
     @FXML
     private CalController calController;
     @FXML
+    private VideoController videoController;
+    @FXML
     private TableColumn<seng202.team5.Model.Alert, String> nameCol;
     @FXML
     private TableColumn<seng202.team5.Model.Alert, String> dateCol;
@@ -799,7 +801,7 @@ public class HomeController {
      * This method is called by a press of the 'Video' tab. ...
      */
     public void setUpVideo() {
-        System.out.println("Selected video view");
+        videoController.initialize();
     }
 
 
