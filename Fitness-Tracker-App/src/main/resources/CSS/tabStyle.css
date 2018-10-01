@@ -10,7 +10,7 @@
 .tab:hover, .tab:selected {
 
     -fx-background-color: #1da5f9;
-    -fx-focus-color: #1da5f9;
+    -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-color: transparent;
 }
