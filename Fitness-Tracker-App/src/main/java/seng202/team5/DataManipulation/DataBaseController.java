@@ -447,7 +447,6 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Printing an error message
-            System.out.println("Error when removing activity: " + e.getLocalizedMessage());
         }
     }
 
@@ -584,13 +583,13 @@ public class DataBaseController {
         }
     }
 
-    public void updateActivityName(Activity activty) {
+    public void updateActivityName(Activity activity) {
         try {
-            if (checkId("Activity", activty.getId())) {
+            if (checkId("Activity", activity.getId())) {
                 Statement stmt = connection.createStatement();
 
-                String name = activty.getName();
-                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", name, activty.getId());
+                String name = activity.getName();
+                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", name, activity.getId());
 
                 stmt.executeUpdate(query);
             }
@@ -598,6 +597,26 @@ public class DataBaseController {
         catch (SQLException e) {
             // Printing an error message
             System.out.println("Error when updating activity name: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void updateDataSet(Activity activity) {
+        DataSet dataSet = activity.getDataSet();
+        try {
+            if (checkId("DataSet", dataSet.getId())) {
+                Statement stmt = connection.createStatement();
+
+                String query = String.format("DELETE FROM DataSet WHERE ID = %d", dataSet.getId());
+                stmt.executeUpdate(query);
+
+                storeDataSet(dataSet, activity.getId());
+
+//                String query = String.format("UPDATE Activity Set Name = '%s' WHERE ID = %d", name, activity.getId());
+            }
+        }
+        catch (SQLException e) {
+            // Printing an error message
+            System.out.println("Error when updating data set: " + e.getLocalizedMessage());
         }
     }
 
