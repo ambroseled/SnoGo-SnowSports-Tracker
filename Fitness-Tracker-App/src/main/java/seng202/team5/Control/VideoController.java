@@ -1,13 +1,22 @@
 package seng202.team5.Control;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import seng202.team5.Model.Activity;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Observable;
 
 public class VideoController {
     @FXML
@@ -16,14 +25,24 @@ public class VideoController {
     @FXML
     private Button toggleButton;
 
+    @FXML
+    private TableView videosTable;
+
+    @FXML
+    private TableColumn<File, String> videosColumn;
+
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean playing = false;
+    private ObservableList<File> videoList = FXCollections.observableArrayList();
 
     public void initialize() {
+        String path = System.getProperty("user.home");
+        new File(path + "/SnoGo/Videos").mkdirs();
         mediaView.setFitHeight(360);
         mediaView.setFitWidth(640);
         mediaView.setPreserveRatio(true);
+        fillTable();
     }
 
     public void selectVideo() {
@@ -70,5 +89,17 @@ public class VideoController {
             playing = true;
             toggleButton.setText("Pause");
         }
+    }
+
+    public void fillTable() {
+        File[] fileList = new File(System.getProperty("user.home") + "/SnoGo/Videos").listFiles();
+        for (File file: fileList) {
+            videoList.add(file);
+
+        }
+        videosColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        videosTable.setItems(videoList);
+
+
     }
 }
