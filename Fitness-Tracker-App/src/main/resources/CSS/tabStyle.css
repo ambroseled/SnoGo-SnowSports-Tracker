@@ -35,7 +35,3 @@
     /*-fx-background-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
     -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;*/
 }
-
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    -fx-border-radius: 20 20 0 0, 9 9 0 0, 8 8 0 0;
-}
