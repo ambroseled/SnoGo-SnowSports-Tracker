@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -22,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.GraphsController">
   <children>
       <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
@@ -89,11 +83,12 @@
               </GridPane>
             </content>
           </ScrollPane>
-            <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" prefHeight="27.0" prefWidth="70.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Select" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-          <ChoiceBox fx:id="activityChoice" minHeight="24.0" prefHeight="24.0" prefWidth="286.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label prefHeight="28.0" prefWidth="197.0" text="Activity Statistics" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Button fx:id="selectButton" minHeight="24.0" mnemonicParsing="false" onAction="#selectData" prefHeight="40.0" prefWidth="107.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Activity" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+          <ChoiceBox fx:id="activityChoice" minHeight="24.0" prefHeight="40.0" prefWidth="453.0" stylesheets="@../CSS/choiceBoxStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+          </ChoiceBox>
+             <Label prefHeight="54.0" prefWidth="299.0" text="Activity Statistics" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
             <font>
-              <Font size="22.0" />
+              <Font size="36.0" />
             </font>
                <padding>
                   <Insets top="10.0" />
@@ -151,7 +146,7 @@
                                  <NumberAxis side="LEFT" />
                              </yAxis>
                          </LineChart>
-                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0"  GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.rowSpan="2">
+                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -159,7 +154,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="topSpeedChart" maxWidth="530.0"  GridPane.columnSpan="2" GridPane.rowIndex="14" GridPane.rowSpan="2">
+                        <LineChart fx:id="topSpeedChart" maxWidth="530.0" GridPane.columnSpan="2" GridPane.rowIndex="14" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -194,9 +189,9 @@
                   </GridPane>
                </content>
             </ScrollPane>
-            <Text fx:id="overallStatsLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Text fx:id="overallStatsLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Overall Statistics" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
-                  <Font size="22.0" />
+                  <Font size="36.0" />
                </font>
                <GridPane.margin>
                   <Insets top="10.0" />

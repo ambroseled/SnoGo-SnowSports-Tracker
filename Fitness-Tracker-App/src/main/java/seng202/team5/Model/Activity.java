@@ -16,6 +16,7 @@ public class Activity {
     private String name;
     private DataSet dataSet = new DataSet();
     private int id = -1;
+    DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
 
     /**
@@ -74,7 +75,8 @@ public class Activity {
 
 
     public String toString() {
-        return name + ", " + dataSet.getDateTime(0) + " - " + dataSet.getDateTime(dataSet.getDataPoints().size() - 1);
+        return name + ", " + dateTimeFormat.format(dataSet.getDateTime(0)) + " - " +
+                dateTimeFormat.format(dataSet.getDateTime(dataSet.getDataPoints().size() - 1));
     }
 
 

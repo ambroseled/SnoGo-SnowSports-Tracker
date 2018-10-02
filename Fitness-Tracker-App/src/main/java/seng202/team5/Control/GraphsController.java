@@ -353,7 +353,7 @@ public class GraphsController{
         return timeDivisor;
     }
 
-
+    
     /**
      * Runs when the tab is first switched to
      * Sets up the choiceBox to show all activities for current User

@@ -1,0 +1,40 @@
+.combo-box-base{
+    -fx-background-color: #005e99;
+    -fx-text-fill: white;
+}
+
+
+.combo-box-base > .arrow-button {
+    -fx-background-color: #005e99;
+    -fx-padding: 0 4;
+}
+
+.combo-box-base > .arrow-button > .arrow {
+    -fx-background-color: white;
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding: 2 4;
+    -fx-shape: "M 0 0 H 7 L 3.5 4 z";
+}
+
+.combo-box-popup > .list-view {
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: #005e99;
+    -fx-background-color: white;
+    -fx-background-insets: 0, 1;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-padding: 1 10;
+    -fx-background: #005e99;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover,
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #005e99;
+}
+
+.combo-box-popup > .list-view > .placeholder > .label {
+    -fx-text-fill: white;
+}
