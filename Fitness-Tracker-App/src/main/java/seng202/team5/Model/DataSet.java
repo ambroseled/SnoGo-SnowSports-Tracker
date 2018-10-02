@@ -161,6 +161,10 @@ public class DataSet {
     }
 
 
+    public void setDataPoints(ArrayList<DataPoint> dataPoints) {
+        this.dataPoints = dataPoints;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

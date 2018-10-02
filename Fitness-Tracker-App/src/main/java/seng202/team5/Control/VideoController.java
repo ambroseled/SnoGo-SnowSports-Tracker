@@ -18,6 +18,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 
+
+
+//TODO Do we want to build a map in the corner at the same time as the video plays??
+
+
+
+
+
 public class VideoController {
     @FXML
     private MediaView mediaView;

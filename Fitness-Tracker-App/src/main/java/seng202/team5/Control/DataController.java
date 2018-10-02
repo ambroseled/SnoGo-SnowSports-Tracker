@@ -20,26 +20,25 @@ import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.lang.Math.abs;
+
 
 //TODO If you delete an activity and then upload it again straight away it is caught as a double up activity - need to fix
-
+//TODO Style check boxes
 
 public class DataController {
 
     private ArrayList<Activity> activities;
     // Getting database controller and current user
     private DataBaseController db = HomeController.getDb();
-    @FXML
     private GraphsController statsController;
-    @FXML
-    private AlertController alertsController;
-    @FXML
-    private MapController mapsController;
-    @FXML
-    private HomeController homeController;
     @FXML
     private TableView actTable;
     @FXML
@@ -61,7 +60,7 @@ public class DataController {
     @FXML
     private TableColumn<DataPoint, Double> distanceCol;
     @FXML
-    private TableView manualEntrytable;
+    private TableView manualEntryTable;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -82,9 +81,41 @@ public class DataController {
     private TextField timeEntry;
     @FXML
     private DatePicker datePicker;
-
+    @FXML
+    private CheckBox nameCheck;
+    @FXML
+    private CheckBox dateCheck;
+    @FXML
+    private CheckBox timeCheck;
+    @FXML
+    private CheckBox heartCheck;
+    @FXML
+    private CheckBox latCheck;
+    @FXML
+    private CheckBox longCheck;
+    @FXML
+    private CheckBox eleCheck;
+    @FXML
+    private TableColumn<DataPoint, String> dateTimeColMan;
+    @FXML
+    private TableColumn<DataPoint, Integer> heartRateColMan;
+    @FXML
+    private TableColumn<DataPoint, Double> latitudeColMan;
+    @FXML
+    private TableColumn<DataPoint, Double> longitudeColMan;
+    @FXML
+    private TableColumn<DataPoint, Double> elevationColMan;
+    @FXML
+    private Button abortButton;
 
     private ObservableList<Activity> activityNames = FXCollections.observableArrayList();
+    private ObservableList<DataPoint> dataPoints = FXCollections.observableArrayList();
+
+    private DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+
+    private DataAnalyser dataAnalyser = new DataAnalyser();
+
 
 
     private void viewData(String filePath) {
@@ -103,13 +134,8 @@ public class DataController {
         }
 
         fillTable();
-        //TODO Implement proper
 
-        //  homeController.updateTabs();
-        // statsController.resetData();
         statsController.setOverallStats();
-
-
     }
 
 
@@ -370,6 +396,8 @@ public class DataController {
         createTable(activity);
     }
 
+
+    @FXML
     public void deleteDataPoint() {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         DataPoint dataPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
@@ -450,9 +478,10 @@ public class DataController {
     @FXML
     public void showManual() {
         gridPane.setDisable(true);
-        manualEntrytable.setVisible(true);
-        manualEntrytable.setDisable(false);
+        manualEntryTable.setVisible(true);
+        manualEntryTable.setDisable(false);
         timeEntry.setVisible(true);
+        abortButton.setVisible(true);
         confirmButton.setVisible(true);
         enterLineButton.setVisible(true);
         nameEntry.setVisible(true);
@@ -467,10 +496,311 @@ public class DataController {
         heartEntry.setDisable(false);
         datePicker.setDisable(false);
         nameEntry.setDisable(false);
-        enterLineButton.setDisable(false);
-        confirmButton.setDisable(false);
         timeEntry.setDisable(false);
+        abortButton.setDisable(false);
+        nameCheck.setVisible(true);
+        dateCheck.setVisible(true);
+        timeCheck.setVisible(true);
+        heartCheck.setVisible(true);
+        latCheck.setVisible(true);
+        longCheck.setVisible(true);
+        eleCheck.setVisible(true);
     }
+
+
+    @FXML
+    public void hideManual() {
+        gridPane.setDisable(false);
+        gridPane.setVisible(true);
+        manualEntryTable.setVisible(false);
+        manualEntryTable.setDisable(true);
+        timeEntry.setVisible(false);
+        abortButton.setVisible(false);
+        confirmButton.setVisible(false);
+        enterLineButton.setVisible(false);
+        nameEntry.setVisible(false);
+        datePicker.setVisible(false);
+        heartEntry.setVisible(false);
+        latEntry.setVisible(false);
+        longEntry.setVisible(false);
+        eleEntry.setVisible(false);
+        eleEntry.setDisable(true);
+        longEntry.setDisable(true);
+        latEntry.setDisable(true);
+        heartEntry.setDisable(true);
+        datePicker.setDisable(true);
+        nameEntry.setDisable(true);
+        timeEntry.setDisable(true);
+        abortButton.setDisable(true);
+        nameCheck.setVisible(false);
+        dateCheck.setVisible(false);
+        timeCheck.setVisible(false);
+        heartCheck.setVisible(false);
+        latCheck.setVisible(false);
+        longCheck.setVisible(false);
+        eleCheck.setVisible(false);
+    }
+
+
+    @FXML
+    public void checkName() {
+        String name = nameEntry.getText();
+        if (name.length() > 5 && name.length() < 45) {
+            nameCheck.setSelected(true);
+            if (dataPoints.size() >= 2) {
+                confirmButton.setDisable(false);
+            }
+        } else {
+            nameCheck.setSelected(false);
+        }
+    }
+
+
+    @FXML
+    public void checkDate() {
+        if (manualEntryTable.getItems().isEmpty()) {
+            if (datePicker.getValue() != null) {
+                dateCheck.setSelected(true);
+            } else {
+                dateCheck.setSelected(false);
+            }
+        } else {
+            checkDateTime();
+        }
+    }
+
+
+    @FXML
+    public void checkTime() {
+        String time = timeEntry.getText();
+        try {
+            Date date = timeFormat.parse(time);
+            if (manualEntryTable.getItems().isEmpty()) {
+                timeCheck.setSelected(true);
+            } else {
+                checkDateTime();
+            }
+        } catch (ParseException e) {
+            timeCheck.setSelected(false);
+        }
+        checkChecks();
+    }
+
+
+    @FXML
+    public void checkHeart() {
+        String rate = heartEntry.getText();
+        try {
+            int heartRate = Integer.parseInt(rate);
+            if (manualEntryTable.getItems().isEmpty()) {
+                heartCheck.setSelected(true);
+            } else {
+                if (abs(heartRate - dataPoints.get(dataPoints.size() - 1).getHeartRate()) > 5 || heartRate < 26
+                        || heartRate > 480) {
+                    heartCheck.setSelected(false);
+                } else {
+                    heartCheck.setSelected(true);
+                }
+            }
+        } catch (NumberFormatException e) {
+            heartCheck.setSelected(false);
+        }
+        checkChecks();
+    }
+
+
+    @FXML
+    public void checkLat() {
+        String lat = latEntry.getText();
+        try {
+            double latitude = Double.parseDouble(lat);
+            if (manualEntryTable.getItems().isEmpty()) {
+                latCheck.setSelected(true);
+            } else { // Check with others
+                if (latitude < -90 || latitude > 90) {
+                    latCheck.setSelected(false);
+                } else {
+                    checkLatLong();
+                }
+            }
+        } catch (NumberFormatException e) {
+            latCheck.setSelected(false);
+        }
+        checkChecks();
+    }
+
+
+
+    private void checkLatLong() {
+        String lat = latEntry.getText();
+        String lng = longEntry.getText();
+        if (lat != null && lng != null) {
+            double latitude = Double.parseDouble(lat);
+            double longitude = Double.parseDouble(lng);
+            DataPoint lastPoint = dataPoints.get(dataPoints.size() - 1);
+            double change = dataAnalyser.oneDist(latitude, longitude, lastPoint.getLatitude(), lastPoint.getLongitude());
+            Date dateTime = getDateTime();
+            if (dateTime != null) {
+                double timeChange = (dateTime.getTime() - lastPoint.getDateTime().getTime()) / 1000;
+                System.out.println(change);
+                if (change / timeChange > 35) {
+                    latCheck.setSelected(false);
+                    longCheck.setSelected(false);
+                } else {
+                    latCheck.setSelected(true);
+                    longCheck.setSelected(true);
+                }
+            } else {
+                latCheck.setSelected(false);
+                longCheck.setSelected(false);
+            }
+        } else {
+            latCheck.setSelected(false);
+            longCheck.setSelected(false);
+        }
+    }
+
+
+    @FXML
+    public void checkLong() {
+        String lng = longEntry.getText();
+        try {
+            double longitude = Double.parseDouble(lng);;
+            if (manualEntryTable.getItems().isEmpty()) {
+                longCheck.setSelected(true);
+            } else {
+            if (longitude < -180 || longitude > 180) {
+                longCheck.setSelected(false);
+            } else {
+                checkLatLong();
+            }
+        }
+        } catch (NumberFormatException e) {
+            longCheck.setSelected(false);
+        }
+        checkChecks();
+    }
+
+
+    @FXML
+    public void checkEle() {
+        String ele = eleEntry.getText();
+        try {
+            double elevation = Double.parseDouble(ele);
+            if (manualEntryTable.getItems().isEmpty()) {
+                eleCheck.setSelected(true);
+            } else {
+                if (abs(elevation - dataPoints.get(dataPoints.size() - 1).getElevation()) > 5 || elevation < -213 ||
+                        elevation > 8850) {
+                    eleCheck.setSelected(false);
+                } else {
+                    eleCheck.setSelected(true);
+                }
+            }
+        } catch (NumberFormatException e) {
+            eleCheck.setSelected(false);
+        }
+        checkChecks();
+    }
+
+
+    private void checkChecks() {
+        if (dateCheck.isSelected() && timeCheck.isSelected() && heartCheck.isSelected() && latCheck.isSelected() &&
+                longCheck.isSelected() && eleCheck.isSelected()) {
+            enterLineButton.setDisable(false);
+        } else {
+            enterLineButton.setDisable(true);
+        }
+    }
+
+
+    private void checkDateTime() {
+        Date dateTime = getDateTime();
+        Date lastDate = dataPoints.get(dataPoints.size() - 1).getDateTime();
+        if (abs(dateTime.getTime() - lastDate.getTime())/1000 > 60) {
+            dateCheck.setSelected(false);
+            timeCheck.setSelected(false);
+        } else {
+            dateCheck.setSelected(true);
+            timeCheck.setSelected(true);
+        }
+    }
+
+
+    @FXML
+    public void enterLine() {
+        Date dateTime = getDateTime();
+        if (dateTime != null) {
+            int heart = Integer.parseInt(heartEntry.getText());
+            double lat = Double.parseDouble(latEntry.getText());
+            double lng = Double.parseDouble(longEntry.getText());
+            double ele = Double.parseDouble(eleEntry.getText());
+            DataPoint point = new DataPoint(dateTime, heart, lat, lng, ele);
+            addDataPoint(point);
+            clearEntries();
+        }
+    }
+
+
+    private void clearEntries() {
+        timeCheck.setSelected(false);
+        timeEntry.setText("");
+        heartCheck.setSelected(false);
+        heartEntry.setText("");
+        latCheck.setSelected(false);
+        latEntry.setText("");
+        longCheck.setSelected(false);
+        longEntry.setText("");
+        eleCheck.setSelected(false);
+        eleEntry.setText("");
+        enterLineButton.setDisable(true);
+    }
+
+
+    private Date getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        String date = dateFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        String time = timeEntry.getText();
+        String dateTime = date + " " + time;
+        try {
+            return dateTimeFormat.parse(dateTime);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+
+    private void addDataPoint(DataPoint point) {
+        if (manualEntryTable.getItems().isEmpty()) {
+            dateTimeColMan.setCellValueFactory(new PropertyValueFactory<>("formattedDate"));
+            heartRateColMan.setCellValueFactory(new PropertyValueFactory<>("heartRate"));
+            latitudeColMan.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+            longitudeColMan.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+            elevationColMan.setCellValueFactory(new PropertyValueFactory<>("elevation"));
+        }
+        dataPoints.add(point);
+        manualEntryTable.setItems(dataPoints);
+        if (dataPoints.size() >= 2 && nameCheck.isSelected()) {
+            confirmButton.setDisable(false);
+        }
+    }
+
+
+    @FXML
+    public void makeActivity() {
+        dataAnalyser.setCurrentUser(HomeController.getCurrentUser());
+        ArrayList<DataPoint> points = new ArrayList<>();
+        points.addAll(dataPoints);
+        DataSet dataSet = new DataSet();
+        dataSet.setDataPoints(points);
+        Activity activity = new Activity(nameEntry.getText(), dataSet);
+        dataAnalyser.analyseActivity(activity);
+        HomeController.getCurrentUser().addActivity(activity);
+        db.storeActivity(activity, HomeController.getCurrentUser().getId());
+        hideManual();
+        fillTable();
+    }
+
 
 
 }

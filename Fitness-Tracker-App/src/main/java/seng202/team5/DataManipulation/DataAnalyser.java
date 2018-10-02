@@ -142,7 +142,7 @@ public class DataAnalyser {
      * @param long2 The longitude of the second point
      * @return A double holding the distance between the two points
      */
-    private double oneDist(double lat1, double long1, double lat2, double long2) {
+    public double oneDist(double lat1, double long1, double lat2, double long2) {
         // Getting the change in latitude and longitude
         double delLon = Math.toRadians(long2 - long1);
         double delLat = Math.toRadians(lat2 - lat1);
