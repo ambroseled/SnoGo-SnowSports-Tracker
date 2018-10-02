@@ -3,6 +3,9 @@ package seng202.team5.DataManipulation;
 import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.Activity;
+import seng202.team5.Model.Alert;
+import seng202.team5.Model.AlertHandler;
+import seng202.team5.Model.CheckGoals;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,36 @@ public class DataUpload {
         analyseActivities(inputActivities);
 
         checkDuplicates(inputActivities);
+
+        checkGoalsUpdateAlerts(newActivities);
+    }
+
+    public void appendNewData(String filePath, Activity targetActivity) {
+        InputDataParser inputDataParser = new InputDataParser();
+        ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
+
+        checkEmptyFile(inputActivities);
+        validateActivities(inputActivities);
+
+        appendDataSets(targetActivity, inputActivities);
+
+        ArrayList<Activity> activity = new ArrayList<Activity>();
+        activity.add(targetActivity);
+
+        analyseActivities(activity);
+    }
+
+    private void appendDataSets(Activity targetActivity, ArrayList<Activity> inputActivities) {
+
+        for (Activity inputActivity : inputActivities) {
+            if (!targetActivity.getDataSet().contains(inputActivity.getDataSet())) {
+                targetActivity.getDataSet().addDataPoints(inputActivity.getDataSet());
+            }
+            else {
+                ErrorController.displayError("The data from '"+inputActivity.getName()+"' " +
+                        "is already contained in activity. \n It will not be appended.");
+            }
+        }
     }
 
 
@@ -98,6 +131,15 @@ public class DataUpload {
             newActivities.add(activity);
             db.storeActivity(activity, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addActivity(activity);
+        }
+    }
+
+    private void checkGoalsUpdateAlerts(ArrayList<Activity> activties) {
+        CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), activties);
+        Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
+        if (countAlert != null) {
+            db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(countAlert);
         }
     }
 

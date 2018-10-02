@@ -61,6 +61,8 @@ public class DataController {
     @FXML
     private TableColumn<DataPoint, Double> distanceCol;
     @FXML
+    private CheckBox appendCheck;
+    @FXML
     private TableView manualEntrytable;
     @FXML
     private GridPane gridPane;
@@ -90,25 +92,35 @@ public class DataController {
     private void viewData(String filePath) {
 
         DataUpload uploader = new DataUpload();
-        uploader.uploadData(filePath);
 
+        if (appendCheck.isSelected()) {
+            Activity selectedAct = (Activity) actTable.getSelectionModel().getSelectedItem();
+            if (selectedAct != null) {
+                uploader.appendNewData(filePath, selectedAct);
+
+                DataAnalyser analyser = new DataAnalyser();
+                analyser.setCurrentUser(HomeController.getCurrentUser());
+                analyser.analyseActivity(selectedAct);
+
+                db.updateDataSet(selectedAct);
+
+                //TODO goal updates when editing/adding to/appending data in activities
+
+                appendCheck.setSelected(false);
+                fillTable();
+            }
+            else {
+                ErrorController.displayError("No Activity Selected");
+            }
+        }
+        else {
+            uploader.uploadData(filePath);
+            fillTable();
+        }
 
         activities = db.getActivities(HomeController.getCurrentUser().getId());
 
-        CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), uploader.getNewActvities());
-        Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
-        if (countAlert != null) {
-            db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
-            HomeController.getCurrentUser().addAlert(countAlert);
-        }
-
-        fillTable();
-        //TODO Implement proper
-
-        //  homeController.updateTabs();
-        // statsController.resetData();
         statsController.setOverallStats();
-
 
     }
 

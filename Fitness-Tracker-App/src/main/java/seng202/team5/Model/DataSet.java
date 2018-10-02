@@ -167,6 +167,10 @@ public class DataSet {
 
     public void removeDataPoint(DataPoint dataPoint) { dataPoints.remove(dataPoint); }
 
+    public void addDataPoints(DataSet dataSet) {
+        this.dataPoints.addAll(dataSet.getDataPoints());
+    }
+
 
 
     public String toLine() {
@@ -196,4 +200,26 @@ public class DataSet {
         }
         return false;
     }
+
+    //Tests if subset
+    public boolean contains(DataSet otherDataSet) {
+
+        int m = this.dataPoints.size();
+        int n = otherDataSet.getDataPoints().size();
+        int i = 0;
+        int j = 0;
+
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < m; j++) {
+                if (this.dataPoints.get(j).equals(otherDataSet.getDataPoints().get(i))) {
+                    break;
+                }
+            }
+            if (j == m) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
