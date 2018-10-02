@@ -119,10 +119,21 @@ public class DataAnalyser {
         double endAlt = dataPoints.get(endIndex).getElevation();
         double movement = calculateMovement(index, endIndex, dataPoints);
 
+
         double condition;
-        condition = 0.2 * (endIndex - index);
+        if (endIndex != index + 5) {
+            condition = 0.2 * (len - index);
+        } else {
+            condition = 1;
+        }
 
-
+        if (endIndex == index) {
+            if (dataPoints.get(index - 1).isActive()) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
+        }
 
         // Checking if the activity is active or not
         if (movement < condition) {
@@ -133,6 +144,34 @@ public class DataAnalyser {
             }
             return "Active";
         }
+/*
+
+        if ((index + endIndex) > len) {
+            endIndex = len - 1;
+            flag = true;
+        }
+        if (endIndex == index) {
+            if (dataPoints.get(index - 1).isActive()) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
+        } else {
+            // Getting the location information out of the dataPoint 60 seconds on
+            double endLat = dataPoints.get(endIndex).getLatitude();
+            double endLong = dataPoints.get(endIndex).getLongitude();
+            double endAlt = dataPoints.get(endIndex).getElevation();
+            double[] end = new double[] {endLong, endLat, endAlt};
+
+
+            // Getting the altitude change over the two points
+            double movement = oneDist(startLat, startLong, endLat, endLong);
+            double condition;
+            if (flag) {
+                condition = 0.2 * (dataPoints.size() - index);
+            } else{
+                condition = 1;
+            }*/
     }
 
 

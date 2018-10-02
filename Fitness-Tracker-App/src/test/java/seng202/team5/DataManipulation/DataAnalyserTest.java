@@ -56,7 +56,6 @@ public class DataAnalyserTest {
         int count = 0;
         for (DataPoint point : dataPoints) {
             String string = Double.toString(point.getLongitude()) + Double.toString(point.getLatitude());
-            System.out.println(string);
             if (!point.isActive()) {
                 count++;
             }
