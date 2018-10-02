@@ -67,6 +67,7 @@ public class DataController {
     private TableColumn<DataPoint, Double> distanceCol;
     @FXML
     private TableView manualEntryTable;
+    @FXML
     private CheckBox appendCheck;
     @FXML
     private TableView manualEntrytable;
