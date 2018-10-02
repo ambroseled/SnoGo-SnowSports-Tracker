@@ -122,6 +122,8 @@ public class DataAnalyser {
         double condition;
         condition = 0.2 * (endIndex - index);
 
+
+
         // Checking if the activity is active or not
         if (movement < condition) {
             return "Inactive";
@@ -393,7 +395,7 @@ public class DataAnalyser {
     }
 
     private int getEndIndex(int index, ArrayList<DataPoint> dataPoints) {
-        int endIndex =  + 5;
+        int endIndex = index + 5;
         int len = dataPoints.size();
         if ((endIndex) >= len) {
             endIndex = len - 1;
@@ -456,16 +458,11 @@ public class DataAnalyser {
         // Getting the location information out of the dataPoint to check
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
-        double startAlt = dataPoints.get(index).getElevation();
-        // Finding end index to compare dataPoint to
 
-
-        // It is the last dataPoint so the same active status as the previous point is returned
-
-            // Getting the location information out of the dataPoint 60 seconds on
+        // Getting the location information out of the dataPoint 60 seconds on
         double endLat = dataPoints.get(endIndex).getLatitude();
         double endLong = dataPoints.get(endIndex).getLongitude();
-        double endAlt = dataPoints.get(endIndex).getElevation();
+
         // Getting the distance change over the two points
         double movement = oneDist(startLat, startLong, endLat, endLong);
         return movement;
