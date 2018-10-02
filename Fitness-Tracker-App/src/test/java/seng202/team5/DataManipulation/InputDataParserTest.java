@@ -11,11 +11,6 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 
-//TODO: Test overlapping time files
-
-/**
- *
- */
 public class InputDataParserTest {
 
 
