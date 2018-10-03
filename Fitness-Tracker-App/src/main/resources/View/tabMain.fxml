@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -19,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.HomeController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" snapToPixel="false" stylesheets="@../CSS/tabStyle.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="50.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.HomeController">
   <tabs>
       <Tab fx:id="userTab" text="User">
          <content>
@@ -130,28 +136,56 @@
                         <TableColumn fx:id="desCol" prefWidth="336.0" text="Description" />
                      </columns>
                   </TableView>
-                  <Button fx:id="deleteButton" disable="true" layoutX="300.0" layoutY="600.0" mnemonicParsing="false" onAction="#removeAlert" prefHeight="27.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Alert" visible="false" />
+                  <Button fx:id="deleteButton" disable="true" layoutX="300.0" layoutY="590.0" mnemonicParsing="false" onAction="#removeAlert" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Alert" visible="false" />
                   <Button fx:id="alertsButton" disable="true" layoutX="560.0" layoutY="593.0" mnemonicParsing="false" onAction="#showAlerts" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Alerts" />
-                  <Button fx:id="hideButton" disable="true" layoutX="820.0" layoutY="600.0" mnemonicParsing="false" onAction="#hideAlerts" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Hide Alerts" visible="false" />
+                  <Button fx:id="hideButton" disable="true" layoutX="820.0" layoutY="590.0" mnemonicParsing="false" onAction="#hideAlerts" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Hide Alerts" visible="false" />
                   
                </children>
             </AnchorPane>
          </content>
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../user-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
       <Tab fx:id="dataTab" disable="true" onSelectionChanged="#setUpTables" text="Data">
           <content>
               <fx:include fx:id="data" source="dataRawView.fxml" />
           </content>
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../data-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
     <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Stats">
          <content>
              <fx:include fx:id="stats" source="GraphsTab.fxml" />
          </content>
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../graph-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
     </Tab>
       <Tab fx:id="mapTab" disable="true" onSelectionChanged="#setUpMap" text="Map">
          <content>
              <fx:include fx:id="maps" source="mapView.fxml" />
          </content>
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../map-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
       <Tab fx:id="goalsTab" disable="true" onSelectionChanged="#setUpGoals" text="Goals">
           <content>
