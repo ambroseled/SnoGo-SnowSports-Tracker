@@ -70,8 +70,6 @@ public class DataController {
     @FXML
     private CheckBox appendCheck;
     @FXML
-    private TableView manualEntrytable;
-    @FXML
     private GridPane gridPane;
     @FXML
     private Button enterLineButton;
@@ -596,7 +594,13 @@ public class DataController {
     public void checkDate() {
         if (manualEntryTable.getItems().isEmpty()) {
             if (datePicker.getValue() != null) {
-                dateCheck.setSelected(true);
+                Date date = new Date();
+                Date picked = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                if (picked.getTime() > date.getTime()) {
+                    dateCheck.setSelected(false);
+                } else {
+                    dateCheck.setSelected(true);
+                }
             } else {
                 dateCheck.setSelected(false);
             }
@@ -836,7 +840,6 @@ public class DataController {
         hideManual();
         fillTable();
     }
-
 
 
 }

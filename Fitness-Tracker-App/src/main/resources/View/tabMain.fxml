@@ -144,7 +144,7 @@
             </AnchorPane>
          </content>
          <graphic>
-            <ImageView fitHeight="46.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="46.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../user-icon.png" />
                </image>
@@ -156,7 +156,7 @@
               <fx:include fx:id="data" source="dataRawView.fxml" />
           </content>
          <graphic>
-            <ImageView fitHeight="37.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="37.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../data-icon.png" />
                </image>
@@ -168,7 +168,7 @@
              <fx:include fx:id="stats" source="GraphsTab.fxml" />
          </content>
          <graphic>
-            <ImageView fitHeight="36.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../graph-icon.png" />
                </image>
@@ -180,9 +180,9 @@
              <fx:include fx:id="maps" source="mapView.fxml" />
          </content>
          <graphic>
-            <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../map-icon.png" />
+                  <Image url="@../map2-icon.png" />
                </image>
             </ImageView>
          </graphic>
@@ -191,21 +191,49 @@
           <content>
               <fx:include fx:id="goals" source="goalView.fxml" />
           </content>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../goal-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
       <Tab fx:id="calTab" disable="true" onSelectionChanged="#setUpCal" text="Calendar">
           <content>
               <fx:include fx:id="cal" source="calView.fxml" />
           </content>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../calendar-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
       <Tab fx:id="compTab" disable="true" onSelectionChanged="#setUpComp" text="Compare">
           <content>
               <fx:include fx:id="comp" source="dataCompView.fxml" />
           </content>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../compare-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
-      <Tab fx:id="videoTab" disable="true" onSelectionChanged="#setUpVideo" text="Videos">
+      <Tab fx:id="videoTab" disable="true" onSelectionChanged="#setUpVideo" text="Video">
           <content>
               <fx:include fx:id="video" source="videoView.fxml" />
           </content>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../video-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Tab>
   </tabs>
 </TabPane>
