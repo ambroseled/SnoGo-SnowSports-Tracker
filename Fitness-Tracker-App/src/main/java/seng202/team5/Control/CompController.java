@@ -147,7 +147,7 @@ public class CompController {
         actTable.getItems().clear();
         actTable1.getItems().clear();
         // Adding the users activities to the list
-        activities.addAll(HomeController.getCurrentUser().getActivities());
+        activities.addAll(HomeController.getDb().getActivities(HomeController.getCurrentUser().getId()));
         // Configuring the tables for and fill the first table
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));

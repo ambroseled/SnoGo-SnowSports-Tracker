@@ -292,6 +292,9 @@ public class GoalController {
                 break;
             }
         }
+        if (index == 0) {
+            return metric;
+        }
         return metric.substring(0, index);
     }
 
