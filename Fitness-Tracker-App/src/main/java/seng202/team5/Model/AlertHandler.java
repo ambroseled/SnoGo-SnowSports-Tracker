@@ -41,25 +41,25 @@ public class AlertHandler {
         String date = dateTimeFormat.format(new Date());
         Alert actAlert = null;
         if (actCount >= 50) {
-            actAlert = new Alert(date, "50 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "50+ activities uploaded", "Activity count");
         } else if (actCount >= 45) {
-            actAlert = new Alert(date, "45 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "45+ activities uploaded", "Activity count");
         } else if (actCount >= 40) {
-            actAlert = new Alert(date, "40 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "40+ activities uploaded", "Activity count");
         } else if (actCount >= 35) {
-            actAlert = new Alert(date, "35 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "35+ activities uploaded", "Activity count");
         } else if (actCount >= 30) {
-            actAlert = new Alert(date, "30 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "30+ activities uploaded", "Activity count");
         } else if (actCount >= 25) {
-            actAlert = new Alert(date, "25 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "25+ activities uploaded", "Activity count");
         } else if (actCount >= 20) {
-            actAlert = new Alert(date, "20 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "20+ activities uploaded", "Activity count");
         } else if (actCount >= 15) {
-            actAlert = new Alert(date, "15 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "15+ activities uploaded", "Activity count");
         } else if (actCount >= 10) {
-            actAlert = new Alert(date, "10 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "10+ activities uploaded", "Activity count");
         } else if (actCount >= 5) {
-            actAlert = new Alert(date, "5 activities uploaded", "Activity count");
+            actAlert = new Alert(date, "5+ activities uploaded", "Activity count");
         }
         return actAlert;
     }
