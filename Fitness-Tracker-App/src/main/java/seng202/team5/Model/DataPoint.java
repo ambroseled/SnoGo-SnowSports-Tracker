@@ -193,7 +193,9 @@ public class DataPoint {
      */
     public boolean equals(DataPoint otherDataPoint) {
         if (!(this.dateTime.getTime()/1000 == otherDataPoint.getDateTime().getTime()/1000)) {
-            return false;
+            if (this.dateTime.getTime()/1000 == otherDataPoint.getDateTime().getTime()/1000 + 43200000) {
+                return false;
+            }
         }
         if (!(this.heartRate == otherDataPoint.getHeartRate())) {
             return false;

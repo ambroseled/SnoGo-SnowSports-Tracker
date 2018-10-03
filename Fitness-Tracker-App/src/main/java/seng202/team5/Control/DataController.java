@@ -123,9 +123,13 @@ public class DataController {
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
     private DataAnalyser dataAnalyser = new DataAnalyser();
-
-
-
+    
+    /**
+     * This method is called when the user presses the 'Load File'
+     * button, once they have selected a file. The method the uses the
+     * DataUpload class to parse the data. Then the data is displayed.
+     * @param filePath the selected file path from the user
+     */
     private void viewData(String filePath) {
 
         DataUpload uploader = new DataUpload();
@@ -314,6 +318,10 @@ public class DataController {
         }
     }
 
+    /**
+     * This method is called when the user presses the 'Delete' button.
+     * The activity is deleted and the database is updated
+     */
     public void deleteActivity() {
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
         if (selectedAct != null) {
@@ -326,12 +334,22 @@ public class DataController {
         }
     }
 
+    /**
+     * This method is called when the user confirms an edit on the name of an activity
+     * The name is changed and the database is updated
+     * @param activityStringCellEditEvent
+     */
     public void renameActivity(TableColumn.CellEditEvent<Activity, String> activityStringCellEditEvent) {
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
         selectedAct.setName(activityStringCellEditEvent.getNewValue());
         db.updateActivityName(selectedAct);
     }
 
+    /**
+     * This method is called when the user confirms an edit on the heart rate
+     * of the data point. It updates the activity in the data base.
+     * @param dataPointIntegerCellEditEvent
+     */
     public void changeHeartRate(TableColumn.CellEditEvent<DataPoint, Integer> dataPointIntegerCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
@@ -358,6 +376,11 @@ public class DataController {
 
     }
 
+    /**
+     * This method is called when the user confirms an edit on the latitude
+     * of the data point. It updates the activity in the data base.
+     * @param dataPointDoubleCellEditEvent
+     */
     public void changeLatitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
@@ -382,6 +405,11 @@ public class DataController {
         createTable(activity);
     }
 
+    /**
+     * This method is called when the user confirms an edit on the longitude
+     * of the data point. It updates the activity in the data base.
+     * @param dataPointDoubleCellEditEvent
+     */
     public void changeLongitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
@@ -406,6 +434,11 @@ public class DataController {
         createTable(activity);
     }
 
+    /**
+     * This method is called when the user confirms an edit on the elevation
+     * of the data point. It updates the activity in the data base.
+     * @param dataPointDoubleCellEditEvent
+     */
     public void changeElevation(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
@@ -431,7 +464,10 @@ public class DataController {
     }
 
 
-    @FXML
+    /**
+     * This method is called when the user presses the 'Delete Selected Data Point' button
+     * It removes the data point from the activity and updates the database
+     */
     public void deleteDataPoint() {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         DataPoint dataPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
@@ -460,18 +496,6 @@ public class DataController {
      */
     public void exportActivity() {
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
-//        String title = activity.getName();
-//        Activity selectedAct = null;
-        /*for (Activity activity : db.getActivities(HomeController.getCurrentUser().getId())) {
-            String name = activity.getName();
-            Date startDateTime = activity.getDataSet().getDateTime(0);
-            Date endDateTime = activity.getDataSet().getDateTime(activity.getDataSet().getDataPoints().size() - 1);
-            String dropdownText = (name + ", " + startDateTime + " - " + endDateTime);
-            if (title.equals(dropdownText)) {
-                selectedAct = activity;
-                break;
-            }
-        }*/
         if (selectedAct != null) {
             ArrayList<Activity> activities = new ArrayList<Activity>();
             activities.add(selectedAct);
