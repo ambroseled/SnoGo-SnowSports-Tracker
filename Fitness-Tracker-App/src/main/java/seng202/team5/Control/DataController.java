@@ -150,6 +150,9 @@ public class DataController {
                 //TODO goal updates when editing/adding to/appending data in activities
 
                 appendCheck.setSelected(false);
+                ArrayList<Activity> acts = new ArrayList<>();
+                acts.add(selectedAct);
+                CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), acts);
                 fillTable();
             }
             else {
@@ -158,6 +161,13 @@ public class DataController {
         }
         else {
             uploader.uploadData(filePath);
+            CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), uploader.getNewActvities());
+            Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
+            if (countAlert != null) {
+                db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
+                HomeController.getCurrentUser().addAlert(countAlert);
+                HomeController.addAlert(countAlert);
+            }
             fillTable();
         }
 
@@ -318,6 +328,7 @@ public class DataController {
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
         if (selectedAct != null) {
             db.removeActivity(selectedAct);
+            HomeController.getCurrentUser().removeActivity(selectedAct);
             fillTable();
         }
         else {

@@ -117,6 +117,7 @@ public class GraphsController{
      * @return
      */
     private XYChart.Series createOverallGraph(LineChart lineChart, String yLabel) {
+        lineChart.getData().clear();
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         xAxis.setLabel("Activities");
         xAxis.setTickLabelsVisible(false);
