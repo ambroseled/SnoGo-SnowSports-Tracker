@@ -9,6 +9,10 @@ import seng202.team5.Model.CheckGoals;
 
 import java.util.ArrayList;
 
+/**
+ * This class controls the process of uploading data, it is used by the DataController
+ * class and uses the InputDataParser, DataValidation, and DataAnalyser.
+ */
 public class DataUpload {
 
     private DataBaseController db = HomeController.getDb();
@@ -18,6 +22,11 @@ public class DataUpload {
     public ArrayList<Activity> getNewActvities() { return newActivities; }
 
 
+    /**
+     * This method is called when the user presses the 'Load File' button.
+     * It controls the process of parsing, validating, and analysing the new data
+     * @param filePath the file path of the file that the user wishes to upload data from
+     */
     public void uploadData(String filePath) {
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
@@ -33,6 +42,13 @@ public class DataUpload {
         checkGoalsUpdateAlerts(newActivities);
     }
 
+    /**
+     * This method is called when the user presses the 'Load File' button
+     * and they have the 'Add data to existing activity' checkbox checked.
+     * It controls the process of appending data to and existing activity.
+     * @param filePath the file path of the data file
+     * @param targetActivity the activity which to append the data to
+     */
     public void appendNewData(String filePath, Activity targetActivity) {
         InputDataParser inputDataParser = new InputDataParser();
         ArrayList<Activity> inputActivities = inputDataParser.parseCSVToActivities(filePath);
@@ -48,6 +64,13 @@ public class DataUpload {
         analyseActivities(activity);
     }
 
+    /**
+     * This method is used by the appendNewData method it loops through the target activity
+     * checking that the data was not a subset of the data already there, if not is will
+     * add the data
+     * @param targetActivity
+     * @param inputActivities activities parsed from file
+     */
     private void appendDataSets(Activity targetActivity, ArrayList<Activity> inputActivities) {
 
         for (Activity inputActivity : inputActivities) {
@@ -61,7 +84,10 @@ public class DataUpload {
         }
     }
 
-
+    /**
+     * This method tells the user if no activities were parsed from the activity
+     * @param inputActivities activities parsed from file
+     */
     private void checkEmptyFile(ArrayList<Activity> inputActivities) {
         if (inputActivities.size() == 0) {
             ErrorController.displayError("File has no activities or is missing '#start' tag(s).\n" +
@@ -69,6 +95,11 @@ public class DataUpload {
         }
     }
 
+    /**
+     * This method controls the data validation process using the DataValidation class
+     * It displays to the user the changes made
+     * @param inputActivities
+     */
     private void validateActivities(ArrayList<Activity> inputActivities) {
 
         for (Activity activity : inputActivities) {
@@ -84,11 +115,14 @@ public class DataUpload {
                                 + validator.getInitialDataSetSize()
                                 + "\n";
                 message += "Values fixed: " + validator.getDataValidated();
-                ErrorController.displayError(message);
+                ErrorController.displaymessage(message);
             }
         }
     }
 
+    /**
+     * This method controls the data analysis process using the DataAnalyser class
+     */
     private void analyseActivities(ArrayList<Activity> inputActivities) {
 
         DataAnalyser analyser = new DataAnalyser();
@@ -100,6 +134,10 @@ public class DataUpload {
         }
     }
 
+    /**
+     * This method controls checking if each activity already exists for the user
+     * @param inputActivities
+     */
     private void checkDuplicates(ArrayList<Activity> inputActivities) {
         // Tests if activity is equal to any others
         for (int i = 0; i < inputActivities.size(); i++) {
@@ -119,6 +157,11 @@ public class DataUpload {
         }
     }
 
+    /**
+     * This method add the activity to the user.
+     *  It stops empty activities from being added
+     * @param activity
+     */
     private void addActivity(Activity activity) {
 
         if (activity.getDataSet().getDataPoints().size() == 0) {
@@ -134,6 +177,11 @@ public class DataUpload {
         }
     }
 
+    /**
+     * This method uses the CheckGoals class to check if the new activites
+     * cause any goals to be achieved
+     * @param activties
+     */
     private void checkGoalsUpdateAlerts(ArrayList<Activity> activties) {
         CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), activties);
         Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());

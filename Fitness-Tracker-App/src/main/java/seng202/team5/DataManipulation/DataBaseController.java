@@ -606,6 +606,12 @@ public class DataBaseController {
         }
     }
 
+    /**
+     * This method is called when the user edits or removes a data point.
+     * The entire dataset is updated as changes will propergate to other data points
+     * and the overall statistics.
+     * @param activity
+     */
     public void updateDataSet(Activity activity) {
         DataSet dataSet = activity.getDataSet();
         try {

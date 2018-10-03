@@ -33,7 +33,7 @@ public class ErrorController {
     public static void displaymessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info Dialog");
-        alert.setHeaderText("File Export Successful");
+        alert.setHeaderText("File Successful");
         alert.setContentText(message);
 
         DialogPane dodialog = alert.getDialogPane();
