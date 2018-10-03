@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
 
 
 /**
- * This test class provides unit tests for the AlertHandler class.
+ * This test class provides unit tests for the CheckAlerts class.
  */
-public class AlertHandlerTest {
+public class CheckAlertsTest {
 
 
     private Date date = new Date();
@@ -27,7 +27,7 @@ public class AlertHandlerTest {
      * Testing the newGoalAlert function.
      */
     public void testGoalAlert() {
-        Alert alert = AlertHandler.newGoalAlert("test goal");
+        Alert alert = CheckAlerts.newGoalAlert("test goal");
         assertEquals(dateTimeFormat.format(date), alert.getDateString());
         assertEquals("Goal: test goal completed", alert.getMessage());
         assertEquals("Goal completed", alert.getType());
@@ -41,7 +41,7 @@ public class AlertHandlerTest {
     public void testCountAlert5Activities() {
         ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/alertGoalTestData.csv");
         user.setActivities(activities);
-        Alert countAlert = AlertHandler.activityAlert(user);
+        Alert countAlert = CheckAlerts.activityAlert(user);
         assertEquals(dateTimeFormat.format(date), countAlert.getDateString());
         assertEquals("5+ activities uploaded", countAlert.getMessage());
         assertEquals("Activity count", countAlert.getType());
@@ -55,7 +55,7 @@ public class AlertHandlerTest {
     public void testCountAlert10Activities() {
         ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/10Activites.csv");
         user.setActivities(activities);
-        Alert countAlert = AlertHandler.activityAlert(user);
+        Alert countAlert = CheckAlerts.activityAlert(user);
         assertEquals(dateTimeFormat.format(date), countAlert.getDateString());
         assertEquals("10+ activities uploaded", countAlert.getMessage());
         assertEquals("Activity count", countAlert.getType());
@@ -69,7 +69,7 @@ public class AlertHandlerTest {
      * Testing the activityAlert function with a user that has 0 activities.
      */
     public void testCountAlertNull0() {
-        Alert countAlert = AlertHandler.activityAlert(user);
+        Alert countAlert = CheckAlerts.activityAlert(user);
         assertNull(countAlert);
     }
 
@@ -81,7 +81,7 @@ public class AlertHandlerTest {
     public void testCountAlertNull() {
         ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataAnalysisTests.csv");
         user.setActivities(activities);
-        Alert countAlert = AlertHandler.activityAlert(user);
+        Alert countAlert = CheckAlerts.activityAlert(user);
         assertNull(countAlert);
     }
 
@@ -91,7 +91,7 @@ public class AlertHandlerTest {
      * Testing the expiredGoalAlert function.
      */
     public void testExpiredGoalAlert() {
-        Alert alert = AlertHandler.expiredGoalAlert("test goal");
+        Alert alert = CheckAlerts.expiredGoalAlert("test goal");
         assertEquals(dateTimeFormat.format(date), alert.getDateString());
         assertEquals("Goal: test goal expired", alert.getMessage());
         assertEquals("Goal expired", alert.getType());

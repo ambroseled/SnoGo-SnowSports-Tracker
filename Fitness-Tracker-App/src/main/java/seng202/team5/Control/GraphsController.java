@@ -17,7 +17,8 @@ import seng202.team5.Model.DataSet;
 import java.util.ArrayList;
 
 
-//TODO Fix layout of new graphs
+//TODO Altitude over time graph for activity
+//TODO Style graphs/scroll panes
 
 
 /**

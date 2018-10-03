@@ -11,7 +11,6 @@ import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
@@ -247,13 +246,13 @@ public class GoalController {
         newGoal.setExpired(CheckGoals.checkExpired(newGoal));
         if (newGoal.isExpired()) {
             // Creating an expired goal alert
-            Alert alert = AlertHandler.expiredGoalAlert(newGoal.getName());
+            Alert alert = CheckAlerts.expiredGoalAlert(newGoal.getName());
             db.storeAlert(alert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(alert);
             HomeController.addAlert(alert);
         } else if (newGoal.isCompleted()) {
             // Creating a completed goal alert
-            Alert alert = AlertHandler.newGoalAlert(newGoal.getName());
+            Alert alert = CheckAlerts.newGoalAlert(newGoal.getName());
             db.storeAlert(alert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(alert);
             HomeController.addAlert(alert);

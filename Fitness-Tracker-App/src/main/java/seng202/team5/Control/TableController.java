@@ -1,17 +1,12 @@
 package seng202.team5.Control;
 
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
@@ -81,7 +76,7 @@ public class TableController {
         setActivities(db.getActivities(HomeController.getCurrentUser().getId()));
 
         CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), uploader.getNewActvities());
-        Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
+        Alert countAlert = CheckAlerts.activityAlert(HomeController.getCurrentUser());
         if (countAlert != null) {
             db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(countAlert);

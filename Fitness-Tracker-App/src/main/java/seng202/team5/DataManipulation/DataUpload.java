@@ -4,7 +4,7 @@ import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
-import seng202.team5.Model.AlertHandler;
+import seng202.team5.Model.CheckAlerts;
 import seng202.team5.Model.CheckGoals;
 
 import java.util.ArrayList;
@@ -184,7 +184,7 @@ public class DataUpload {
      */
     private void checkGoalsUpdateAlerts(ArrayList<Activity> activties) {
         CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), activties);
-        Alert countAlert = AlertHandler.activityAlert(HomeController.getCurrentUser());
+        Alert countAlert = CheckAlerts.activityAlert(HomeController.getCurrentUser());
         if (countAlert != null) {
             db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(countAlert);

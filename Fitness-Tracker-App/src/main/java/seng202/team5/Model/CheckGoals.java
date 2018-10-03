@@ -30,7 +30,7 @@ public class CheckGoals {
                     // Updating goal in the database
                     db.updateGoal(goal);
                     // Creating an alert and storing the alert in the database
-                    Alert goalAlert = AlertHandler.expiredGoalAlert(goal.getName());
+                    Alert goalAlert = CheckAlerts.expiredGoalAlert(goal.getName());
                     db.storeAlert(goalAlert, user.getId());
                     user.addAlert(goalAlert);
                 } else if (checkGoal(goal, activities, user)) {
@@ -40,7 +40,7 @@ public class CheckGoals {
                     goal.setCompleted(true);
                     db.updateGoal(goal);
                     // Creating an alert
-                    Alert goalAlert = AlertHandler.newGoalAlert(goal.getName());
+                    Alert goalAlert = CheckAlerts.newGoalAlert(goal.getName());
                     db.storeAlert(goalAlert, user.getId());
                     user.addAlert(goalAlert);
                 }
