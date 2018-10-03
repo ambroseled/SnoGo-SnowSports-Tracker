@@ -43,7 +43,7 @@ public class AlertHandlerTest {
         user.setActivities(activities);
         Alert countAlert = AlertHandler.activityAlert(user);
         assertEquals(dateTimeFormat.format(date), countAlert.getDateString());
-        assertEquals("5 activities uploaded", countAlert.getMessage());
+        assertEquals("5+ activities uploaded", countAlert.getMessage());
         assertEquals("Activity count", countAlert.getType());
     }
 
@@ -57,7 +57,7 @@ public class AlertHandlerTest {
         user.setActivities(activities);
         Alert countAlert = AlertHandler.activityAlert(user);
         assertEquals(dateTimeFormat.format(date), countAlert.getDateString());
-        assertEquals("10 activities uploaded", countAlert.getMessage());
+        assertEquals("10+ activities uploaded", countAlert.getMessage());
         assertEquals("Activity count", countAlert.getType());
     }
 
