@@ -417,21 +417,7 @@ public class DataAnalyser {
     }
 
 
-    /**
-     * Sets the current user to passed user.
-     * @param user The new current user.
-     */
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
 
-    private void checkBradycardia(Activity activity){
-        for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
-            if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
-                //add alert
-            }
-        }
-    }
 
     private int getEndIndex(int index, ArrayList<DataPoint> dataPoints) {
         int endIndex = index + 5;
@@ -440,6 +426,14 @@ public class DataAnalyser {
             endIndex = len - 1;
         }
         return endIndex;
+    }
+
+    /**
+     * Sets the current user to passed user.
+     * @param user The new current user.
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
     }
 
     public void checkCardiovascularMortality(Activity activity) {
@@ -453,6 +447,15 @@ public class DataAnalyser {
         }
     }
 
+
+    private void checkBradycardia(Activity activity){
+        for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
+            if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
+                //add alert
+            }
+        }
+    }
+
     public void checkTachycardia(Activity activity) {
         int index = 0;
 
@@ -460,13 +463,60 @@ public class DataAnalyser {
         for (DataPoint dataPoint : dataPoints) {
             int heartRate = dataPoint.getHeartRate();
             if (checkResting(index, dataPoints)) {
-                switch(currentUser.getAge()) {
-                    case 1: if (heartRate > 151) {
-                        // add alert
+                if (currentUser.getAge() < 2) {
+                    if (heartRate > 151) {
+                        //add alert
+                    }
+                } else if (currentUser.getAge() < 4) {
+                    if (heartRate > 137) {
+                        //add alert
+                    }
+                } else if (currentUser.getAge() < 7) {
+                    if (heartRate > 133) {
+                        //add alert
+                    }
+                } else if (currentUser.getAge() < 11) {
+                    if (heartRate > 130) {
+                        //add alert
+                    }
+                } else if (currentUser.getAge() < 15) {
+                    if (heartRate > 119) {
+                        //add alert
+                    }
+                } else {
+                    if (heartRate > 100) {
+                        //add alert
                     }
                 }
             }
-            index++;
+        }
+        index++;
+    }
+
+    private void checkHeartRateDecreaseProblem(Activity activity) {
+        ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
+        for (int i = 0; i < dataPoints.size(); i++) {
+            for (int j = i + 1; j < dataPoints.size(); j++) {
+                DataPoint start = dataPoints.get(i);
+
+                // checks that they're not moving.
+                if (calculateMovement(i, j, dataPoints) < 0.2 * (j - i)) {
+                    Long timeDifference = (dataPoints.get(j).getDateTime().getTime() -
+                            dataPoints.get(i).getDateTime().getTime()) * 1000 * 60;
+
+                    //checks time difference is greater than one minute.
+                    if (timeDifference >= 1) {
+                        int heartRateDifference = dataPoints.get(j).getHeartRate() -
+                                dataPoints.get(i).getHeartRate();
+                        if (heartRateDifference < 12 * timeDifference) {
+                            //add alert
+                        }
+                    }
+                } else {
+                    i = j;
+                    break;
+                }
+            }
         }
     }
 
@@ -507,6 +557,7 @@ public class DataAnalyser {
         return movement;
 
     }
+
 
 
 
