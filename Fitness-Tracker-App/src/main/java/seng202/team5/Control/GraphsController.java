@@ -472,7 +472,7 @@ public class GraphsController{
         XYChart.Series runningDistSeries = createOverallGraph(runningDistChart, "Running Distance (m)");
         setRunningDistChart(runningDistChart, runningDistSeries);
 
-        XYChart.Series slopTimeSeries = createOverallGraph(slopeTimeChart, "Slope Time (m)");
+        XYChart.Series slopTimeSeries = createOverallGraph(slopeTimeChart, "Slope Time (min)");
         setSlopeTimeChart(slopeTimeChart, slopTimeSeries);
 
         XYChart.Series topSpeedSeries = createOverallGraph(topSpeedChart, "Top Speed (m/s)");

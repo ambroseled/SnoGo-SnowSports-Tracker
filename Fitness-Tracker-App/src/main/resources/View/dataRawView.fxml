@@ -47,7 +47,7 @@
                         <Label text="Select an activity" />
                     </placeholder>
                     <columns>
-                        <TableColumn fx:id="dateTimeCol" prefWidth="171.0" text="Date and Time" />
+                        <TableColumn fx:id="dateTimeCol" onEditCommit="#changeDateTime" prefWidth="171.0" text="Date and Time" />
                         <TableColumn fx:id="heartRateCol" onEditCommit="#changeHeartRate" prefWidth="135.0" text="Heart Rate (bpm)" />
                         <TableColumn fx:id="latitudeCol" minWidth="0.0" onEditCommit="#changeLatitude" prefWidth="112.0" text="Latitude" />
                         <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="114.0" text="Longitude" />
