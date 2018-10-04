@@ -3,16 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+
+        #wf-weatherfeed {
+            /*  position: relative;*/
+            width: 470px;
+            margin: 5px;
+            background-color: #fff;
+            border: 2px solid #e3e3e3;
+
+            -moz-border-radius: 12px;
+            -webkit-border-radius: 12px;
+            border-radius: 12px;
+        }
+
+        #wf-weatherfeed a {
+            color: #3c8dbc;
+        }
+
+        #wf-weatherfeed a:hover {
+            color: #333;
+        }
+
+
+        #wf-link a img {
+            border: none;
+            float: left;
+            margin: 5px 5px 10px 10px;
+            width: 150px;
+            height: 40px;
+        }
+
+        #wf-link p {
+            padding: 15px 5px 5px 170px;
+            margin: 0;
+        }
+        #wf-weatherfeed, table#wf-table {
+            font-family: Georgia, sans-serif;
+            font-size: 12px;
+            line-height: 1.4em;
+            color: #333;
+        }
+
+        #wf-table {
+            margin: 5px 5px 10px 5px;
+            width: 459px;
+            border: none;
+        }
+
+        table#wf-table a {
+            color: #3c8dbc;
+        }
+
+        #wf-weatherfeed a:hover {
+            color: #333;
+        }
+
+
+        #wf-table td {
+            padding: 0 5px;
+            text-align: center;
+            width: 60px;
+        }
+
+        #wf-table th {
+            padding: 0 5px;
+            text-align: right;
+            width: 150px;
+            font-style: italic;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<link href="https://www.snow-forecast.com/stylesheets/feed.css" media="screen" rel="stylesheet" type="text/css"/>
-<script type="javascript">
+
+<script>
+
+    function changeMt(mount) {
+        window.frames['frameTop'].location.replace("https://www.snow-forecast.com/resorts/" + mount  + "/forecasts/feed/top/m");
+        window.frames['frameMid'].location.replace("https://www.snow-forecast.com/resorts/" + mount  + "/forecasts/feed/mid/m");
+        window.frames['frameBot'].location.replace("https://www.snow-forecast.com/resorts/" + mount  + "/forecasts/feed/bot/m");
+    }
+
 
 </script>
-<div id="wf-weatherfeed">
-    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469"
+<div id="Top">
+    <iframe id="frameTop" style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469"
+            src="https://www.snow-forecast.com/resorts/Mount-Hutt/forecasts/feed/top/m" scrolling="no" frameborder="0"
+            marginwidth="0" marginheight="0"><p>Your browser does not support iframes.</p></iframe>
+
+<div id="Mid">
+    <iframe id="frameMid" style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469"
             src="https://www.snow-forecast.com/resorts/Mount-Hutt/forecasts/feed/mid/m" scrolling="no" frameborder="0"
             marginwidth="0" marginheight="0"><p>Your browser does not support iframes.</p></iframe>
+</div>
+
+<div id="Bot">
+    <iframe id="frameBot" style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469"
+            src="https://www.snow-forecast.com/resorts/Mount-Hutt/forecasts/feed/bot/m" scrolling="no" frameborder="0"
+            marginwidth="0" marginheight="0"><p>Your browser does not support iframes.</p></iframe>
+</div>
+
+
 </div>
 </body>
 </html>
