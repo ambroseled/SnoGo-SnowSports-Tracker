@@ -1,0 +1,119 @@
+/* Colors
+
+Dark Sky Blue:			#3c8dbc
+Mid Sky Blue:			#809eb6
+Light Sky Blue:			#8ea4b9
+
+Sun Yellow:				#fec93e
+
+Ivory:					#fbf9f2
+*/
+
+#wf-weatherfeed {
+    /*  position: relative;*/
+    width: 469px;
+    margin: 5px;
+    background-color: #fff;
+    border: 2px solid #e3e3e3;
+
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+#wf-weatherfeed a {
+    color: #3c8dbc;
+}
+
+#wf-weatherfeed a:hover {
+    color: #333;
+}
+
+#wf-link {
+    width: 469px;
+}
+
+#wf-link a img {
+    border: none;
+    float: left;
+    margin: 5px 5px 10px 10px;
+    width: 150px;
+    height: 40px;
+}
+
+#wf-link p {
+    padding: 15px 5px 5px 170px;
+    margin: 0;
+}
+#wf-weatherfeed, table#wf-table {
+    font-family: Georgia, sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #333;
+}
+
+#wf-table {
+    margin: 5px 5px 10px 5px;
+    width: 459px;
+    border: none;
+}
+
+table#wf-table a {
+    color: #3c8dbc;
+}
+
+#wf-weatherfeed a:hover {
+    color: #333;
+}
+
+#wf-location {
+    font-weight: bold;
+    font-size: 16px;
+    font-style: italic;
+    color: #fff;
+    margin: 7px 7px 0 7px;
+    padding: 0 10px;
+    background-color: #d1d1d1;
+    height: 30px;
+    line-height: 30px;
+    -moz-border-radius: 7px 7px 0px 0px; /* FF1+ */
+    -webkit-border-top-left-radius: 7px;  /* Saf3-4 */
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    border-radius: 7px 7px 0px 0px; /* Opera 10.5, IE 9, Saf5, Chrome */
+}
+
+#wf-table td {
+    padding: 0 5px;
+    text-align: center;
+    width: 60px;
+}
+
+#wf-table th {
+    padding: 0 5px;
+    text-align: right;
+    width: 150px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#table-current {
+    background-color: #fbf9f2;
+}
+
+#wf-wstation {
+    font-size: 11px;
+    color: #333;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.bigtext {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.wximg {
+    margin-top: 3px;
+}

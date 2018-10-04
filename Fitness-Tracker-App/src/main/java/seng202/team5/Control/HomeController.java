@@ -12,6 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.CheckGoals;
@@ -126,6 +129,10 @@ public class HomeController {
     @FXML
     private Button deleteButton;
 
+    @FXML
+    private WebView weatherView;
+    private WebEngine webEngine;
+
     boolean editing = false;
     // An array list and observable list of users used to display all users in the user table
     private ArrayList<User> users;
@@ -155,6 +162,13 @@ public class HomeController {
     public static void addAlert(seng202.team5.Model.Alert toAdd) {
         alert = true;
         alerts.add(toAdd);
+    }
+
+    @FXML
+    public void showWeather() {
+        System.out.println("beans");
+        webEngine = weatherView.getEngine();
+        webEngine.load(HomeController.class.getResource("/View/weather.html").toExternalForm());
     }
 
 

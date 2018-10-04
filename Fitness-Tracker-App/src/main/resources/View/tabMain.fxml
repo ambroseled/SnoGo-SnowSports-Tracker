@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -234,6 +235,15 @@
                </image>
             </ImageView>
          </graphic>
+      </Tab>
+      <Tab onSelectionChanged="#showWeather" text="Weather">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <WebView fx:id="weatherView" layoutX="382.0" layoutY="144.0" prefHeight="319.0" prefWidth="501.0" />
+               </children>
+            </AnchorPane>
+        </content>
       </Tab>
   </tabs>
 </TabPane>
