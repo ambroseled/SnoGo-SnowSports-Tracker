@@ -3,12 +3,11 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import org.apache.commons.lang3.ObjectUtils;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
@@ -45,7 +44,7 @@ public class GraphsController{
     private  LineChart<Number,Number> heartRateChart;
     //Overall Stats FXML elements
     @FXML
-    private LineChart<Number,Number> totDistChart;
+    private BarChart<Number,Number> totDistChart;
     @FXML
     private LineChart<Number,Number> vertDistChart;
     @FXML
@@ -113,27 +112,29 @@ public class GraphsController{
 
     /**
      *
-     * @param lineChart
+     * @param chart
      * @param yLabel
      * @return
      */
-    private XYChart.Series createOverallGraph(LineChart lineChart, String yLabel) {
-        lineChart.getData().clear();
-        NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
+    private XYChart.Series createOverallGraph(XYChart chart, String yLabel) {
+        chart.getData().clear();
+        Axis xAxis = chart.getXAxis();
         xAxis.setLabel("Activities");
-        xAxis.setTickLabelsVisible(false);
+        if (chart instanceof LineChart) {
+            xAxis.setTickLabelsVisible(false);
+        }
 
         //Defining the y axis
-        NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
+        NumberAxis yAxis = (NumberAxis) chart.getYAxis();
         yAxis.setLabel(yLabel);
         yAxis.setForceZeroInRange(false);
 
-        lineChart.setTitle(yLabel + " Graph");
+        chart.setTitle(yLabel + " Graph");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.getData();
 
-        lineChart.setLegendVisible(false);
+        chart.setLegendVisible(false);
 
         return series;
     }
@@ -207,17 +208,18 @@ public class GraphsController{
 
     /**
      * Sets total distance graph
-     * @param lineChart the total distance over activities graph
+     * @param barChart the total distance over activities graph
      * @param series series storing distance points for each activity in the 2D format
      */
-    private void setTotalDistChart(LineChart lineChart, XYChart.Series series) {
+    private void setTotalDistChart(BarChart barChart, XYChart.Series series) {
         int i = 0;
+        barChart.setAnimated(false);
         for (Activity activity: activities) {
             double totalDistance = activity.getDataSet().getTotalDistance();
-            series.getData().add(new XYChart.Data(i, totalDistance));
+            series.getData().add(new XYChart.Data(activity.getName(), totalDistance));
             i += 1;
         }
-        lineChart.getData().add(series);
+        barChart.getData().addAll(series);
     }
 
 
