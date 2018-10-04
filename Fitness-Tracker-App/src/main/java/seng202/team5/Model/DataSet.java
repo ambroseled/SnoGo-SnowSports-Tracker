@@ -206,7 +206,14 @@ public class DataSet {
         return false;
     }
 
-    //Tests if subset
+    /**
+     * This method tests if the data the given dataset is a subset of
+     * the data in this dataset.
+     * This method is used in the data upload process when the user is appending
+     * to an existing activity
+     * @param otherDataSet the datset which is being tested if it is a subset
+     * @return true, if the data is a subset, false if not
+     */
     public boolean contains(DataSet otherDataSet) {
 
         int m = this.dataPoints.size();

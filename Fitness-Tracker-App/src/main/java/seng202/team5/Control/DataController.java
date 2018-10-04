@@ -144,8 +144,6 @@ public class DataController {
 
                 db.updateDataSet(selectedAct);
 
-                //TODO goal updates when editing/adding to/appending data in activities
-
                 appendCheck.setSelected(false);
                 ArrayList<Activity> acts = new ArrayList<>();
                 acts.add(selectedAct);
@@ -249,6 +247,7 @@ public class DataController {
         actCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
         rawDataTable.setEditable(true);
+        dateTimeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         heartRateCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
             @Override
             public Integer fromString(String value) {
@@ -345,6 +344,60 @@ public class DataController {
     }
 
     /**
+     * This method is called when the user confirms an edit on the date time of
+     * and activity, the new date time must be between the date times of the
+     * preceding and succeeding date times
+     *
+     * @param dataPointStringCellEditEvent
+     */
+    public void changeDateTime(TableColumn.CellEditEvent<DataPoint, String> dataPointStringCellEditEvent) {
+        Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
+
+        try {
+            DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+            Date newDateTime = dateTimeFormat.parse(dataPointStringCellEditEvent.getNewValue());
+
+            DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+
+            int i = activity.getDataSet().getDataPoints().indexOf(selectedPoint);
+            if (i == 0) {
+                if (newDateTime.getTime() < activity.getDataSet().getDataPoints().get(i+1).getDateTime().getTime()) {
+                    selectedPoint.setDateTime(newDateTime);
+                }
+                else {
+                    ErrorController.displayError("Invalid date. Out of order");
+                }
+            }
+            else if (i == activity.getDataSet().getDataPoints().size() - 1) {
+                if (newDateTime.getTime() > activity.getDataSet().getDataPoints().get(i - 1).getDateTime().getTime()) {
+                    selectedPoint.setDateTime(newDateTime);
+                } else {
+                    ErrorController.displayError("Invalid date. Out of order");
+                }
+            }
+            else {
+                if (newDateTime.getTime() > activity.getDataSet().getDataPoints().get(i-1).getDateTime().getTime() &&
+                    newDateTime.getTime() < activity.getDataSet().getDataPoints().get(i+1).getDateTime().getTime()) {
+                    selectedPoint.setDateTime(newDateTime);
+                }
+                else {
+                    ErrorController.displayError("Invalid date. Out of order");
+                }
+            }
+
+            DataAnalyser analyser = new DataAnalyser();
+            analyser.setCurrentUser(HomeController.getCurrentUser());
+            analyser.analyseActivity(activity);
+
+            db.updateDataSet(activity);
+
+        } catch (ParseException e) {
+            ErrorController.displayError("Wrong format for date");
+        }
+        createTable(activity);
+    }
+
+    /**
      * This method is called when the user confirms an edit on the heart rate
      * of the data point. It updates the activity in the data base.
      * @param dataPointIntegerCellEditEvent
@@ -371,7 +424,6 @@ public class DataController {
             ErrorController.displayError("New value must be a number");
         }
         createTable(activity);
-
 
     }
 
@@ -863,6 +915,5 @@ public class DataController {
         hideManual();
         fillTable();
     }
-
 
 }
