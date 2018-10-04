@@ -102,8 +102,6 @@ public class HomeController {
     private GoalController goalsController;
     @FXML
     private DataController dataController;
-//    private TableController tablesController;
-
     @FXML
     private GraphsController statsController;
     @FXML
@@ -114,6 +112,8 @@ public class HomeController {
     private CalController calController;
     @FXML
     private VideoController videoController;
+    @FXML
+    private WeatherController weatherController;
     @FXML
     private TableColumn<seng202.team5.Model.Alert, String> nameCol;
     @FXML
@@ -129,9 +129,6 @@ public class HomeController {
     @FXML
     private Button deleteButton;
 
-    @FXML
-    private WebView weatherView;
-    private WebEngine webEngine;
 
     boolean editing = false;
     // An array list and observable list of users used to display all users in the user table
@@ -164,12 +161,7 @@ public class HomeController {
         alerts.add(toAdd);
     }
 
-    @FXML
-    public void showWeather() {
-        System.out.println("beans");
-        webEngine = weatherView.getEngine();
-        webEngine.load(HomeController.class.getResource("/View/weather.html").toExternalForm());
-    }
+
 
 
     /**
@@ -835,6 +827,11 @@ public class HomeController {
         if (currentUser != null && db != null) {
             CheckGoals.markGoals(currentUser, db, currentUser.getActivities());
         }
+    }
+
+    @FXML
+    public void showWeather() {
+        weatherController.showTables();
     }
 
 

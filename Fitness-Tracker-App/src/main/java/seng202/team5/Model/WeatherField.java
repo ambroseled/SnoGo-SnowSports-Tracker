@@ -1,0 +1,31 @@
+package seng202.team5.Model;
+
+public class WeatherField {
+
+
+    private String country;
+    private String field;
+    private String url;
+
+
+    public WeatherField(String field, String country, String url) {
+        this.country = country;
+        this.field = field;
+        this.url = url;
+    }
+
+
+    public String getCountry() {
+        return country;
+    }
+
+
+    public String getField() {
+        return field;
+    }
+
+
+    public String getUrl() {
+        return url;
+    }
+}
