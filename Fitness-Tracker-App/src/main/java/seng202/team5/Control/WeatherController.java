@@ -13,44 +13,48 @@ import javafx.scene.web.WebView;
 import javafx.beans.value.ObservableValue;
 import seng202.team5.Model.WeatherField;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
-//TODO Add reference or something to web site used
+//TODO Add reference or something to web site used https://www.snow-forecast.com/resorts/Porters-Heights/6day/mid
 
+/**
+ * This class provides functionality for the user to view the weather forecast for multiple ski fields over
+ * New Zealand.
+ */
 public class WeatherController {
 
     @FXML
     private WebView webView;
     @FXML
-    private TableView countryTable;
-    @FXML
     private TableView fieldTable;
-    @FXML
-    private TableColumn<WeatherField, String> countryCol;
     @FXML
     private TableColumn<WeatherField, String> fieldCol;
 
 
     private WebEngine webEngine;
-    private ObservableList<WeatherField> fields = FXCollections.observableArrayList();
-    private ObservableList<WeatherField> country = FXCollections.observableArrayList();
+    private ObservableList<WeatherField> fields = makeFields();
     private boolean scriptLoaded = false;
 
 
     @FXML
+    /**
+     * This mehtod is called on selection of the Weather tab. It fills the fields table with all available fields
+     * for which the user can view the weather.
+     */
     public void showTables() {
-        WeatherField test = new WeatherField("Broken River", "New Zealand", "Broken-River");
-        countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
         fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 
-        fields.add(test);
-        countryTable.setItems(fields);
         fieldTable.setItems(fields);
     }
 
 
-
+    /**
+     * This method is called on initialization of the class. It loads the html for the weather and then waits for
+     * the javascript to load, when the script is loaded a boolean flag is raised which allows the user to select
+     * a field to view.
+     */
     public void initialize() {
       webEngine = webView.getEngine();
       webEngine.load(WeatherController.class.getResource("/View/weather.html").toExternalForm());
@@ -63,10 +67,14 @@ public class WeatherController {
               }
           }
       });
+      webView.setStyle("-fx-background-color: red;");
     }
 
 
     @FXML
+    /**
+     * Called by a selection on the fieldsTable. This method shows the weather for the selected field
+     */
     public void showWeather() {
         WeatherField weatherField = (WeatherField) fieldTable.getSelectionModel().getSelectedItem();
         if (weatherField != null && scriptLoaded) {
@@ -76,6 +84,36 @@ public class WeatherController {
         }
     }
 
+
+    /**
+     * Making an observable list of all ski fields that the weather can be viewed for.
+     * @return An ObservableList holding WeatherFields for all fields.
+     */
+    private ObservableList<WeatherField> makeFields() {
+        ObservableList<WeatherField> fieldsNames = FXCollections.observableArrayList();
+        fieldsNames.add(new WeatherField("Broken River", "Broken-River"));
+        fieldsNames.add(new WeatherField("Cardrona", "Cardrona"));
+        fieldsNames.add(new WeatherField("Coronet Peak", "Coronet-Peak"));
+        fieldsNames.add(new WeatherField("Craigieburn", "Craigieburn"));
+        fieldsNames.add(new WeatherField("Mount Cheeseman", "Mount-Cheeseman"));
+        fieldsNames.add(new WeatherField("Mount Cook", "Mount-Cook"));
+        fieldsNames.add(new WeatherField("Mount Dobson", "Mount-Dobson"));
+        fieldsNames.add(new WeatherField("Mount Hutt", "Mount-Hutt"));
+        fieldsNames.add(new WeatherField("Mount Lyford", "Mount-Lyford"));
+        fieldsNames.add(new WeatherField("Mount Olympus", "Mount-Olympus"));
+        fieldsNames.add(new WeatherField("Ohau", "Ohau"));
+        fieldsNames.add(new WeatherField("Porter Heights", "Porters-Heights"));
+        fieldsNames.add(new WeatherField("Rainbow", "Rainbow"));
+        fieldsNames.add(new WeatherField("Remarkables", "Remarkables"));
+        fieldsNames.add(new WeatherField("Round Hill", "Round-Hill"));
+        fieldsNames.add(new WeatherField("Soho Basin", "Soho-Basin"));
+        fieldsNames.add(new WeatherField("Temple Basin", "Temple-Basin"));
+        fieldsNames.add(new WeatherField("Treble Cone", "Treble-Cone"));
+        fieldsNames.add(new WeatherField("Tukino", "Tukino"));
+        fieldsNames.add(new WeatherField("Turoa", "Turoa"));
+        fieldsNames.add(new WeatherField("Whakapapa", "Whakapapa"));
+        return fieldsNames;
+    }
 
 
 }

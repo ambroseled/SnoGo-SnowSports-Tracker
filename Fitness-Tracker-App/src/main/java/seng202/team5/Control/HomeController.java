@@ -55,6 +55,8 @@ public class HomeController {
     @FXML
     private Tab userTab;
     @FXML
+    private Tab weatherTab;
+    @FXML
     private TableView userTable;
     @FXML
     private TableColumn<User, String> userCol;
@@ -160,8 +162,6 @@ public class HomeController {
         alert = true;
         alerts.add(toAdd);
     }
-
-
 
 
     /**
@@ -284,9 +284,6 @@ public class HomeController {
     }
 
 
-
-
-
     /**
      * Gets the current user which is used by other controllers of the application
      * @return The current user
@@ -348,7 +345,6 @@ public class HomeController {
         userNames.addAll(users);
         userTable.setItems(userNames);
     }
-
 
 
     @FXML
@@ -433,6 +429,7 @@ public class HomeController {
         calTab.setDisable(true);
         compTab.setDisable(true);
         videoTab.setDisable(true);
+        weatherTab.setDisable(true);
     }
 
 
@@ -447,6 +444,7 @@ public class HomeController {
         calTab.setDisable(false);
         compTab.setDisable(false);
         videoTab.setDisable(false);
+        weatherTab.setDisable(false);
     }
 
 
@@ -523,7 +521,6 @@ public class HomeController {
         dateCheck.setSelected(false);
         heightCheck.setSelected(false);
     }
-
 
 
     @FXML
@@ -829,8 +826,11 @@ public class HomeController {
         }
     }
 
-    @FXML
-    public void showWeather() {
+
+    /**
+     * This method is called by a press on the 'Weather' tab. It fills the fields table.
+     */
+    public void setUpWeather() {
         weatherController.showTables();
     }
 
@@ -848,6 +848,7 @@ public class HomeController {
         setUpGoals();
         setUpVideo();
         checkGoals();
+        setUpWeather();
     }
 
 

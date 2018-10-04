@@ -39,8 +39,6 @@ public class DataController {
     private DataBaseController db = HomeController.getDb();
     private GraphsController statsController;
     @FXML
-    private AlertController alertsController;
-    @FXML
     private MapController mapsController;
     @FXML
     private HomeController homeController;
