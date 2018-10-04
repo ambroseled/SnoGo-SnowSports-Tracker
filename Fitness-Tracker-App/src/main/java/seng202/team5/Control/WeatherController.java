@@ -8,13 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.beans.value.ObservableValue;
 import seng202.team5.Model.WeatherField;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 
 //TODO Add reference or something to web site used https://www.snow-forecast.com/resorts/Porters-Heights/6day/mid
@@ -31,6 +31,10 @@ public class WeatherController {
     private TableView fieldTable;
     @FXML
     private TableColumn<WeatherField, String> fieldCol;
+    @FXML
+    private ImageView warningImage;
+    @FXML
+    private Text warningText;
 
 
     private WebEngine webEngine;
@@ -67,7 +71,6 @@ public class WeatherController {
               }
           }
       });
-      webView.setStyle("-fx-background-color: red;");
     }
 
 
@@ -77,12 +80,39 @@ public class WeatherController {
      */
     public void showWeather() {
         WeatherField weatherField = (WeatherField) fieldTable.getSelectionModel().getSelectedItem();
+        if (!scriptLoaded) {
+            showMessage();
+        } else {
+            hideMessage();
+        }
+
         if (weatherField != null && scriptLoaded) {
+            hideMessage();
             String url = weatherField.getUrl();
             webEngine.executeScript("changeMt(" + "'" + url + "');");
             webView.setVisible(true);
         }
+
     }
+
+
+    /**
+     * This method shows the internet error message
+     */
+    private void showMessage() {
+        warningText.setVisible(true);
+        warningImage.setVisible(true);
+    }
+
+
+    /**
+     * This method hides the internet error message
+     */
+    private void hideMessage() {
+        warningText.setVisible(false);
+        warningImage.setVisible(false);
+    }
+
 
 
     /**

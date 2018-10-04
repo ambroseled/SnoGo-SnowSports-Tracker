@@ -205,13 +205,6 @@ public class CompController {
         } else if (set.getTotalDistance() < set1.getTotalDistance()) {
             setColours(totalDistBox1, totalDistBox, totDistText, totDistText1, totDistLabel, totDistLabel1);
         }
-        // Comparing the heart rate of the activities
-    /* Not sure if heart rate should be coloured as not sure if a higher heart rate is better
-        if (set.getAvgHeartRate() > set1.getAvgHeartRate() ) {
-            setColours(heartBox, heartBox1, heartText, heartText1, heartLabel, heartLabel1);
-        } else if (set.getAvgHeartRate()  < set1.getAvgHeartRate() ) {
-            setColours(heartBox1, heartBox, heartText, heartText1, heartLabel, heartLabel1);
-        } */
         // Comparing the calories burned of the activities
         if (set.getCaloriesBurned() > set1.getCaloriesBurned() ) {
             setColours(calBox, calBox1, calText, calText1, calLabel, calLabel1);
@@ -295,7 +288,11 @@ public class CompController {
     }
 
 
-
+    /**
+     * This method gets the duration of a passed data set in milliseconds
+     * @param set The data set to get the time for
+     * @return The duration of the data set
+     */
     private double getTime(DataSet set) {
         double total = set.getDateTime(set.getDataPoints().size() - 1).getTime() - set.getDateTime(0).getTime();
         return total;

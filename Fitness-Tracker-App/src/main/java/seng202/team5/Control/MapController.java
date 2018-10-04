@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team5.DataManipulation.DataBaseController;
@@ -27,6 +29,11 @@ public class MapController {
     private TableView actTable;
     @FXML
     private TableColumn<Activity, String> actCol;
+    @FXML
+    private ImageView warningImage;
+    @FXML
+    private Text warningText;
+
 
     private ArrayList<Activity> activities;
     private WebEngine webEngine;
@@ -68,8 +75,11 @@ public class MapController {
                     Route route = new Route(activity.getDataSet().getDataPoints());
                     displayRoute(route);
                 }
+                warningText.setVisible(false);
+                warningImage.setVisible(false);
             } catch (netscape.javascript.JSException e) {
-                ErrorController.displayError("Internet connection is needed to view map");
+                warningText.setVisible(true);
+                warningImage.setVisible(true);
             }
         }
     }

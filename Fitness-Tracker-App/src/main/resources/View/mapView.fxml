@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -43,5 +45,11 @@
       </GridPane>
       <Pane layoutX="38.0" layoutY="565.0" prefHeight="40.0" prefWidth="100.0" />
       <Pane layoutX="550.0" layoutY="580.0" prefHeight="40.0" prefWidth="365.0" />
+      <ImageView fx:id="warningImage" fitHeight="92.0" fitWidth="92.0" layoutX="420.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../warning-icon.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="warningText" fill="RED" layoutX="300.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An internet connection is needed to view the map" visible="false" />
    </children>
 </AnchorPane>

@@ -583,6 +583,9 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method enables the mechanisms for manual entry and disables the other mechanisms of the tab
+     */
     public void showManual() {
         gridPane.setDisable(true);
         manualEntryTable.setVisible(true);
@@ -616,6 +619,9 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method disables the mechanisms for manual entry and enables the other mechanisms of the tab
+     */
     public void hideManual() {
         gridPane.setDisable(false);
         gridPane.setVisible(true);
@@ -650,6 +656,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a key release on the activity name entry text field. It then checks the current text
+     * for validity
+     */
     public void checkName() {
         String name = nameEntry.getText();
         if (name.length() > 5 && name.length() < 45) {
@@ -664,12 +674,15 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by an action on the datePicker. It checks that the date is with in a valid range
+     */
     public void checkDate() {
         if (manualEntryTable.getItems().isEmpty()) {
             if (datePicker.getValue() != null) {
                 Date date = new Date();
                 Date picked = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                if (picked.getTime() > date.getTime()) {
+                if (picked.getTime() >= date.getTime()) {
                     dateCheck.setSelected(false);
                 } else {
                     dateCheck.setSelected(true);
@@ -684,6 +697,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a key realease on the tiem entry test field. It checks the time is valid by passing it
+     * through a date time format and then comparing it with other entered tme values
+     */
     public void checkTime() {
         String time = timeEntry.getText();
         try {
@@ -701,6 +718,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a ket release on the heart rate entry text field. It checks that the entered heart rate
+     * is within a valid range
+     */
     public void checkHeart() {
         String rate = heartEntry.getText();
         try {
@@ -723,6 +744,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a key release on the latitude entry text field. It checks that the value is with in
+     * a valid range and then compares it with previously entered longitude and latitude points
+     */
     public void checkLat() {
         String lat = latEntry.getText();
         try {
@@ -743,7 +768,10 @@ public class DataController {
     }
 
 
-
+    /**
+     * This method checks that the currently entered latitude and longitude points are valid relatively to the
+     * previously entered points
+     */
     private void checkLatLong() {
         String lat = latEntry.getText();
         String lng = longEntry.getText();
@@ -775,6 +803,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a key release on the latitude entry text field. It checks that the value is with in
+     * a valid range and then compares it with previously entered longitude and latitude points
+     */
     public void checkLong() {
         String lng = longEntry.getText();
         try {
@@ -796,6 +828,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a key release on the elevation entry text field. It checks that the value is within a
+     * valid range compared to previously entered elevations
+     */
     public void checkEle() {
         String ele = eleEntry.getText();
         try {
@@ -817,6 +853,9 @@ public class DataController {
     }
 
 
+    /**
+     * This method checks if all entry fields are valid by checking that all check boxes are ticked
+     */
     private void checkChecks() {
         if (dateCheck.isSelected() && timeCheck.isSelected() && heartCheck.isSelected() && latCheck.isSelected() &&
                 longCheck.isSelected() && eleCheck.isSelected()) {
@@ -827,6 +866,9 @@ public class DataController {
     }
 
 
+    /**
+     * This method
+     */
     private void checkDateTime() {
         Date dateTime = getDateTime();
         Date lastDate = dataPoints.get(dataPoints.size() - 1).getDateTime();

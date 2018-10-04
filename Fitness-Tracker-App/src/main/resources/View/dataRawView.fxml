@@ -48,9 +48,9 @@
                     </placeholder>
                     <columns>
                         <TableColumn fx:id="dateTimeCol" onEditCommit="#changeDateTime" prefWidth="171.0" text="Date and Time" />
-                        <TableColumn fx:id="heartRateCol" onEditCommit="#changeHeartRate" prefWidth="135.0" text="Heart Rate (bpm)" />
-                        <TableColumn fx:id="latitudeCol" minWidth="0.0" onEditCommit="#changeLatitude" prefWidth="112.0" text="Latitude" />
-                        <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="114.0" text="Longitude" />
+                        <TableColumn fx:id="heartRateCol" onEditCommit="#changeHeartRate" prefWidth="171.0" text="Heart Rate (bpm)" />
+                        <TableColumn fx:id="latitudeCol" minWidth="0.0" onEditCommit="#changeLatitude" prefWidth="95.0" text="Latitude" />
+                        <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="95.0" text="Longitude" />
                         <TableColumn fx:id="elevationCol" onEditCommit="#changeElevation" prefWidth="130.0" text="Elevation (m)" />
                         <TableColumn fx:id="distanceCol" prefWidth="111.0" text="Distance (m)" />
                         <TableColumn fx:id="speedCol" prefWidth="104.0" text="Speed (m/s)" />
