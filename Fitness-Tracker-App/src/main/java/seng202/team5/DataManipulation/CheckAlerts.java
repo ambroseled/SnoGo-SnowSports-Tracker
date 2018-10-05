@@ -1,4 +1,7 @@
-package seng202.team5.Model;
+package seng202.team5.DataManipulation;
+
+import seng202.team5.Model.Alert;
+import seng202.team5.Model.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

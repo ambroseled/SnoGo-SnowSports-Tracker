@@ -2,8 +2,8 @@ package seng202.team5.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.DataManipulation.DataAnalyser;
-import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.DataManipulation.InputDataParser;
 import java.util.ArrayList;
 import java.util.Date;

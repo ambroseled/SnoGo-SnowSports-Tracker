@@ -1,6 +1,10 @@
-package seng202.team5.Model;
+package seng202.team5.DataManipulation;
 
-import seng202.team5.DataManipulation.DataBaseController;
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.Alert;
+import seng202.team5.Model.Goal;
+import seng202.team5.Model.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 

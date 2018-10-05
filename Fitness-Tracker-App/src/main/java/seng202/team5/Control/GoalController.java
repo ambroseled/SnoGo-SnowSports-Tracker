@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team5.DataManipulation.CheckAlerts;
+import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;

@@ -4,8 +4,6 @@ import seng202.team5.Control.HomeController;
 import seng202.team5.Control.ErrorController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
-import seng202.team5.Model.CheckAlerts;
-import seng202.team5.Model.CheckGoals;
 
 import java.util.ArrayList;
 

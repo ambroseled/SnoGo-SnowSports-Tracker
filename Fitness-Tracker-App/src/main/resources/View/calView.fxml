@@ -80,8 +80,8 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </TableView>
-            <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <DatePicker fx:id="datePicker1" layoutX="196.0" layoutY="53.0" onAction="#showData" prefHeight="43.0" prefWidth="341.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <DatePicker fx:id="datePicker" onAction="#showData" prefHeight="43.0" prefWidth="341.0" stylesheets="@../CSS/dataPickerStyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <DatePicker fx:id="datePicker1" layoutX="196.0" layoutY="53.0" onAction="#showData" prefHeight="43.0" prefWidth="341.0" stylesheets="@../CSS/dataPickerStyle.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
