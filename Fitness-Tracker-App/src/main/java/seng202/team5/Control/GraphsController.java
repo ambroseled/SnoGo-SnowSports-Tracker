@@ -8,12 +8,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 //TODO Altitude over time graph for activity
@@ -46,7 +52,7 @@ public class GraphsController{
     @FXML
     private BarChart<Number,Number> totDistChart;
     @FXML
-    private LineChart<Number,Number> vertDistChart;
+    private BarChart<Number,Number> vertDistChart;
     @FXML
     private LineChart<Number,Number> avgHeartRateChart;
     @FXML
@@ -240,6 +246,23 @@ public class GraphsController{
 
 
     /**
+     * Sets vertical distance travelled graph
+     * @param barChart the vertical distance over activities graph
+     * @param series series storing distance points for each activity in the 2D format
+     */
+    private void setVertDistChart(BarChart barChart, XYChart.Series series) {
+        int i = 0;
+        barChart.setAnimated(false);
+        for (Activity activity: activities) {
+            double verticalDistance = activity.getDataSet().getVerticalDistance();
+            series.getData().add(new XYChart.Data(activity.getName(), verticalDistance));
+            i += 1;
+        }
+        barChart.getData().addAll(series);
+    }
+
+
+    /**
      * Sets Average Heart Rate graph
      * @param lineChart the Average Heart Rate over activities graph
      * @param series series storing heart rate points for each activity in the 2D format
@@ -372,7 +395,7 @@ public class GraphsController{
         }
         activityChoice.setItems(activityNames);
 
-        setOverallStats();
+        showWeek();
     }
 
 
@@ -447,13 +470,87 @@ public class GraphsController{
     }
 
 
+
     /**
-     * Creates the lineCharts for all activities
+     *
+     * @param inputActivities
      */
-    public void setOverallStats() {
+    private void setActivities(ArrayList<Activity> inputActivities) {
+        activities = inputActivities;
+    }
+
+
+    /**
+     * @param activity the currently selected activity in the choiceBox
+     * @return a list of all dataPoints
+     */
+    public ObservableList<DataPoint> getDataPointsList(Activity activity) {
+        ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
+
+        DataSet dataSet = activity.getDataSet();
+        dataPointsList.addAll(dataSet.getDataPoints());
+        return dataPointsList;
+    }
+
+
+    @FXML
+    public void showWeek() {
+        Date date = parseDate(7);
+        setActivities(getActivitiesAfter(date));
+        fillCharts();
+    }
+
+
+    @FXML
+    public void showMonth() {
+        Date date = parseDate(30);
+        setActivities(getActivitiesAfter(date));
+        fillCharts();
+    }
+
+
+    @FXML
+    public void showYear() {
+        Date date = parseDate(365);
+        setActivities(getActivitiesAfter(date));
+        fillCharts();
+    }
+
+
+    @FXML
+    public void showAll() {
         ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
         setActivities(inputActivities);
+        fillCharts();
+    }
 
+
+
+    private Date parseDate(int numDays) {
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+        String dateString = dateTimeFormat.format(DateUtils.addDays(new Date(), -numDays));
+        try {
+            Date date = dateTimeFormat.parse(dateString);
+            return date;
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+
+
+    private ArrayList<Activity> getActivitiesAfter(Date date) {
+        ArrayList<Activity> acts = new ArrayList<>();
+        for (Activity x : db.getActivities(HomeController.getCurrentUser().getId())) {
+            if (x.getDataSet().getDateTime(0).getTime() >= date.getTime()) {
+                acts.add(x);
+            }
+        }
+        return acts;
+    }
+
+
+    private void fillCharts() {
         XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance (m)");
         setTotalDistChart(totDistChart, totalDistSeries);
 
@@ -479,27 +576,6 @@ public class GraphsController{
         setTopSpeedChart(topSpeedChart, topSpeedSeries);
     }
 
-
-    /**
-     *
-     * @param inputActivities
-     */
-    private void setActivities(ArrayList<Activity> inputActivities) {
-        activities = inputActivities;
-    }
-
-
-    /**
-     * @param activity the currently selected activity in the choiceBox
-     * @return a list of all dataPoints
-     */
-    public ObservableList<DataPoint> getDataPointsList(Activity activity) {
-        ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
-
-        DataSet dataSet = activity.getDataSet();
-        dataPointsList.addAll(dataSet.getDataPoints());
-        return dataPointsList;
-    }
 
 
 }

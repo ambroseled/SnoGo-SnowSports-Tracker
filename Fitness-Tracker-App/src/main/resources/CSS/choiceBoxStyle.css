@@ -1,5 +1,8 @@
 
-.choice-box .context-menu { -fx-background-color: #005e99; }
+.choice-box .context-menu {
+    -fx-background-color: #005e99;
+    -fx-max-height: 400;
+}
 
 .choice-box .menu-item:focused { -fx-background-color: white; }
 

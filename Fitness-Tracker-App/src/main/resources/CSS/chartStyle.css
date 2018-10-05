@@ -1,0 +1,43 @@
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+}
+
+.chart-title {
+    -fx-text-fill: #0067a8;
+    -fx-font-size: 1.5em;
+    -fx-alignment: center;
+}
+
+.axis-label {
+    -fx-text-fill: #0067a8;
+}
+
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.axis {
+    -fx-font-size: 1em;
+    -fx-tick-label-fill: #3278fa;
+}
+
+
+
+.default-color0 {
+    -fx-bar-fill: #3278fa;
+    -fx-stroke: #3278fa;
+}
+
+
+
+.chart-line-symbol {
+    -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 70% , white, #3278fa);
+}

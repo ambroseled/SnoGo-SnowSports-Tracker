@@ -95,7 +95,7 @@ public class InputDataParser {
 		DataPoint dataPoint = new DataPoint();
 
 		try {//DATE
-			DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 			Date dateTime = dateTimeFormat.parse(lineValues[0] + " " + lineValues[1]);
 			dataPoint.setDateTime(dateTime);
 		}

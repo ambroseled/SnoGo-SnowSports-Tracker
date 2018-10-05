@@ -25,6 +25,12 @@
     -fx-background-color: transparent;
 }
 
+
+.graph-grid {
+    -fx-background-color: transparent;
+}
+
+
 .root2 {
 
     -fx-background-image: url("backgrounds/background3.png");

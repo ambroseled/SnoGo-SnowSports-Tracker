@@ -26,8 +26,8 @@
   <children>
       <GridPane prefHeight="680.0" prefWidth="1280.0" styleClass="grid-pane" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="53.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="206.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="38.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="355.0" minWidth="10.0" prefWidth="355.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="65.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="111.0" />
@@ -44,11 +44,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-          <ScrollPane fx:id="scrollPane" maxWidth="550.0" prefHeight="608.0" prefWidth="520.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+          <ScrollPane fx:id="scrollPane" maxWidth="550.0" prefHeight="608.0" prefWidth="520.0" stylesheets="@../CSS/scrollPaneStyle.css" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
             <content>
-              <GridPane maxWidth="540.0" prefHeight="908.0" prefWidth="545.0">
+              <GridPane maxWidth="540.0" prefHeight="908.0" prefWidth="545.0" styleClass="graph-grid" stylesheets="@../CSS/paneStyle.css">
                 <children>
-                  <LineChart fx:id="speedChart" maxWidth="535.0" prefHeight="260.0" prefWidth="535.0" GridPane.columnSpan="3" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                  <LineChart fx:id="speedChart" maxWidth="535.0" prefHeight="260.0" prefWidth="535.0" styleClass="act-symbol" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="3" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -56,7 +56,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="distanceChart" maxWidth="535.0" prefWidth="535.0" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                  <LineChart fx:id="distanceChart" maxWidth="535.0" prefWidth="535.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -64,7 +64,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart fx:id="heartRateChart" maxWidth="535.0" prefWidth="535.0" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="2">
+                  <LineChart fx:id="heartRateChart" maxWidth="535.0" prefWidth="535.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="2">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>
@@ -93,7 +93,7 @@
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></Button>
-          <ChoiceBox fx:id="activityChoice" minHeight="24.0" prefHeight="40.0" prefWidth="453.0" stylesheets="@../CSS/choiceBoxStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+          <ChoiceBox fx:id="activityChoice" minHeight="24.0" prefHeight="40.0" prefWidth="467.0" stylesheets="@../CSS/choiceBoxStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></ChoiceBox>
@@ -105,11 +105,11 @@
                   <Insets top="10.0" />
                </padding>
           </Label>
-            <ScrollPane fx:id="scrollPane1" maxWidth="545.0" prefHeight="608.0" prefWidth="617.0" visible="true" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <ScrollPane fx:id="scrollPane1" maxWidth="545.0" prefHeight="608.0" prefWidth="617.0" stylesheets="@../CSS/scrollPaneStyle.css" visible="true" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <content>
-                  <GridPane maxWidth="535.0" prefHeight="908.0" prefWidth="540.0">
+                  <GridPane maxWidth="535.0" prefHeight="908.0" prefWidth="540.0" styleClass="graph-grid" stylesheets="@../CSS/paneStyle.css">
                      <children>
-                        <BarChart fx:id="totDistChart" maxWidth="530.0" prefHeight="252.0" prefWidth="522.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+                        <BarChart fx:id="totDistChart" maxWidth="530.0" minHeight="350.0" prefHeight="252.0" prefWidth="522.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowSpan="3">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" />
                            </xAxis>
@@ -117,7 +117,15 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </BarChart>
-                        <LineChart fx:id="vertDistChart" maxWidth="530.0" prefWidth="500.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                        <BarChart fx:id="vertDistChart" maxWidth="530.0" minHeight="250.0" prefWidth="500.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <LineChart fx:id="avgHeartRateChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -125,7 +133,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="avgHeartRateChart" maxWidth="530.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                        <LineChart fx:id="caloriesChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -133,15 +141,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="caloriesChart" maxWidth="530.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
-                           <xAxis>
-                              <NumberAxis side="BOTTOM" />
-                           </xAxis>
-                           <yAxis>
-                              <NumberAxis side="LEFT" />
-                           </yAxis>
-                        </LineChart>
-                        <LineChart fx:id="avgSpeedChart" maxWidth="530.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
+                        <LineChart fx:id="avgSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
                             <xAxis>
                                 <NumberAxis side="BOTTOM" />
                             </xAxis>
@@ -149,7 +149,7 @@
                                 <NumberAxis side="LEFT" />
                             </yAxis>
                         </LineChart>
-                         <LineChart fx:id="runningDistChart" maxWidth="530.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="11" GridPane.rowSpan="2">
+                         <LineChart fx:id="runningDistChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="11" GridPane.rowSpan="2">
                              <xAxis>
                                  <NumberAxis side="BOTTOM" />
                              </xAxis>
@@ -157,7 +157,7 @@
                                  <NumberAxis side="LEFT" />
                              </yAxis>
                          </LineChart>
-                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" GridPane.columnSpan="2" GridPane.rowIndex="13" GridPane.rowSpan="2">
+                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="13" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -165,7 +165,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="topSpeedChart" maxWidth="530.0" GridPane.columnSpan="2" GridPane.rowIndex="15" GridPane.rowSpan="2">
+                        <LineChart fx:id="topSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="15" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -221,13 +221,34 @@
                   <TableColumn fx:id="topSpeedCol" prefWidth="116.0" text="Top Speed m/s" />
                   <TableColumn fx:id="slopeCol" prefWidth="88.0" text="Slope TIme" />
                </columns>
-               <placeholder>
-                  <Label text="No Activities for Selected Date" />
-               </placeholder>
                <GridPane.margin>
                   <Insets bottom="17.0" left="20.0" right="20.0" top="18.0" />
                </GridPane.margin>
             </TableView>
+            <Button fx:id="allTimeButton" mnemonicParsing="false" onAction="#showAll" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="All Time" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM" />
+            <Button fx:id="yearButton" mnemonicParsing="false" onAction="#showYear" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Last year" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="monthButton" mnemonicParsing="false" onAction="#showMonth" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Last Month" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets left="300.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="weekButton" mnemonicParsing="false" onAction="#showWeek" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Last Week" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets left="460.0" />
+               </GridPane.margin>
+            </Button>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select range to view data over" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </Text>
          </children>
       </GridPane>
   </children>

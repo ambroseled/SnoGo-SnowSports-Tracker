@@ -24,7 +24,6 @@ public class DataSet {
     private double avgSpeed;
 
 
-    private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
     /**
      * Constructor used while parsing data.

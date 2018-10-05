@@ -762,7 +762,7 @@ public class HomeController {
      * This method is called by a press on the 'Stats' tab. It set up the overall graphs and the activity choice box
      */
     public void setUpStats() {
-        statsController.setOverallStats();
+        statsController.showWeek();
         statsController.setChoiceBox();
     }
 

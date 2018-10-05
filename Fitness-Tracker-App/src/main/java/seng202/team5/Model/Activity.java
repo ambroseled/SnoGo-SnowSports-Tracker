@@ -5,6 +5,7 @@ import seng202.team5.Control.CompController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * This class holds a single activity that is in the application.
@@ -16,7 +17,7 @@ public class Activity {
     private String name;
     private DataSet dataSet = new DataSet();
     private int id = -1;
-    DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
 
     /**
@@ -95,6 +96,11 @@ public class Activity {
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
         return dateTimeFormat.format(dataSet.getDateTime(0));
     }
+
+    public Date getDateTime() {
+        return dataSet.getDateTime(0);
+    }
+
 
     public double getTopSpeed() {
         return dataSet.getTopSpeed();

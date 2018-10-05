@@ -22,14 +22,14 @@
    <children>
       <GridPane pickOnBounds="false" prefHeight="670.0" prefWidth="1280.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="646.0" minWidth="10.0" prefWidth="642.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="638.0" minWidth="10.0" prefWidth="638.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane layoutX="10.0" layoutY="10.0">
+            <GridPane fx:id="grid1" layoutX="10.0" layoutY="10.0" visible="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="328.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="324.0" />
@@ -96,15 +96,6 @@
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <TableView fx:id="actTable" maxHeight="140.0" maxWidth="552.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <columns>
-                        <TableColumn fx:id="nameCol" prefWidth="270.0" text="Name" />
-                        <TableColumn fx:id="dateCol" prefWidth="280.0" text="Date" />
-                     </columns>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
-                     </GridPane.margin>
-                  </TableView>
                   <Text fx:id="topSpeedLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Top Speed" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="85.0" />
@@ -165,7 +156,7 @@
                   </Text>
                </children>
             </GridPane>
-            <GridPane GridPane.columnIndex="1">
+            <GridPane fx:id="grid2" visible="false" GridPane.columnIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="328.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="324.0" />
@@ -232,15 +223,6 @@
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <TableView fx:id="actTable1" maxHeight="140.0" maxWidth="552.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <columns>
-                        <TableColumn fx:id="nameCol1" prefWidth="270.0" text="Name" />
-                        <TableColumn fx:id="dateCol1" prefWidth="280.0" text="Date" />
-                     </columns>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
-                     </GridPane.margin>
-                  </TableView>
                   <Text fx:id="topSpeedLabel1" strokeType="OUTSIDE" strokeWidth="0.0" text="Top Speed" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="85.0" />
@@ -301,8 +283,30 @@
                   </Text>
                </children>
             </GridPane>
+            <TableView fx:id="actTable" maxHeight="140.0" maxWidth="552.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <columns>
+                  <TableColumn fx:id="nameCol" prefWidth="270.0" text="Name" />
+                  <TableColumn fx:id="dateCol" prefWidth="280.0" text="Date" />
+               </columns>
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
+               </GridPane.margin>
+            </TableView>
+            <TableView fx:id="actTable1" maxHeight="140.0" maxWidth="552.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <columns>
+                  <TableColumn fx:id="nameCol1" prefWidth="270.0" text="Name" />
+                  <TableColumn fx:id="dateCol1" prefWidth="280.0" text="Date" />
+               </columns>
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
+               </GridPane.margin>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#showComparison" prefHeight="33.0" prefWidth="267.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Compare Selected Activities" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="170.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
-      <Button layoutX="507.0" layoutY="175.0" mnemonicParsing="false" onAction="#showComparison" prefHeight="33.0" prefWidth="267.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Compare Selected Activities" />
    </children>
 </AnchorPane>

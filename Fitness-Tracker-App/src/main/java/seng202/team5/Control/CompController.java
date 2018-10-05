@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -28,6 +29,10 @@ public class CompController {
     private TableView actTable;
     @FXML
     private TableView actTable1;
+    @FXML
+    private GridPane grid1;
+    @FXML
+    private GridPane grid2;
     @FXML
     private TableColumn<Activity, String> nameCol;
     @FXML
@@ -75,8 +80,6 @@ public class CompController {
     @FXML
     private Rectangle vertBox;
     @FXML
-    private Rectangle heartBox;
-    @FXML
     private Rectangle calBox;
     @FXML
     private Rectangle avgSpeedBox;
@@ -90,8 +93,6 @@ public class CompController {
     private Rectangle totalDistBox1;
     @FXML
     private Rectangle vertBox1;
-    @FXML
-    private Rectangle heartBox1;
     @FXML
     private Rectangle calBox1;
     @FXML
@@ -112,10 +113,6 @@ public class CompController {
     private Text vertLabel;
     @FXML
     private Text vertLabel1;
-    @FXML
-    private Text heartLabel;
-    @FXML
-    private Text heartLabel1;
     @FXML
     private Text calLabel;
     @FXML
@@ -165,6 +162,7 @@ public class CompController {
      * with the data from the two selected activities
      */
     public void showComparison() {
+        System.out.println("beans");
         // Getting the selected activities
         Activity act = (Activity) actTable.getSelectionModel().getSelectedItem();
         Activity act1 = (Activity) actTable1.getSelectionModel().getSelectedItem();
@@ -178,6 +176,8 @@ public class CompController {
             // Performing the comparison of the two activities
             compareActivities(act.getDataSet(), act1.getDataSet());
         }
+        grid1.setVisible(true);
+        grid2.setVisible(true);
     }
 
 
@@ -303,78 +303,8 @@ public class CompController {
      * This method clears all of the text objects on the comparison view, it also resets all of the colours to default.
      */
     public void clearBoxes() {
-        // Resetting the colours of the first set of rectangles
-        topSpeedBox.setFill(Color.WHITE);
-        totalDistBox.setFill(Color.WHITE);
-        vertBox.setFill(Color.WHITE);
-        heartBox.setFill(Color.WHITE);
-        calBox.setFill(Color.WHITE);
-        avgSpeedBox.setFill(Color.WHITE);
-        slopeBox.setFill(Color.WHITE);
-        timeBox.setFill(Color.WHITE);
-        // Resetting the colours of the second set of rectangles
-        topSpeedBox1.setFill(Color.WHITE);
-        totalDistBox1.setFill(Color.WHITE);
-        vertBox1.setFill(Color.WHITE);
-        heartBox1.setFill(Color.WHITE);
-        calBox1.setFill(Color.WHITE);
-        avgSpeedBox1.setFill(Color.WHITE);
-        slopeBox1.setFill(Color.WHITE);
-        timeBox1.setFill(Color.WHITE);
-        // Resetting the colours of the first set of text
-        topSpeedText.setFill(Color.BLACK);
-        totDistText.setFill(Color.BLACK);
-        vertText.setFill(Color.BLACK);
-        heartText.setFill(Color.BLACK);
-        calText.setFill(Color.BLACK);
-        avgSpeedText.setFill(Color.BLACK);
-        slopeText.setFill(Color.BLACK);
-        timeText.setFill(Color.BLACK);
-        // Resetting the colours of the second set of text
-        topSpeedText1.setFill(Color.BLACK);
-        totDistText1.setFill(Color.BLACK);
-        vertText1.setFill(Color.BLACK);
-        heartText1.setFill(Color.BLACK);
-        calText1.setFill(Color.BLACK);
-        avgSpeedText1.setFill(Color.BLACK);
-        slopeText1.setFill(Color.BLACK);
-        timeText1.setFill(Color.BLACK);
-        // Resetting the colours of the first set of labels
-        topSpeedLabel.setFill(Color.BLACK);
-        totDistLabel.setFill(Color.BLACK);
-        vertLabel.setFill(Color.BLACK);
-        heartLabel.setFill(Color.BLACK);
-        calLabel.setFill(Color.BLACK);
-        avgSpeedLabel.setFill(Color.BLACK);
-        slopeLabel.setFill(Color.BLACK);
-        timeLabel.setFill(Color.BLACK);
-        // Resetting the colours of the second set of labels
-        topSpeedLabel1.setFill(Color.BLACK);
-        totDistLabel1.setFill(Color.BLACK);
-        vertLabel1.setFill(Color.BLACK);
-        heartLabel1.setFill(Color.BLACK);
-        calLabel1.setFill(Color.BLACK);
-        avgSpeedLabel1.setFill(Color.BLACK);
-        slopeLabel1.setFill(Color.BLACK);
-        timeLabel1.setFill(Color.BLACK);
-        // Resetting the text values of the first set of text
-        topSpeedText.setText("");
-        totDistText.setText("");
-        vertText.setText("");
-        heartText.setText("");
-        calText.setText("");
-        avgSpeedText.setText("");
-        slopeText.setText("");
-        timeText.setText("");
-        // Resetting the text values of the second set of text
-        topSpeedText1.setText("");
-        totDistText1.setText("");
-        vertText1.setText("");
-        heartText1.setText("");
-        calText1.setText("");
-        avgSpeedText1.setText("");
-        slopeText1.setText("");
-        timeText1.setText("");
+        grid1.setVisible(false);
+        grid2.setVisible(false);
     }
 
 

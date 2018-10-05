@@ -166,8 +166,6 @@ public class DataController {
 
         activities = db.getActivities(HomeController.getCurrentUser().getId());
 
-        statsController.setOverallStats();
-
     }
 
 
@@ -783,7 +781,6 @@ public class DataController {
             Date dateTime = getDateTime();
             if (dateTime != null) {
                 double timeChange = (dateTime.getTime() - lastPoint.getDateTime().getTime()) / 1000;
-                System.out.println(change);
                 if (change / timeChange > 35) {
                     latCheck.setSelected(false);
                     longCheck.setSelected(false);
