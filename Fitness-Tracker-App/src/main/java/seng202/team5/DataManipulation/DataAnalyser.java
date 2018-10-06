@@ -436,63 +436,77 @@ public class DataAnalyser {
         currentUser = user;
     }
 
-    public void checkCardiovascularMortality(Activity activity) {
+    public Alert checkCardiovascularMortality(Activity activity) {
+
         int index = 0;
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
         for (DataPoint dataPoint : dataPoints) {
             if (checkResting(index, dataPoints) && dataPoint.getHeartRate() > 83) {
-                // add alert
+                return new Alert(activity.getDate(), "Risk of cardiovascular mortality", "Heart risk warning");
             }
             index++;
         }
+        return null;
     }
 
 
-    private void checkBradycardia(Activity activity){
+    public Alert checkBradycardia(Activity activity){
         for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
+
             if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
-                //add alert
+
+                return new Alert(activity.getDate(), "Risk of Bradycardia", "Heart risk warning");
             }
+
         }
+        return null;
     }
 
-    public void checkTachycardia(Activity activity) {
+    public Alert checkTachycardia(Activity activity) {
+
         int index = 0;
+        Alert alert = new Alert(activity.getDate(), "Risk of Tachycardia", "Heart risk warning");
 
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
         for (DataPoint dataPoint : dataPoints) {
+
             int heartRate = dataPoint.getHeartRate();
             if (checkResting(index, dataPoints)) {
                 if (currentUser.getAge() < 2) {
                     if (heartRate > 151) {
-                        //add alert
+                        return alert;
                     }
                 } else if (currentUser.getAge() < 4) {
                     if (heartRate > 137) {
-                        //add alert
+                        return alert;
                     }
                 } else if (currentUser.getAge() < 7) {
                     if (heartRate > 133) {
-                        //add alert
+                        return alert;
                     }
                 } else if (currentUser.getAge() < 11) {
                     if (heartRate > 130) {
-                        //add alert
+                        return alert;
                     }
                 } else if (currentUser.getAge() < 15) {
                     if (heartRate > 119) {
-                        //add alert
+                        return alert;
                     }
                 } else {
                     if (heartRate > 100) {
-                        //add alert
+                        return alert;
                     }
                 }
             }
+            index++;
         }
-        index++;
+
+        return null;
+
+
     }
 
+    /*
     private void checkHeartRateDecreaseProblem(Activity activity) {
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
         for (int i = 0; i < dataPoints.size(); i++) {
@@ -518,7 +532,7 @@ public class DataAnalyser {
                 }
             }
         }
-    }
+    } */
 
 
     private boolean checkResting(int index, ArrayList<DataPoint> dataPoints) {

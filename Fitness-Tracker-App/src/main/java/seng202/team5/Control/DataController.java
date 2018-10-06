@@ -127,15 +127,17 @@ public class DataController {
     private void viewData(String filePath) {
 
         DataUpload uploader = new DataUpload();
+        dataAnalyser.setCurrentUser(HomeController.getCurrentUser());
 
         if (appendCheck.isSelected()) {
             Activity selectedAct = (Activity) actTable.getSelectionModel().getSelectedItem();
             if (selectedAct != null) {
                 uploader.appendNewData(filePath, selectedAct);
 
-                DataAnalyser analyser = new DataAnalyser();
-                analyser.setCurrentUser(HomeController.getCurrentUser());
-                analyser.analyseActivity(selectedAct);
+                dataAnalyser.setCurrentUser(HomeController.getCurrentUser());
+                dataAnalyser.analyseActivity(selectedAct);
+
+                checkHearthealth(dataAnalyser, selectedAct);
 
                 db.updateDataSet(selectedAct);
 
@@ -151,7 +153,8 @@ public class DataController {
         }
         else {
             uploader.uploadData(filePath);
-            CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), uploader.getNewActvities());
+            ArrayList<Activity> activities = uploader.getNewActvities();
+            CheckGoals.markGoals(HomeController.getCurrentUser(), HomeController.getDb(), activities);
             Alert countAlert = CheckAlerts.activityAlert(HomeController.getCurrentUser());
             if (countAlert != null) {
                 db.storeAlert(countAlert, HomeController.getCurrentUser().getId());
@@ -159,9 +162,49 @@ public class DataController {
                 HomeController.addAlert(countAlert);
             }
             fillTable();
+
+            for (Activity activity : activities) {
+                System.out.println(activity.getName());
+                checkHearthealth(dataAnalyser, activity);
+            }
         }
 
         activities = db.getActivities(HomeController.getCurrentUser().getId());
+
+    }
+
+    private void checkHearthealth(DataAnalyser analyser, Activity selectedAct) {
+
+
+        Alert tachycardiaAlert = analyser.checkTachycardia(selectedAct);
+
+        System.out.println(tachycardiaAlert.getMessage());
+
+        if (tachycardiaAlert != null) {
+            System.out.println("check heart health alert not null");
+            db.storeAlert(tachycardiaAlert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(tachycardiaAlert);
+            HomeController.addAlert(tachycardiaAlert);
+        }
+
+        Alert bradycardiaAlert = analyser.checkBradycardia(selectedAct);
+        System.out.println(bradycardiaAlert.getMessage());
+
+        if (bradycardiaAlert != null) {
+            System.out.println("check heart health alert not null");
+            db.storeAlert(bradycardiaAlert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(bradycardiaAlert);
+            HomeController.addAlert(bradycardiaAlert);
+        }
+
+        Alert cardioMortalityAlert = analyser.checkCardiovascularMortality(selectedAct);
+
+        if (cardioMortalityAlert != null) {
+            System.out.println("check heart health alert not null");
+            db.storeAlert(cardioMortalityAlert, HomeController.getCurrentUser().getId());
+            HomeController.getCurrentUser().addAlert(cardioMortalityAlert);
+            HomeController.addAlert(cardioMortalityAlert);
+        }
 
     }
 
