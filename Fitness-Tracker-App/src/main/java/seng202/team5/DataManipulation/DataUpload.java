@@ -113,7 +113,7 @@ public class DataUpload {
                                 + validator.getInitialDataSetSize()
                                 + "\n";
                 message += "Values fixed: " + validator.getDataValidated();
-                ErrorController.displaymessage(message);
+                ErrorController.displayError(message);
             }
         }
     }
