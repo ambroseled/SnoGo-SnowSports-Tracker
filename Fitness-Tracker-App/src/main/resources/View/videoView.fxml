@@ -18,6 +18,7 @@
           <TableColumn fx:id="videosColumn" prefWidth="199.0" text="Videos" />
         </columns>
       </TableView>
-      <Button layoutX="36.0" layoutY="631.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
+      <Button layoutX="36.0" layoutY="610.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
+      <Button layoutX="36.0" layoutY="645.0" mnemonicParsing="false" onAction="#removeSelectedVideo" prefHeight="27.0" prefWidth="200.0" text="Remove Video" />
    </children>
 </AnchorPane>

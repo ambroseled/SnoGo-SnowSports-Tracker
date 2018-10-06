@@ -82,6 +82,12 @@ public class VideoController {
         fillTable();
     }
 
+    public void removeSelectedVideo() {
+        File selectedFile = (File) videosTable.getSelectionModel().getSelectedItem();
+        selectedFile.delete();
+        fillTable();
+    }
+
     public void playVideo(String path) {
 
         media = new Media(new File(path).toURI().toString());
