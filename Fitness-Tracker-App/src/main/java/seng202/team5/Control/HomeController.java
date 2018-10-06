@@ -265,6 +265,25 @@ public class HomeController {
 
     private void openLink(String url){
 
+        Runtime rt = Runtime.getRuntime();
+        String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
+                "netscape", "opera", "links", "lynx" };
+
+        StringBuffer cmd = new StringBuffer();
+        for (int i = 0; i < browsers.length; i++)
+            if(i == 0)
+                cmd.append(String.format(    "%s \"%s\"", browsers[i], url));
+            else
+                cmd.append(String.format(" || %s \"%s\"", browsers[i], url));
+        // If the first didn't work, try the next browser and so on
+
+        try {
+            rt.exec(new String[] { "sh", "-c", cmd.toString() });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(new URI(url));
@@ -276,7 +295,7 @@ public class HomeController {
             e1.printStackTrace();
         } catch (URISyntaxException e1) {
             e1.printStackTrace();
-        }
+        } */
     }
 
     private void indexChangeTable() {
