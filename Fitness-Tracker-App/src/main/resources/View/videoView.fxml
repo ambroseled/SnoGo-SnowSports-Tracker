@@ -6,17 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
+<AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="720" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
    <children>
       <MediaView fx:id="mediaView" fitHeight="480.0" fitWidth="640.0" layoutX="321.0" layoutY="54.0" />
       <Button layoutX="612.0" layoutY="604.0" mnemonicParsing="false" onAction="#selectVideo" text="Select Video" />
       <Button fx:id="toggleButton" layoutX="630.0" layoutY="567.0" mnemonicParsing="false" onAction="#togglePlayback" text="Pause" />
       <Button fx:id="rotateButton" layoutX="727.0" layoutY="604.0" mnemonicParsing="false" onAction="#rotateVideo" text="Rotate" />
       <Button fx:id="stretchButton" layoutX="543.0" layoutY="604.0" mnemonicParsing="false" onAction="#toggleStretch" text="Stretch" />
-      <TableView fx:id="videosTable" layoutX="37.0" layoutY="54.0" prefHeight="570.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
+      <TableView fx:id="videosTable" layoutX="36.0" layoutY="34.0" prefHeight="570.0" prefWidth="200.0" onMouseReleased="#checkVideoSelected" stylesheets="@../CSS/tableStyle.css">
         <columns>
           <TableColumn fx:id="videosColumn" prefWidth="199.0" text="Videos" />
         </columns>
       </TableView>
+      <Button layoutX="36.0" layoutY="610.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
+      <Button fx:id="removeButton" layoutX="36.0" layoutY="645.0" mnemonicParsing="false" onMouseReleased="#checkVideoSelected" onAction="#removeSelectedVideo" prefHeight="27.0" prefWidth="200.0" text="Remove Video" />
    </children>
 </AnchorPane>

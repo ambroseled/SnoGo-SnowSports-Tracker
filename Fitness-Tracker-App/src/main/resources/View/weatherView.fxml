@@ -46,5 +46,10 @@
             <Image url="@../warning-icon.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="277.0" fitWidth="256.0" layoutX="1024.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../sun-image.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

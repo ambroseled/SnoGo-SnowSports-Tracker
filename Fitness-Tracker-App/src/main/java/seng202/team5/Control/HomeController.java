@@ -16,8 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import seng202.team5.DataManipulation.CheckAlerts;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 import seng202.team5.DataManipulation.CheckGoals;
@@ -629,6 +628,12 @@ public class HomeController {
             userNames.addAll(users);
             userTable.setItems(userNames);
             checkPingu();
+            Alert bmiAlert = CheckAlerts.bmiAlert(currentUser);
+            if (bmiAlert != null) {
+                db.storeAlert(bmiAlert, currentUser.getId());
+                currentUser.addAlert(bmiAlert);
+                alerts.add(bmiAlert);
+            }
         } catch (Exception e) {
             // Showing error dialogue to user
             ErrorController.displayError("Error updating user information");
@@ -736,6 +741,12 @@ public class HomeController {
         refreshTable();
         clearChecks();
         clearFields();
+        Alert bmiAlert = CheckAlerts.bmiAlert(currentUser);
+        if (bmiAlert != null) {
+            db.storeAlert(bmiAlert, currentUser.getId());
+            currentUser.addAlert(bmiAlert);
+            alerts.add(bmiAlert);
+        }
     }
 
 
@@ -747,7 +758,7 @@ public class HomeController {
      */
     private boolean checkName(String name) {
         // Checking the name is of valid length and is all alphabetical
-        if (name.length() > 3 && name.length() < 30) {
+        if (name.length() >= 3 && name.length() < 30) {
             nameCheck.setSelected(true);
             return true;
         } else {
