@@ -87,17 +87,22 @@ public class WeatherController {
      * takes the user to the full website from which the weather widget is provided
      */
     public void openSnowForecast() {
-        try {
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().browse(new URI("https://www.snow-forecast.com"));
-            } else {
-                ErrorController.displayError("Desktop integration no supported");
-            }
+        Runtime rt = Runtime.getRuntime();
+        String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
+                "netscape", "opera", "links", "lynx" };
 
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
+        StringBuffer cmd = new StringBuffer();
+        for (int i = 0; i < browsers.length; i++)
+            if(i == 0)
+                cmd.append(String.format(    "%s \"%s\"", browsers[i], "https://www.snow-forecast.com"));
+            else
+                cmd.append(String.format(" || %s \"%s\"", browsers[i], "https://www.snow-forecast.com"));
+        // If the first didn't work, try the next browser and so on
+
+        try {
+            rt.exec(new String[] { "sh", "-c", cmd.toString() });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
