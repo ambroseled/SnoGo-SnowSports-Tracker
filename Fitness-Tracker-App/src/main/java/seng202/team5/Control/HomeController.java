@@ -251,20 +251,7 @@ public class HomeController {
         fillTable();
     }
 
-    /*
-    private void openLink(String url) {
-        try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
-        }
-    } */
-
-
-    private void openLink(String url){
-
+    private void openLinuxLink(String url) {
         Runtime rt = Runtime.getRuntime();
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
                 "netscape", "opera", "links", "lynx" };
@@ -282,20 +269,29 @@ public class HomeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        /*
-        try {
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().browse(new URI(url));
-            } else {
-                Runtime runtime = Runtime.getRuntime();
-                runtime.exec("/usr/bin/firefox -new-window " + url);
+    private void openLink(String url){
+
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
+            openLinuxLink(url);
+        } else {
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().browse(new URI(url));
+                } else {
+                    ErrorController.displayError("Desktop integration no supported");
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
             }
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
-        } */
+
+        }
+
+
     }
 
     private void indexChangeTable() {
