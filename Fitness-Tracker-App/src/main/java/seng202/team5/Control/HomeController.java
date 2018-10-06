@@ -300,16 +300,19 @@ public class HomeController {
 
     private void indexChangeTable() {
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
-        String type = alert.getType();
+        if (alert != null) {
+            String type = alert.getType();
 
-        if (type.contains("Heart")) {
-            researchButton.setVisible(true);
-            System.out.println(type);
+            if (type.contains("Heart")) {
+                researchButton.setVisible(true);
+                System.out.println(type);
 
-        } else {
-            researchButton.setVisible(false);
+            } else {
+                researchButton.setVisible(false);
 
+            }
         }
+
     }
 
 

@@ -162,7 +162,6 @@ public class CompController {
      * with the data from the two selected activities
      */
     public void showComparison() {
-        System.out.println("beans");
         // Getting the selected activities
         Activity act = (Activity) actTable.getSelectionModel().getSelectedItem();
         Activity act1 = (Activity) actTable1.getSelectionModel().getSelectedItem();
