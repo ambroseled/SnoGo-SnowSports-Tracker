@@ -14,7 +14,7 @@ import java.util.Date;
 public class CheckAlerts {
 
     // Date format used to create new alerts
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
 
     /**
@@ -64,7 +64,29 @@ public class CheckAlerts {
         } else if (actCount >= 5) {
             actAlert = new Alert(date, "5+ activities uploaded", "Activity count");
         }
+        if (actAlert != null) {
+            if (alertExists(user, actAlert.getMessage())) {
+                return null;
+            }
+        }
         return actAlert;
+    }
+
+
+    /**
+     * This method checks if the newly created alert has been created already. It is used by the activityAlert
+     * method to stop double up alerts being created
+     * @param user The current user
+     * @param message The message of the alert to check for
+     * @return True if matching alert is found false otherwise
+     */
+    private static boolean alertExists(User user, String message) {
+        for (Alert alert : user.getAlerts()) {
+            if (alert.getMessage().equals(message)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -78,6 +100,36 @@ public class CheckAlerts {
         String message = "Goal: " + goalName + " expired";
         Alert alert = new Alert(date, message, "Goal expired");
         return alert;
+    }
+
+
+    /**
+     * This method checks a passed users bmi against 4 unsafe categories: obese, overweight, underweight,
+     * severely underweight
+     * @param user The users whose bmi is to be checked
+     * @return An alert if an unsafe bmi is found otherwise null
+     */
+    public static Alert bmiAlert(User user) {
+        double bmi = user.getBmi();
+        System.out.println(bmi);
+        String message = null;
+        if (bmi >= 30.0) {
+            message = "BMI Category: Obese, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+        } else if (bmi >= 24.0) {
+            message = "BMI Category: Overweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+        } else if (bmi >= 18.5) {
+            message = null;
+        } else if (bmi >= 16.0) {
+            message = "BMI Category: Under weight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+        } else {
+            message = "BMI Category: Severely Underweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+        }
+        if (message != null) {
+            String date = dateTimeFormat.format(new Date());
+            Alert bmiAlert = new Alert(date, message, "Unsafe BMI");
+            return bmiAlert;
+        }
+        return null;
     }
 
 
