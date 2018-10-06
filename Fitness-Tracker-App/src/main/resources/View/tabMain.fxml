@@ -100,7 +100,7 @@
                         <CheckBox fx:id="dateCheck" disable="true" layoutX="806.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <CheckBox fx:id="heightCheck" disable="true" layoutX="1050.0" layoutY="351.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <Button fx:id="abortButton" disable="true" mnemonicParsing="false" onAction="#showCreate" prefHeight="41.0" prefWidth="144.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Edit" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <TextField fx:id="ageText" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                        <TextField fx:id="ageText" editable="false" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                         <Text fx:id="ageLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" visible="false" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <font>
                               <Font size="25.0" />
@@ -149,7 +149,7 @@
               <fx:include fx:id="data" source="dataRawView.fxml" />
           </content>
       </Tab>
-    <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Stats">
+    <Tab fx:id="statsTab" disable="true" onSelectionChanged="#setUpStats" text="Statistics">
          <content>
              <fx:include fx:id="stats" source="GraphsTab.fxml" />
          </content>
