@@ -41,6 +41,9 @@ public class VideoController {
     @FXML
     private TableColumn<File, String> videosColumn;
 
+    @FXML
+    private Button removeButton;
+
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean playing = false;
@@ -53,6 +56,7 @@ public class VideoController {
         mediaView.setFitWidth(640);
         mediaView.setPreserveRatio(true);
         fillTable();
+        checkVideoSelected();
     }
 
     public void selectVideo() {
@@ -86,6 +90,18 @@ public class VideoController {
         File selectedFile = (File) videosTable.getSelectionModel().getSelectedItem();
         selectedFile.delete();
         fillTable();
+    }
+
+    @FXML
+    /**
+     * Enabling remove button if a video is selected
+     */
+    private void checkVideoSelected(){
+        if (videosTable.getSelectionModel().getSelectedItem() != null){
+            removeButton.setDisable(false);
+        } else {
+            removeButton.setDisable(true);
+        }
     }
 
     public void playVideo(String path) {
