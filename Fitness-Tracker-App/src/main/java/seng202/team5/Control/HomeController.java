@@ -251,9 +251,27 @@ public class HomeController {
         fillTable();
     }
 
+    /*
     private void openLink(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }
+    } */
+
+
+    private void openLink(String url){
+
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(new URI(url));
+            } else {
+                Runtime runtime = Runtime.getRuntime();
+                runtime.exec("/usr/bin/firefox -new-window " + url);
+            }
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (URISyntaxException e1) {
