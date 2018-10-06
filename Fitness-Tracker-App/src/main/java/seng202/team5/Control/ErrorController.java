@@ -30,11 +30,11 @@ public class ErrorController {
     }
 
 
-    public static void displaymessage(String message) {
+    public static void displayMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info Dialog");
-        alert.setHeaderText("File Successful");
-        alert.setContentText(message);
+        alert.setHeaderText("File Export Successful");
+        alert.setContentText(message + " to your home directory");
 
         DialogPane dodialog = alert.getDialogPane();
         dodialog.setMinHeight(Region.USE_PREF_SIZE);

@@ -546,7 +546,7 @@ public class DataController {
             String filename = makeFilename(selectedAct.getName());
             boolean status = DataExporter.exportData(activities, filename);
             if (status) {
-                ErrorController.displaymessage("File exported as " + filename + ".csv");
+                ErrorController.displayMessage("File exported as " + filename + ".csv");
             } else {
                 ErrorController.displayError("File export failed");
             }
