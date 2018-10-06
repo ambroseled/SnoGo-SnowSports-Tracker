@@ -4,6 +4,7 @@
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
     -fx-background-color:transparent;
+    -fx-hbar-policy: never;
 }
 
 .increment-button, .decrement-button {

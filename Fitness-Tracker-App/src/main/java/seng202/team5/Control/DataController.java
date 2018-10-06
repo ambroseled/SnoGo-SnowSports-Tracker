@@ -117,6 +117,14 @@ public class DataController {
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
     private DataAnalyser dataAnalyser = new DataAnalyser();
+
+
+
+
+    public void initialize() {
+        actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
     
     /**
      * This method is called when the user presses the 'Load File'

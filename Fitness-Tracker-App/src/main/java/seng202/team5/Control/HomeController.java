@@ -21,7 +21,6 @@ import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.Model.User;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -33,8 +32,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-//TODO Change color of border of tab when selected
 
 
 /**
@@ -888,7 +885,7 @@ public class HomeController {
 
 
     /**
-     * This method is called by a press of the 'Video' tab. ...
+     * This method is called by a press of the 'Video' tab.
      */
     public void setUpVideo() {
         videoController.initialize();
@@ -896,10 +893,18 @@ public class HomeController {
 
 
     /**
-     * This method is called by a press on the 'Data' tab. ...
+     * This method is called by a press on the 'Data' tab.
      */
     public void setUpTables() {
         dataController.fillTable();
+    }
+
+
+    /**
+     * This method is called by a press of the 'Home' tab.
+     */
+    public void setUpHome() {
+        hideAlerts();
     }
 
 
