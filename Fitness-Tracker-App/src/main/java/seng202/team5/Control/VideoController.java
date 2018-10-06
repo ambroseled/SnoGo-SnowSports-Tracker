@@ -15,6 +15,8 @@ import javafx.stage.FileChooser;
 import seng202.team5.Model.Activity;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -67,6 +69,19 @@ public class VideoController {
 
     }
 
+    public void addVideoToApp() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Video File");
+        File f = fileChooser.showOpenDialog(null);
+        File dest = new File(System.getProperty("user.home") + "/SnoGo/Videos/" + f.getName());
+        try {
+            Files.copy(f.toPath(), dest.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        fillTable();
+    }
+
     public void playVideo(String path) {
 
         media = new Media(new File(path).toURI().toString());
@@ -100,6 +115,7 @@ public class VideoController {
     }
 
     public void fillTable() {
+        videosTable.getItems().clear();
         File[] fileList = new File(System.getProperty("user.home") + "/SnoGo/Videos").listFiles();
         for (File file: fileList) {
             videoList.add(file);

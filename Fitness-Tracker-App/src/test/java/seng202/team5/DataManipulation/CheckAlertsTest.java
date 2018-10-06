@@ -1,9 +1,13 @@
-package seng202.team5.Model;
+package seng202.team5.DataManipulation;
 
 
 import org.junit.Test;
 import seng202.team5.DataManipulation.CheckAlerts;
 import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.Alert;
+import seng202.team5.Model.User;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ public class CheckAlertsTest {
 
 
     private Date date = new Date();
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
     private InputDataParser parser = new InputDataParser();
     private User user = new User ("Test", 15, 1.7, 60, date);
 
@@ -98,5 +102,46 @@ public class CheckAlertsTest {
         assertEquals("Goal expired", alert.getType());
     }
 
+
+
+    @Test
+    public void testBmiNormal() {
+        User user = new User("Test", 25, 1.7, 55, new Date());
+        Alert alert = CheckAlerts.bmiAlert(user);
+        assertNull(alert);
+    }
+
+
+    @Test
+    public void testBmiObese() {
+        User user = new User("Test", 25, 1.3, 105, new Date());
+        Alert alert = CheckAlerts.bmiAlert(user);
+        assertEquals("BMI Category: Obese, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+    }
+
+
+    @Test
+    public void testBmiOverWeight() {
+        User user = new User("Test", 25, 1.8, 90, new Date());
+        Alert alert = CheckAlerts.bmiAlert(user);
+        assertEquals("BMI Category: Overweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+    }
+
+
+    @Test
+    public void testBmiUnderWeight() {
+        User user = new User("Test", 25, 1.7, 50, new Date());
+        Alert alert = CheckAlerts.bmiAlert(user);
+        assertEquals("BMI Category: Under weight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+    }
+
+
+
+    @Test
+    public void testBmiSeverelyUnderWeight() {
+        User user = new User("Test", 25, 1.7, 30, new Date());
+        Alert alert = CheckAlerts.bmiAlert(user);
+        assertEquals("BMI Category: Severely Underweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+    }
 
 }

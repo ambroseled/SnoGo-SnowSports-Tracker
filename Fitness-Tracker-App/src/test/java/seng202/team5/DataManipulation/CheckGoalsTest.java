@@ -1,10 +1,14 @@
-package seng202.team5.Model;
+package seng202.team5.DataManipulation;
 
 import org.junit.Before;
 import org.junit.Test;
 import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.DataManipulation.InputDataParser;
+import seng202.team5.Model.Activity;
+import seng202.team5.Model.Goal;
+import seng202.team5.Model.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import static org.junit.Assert.*;

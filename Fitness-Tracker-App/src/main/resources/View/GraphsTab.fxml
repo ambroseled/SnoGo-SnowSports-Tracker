@@ -105,7 +105,7 @@
                <content>
                   <GridPane maxWidth="535.0" prefHeight="908.0" prefWidth="540.0" styleClass="graph-grid" stylesheets="@../CSS/paneStyle.css">
                      <children>
-                        <BarChart fx:id="totDistChart" maxWidth="530.0" prefWidth="522.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                        <BarChart fx:id="totDistChart" maxWidth="530.0" prefWidth="522.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="3">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" />
                            </xAxis>
@@ -113,7 +113,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </BarChart>
-                        <BarChart fx:id="vertDistChart" maxWidth="530.0" minHeight="250.0" prefWidth="500.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <BarChart fx:id="vertDistChart" maxWidth="530.0" minHeight="250.0" prefWidth="500.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="3">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
@@ -121,7 +121,7 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </BarChart>
-                        <LineChart fx:id="avgHeartRateChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+                        <LineChart fx:id="avgHeartRateChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -129,7 +129,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="caloriesChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
+                        <LineChart fx:id="caloriesChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -137,7 +137,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="avgSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
+                        <LineChart fx:id="avgSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
                             <xAxis>
                                 <NumberAxis side="BOTTOM" />
                             </xAxis>
@@ -145,7 +145,7 @@
                                 <NumberAxis side="LEFT" />
                             </yAxis>
                         </LineChart>
-                         <LineChart fx:id="runningDistChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                         <LineChart fx:id="runningDistChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.rowSpan="2">
                              <xAxis>
                                  <NumberAxis side="BOTTOM" />
                              </xAxis>
@@ -153,7 +153,7 @@
                                  <NumberAxis side="LEFT" />
                              </yAxis>
                          </LineChart>
-                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.rowSpan="2">
+                        <LineChart fx:id="slopeTimeChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="14" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -161,7 +161,7 @@
                               <NumberAxis side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <LineChart fx:id="topSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="14" GridPane.rowSpan="2">
+                        <LineChart fx:id="topSpeedChart" maxWidth="530.0" stylesheets="@../CSS/chartStyle.css" GridPane.columnSpan="2" GridPane.rowIndex="16" GridPane.rowSpan="2">
                            <xAxis>
                               <NumberAxis side="BOTTOM" />
                            </xAxis>
@@ -175,6 +175,8 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
                      </columnConstraints>
                      <rowConstraints>
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="133.0" minHeight="126.0" prefHeight="126.0" vgrow="SOMETIMES" />
