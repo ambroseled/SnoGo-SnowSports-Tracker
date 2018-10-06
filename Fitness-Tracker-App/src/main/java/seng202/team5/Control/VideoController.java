@@ -73,6 +73,18 @@ public class VideoController {
 
     }
 
+    public void displayVideo() {
+        try {
+            File video = (File) videosTable.getSelectionModel().getSelectedItem();
+            playVideo(video.getAbsolutePath());
+            playing = true;
+            toggleButton.setText("Pause");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void addVideoToApp() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Video File");

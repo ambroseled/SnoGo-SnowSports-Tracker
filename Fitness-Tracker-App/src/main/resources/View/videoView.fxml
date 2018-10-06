@@ -13,12 +13,12 @@
       <Button fx:id="toggleButton" layoutX="630.0" layoutY="567.0" mnemonicParsing="false" onAction="#togglePlayback" text="Pause" />
       <Button fx:id="rotateButton" layoutX="727.0" layoutY="604.0" mnemonicParsing="false" onAction="#rotateVideo" text="Rotate" />
       <Button fx:id="stretchButton" layoutX="543.0" layoutY="604.0" mnemonicParsing="false" onAction="#toggleStretch" text="Stretch" />
-      <TableView fx:id="videosTable" layoutX="36.0" layoutY="34.0" prefHeight="570.0" prefWidth="200.0" onMouseReleased="#checkVideoSelected" stylesheets="@../CSS/tableStyle.css">
+      <TableView fx:id="videosTable" layoutX="36.0" layoutY="34.0" onMouseClicked="#displayVideo" onMouseReleased="#checkVideoSelected" prefHeight="570.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
         <columns>
           <TableColumn fx:id="videosColumn" prefWidth="199.0" text="Videos" />
         </columns>
       </TableView>
       <Button layoutX="36.0" layoutY="610.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
-      <Button fx:id="removeButton" layoutX="36.0" layoutY="645.0" mnemonicParsing="false" onMouseReleased="#checkVideoSelected" onAction="#removeSelectedVideo" prefHeight="27.0" prefWidth="200.0" text="Remove Video" />
+      <Button fx:id="removeButton" layoutX="36.0" layoutY="645.0" mnemonicParsing="false" onAction="#removeSelectedVideo" onMouseReleased="#checkVideoSelected" prefHeight="27.0" prefWidth="200.0" text="Remove Video" />
    </children>
 </AnchorPane>
