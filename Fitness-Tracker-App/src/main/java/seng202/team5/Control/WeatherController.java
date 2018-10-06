@@ -8,26 +8,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.beans.value.ObservableValue;
 import seng202.team5.Model.WeatherField;
-
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
-//TODO Add reference or something to web site used https://www.snow-forecast.com/resorts/Porters-Heights/6day/mid
-
 /**
  * This class provides functionality for the user to view the weather forecast for multiple ski fields over
- * New Zealand.
+ * New Zealand. The weather functionality is provided through the use of the free weather widget provided by
+ * www.snow-forecast.com.
  */
 public class WeatherController {
 
@@ -72,19 +68,32 @@ public class WeatherController {
           public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
               if (newState == Worker.State.SUCCEEDED) {
                   scriptLoaded = true;
+                  hideMessage();
               } else {
                   scriptLoaded = false;
+                  showMessage();
               }
           }
         });
+        if (!scriptLoaded) {
+            showMessage();
+        }
     }
 
 
-
     @FXML
+    /**
+     * This method is called by pressing the hyperlink below the weather view. it
+     * takes the user to the full website from which the weather widget is provided
+     */
     public void openSnowForecast() {
         try {
-            Desktop.getDesktop().browse(new URI("https://www.snow-forecast.com"));
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(new URI("https://www.snow-forecast.com"));
+            } else {
+                ErrorController.displayError("Desktop integration no supported");
+            }
+
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (URISyntaxException e1) {

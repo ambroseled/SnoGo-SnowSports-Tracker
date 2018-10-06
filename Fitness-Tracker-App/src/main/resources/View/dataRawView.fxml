@@ -47,21 +47,24 @@
                         <Label text="Select an activity" />
                     </placeholder>
                     <columns>
-                        <TableColumn fx:id="dateTimeCol" onEditCommit="#changeDateTime" prefWidth="171.0" text="Date and Time" />
-                        <TableColumn fx:id="heartRateCol" onEditCommit="#changeHeartRate" prefWidth="171.0" text="Heart Rate (bpm)" />
-                        <TableColumn fx:id="latitudeCol" minWidth="0.0" onEditCommit="#changeLatitude" prefWidth="95.0" text="Latitude" />
-                        <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="95.0" text="Longitude" />
-                        <TableColumn fx:id="elevationCol" onEditCommit="#changeElevation" prefWidth="130.0" text="Elevation (m)" />
-                        <TableColumn fx:id="distanceCol" prefWidth="111.0" text="Distance (m)" />
-                        <TableColumn fx:id="speedCol" prefWidth="104.0" text="Speed (m/s)" />
+                        <TableColumn fx:id="dateTimeCol" onEditCommit="#changeDateTime" prefWidth="200.0" resizable="false" text="Date and Time" />
+                        <TableColumn fx:id="heartRateCol" onEditCommit="#changeHeartRate" prefWidth="138.0" resizable="false" text="Heart Rate (bpm)" />
+                        <TableColumn fx:id="latitudeCol" minWidth="0.0" onEditCommit="#changeLatitude" prefWidth="98.0" resizable="false" text="Latitude" />
+                        <TableColumn fx:id="longitudeCol" onEditCommit="#changeLongitude" prefWidth="110.0" resizable="false" text="Longitude" />
+                        <TableColumn fx:id="elevationCol" onEditCommit="#changeElevation" prefWidth="106.0" resizable="false" text="Elevation (m)" />
+                        <TableColumn fx:id="distanceCol" prefWidth="119.0" resizable="false" text="Distance (m)" />
+                        <TableColumn fx:id="speedCol" prefWidth="106.0" resizable="false" text="Speed (m/s)" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
                 <TableView fx:id="actTable" onMouseReleased="#showActivityData" prefHeight="200.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                     <placeholder>
                         <Label text="No activities in application" />
                     </placeholder>
                     <columns>
-                        <TableColumn fx:id="actCol" onEditCommit="#renameActivity" prefWidth="243.41497802734375" text="Activities" />
+                        <TableColumn fx:id="actCol" onEditCommit="#renameActivity" prefWidth="243.41497802734375" resizable="false" text="Activities" />
                     </columns>
                 </TableView>
                 <Button fx:id="fileLoad" mnemonicParsing="false" onAction="#loadFile" prefHeight="51.0" prefWidth="240.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Load File" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />

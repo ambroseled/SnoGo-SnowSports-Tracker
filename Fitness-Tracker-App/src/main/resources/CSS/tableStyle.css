@@ -35,6 +35,7 @@
 }
 
 
+
 .table-row-cell{
     -fx-background-color: -fx-table-cell-border-color, white;
 }
@@ -71,10 +72,6 @@
     -fx-background-color: #005e99;
     -fx-background-radius: 5em;
 }
-
-
-
-
 
 
 .margin {
