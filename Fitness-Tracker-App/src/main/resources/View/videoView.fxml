@@ -13,10 +13,11 @@
       <Button fx:id="toggleButton" layoutX="630.0" layoutY="567.0" mnemonicParsing="false" onAction="#togglePlayback" text="Pause" />
       <Button fx:id="rotateButton" layoutX="727.0" layoutY="604.0" mnemonicParsing="false" onAction="#rotateVideo" text="Rotate" />
       <Button fx:id="stretchButton" layoutX="543.0" layoutY="604.0" mnemonicParsing="false" onAction="#toggleStretch" text="Stretch" />
-      <TableView fx:id="videosTable" layoutX="37.0" layoutY="54.0" prefHeight="570.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
+      <TableView fx:id="videosTable" layoutX="36.0" layoutY="34.0" prefHeight="570.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
         <columns>
           <TableColumn fx:id="videosColumn" prefWidth="199.0" text="Videos" />
         </columns>
       </TableView>
+      <Button layoutX="36.0" layoutY="631.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
    </children>
 </AnchorPane>
