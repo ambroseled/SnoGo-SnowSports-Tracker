@@ -139,6 +139,7 @@
                   <Button fx:id="deleteButton" disable="true" layoutX="300.0" layoutY="590.0" mnemonicParsing="false" onAction="#removeAlert" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Alert" visible="false" />
                   <Button fx:id="alertsButton" disable="true" layoutX="560.0" layoutY="593.0" mnemonicParsing="false" onAction="#showAlerts" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="View Alerts" />
                   <Button fx:id="hideButton" disable="true" layoutX="820.0" layoutY="590.0" mnemonicParsing="false" onAction="#hideAlerts" prefHeight="41.0" prefWidth="160.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Hide Alerts" visible="false" />
+                  <Button fx:id="researchButton" layoutX="601.0" layoutY="609.0" mnemonicParsing="false" text="Button" />
                   
                </children>
             </AnchorPane>

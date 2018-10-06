@@ -5,17 +5,28 @@ package seng202.team5.Control;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Alert;
 import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.Model.User;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -127,6 +138,8 @@ public class HomeController {
     private Button hideButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private Button researchButton;
 
 
     boolean editing = false;
@@ -150,6 +163,7 @@ public class HomeController {
     private int count = 0;
 
 
+
     /**
      * A method used when an alert is created to add to the alerts list. This method also sets a flag to notify the
      * user that the have a new alert.
@@ -161,11 +175,38 @@ public class HomeController {
     }
 
 
+
+
     /**
      * This method fills the user table on opening of the application and also defines a timer used for the eater egg
      * and to notify the user of an unseen alert.
      */
     public void initialize() {
+
+        researchButton.setVisible(false);
+        researchButton.setStyle("-fx-background-color: #005e99;");
+
+        researchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+                String message = alert.getMessage();
+                if (message.contains("Tachycardia")) {
+                    String url = "https://www.mayoclinic.org/diseases-conditions/tachycardia/symptoms-causes/syc-20355127";
+                    openLink(url);
+                } else if (message.contains("Bradycardia")) {
+                    String url = "https://www.mayoclinic.org/diseases-conditions/bradycardia/symptoms-causes/syc-20355474";
+                    openLink(url);
+                }
+
+            }
+        });
+
+        Object object =  alertTable.getSelectionModel().selectedItemProperty().get();
+        int index = alertTable.getSelectionModel().selectedIndexProperty().get();
+
+        alertTable.getSelectionModel().selectedIndexProperty().addListener((num) -> indexChangeTable());
+
         AnimationTimer timer = new AnimationTimer(){
             @Override 
             public void handle(long now) {
@@ -214,6 +255,31 @@ public class HomeController {
         fillTable();
     }
 
+    private void openLink(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void indexChangeTable() {
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        String type = alert.getType();
+
+        if (type.contains("Heart")) {
+            researchButton.setVisible(true);
+            System.out.println(type);
+
+        } else {
+            researchButton.setVisible(false);
+
+        }
+    }
+
+
 
     /**
      * This method is called by the 'View Alerts' button. It disables the bulk of the table and makes the alerts
@@ -227,6 +293,8 @@ public class HomeController {
         hideButton.setVisible(true);
         deleteButton.setDisable(false);
         deleteButton.setVisible(true);
+
+
         gridPane.setOpacity(0.5);
         gridPane.setDisable(true);
         alertTable.setVisible(true);
@@ -243,7 +311,17 @@ public class HomeController {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
         // Filling the alerts table
         alertTable.setItems(alerts);
+
+
+
+        if (alertTable.getSelectionModel().getSelectedItem() != null) {
+            Alert selectedAlert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+            if (selectedAlert.getType().contains("Heart")) {
+                researchButton.setVisible(true);
+            }
+        }
     }
+
 
 
     /**
@@ -261,6 +339,7 @@ public class HomeController {
         alertTable.setDisable(true);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        researchButton.setVisible(false);
     }
 
 
