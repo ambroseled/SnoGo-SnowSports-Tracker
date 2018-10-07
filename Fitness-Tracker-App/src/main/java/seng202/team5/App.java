@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import seng202.team5.Control.HomeController;
 import seng202.team5.DataManipulation.DataBaseController;
 
+import javax.swing.*;
 import java.net.URL;
 
 
@@ -40,6 +41,15 @@ public class App extends Application {
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.show();
+
+        try {
+            com.apple.eawt.Application macApp = com.apple.eawt.Application.getApplication();
+            macApp.setDockIconImage(new ImageIcon(getClass().getResource("logo.png")).getImage());
+        } catch (Exception e) {
+            System.out.println("Can't change dock icon");
+        }
+
+
 
     }
 
