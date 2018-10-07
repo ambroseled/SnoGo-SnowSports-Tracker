@@ -192,7 +192,7 @@ public class HomeController {
                     String url = "https://www.mayoclinic.org/diseases-conditions/bradycardia/symptoms-causes/syc-20355474";
                     openLink(url);
                 } else if (message.contains("BMI")) {
-                    String url = "https://www.kiwicover.co.nz/your-health/bmi";
+                    String url = "http://diet.mayoclinic.org/diet/eat/what-is-your-bmi?xid=nl_MayoClinicDiet_20160426";
                     openLink(url);
                 }
 
