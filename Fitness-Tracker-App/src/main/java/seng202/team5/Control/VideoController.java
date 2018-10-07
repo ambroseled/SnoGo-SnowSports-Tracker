@@ -1,5 +1,6 @@
 package seng202.team5.Control;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -14,13 +15,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
-import seng202.team5.Model.Activity;
+import seng202.team5.Model.*;
 import javafx.util.Duration;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
 import sun.swing.AccumulativeRunnable;
 
 import java.io.File;
@@ -31,6 +31,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 
@@ -42,6 +43,13 @@ import java.util.Observable;
 
 
 public class VideoController {
+
+    private MapController mapController;
+
+    @FXML
+    private WebView webView;
+
+    private WebEngine webEngine;
 
     @FXML
     private ChoiceBox activityChoice;
@@ -81,6 +89,10 @@ public class VideoController {
         mediaView.setPreserveRatio(true);
         fillTable();
         checkVideoSelected();
+
+        webEngine = webView.getEngine();
+        webEngine.load(VideoController.class.getResource("/View/map.html").toExternalForm());
+
     }
 
     public void selectVideo() {
@@ -140,6 +152,11 @@ public class VideoController {
         }
     }
 
+    public void map(Route route) {
+        String scriptToExecute = "moveMarker(" + route.toJSONArray() + ");";
+        webEngine.executeScript(scriptToExecute);
+    }
+
     public void playVideo(String path) {
 
         media = new Media(new File(path).toURI().toString());
@@ -155,11 +172,12 @@ public class VideoController {
 
             public void run(){
 
+
                 try {
                     Path file = new File(path).toPath();
                     BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                    DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
                     String dateCreated = df.format(attr.creationTime().toMillis());
 
                     System.out.println(dateCreated);
@@ -173,32 +191,64 @@ public class VideoController {
                     int startIndex = 0;
 
                     for (DataPoint x : dataSet) {
-                        if (x.getDateTime().toString().equals(dateCreated)) {
-                            startIndex = x.getId();
+                        //System.out.println("Point Time = " + x.getFormattedDate());
+                        //System.out.println("Creation Time = " + dateCreated);
+                        //System.out.println("");
+                        if (x.getFormattedDate().equals(dateCreated)) {
+
+                            startIndex = dataSet.indexOf(x);
                             hRate.setText(Integer.toString(x.getHeartRate()));
                         }
                     }
 
+                    int endIndex = dataSet.indexOf(dataSet.get(dataSet.size() - 1));
+                    System.out.println("Start Index = " + startIndex);
+                    System.out.println("End Index = " + endIndex);
+
 
                     int previous = (int) mediaPlayer.getCurrentTime().toSeconds();
-                    int current = (int) mediaPlayer.getCurrentTime().toSeconds();
+
+
+                    List subList = dataSet.subList(startIndex, endIndex);
+                    ArrayList<DataPoint> subListArray = new ArrayList<DataPoint>();
+                    subListArray.addAll(subList);
+                    Route route = new Route(subListArray);
+
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            String scriptToExecute = "displayRoute(" + route.toJSONArray() + ");";
+                            webEngine.executeScript(scriptToExecute);
+                        }
+                    });
+
+
                     int loops = 0;
                     while (true) {
-                        previous = (int) mediaPlayer.getCurrentTime().toSeconds();
-
-                        if ((int) mediaPlayer.getCurrentTime().toSeconds() != previous) {
+                        if (((int) mediaPlayer.getCurrentTime().toSeconds()) != previous) {
                             System.out.println((int) mediaPlayer.getCurrentTime().toSeconds());
                             previous = (int) mediaPlayer.getCurrentTime().toSeconds();
 
 
                             int currentRate = dataSet.get(startIndex + loops).getHeartRate();
                             hRate.setText(Integer.toString(currentRate));
+                            subList = dataSet.subList(startIndex, startIndex + loops);
+                            subListArray.addAll(subList);
+                            Route route2 = new Route(subListArray);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    map(route2);
+                                }
+                            });
                             loops += 1;
                         }
 
                     }
 
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
 
 
             }

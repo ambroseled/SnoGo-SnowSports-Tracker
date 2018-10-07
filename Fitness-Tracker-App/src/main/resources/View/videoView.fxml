@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
 <AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="670" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
    <children>
@@ -27,6 +28,6 @@
 
       <Button fx:id="selectButton" layoutX="908.0" layoutY="514.0" minHeight="24.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="129.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Attempt to Bind" />
       <ChoiceBox fx:id="activityChoice" layoutX="426.0" layoutY="514.0" minHeight="24.0" prefHeight="40.0" prefWidth="467.0" stylesheets="@../CSS/choiceBoxStyle.css" />
-
+      <WebView fx:id="webView" layoutX="990.0" layoutY="163.0" prefHeight="203.0" prefWidth="276.0" />
    </children>
 </AnchorPane>
