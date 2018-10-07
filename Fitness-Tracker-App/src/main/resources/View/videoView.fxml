@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
@@ -23,14 +24,26 @@
       </TableView>
       <Button layoutX="36.0" layoutY="554.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Add Video" />
       <Button fx:id="removeButton" layoutX="36.0" layoutY="591.0" mnemonicParsing="false" onAction="#removeSelectedVideo" onMouseReleased="#checkVideoSelected" prefHeight="27.0" prefWidth="200.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Video" />
-      <Text layoutX="1154.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heart Rate" />
-      <Text fx:id="hRate" layoutX="1173.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fill="WHITE" layoutX="1069.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heart Rate">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text fx:id="hRate" fill="WHITE" layoutX="1106.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="40.0" />
+         </font></Text>
       
 
       <Button fx:id="selectButton" layoutX="908.0" layoutY="514.0" minHeight="24.0" mnemonicParsing="false" onAction="#bindVideo" prefHeight="40.0" prefWidth="129.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Attempt to Bind" />
       <ChoiceBox fx:id="activityChoice" layoutX="426.0" layoutY="514.0" minHeight="24.0" prefHeight="40.0" prefWidth="467.0" stylesheets="@../CSS/choiceBoxStyle.css" />
-      <WebView fx:id="webView" layoutX="990.0" layoutY="163.0" prefHeight="203.0" prefWidth="276.0" />
-      <Text layoutX="1154.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed" />
-      <Text fx:id="speed" layoutX="1169.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <WebView fx:id="webView" layoutX="981.0" layoutY="44.0" prefHeight="203.0" prefWidth="276.0" />
+      <Text fill="WHITE" layoutX="1088.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text fx:id="speed" fill="WHITE" layoutX="1106.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="40.0" />
+         </font></Text>
    </children>
 </AnchorPane>
