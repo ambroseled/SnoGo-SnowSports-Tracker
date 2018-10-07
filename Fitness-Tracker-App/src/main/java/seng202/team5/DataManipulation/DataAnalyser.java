@@ -1,7 +1,6 @@
 package seng202.team5.DataManipulation;
 
 
-
 import seng202.team5.Model.*;
 import java.util.ArrayList;
 import static java.lang.Math.abs;
@@ -144,34 +143,7 @@ public class DataAnalyser {
             }
             return "Active";
         }
-/*
 
-        if ((index + endIndex) > len) {
-            endIndex = len - 1;
-            flag = true;
-        }
-        if (endIndex == index) {
-            if (dataPoints.get(index - 1).isActive()) {
-                return "Active";
-            } else {
-                return "Inactive";
-            }
-        } else {
-            // Getting the location information out of the dataPoint 60 seconds on
-            double endLat = dataPoints.get(endIndex).getLatitude();
-            double endLong = dataPoints.get(endIndex).getLongitude();
-            double endAlt = dataPoints.get(endIndex).getElevation();
-            double[] end = new double[] {endLong, endLat, endAlt};
-
-
-            // Getting the altitude change over the two points
-            double movement = oneDist(startLat, startLong, endLat, endLong);
-            double condition;
-            if (flag) {
-                condition = 0.2 * (dataPoints.size() - index);
-            } else{
-                condition = 1;
-            }*/
     }
 
 
@@ -232,8 +204,8 @@ public class DataAnalyser {
      * speed.
      * @param dist1 The current distance of the first data point in meters.
      * @param dist2 The current distance of the second data point in meters.
-     * @param time1 The current time of the first data point in seconds.
-     * @param time2 The current time of the second data point in seconds.
+     * @param time1 The current time of the first data point in milli seconds.
+     * @param time2 The current time of the second data point in milli seconds.
      * @return A double holding the current speed in m/s.
      */
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
@@ -415,8 +387,6 @@ public class DataAnalyser {
         }
         return roundNum(avg / count);
     }
-
-
 
 
     private int getEndIndex(int index, ArrayList<DataPoint> dataPoints) {

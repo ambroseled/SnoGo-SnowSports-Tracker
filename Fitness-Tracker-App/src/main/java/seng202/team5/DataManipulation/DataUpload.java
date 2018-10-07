@@ -1,11 +1,11 @@
 package seng202.team5.DataManipulation;
 
 import seng202.team5.Control.HomeController;
-import seng202.team5.Control.ErrorController;
+import seng202.team5.Control.DialogController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
-
 import java.util.ArrayList;
+
 
 /**
  * This class controls the process of uploading data, it is used by the DataController
@@ -40,6 +40,7 @@ public class DataUpload {
         checkGoalsUpdateAlerts(newActivities);
     }
 
+
     /**
      * This method is called when the user presses the 'Load File' button
      * and they have the 'Add data to existing activity' checkbox checked.
@@ -62,6 +63,7 @@ public class DataUpload {
         analyseActivities(activity);
     }
 
+
     /**
      * This method is used by the appendNewData method it loops through the target activity
      * checking that the data was not a subset of the data already there, if not is will
@@ -76,11 +78,12 @@ public class DataUpload {
                 targetActivity.getDataSet().addDataPoints(inputActivity.getDataSet());
             }
             else {
-                ErrorController.displayError("The data from '"+inputActivity.getName()+"' " +
+                DialogController.displayError("The data from '"+inputActivity.getName()+"' " +
                         "is already contained in activity. \n It will not be appended.");
             }
         }
     }
+
 
     /**
      * This method tells the user if no activities were parsed from the activity
@@ -88,10 +91,11 @@ public class DataUpload {
      */
     private void checkEmptyFile(ArrayList<Activity> inputActivities) {
         if (inputActivities.size() == 0) {
-            ErrorController.displayError("File has no activities or is missing '#start' tag(s).\n" +
+            DialogController.displayError("File has no activities or is missing '#start' tag(s).\n" +
                     "Please check file");
         }
     }
+
 
     /**
      * This method controls the data validation process using the DataValidation class
@@ -113,10 +117,11 @@ public class DataUpload {
                                 + validator.getInitialDataSetSize()
                                 + "\n";
                 message += "Values fixed: " + validator.getDataValidated();
-                ErrorController.displayError(message);
+                DialogController.displayError(message);
             }
         }
     }
+
 
     /**
      * This method controls the data analysis process using the DataAnalyser class
@@ -132,6 +137,7 @@ public class DataUpload {
         }
     }
 
+
     /**
      * This method controls checking if each activity already exists for the user
      * @param inputActivities
@@ -145,7 +151,7 @@ public class DataUpload {
                     String message = "Activity '" + inputActivities.get(i).getName()+"'";
                     message += " is a duplicate of existing activity\n";
                     message += "It will not be added";
-                    ErrorController.displayError(message);
+                    DialogController.displayError(message);
                     notDuplicate = false;
                 }
             }
@@ -154,6 +160,7 @@ public class DataUpload {
             }
         }
     }
+
 
     /**
      * This method add the activity to the user.
@@ -166,7 +173,7 @@ public class DataUpload {
             String message = "Activity '" + activity.getName()+"'";
             message += " is empty.\n";
             message += "It will not be added";
-            ErrorController.displayError(message);
+            DialogController.displayError(message);
         }
         else {
             newActivities.add(activity);
@@ -174,6 +181,7 @@ public class DataUpload {
             HomeController.getCurrentUser().addActivity(activity);
         }
     }
+
 
     /**
      * This method uses the CheckGoals class to check if the new activites
@@ -188,5 +196,6 @@ public class DataUpload {
             HomeController.getCurrentUser().addAlert(countAlert);
         }
     }
+
 
 }

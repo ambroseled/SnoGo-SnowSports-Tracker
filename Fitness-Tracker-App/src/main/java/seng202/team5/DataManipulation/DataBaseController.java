@@ -3,7 +3,7 @@ package seng202.team5.DataManipulation;
 
 import org.sqlite.SQLiteConfig;
 import seng202.team5.Control.HomeController;
-import seng202.team5.Control.ErrorController;
+import seng202.team5.Control.DialogController;
 import seng202.team5.Model.*;
 import java.sql.*;
 import java.text.DateFormat;
@@ -30,7 +30,7 @@ public class DataBaseController {
             connection = DriverManager.getConnection(dbString, config().toProperties());
             createDatabase();
         } catch (Exception e) {
-            ErrorController.displayError("Error connecting to database");
+            DialogController.displayError("Error connecting to database");
         }
     }
 
@@ -49,7 +49,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error closing connection to database");
+            DialogController.displayError("Error closing connection to database");
         }
 
     }
@@ -182,7 +182,7 @@ public class DataBaseController {
             }
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("User error with the database");
+            DialogController.displayError("User error with the database");
         }
         // Returning the ArrayList of user
         return users;
@@ -223,7 +223,7 @@ public class DataBaseController {
             }
             } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error activity database");
+            DialogController.displayError("Error activity database");
         }
         return activities;
     }
@@ -264,7 +264,7 @@ public class DataBaseController {
             return null;
         } catch (SQLException e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error dataSet database");
+            DialogController.displayError("Error dataSet database");
             return null;
         }
     }
@@ -772,7 +772,7 @@ public class DataBaseController {
         } catch (SQLException e) {
             // Showing error dialogue to user
             System.out.println(e.getLocalizedMessage());
-            ErrorController.displayError("Error retrieving goal from database");
+            DialogController.displayError("Error retrieving goal from database");
         }
         return goals;
     }

@@ -14,7 +14,6 @@ import javafx.util.converter.IntegerStringConverter;
 import seng202.team5.DataManipulation.*;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
-
 import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,23 +21,19 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-
 import static java.lang.Math.abs;
 
 
-//TODO If you delete an activity and then upload it again straight away it is caught as a double up activity - need to fix
-//TODO Style check boxes
-
+/**
+ * This class is the controller for the dataRawView.fxml. It provides the functionality for
+ * the user to load csv files, manually enter data, edit activities, delete activities, export
+ * activities and view the raw data of activities.
+ */
 public class DataController {
 
     private ArrayList<Activity> activities;
     // Getting database controller and current user
     private DataBaseController db = HomeController.getDb();
-    private GraphsController statsController;
-    @FXML
-    private MapController mapsController;
-    @FXML
-    private HomeController homeController;
     @FXML
     private TableView actTable;
     @FXML
@@ -119,12 +114,6 @@ public class DataController {
     private DataAnalyser dataAnalyser = new DataAnalyser();
 
 
-
-
-    public void initialize() {
-        actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    }
-
     
     /**
      * This method is called when the user presses the 'Load File'
@@ -156,7 +145,7 @@ public class DataController {
                 fillTable();
             }
             else {
-                ErrorController.displayError("No Activity Selected");
+                DialogController.displayError("No Activity Selected");
             }
         }
         else {
@@ -181,6 +170,12 @@ public class DataController {
 
     }
 
+
+    /**
+     *
+     * @param analyser
+     * @param selectedAct
+     */
     private void checkHearthealth(DataAnalyser analyser, Activity selectedAct) {
 
 
@@ -217,39 +212,47 @@ public class DataController {
     }
 
 
+    /**
+     * This method creates and then fills the activity with a passed activity.
+     * @param activity The activity to fill the table
+     */
     private void createTable(Activity activity) {
 
         rawDataTable.getItems().clear();
-        if (rawDataTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
-            activities = db.getActivities(HomeController.getCurrentUser().getId());
-            // date and time column
-            dateTimeCol.setCellValueFactory(new PropertyValueFactory("formattedDate"));
+        activities = db.getActivities(HomeController.getCurrentUser().getId());
+        // date and time column
+        dateTimeCol.setCellValueFactory(new PropertyValueFactory("formattedDate"));
 
-            //heart rate column
-            heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
+        //heart rate column
+        heartRateCol.setCellValueFactory(new PropertyValueFactory("heartRate"));
 
-            //latitude column
-            latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
+        //latitude column
+        latitudeCol.setCellValueFactory(new PropertyValueFactory("latitude"));
 
-            //longitude column
-            longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
+        //longitude column
+        longitudeCol.setCellValueFactory(new PropertyValueFactory("longitude"));
 
-            //elevation column
-            elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
+        //elevation column
+        elevationCol.setCellValueFactory(new PropertyValueFactory("elevation"));
 
-            //distance column
-            distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
+        //distance column
+        distanceCol.setCellValueFactory(new PropertyValueFactory("distance"));
 
-            //speed column
-            speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
+        //speed column
+        speedCol.setCellValueFactory(new PropertyValueFactory("speed"));
 
 
-            //rawDataTable.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol, removeCol);
-            rawDataTable.setItems(getDataPointsList(activity));
-            rawDataTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        }
+        //rawDataTable.getColumns().addAll(dateTimeCol, heartRateCol, latitudeCol, longitudeCol, elevationCol, distanceCol, speedCol, removeCol);
+        rawDataTable.setItems(getDataPointsList(activity));
+        rawDataTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+
+    /**
+     * This method takes an activity and creates am observable list of the data points for the passed activity
+     * @param activity
+     * @return
+     */
     private ObservableList<DataPoint> getDataPointsList(Activity activity) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
 
@@ -258,9 +261,11 @@ public class DataController {
         return dataPointsList;
     }
 
+
     @FXML
     /**
-     * Called by a mouse click on the activity table.
+     * Called by a mouse click on the activity table. it grabs the selected activity from the table and uses the
+     * createTable() method to fill the data points table
      */
     public void showActivityData(MouseEvent mouseEvent) {
         if (HomeController.getCurrentUser() != null) {
@@ -271,9 +276,10 @@ public class DataController {
         }
     }
 
+
     @FXML
     /**
-     *Fills the table with all of the HomeController.getCurrentUser()s activities if the number of
+     * Fills the table with all of the HomeController.getCurrentUser()s activities if the number of
      * activities in the table is not equal to the number of activities the HomeController.getCurrentUser() has.
      */
     public void fillTable() {
@@ -339,6 +345,7 @@ public class DataController {
 
     }
 
+
     @FXML
     /**
      * Called by a press of the fileLoad button. This method enables the user
@@ -355,11 +362,12 @@ public class DataController {
             try {
                 viewData(f.getAbsolutePath());
             } catch (Exception e) {
-                //ErrorController.displayError("File loading error");
             }
         }
     }
 
+
+    @FXML
     /**
      * This method is called when the user presses the 'Delete' button.
      * The activity is deleted and the database is updated
@@ -372,10 +380,12 @@ public class DataController {
             fillTable();
         }
         else {
-            ErrorController.displayError("No Activity Selected");
+            DialogController.displayError("No Activity Selected");
         }
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the name of an activity
      * The name is changed and the database is updated
@@ -387,11 +397,12 @@ public class DataController {
         db.updateActivityName(selectedAct);
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the date time of
      * and activity, the new date time must be between the date times of the
      * preceding and succeeding date times
-     *
      * @param dataPointStringCellEditEvent
      */
     public void changeDateTime(TableColumn.CellEditEvent<DataPoint, String> dataPointStringCellEditEvent) {
@@ -409,14 +420,14 @@ public class DataController {
                     selectedPoint.setDateTime(newDateTime);
                 }
                 else {
-                    ErrorController.displayError("Invalid date. Out of order");
+                    DialogController.displayError("Invalid date. Out of order");
                 }
             }
             else if (i == activity.getDataSet().getDataPoints().size() - 1) {
                 if (newDateTime.getTime() > activity.getDataSet().getDataPoints().get(i - 1).getDateTime().getTime()) {
                     selectedPoint.setDateTime(newDateTime);
                 } else {
-                    ErrorController.displayError("Invalid date. Out of order");
+                    DialogController.displayError("Invalid date. Out of order");
                 }
             }
             else {
@@ -425,7 +436,7 @@ public class DataController {
                     selectedPoint.setDateTime(newDateTime);
                 }
                 else {
-                    ErrorController.displayError("Invalid date. Out of order");
+                    DialogController.displayError("Invalid date. Out of order");
                 }
             }
 
@@ -436,11 +447,13 @@ public class DataController {
             db.updateDataSet(activity);
 
         } catch (ParseException e) {
-            ErrorController.displayError("Wrong format for date");
+            DialogController.displayError("Wrong format for date");
         }
         createTable(activity);
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the heart rate
      * of the data point. It updates the activity in the data base.
@@ -461,16 +474,18 @@ public class DataController {
                 db.updateDataSet(activity);
 
             } else {
-                ErrorController.displayError("Value must be between 26 and 480");
+                DialogController.displayError("Value must be between 26 and 480");
             }
         }
         catch (NullPointerException e) {
-            ErrorController.displayError("New value must be a number");
+            DialogController.displayError("New value must be a number");
         }
         createTable(activity);
 
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the latitude
      * of the data point. It updates the activity in the data base.
@@ -491,15 +506,17 @@ public class DataController {
                 db.updateDataSet(activity);
 
             } else {
-                ErrorController.displayError("Value must be between -90.0 and 90.0");
+                DialogController.displayError("Value must be between -90.0 and 90.0");
             }
         }
         catch (NullPointerException e) {
-            ErrorController.displayError("New value must be a decimal");
+            DialogController.displayError("New value must be a decimal");
         }
         createTable(activity);
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the longitude
      * of the data point. It updates the activity in the data base.
@@ -520,15 +537,17 @@ public class DataController {
                 db.updateDataSet(activity);
 
             } else {
-                ErrorController.displayError("Value must be between -180.0 and 180.0");
+                DialogController.displayError("Value must be between -180.0 and 180.0");
             }
         }
         catch (NullPointerException e) {
-            ErrorController.displayError("New value must be a decimal");
+            DialogController.displayError("New value must be a decimal");
         }
         createTable(activity);
     }
 
+
+    @FXML
     /**
      * This method is called when the user confirms an edit on the elevation
      * of the data point. It updates the activity in the data base.
@@ -549,16 +568,17 @@ public class DataController {
                 db.updateDataSet(activity);
 
             } else {
-                ErrorController.displayError("Value must be between -213.0 and 8850.0");
+                DialogController.displayError("Value must be between -213.0 and 8850.0");
             }
         }
         catch (NullPointerException e) {
-            ErrorController.displayError("New value must be a decimal");
+            DialogController.displayError("New value must be a decimal");
         }
         createTable(activity);
     }
 
 
+    @FXML
     /**
      * This method is called when the user presses the 'Delete Selected Data Point' button
      * It removes the data point from the activity and updates the database
@@ -579,31 +599,35 @@ public class DataController {
             createTable(activity);
         }
         else {
-            ErrorController.displayError("No Data Point Selected");
+            DialogController.displayError("No Data Point Selected");
         }
     }
 
 
-
+    @FXML
     /**
      * Called by a press of the export file button. This method exports the selected
      * activity to a csv file in the users home directory.
      */
     public void exportActivity() {
+        // Getting the selected activity
         Activity selectedAct =  (Activity) actTable.getSelectionModel().getSelectedItem();
         if (selectedAct != null) {
             ArrayList<Activity> activities = new ArrayList<Activity>();
             activities.add(selectedAct);
+            // Making the filename for the export from the activities name
             String filename = makeFilename(selectedAct.getName());
+            // Exporting the file
             boolean status = DataExporter.exportData(activities, filename);
+            // Displaying the result of the file export to the user
             if (status) {
-                ErrorController.displayMessage("File exported as " + filename + ".csv");
+                DialogController.displayExportMessage("File exported as " + filename + ".csv");
             } else {
-                ErrorController.displayError("File export failed");
+                DialogController.displayError("File export failed");
             }
         }
         else {
-            ErrorController.displayError("No Activity Selected");
+            DialogController.displayError("No Activity Selected");
         }
     }
 
@@ -615,11 +639,14 @@ public class DataController {
      * @return The corresponding filename.
      */
     private String makeFilename(String actName) {
+        // Splitting the name by spaces
         String[] words = actName.split(" ");
         String filename = "";
+        // Concatenating the words together
         for (int i = 0; i < words.length; i++) {
             filename += words[i];
         }
+        // returning a default filename if one is not created
         if (filename.equals("")) {
             return "snoGoExportedData.csv";
         } else {
@@ -707,9 +734,12 @@ public class DataController {
      * for validity
      */
     public void checkName() {
+        // Getting the name out of the text field
         String name = nameEntry.getText();
+        // Checking if name is a valid length
         if (name.length() > 5 && name.length() < 45) {
             nameCheck.setSelected(true);
+            // Checking if the currently entered data is enough to be a valid activity
             if (dataPoints.size() >= 2) {
                 confirmButton.setDisable(false);
             }
@@ -725,9 +755,11 @@ public class DataController {
      */
     public void checkDate() {
         if (manualEntryTable.getItems().isEmpty()) {
+            // Checking if there is a value entered
             if (datePicker.getValue() != null) {
                 Date date = new Date();
                 Date picked = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                // Checking that the date is not in the future
                 if (picked.getTime() >= date.getTime()) {
                     dateCheck.setSelected(false);
                 } else {
@@ -737,8 +769,10 @@ public class DataController {
                 dateCheck.setSelected(false);
             }
         } else {
+            // Checking the date with the currently entered time against previously entered date time values
             checkDateTime();
         }
+        checkChecks();
     }
 
 
@@ -750,10 +784,13 @@ public class DataController {
     public void checkTime() {
         String time = timeEntry.getText();
         try {
+            // Getting the entered time
             Date date = timeFormat.parse(time);
             if (manualEntryTable.getItems().isEmpty()) {
+                // table is entered so a time that can be parsed is valid
                 timeCheck.setSelected(true);
             } else {
+                // Checking the time with the currently entered date against previously entered date time values
                 checkDateTime();
             }
         } catch (ParseException e) {
@@ -769,12 +806,15 @@ public class DataController {
      * is within a valid range
      */
     public void checkHeart() {
+        // Getting the heart rate entered
         String rate = heartEntry.getText();
         try {
+            // parsing the text to an int
             int heartRate = Integer.parseInt(rate);
             if (manualEntryTable.getItems().isEmpty()) {
                 heartCheck.setSelected(true);
             } else {
+                // Checking the heart rate is within a valid range
                 if (abs(heartRate - dataPoints.get(dataPoints.size() - 1).getHeartRate()) > 5 || heartRate < 26
                         || heartRate > 480) {
                     heartCheck.setSelected(false);
@@ -795,15 +835,18 @@ public class DataController {
      * a valid range and then compares it with previously entered longitude and latitude points
      */
     public void checkLat() {
+        // Getting the entered value
         String lat = latEntry.getText();
         try {
+            // parsing the value to a double
             double latitude = Double.parseDouble(lat);
             if (manualEntryTable.getItems().isEmpty()) {
                 latCheck.setSelected(true);
-            } else { // Check with others
+            } else { // Check the value is in a valid range
                 if (latitude < -90 || latitude > 90) {
                     latCheck.setSelected(false);
                 } else {
+                    // Checking with other entered values
                     checkLatLong();
                 }
             }
@@ -819,16 +862,22 @@ public class DataController {
      * previously entered points
      */
     private void checkLatLong() {
+        // Getting the latitude and longitude values
         String lat = latEntry.getText();
         String lng = longEntry.getText();
         if (lat != null && lng != null) {
+            // Parsing the values to double
             double latitude = Double.parseDouble(lat);
             double longitude = Double.parseDouble(lng);
+            // Getting the last point entered
             DataPoint lastPoint = dataPoints.get(dataPoints.size() - 1);
+            // Calculating the distance change between the last point and the entered values
             double change = dataAnalyser.oneDist(latitude, longitude, lastPoint.getLatitude(), lastPoint.getLongitude());
             Date dateTime = getDateTime();
             if (dateTime != null) {
+                // Getting the time change between the current and last point
                 double timeChange = (dateTime.getTime() - lastPoint.getDateTime().getTime()) / 1000;
+                // Checking that the speed is valid between the two points
                 if (change / timeChange > 35) {
                     latCheck.setSelected(false);
                     longCheck.setSelected(false);
@@ -853,18 +902,22 @@ public class DataController {
      * a valid range and then compares it with previously entered longitude and latitude points
      */
     public void checkLong() {
+        // Getting the longitude value
         String lng = longEntry.getText();
         try {
+            // Parsing the value to a double
             double longitude = Double.parseDouble(lng);;
             if (manualEntryTable.getItems().isEmpty()) {
                 longCheck.setSelected(true);
             } else {
-            if (longitude < -180 || longitude > 180) {
-                longCheck.setSelected(false);
-            } else {
-                checkLatLong();
+                // Checking the value is within a valid range
+                if (longitude < -180 || longitude > 180) {
+                    longCheck.setSelected(false);
+                } else {
+                    // Checking with other entered values
+                    checkLatLong();
+                }
             }
-        }
         } catch (NumberFormatException e) {
             longCheck.setSelected(false);
         }
@@ -878,12 +931,15 @@ public class DataController {
      * valid range compared to previously entered elevations
      */
     public void checkEle() {
+        // Getting the value from the text field
         String ele = eleEntry.getText();
         try {
+            // Parsing the value
             double elevation = Double.parseDouble(ele);
             if (manualEntryTable.getItems().isEmpty()) {
                 eleCheck.setSelected(true);
             } else {
+                // Checking the value is within a valid range
                 if (abs(elevation - dataPoints.get(dataPoints.size() - 1).getElevation()) > 5 || elevation < -213 ||
                         elevation > 8850) {
                     eleCheck.setSelected(false);
@@ -899,7 +955,8 @@ public class DataController {
 
 
     /**
-     * This method checks if all entry fields are valid by checking that all check boxes are ticked
+     * This method checks if all entry fields are valid by checking that all check boxes are ticked, if so the
+     * enterLineButton is enabled
      */
     private void checkChecks() {
         if (dateCheck.isSelected() && timeCheck.isSelected() && heartCheck.isSelected() && latCheck.isSelected() &&
@@ -912,11 +969,12 @@ public class DataController {
 
 
     /**
-     * This method
+     * This method checks that the date entered along with the time entered is valid
      */
     private void checkDateTime() {
         Date dateTime = getDateTime();
         Date lastDate = dataPoints.get(dataPoints.size() - 1).getDateTime();
+        // checking the change in time is less than 60 seconds
         if (abs(dateTime.getTime() - lastDate.getTime())/1000 > 60) {
             dateCheck.setSelected(false);
             timeCheck.setSelected(false);
@@ -928,6 +986,10 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a press of the enterLineButton. It grabs all currently entered data and forms
+     * a data point which is then added to the table
+     */
     public void enterLine() {
         Date dateTime = getDateTime();
         if (dateTime != null) {
@@ -942,6 +1004,10 @@ public class DataController {
     }
 
 
+    /**
+     * This method is used after a new line is entered. It clears all the entry mechanisms ready for the next
+     * line to be entered
+     */
     private void clearEntries() {
         timeCheck.setSelected(false);
         timeEntry.setText("");
@@ -957,20 +1023,32 @@ public class DataController {
     }
 
 
+    /**
+     * This method gets the currently entered date time
+     * @return A Date holding the currently entered data time
+     */
     private Date getDateTime() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        // Getting the entered date and time
         String date = dateFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         String time = timeEntry.getText();
         String dateTime = date + " " + time;
         try {
+            // Parsing the date and time together to be returned
             return dateTimeFormat.parse(dateTime);
         } catch (ParseException e) {
+            // Returning null as the parsing of the date time failed
             return null;
         }
     }
 
 
+    /**
+     * This method adds a passed data point to the table
+     * @param point The data point to be added
+     */
     private void addDataPoint(DataPoint point) {
+        // Defining columns of the table as the table is empty
         if (manualEntryTable.getItems().isEmpty()) {
             dateTimeColMan.setCellValueFactory(new PropertyValueFactory<>("formattedDate"));
             heartRateColMan.setCellValueFactory(new PropertyValueFactory<>("heartRate"));
@@ -978,6 +1056,7 @@ public class DataController {
             longitudeColMan.setCellValueFactory(new PropertyValueFactory<>("longitude"));
             elevationColMan.setCellValueFactory(new PropertyValueFactory<>("elevation"));
         }
+        // adding the point
         dataPoints.add(point);
         manualEntryTable.setItems(dataPoints);
         if (dataPoints.size() >= 2 && nameCheck.isSelected()) {
@@ -987,17 +1066,28 @@ public class DataController {
 
 
     @FXML
+    /**
+     * This method is called by a press of the confirm button. It creates and activity from the data points in the table
+     */
     public void makeActivity() {
+        // Setting the current user of the dataAnalyser
         dataAnalyser.setCurrentUser(HomeController.getCurrentUser());
+        // Getting the data points
         ArrayList<DataPoint> points = new ArrayList<>();
         points.addAll(dataPoints);
+        // Making the data set
         DataSet dataSet = new DataSet();
         dataSet.setDataPoints(points);
+        // Making the activity
         Activity activity = new Activity(nameEntry.getText(), dataSet);
+        // Analysing the activity
         dataAnalyser.analyseActivity(activity);
+        // Adding teh activity to the user and storing it in the database
         HomeController.getCurrentUser().addActivity(activity);
         db.storeActivity(activity, HomeController.getCurrentUser().getId());
+        // Hiding the manual entry mechanisms
         hideManual();
+        // Refreshing the activity table
         fillTable();
     }
 

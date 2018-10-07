@@ -1,7 +1,6 @@
 package seng202.team5.Control;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,42 +11,33 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
-import seng202.team5.Model.Activity;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Observable;
-
 
 
 //TODO Do we want to build a map in the corner at the same time as the video plays??
 
 
-
-
-
 public class VideoController {
+
     @FXML
     private MediaView mediaView;
-
     @FXML
     private Button toggleButton;
-
     @FXML
     private TableView videosTable;
-
     @FXML
     private TableColumn<File, String> videosColumn;
-
     @FXML
     private Button removeButton;
+
 
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean playing = false;
     private ObservableList<File> videoList = FXCollections.observableArrayList();
+
 
     public void initialize() {
         String path = System.getProperty("user.home");
@@ -58,6 +48,7 @@ public class VideoController {
         fillTable();
         checkVideoSelected();
     }
+
 
     public void selectVideo() {
         FileChooser fileChooser = new FileChooser();
@@ -73,6 +64,7 @@ public class VideoController {
 
     }
 
+
     public void displayVideo() {
         try {
             File video = (File) videosTable.getSelectionModel().getSelectedItem();
@@ -84,6 +76,7 @@ public class VideoController {
             System.out.println(e.getMessage());
         }
     }
+
 
     public void addVideoToApp() {
         FileChooser fileChooser = new FileChooser();
@@ -98,11 +91,13 @@ public class VideoController {
         fillTable();
     }
 
+
     public void removeSelectedVideo() {
         File selectedFile = (File) videosTable.getSelectionModel().getSelectedItem();
         selectedFile.delete();
         fillTable();
     }
+
 
     @FXML
     /**
@@ -116,6 +111,7 @@ public class VideoController {
         }
     }
 
+
     public void playVideo(String path) {
 
         media = new Media(new File(path).toURI().toString());
@@ -124,9 +120,11 @@ public class VideoController {
         mediaPlayer.play();
     }
 
+
     public void rotateVideo() {
         mediaView.setRotate(mediaView.getRotate() + 90);
     }
+
 
     public void toggleStretch() {
         if (mediaView.isPreserveRatio()) {
@@ -135,6 +133,7 @@ public class VideoController {
             mediaView.setPreserveRatio(true);
         }
     }
+
 
     public void togglePlayback() {
         if (playing) {
@@ -148,6 +147,7 @@ public class VideoController {
         }
     }
 
+
     public void fillTable() {
         videosTable.getItems().clear();
         File[] fileList = new File(System.getProperty("user.home") + "/SnoGo/Videos").listFiles();
@@ -160,4 +160,6 @@ public class VideoController {
 
 
     }
+
+
 }

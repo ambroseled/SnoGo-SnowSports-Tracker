@@ -1,6 +1,8 @@
 package seng202.team5.Model;
 
+
 import java.util.ArrayList;
+
 
 /**
  * Stores an array list of data points, and contains a method to
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Route {
 
-    //
+
     private ArrayList<DataPoint> route = new ArrayList<DataPoint>();
 
 
@@ -38,4 +40,6 @@ public class Route {
 
 
     }
+
+
 }

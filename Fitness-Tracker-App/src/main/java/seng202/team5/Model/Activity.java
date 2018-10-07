@@ -2,10 +2,10 @@ package seng202.team5.Model;
 
 
 import seng202.team5.Control.CompController;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * This class holds a single activity that is in the application.
@@ -85,9 +85,11 @@ public class Activity {
         return name;
     }
 
+
     public void setId(int id) {
         this.id = id;
     }
+
 
     public void setName(String name) {this.name = name; }
 
@@ -96,6 +98,7 @@ public class Activity {
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
         return dateTimeFormat.format(dataSet.getDateTime(0));
     }
+
 
     public Date getDateTime() {
         return dataSet.getDateTime(0);

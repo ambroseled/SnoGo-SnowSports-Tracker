@@ -11,18 +11,15 @@ import seng202.team5.DataManipulation.CheckGoals;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
 import seng202.team5.Model.Alert;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
 
-//TODO Work out y goal button is fadded
-
 /**
- * This class handles controlling the goal view of the application. It provides functionality to view, remove
- * and create goals.
+ * This class is the controller for the goalView.fxml file. It provides functionality to the user
+ * to view, remove and create goals.
  */
 public class GoalController {
 
@@ -61,12 +58,9 @@ public class GoalController {
     private CheckBox globalCheck;
 
 
-
     private ObservableList<Goal> goals = FXCollections.observableArrayList();
     private DataBaseController db = HomeController.getDb();
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-
 
 
     @FXML
@@ -333,7 +327,6 @@ public class GoalController {
             viewData();
         }
     }
-
 
 
 }

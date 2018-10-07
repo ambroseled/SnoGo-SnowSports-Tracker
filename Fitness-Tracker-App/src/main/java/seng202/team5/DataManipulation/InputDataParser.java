@@ -1,11 +1,8 @@
 package seng202.team5.DataManipulation;
 
 
-import seng202.team5.DataManipulation.DataAnalyser;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.User;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+
 
 /**
  * The class reads a csv file into a set of Activity objects.
@@ -44,6 +42,7 @@ public class InputDataParser {
 
 		return lines;
 	}
+
 
 	/**
 	 * The data read in readFile() is further processed into separate activities
@@ -84,6 +83,7 @@ public class InputDataParser {
 		}
 		return activities;
 	}
+
 
 	/**
 	 * This is a helper method to the createActivitiesFromLines method. It deals with parsing one
@@ -157,7 +157,6 @@ public class InputDataParser {
 
 		return activities;
 	}
-
 
 
 }

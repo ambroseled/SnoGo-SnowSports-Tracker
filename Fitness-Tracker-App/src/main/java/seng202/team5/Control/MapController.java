@@ -14,8 +14,6 @@ import seng202.team5.Model.*;
 import java.util.ArrayList;
 
 
-//TODO: fix table
-
 /**
  * Controller class for the mapView.fxml class.
  * Displays the activities of a HomeController.getCurrentUser() onto a map (using the Google Maps API).
@@ -42,7 +40,7 @@ public class MapController {
 
 
     /**
-     * Initialises the web engine.
+     * Initialises the web engine and load the html of the map
      */
     public void initialize() {
         webEngine = webView.getEngine();
@@ -53,8 +51,8 @@ public class MapController {
     /**
      * Given a route, displays the route (path) on the map.
      * Calls webEngine, so the method requires an internet connection.
-     * However, if there is no internet connection, the error is caught earlier in the stack trace.
-     *
+     * However, if there is no internet connection the error will be
+     * caught and a message displayed to the user
      * @param newRoute Route to be displayed
      */
     private void displayRoute(Route newRoute) {
@@ -68,28 +66,26 @@ public class MapController {
      * Called by a mouse click on the activity table. Shows the selected activity on the map
      */
     public void showData() {
-        if (HomeController.getCurrentUser() != null) {
-            try {
-                Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
-                if (activity != null) {
-                    Route route = new Route(activity.getDataSet().getDataPoints());
-                    displayRoute(route);
-                }
-                warningText.setVisible(false);
-                warningImage.setVisible(false);
-            } catch (netscape.javascript.JSException e) {
-                warningText.setVisible(true);
-                warningImage.setVisible(true);
+        try {
+            Activity activity =  (Activity) actTable.getSelectionModel().getSelectedItem();
+            if (activity != null) {
+                Route route = new Route(activity.getDataSet().getDataPoints());
+                displayRoute(route);
             }
+            warningText.setVisible(false);
+            warningImage.setVisible(false);
+        } catch (netscape.javascript.JSException e) {
+            warningText.setVisible(true);
+            warningImage.setVisible(true);
         }
     }
 
-  @FXML
-  /**
-   *Fills the table with all of the HomeController.getCurrentUser()s activities if the number of
-   * activities in the table is not equal to the number of activities the HomeController.getCurrentUser() has.
-   */
-  public void fillTable() {
+    @FXML
+    /**
+    * Fills the table with all of the HomeController.getCurrentUser()s activities if the number of
+    * activities in the table is not equal to the number of activities the HomeController.getCurrentUser() has.
+    */
+    public void fillTable() {
       actTable.getItems().clear();
       if (HomeController.getCurrentUser() != null) {
           if (actTable.getItems().size() != HomeController.getCurrentUser().getActivities().size()) {
@@ -100,7 +96,7 @@ public class MapController {
           actTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
           }
       }
-  }
+    }
 
 
 }

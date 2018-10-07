@@ -4,7 +4,6 @@ import seng202.team5.Model.Activity;
 import seng202.team5.Model.Alert;
 import seng202.team5.Model.Goal;
 import seng202.team5.Model.User;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -171,4 +170,6 @@ public class CheckGoals {
         values[2] = Integer.parseInt(date[2]);
         return values;
     }
+
+
 }

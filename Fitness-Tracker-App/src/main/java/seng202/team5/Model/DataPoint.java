@@ -1,6 +1,5 @@
 package seng202.team5.Model;
 
-import javafx.scene.control.Button;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -44,7 +43,10 @@ public class DataPoint {
         longitude = newLongitude;
         elevation = newElevation;
     }
+
+
     public DataPoint() {}
+
 
     /**
      * This constructor is used when a DataPoint is read from the database.
@@ -172,7 +174,6 @@ public class DataPoint {
     }
 
 
-
     public String toString() {
         return "Date time: "+dateTime+", Heart rate: "+heartRate+", Latitude: "+latitude+", Longitude: "+longitude+", Elevation: "+elevation+
                 ", Distance: "+distance+", Speed: "+speed;
@@ -211,4 +212,6 @@ public class DataPoint {
         }
         return true;
     }
+
+
 }

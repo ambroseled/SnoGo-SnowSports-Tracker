@@ -5,14 +5,13 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Region;
 
 /**
- * This class is in charge of displaying an error message.
- * The error message appears if a user tries to load a corrupt
- * or invalid file.
+ * This class provides the functionality for dialogues to be shown to the user.
+ * It has functionality for information and error dialogues
  */
-public class ErrorController {
+public class DialogController {
 
     /**
-     * Creates a dialogPane popup which displays a message to the user
+     * Creates a dialogPane popup which displays an error message to the user
      * @param errorMessage message describing the error in a readable manner
      */
     public static void displayError(String errorMessage) {
@@ -22,15 +21,17 @@ public class ErrorController {
         errorPopup.setContentText(errorMessage);
 
         DialogPane dialogPane = errorPopup.getDialogPane();
-        //dialogPane.getStylesheets().add("errorStyle.css");
-        //dialogPane.getStyleClass().add("error");
         dialogPane.setMinHeight(Region.USE_PREF_SIZE);
 
         errorPopup.showAndWait();
     }
 
 
-    public static void displayMessage(String message) {
+    /**
+     * This method creates an information dialogue for the status of a file export
+     * @param message The message for the dialogue
+     */
+    public static void displayExportMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info Dialog");
         alert.setHeaderText("File Export Successful");
@@ -41,4 +42,6 @@ public class ErrorController {
 
         alert.showAndWait();
     }
+
+
 }

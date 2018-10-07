@@ -19,7 +19,7 @@ import seng202.team5.Model.DataSet;
 
 /**
  * This class is the controller of the dataCompView.fxml file. It provides the functionality for the user
- * to compare activities.
+ * to compare their activities.
  */
 public class CompController {
 

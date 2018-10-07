@@ -1,5 +1,6 @@
 package seng202.team5.Model;
 
+
 public class WeatherField {
 
 
@@ -13,7 +14,6 @@ public class WeatherField {
     }
 
 
-
     public String getField() {
         return field;
     }
@@ -22,4 +22,6 @@ public class WeatherField {
     public String getUrl() {
         return url;
     }
+
+
 }

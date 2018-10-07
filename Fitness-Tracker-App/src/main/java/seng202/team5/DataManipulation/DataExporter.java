@@ -1,7 +1,6 @@
 package seng202.team5.DataManipulation;
 
 
-
 import com.opencsv.CSVWriter;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;

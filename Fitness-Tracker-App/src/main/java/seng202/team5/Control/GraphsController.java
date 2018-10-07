@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
@@ -17,7 +15,6 @@ import seng202.team5.Model.DataSet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -86,7 +83,7 @@ public class GraphsController{
     @FXML
     private TableColumn<Activity, String> slopeCol;
 
-    // Getting database controller and current user
+
     private DataBaseController db = HomeController.getDb();
 
 
@@ -117,10 +114,10 @@ public class GraphsController{
 
 
     /**
-     *
-     * @param chart
-     * @param yLabel
-     * @return
+     * The method creates a series to be used for an overall statistics graph
+     * @param chart The chart to make the series for
+     * @param yLabel The y label of the chart
+     * @return a xYChart.Series related to the passed chart
      */
     private XYChart.Series createOverallGraph(XYChart chart, String yLabel) {
         chart.getData().clear();
@@ -147,7 +144,7 @@ public class GraphsController{
 
 
     /**
-     * Sets speed graph
+     * Sets the values of the speed chart for a passed activity
      * @param lineChart the speed over time line graph
      * @param series series storing all speed points for activity in an 2D format
      * @param activity currently selected activity
@@ -169,7 +166,7 @@ public class GraphsController{
 
 
     /**
-     * Sets distance graph
+     * Sets the values of the distance chart for a passed activity
      * @param lineChart the distance over time line graph
      * @param series series storing all distance points for activity in an 2D format
      * @param activity currently selected activity
@@ -191,7 +188,7 @@ public class GraphsController{
 
 
     /**
-     * Sets heart rate graph
+     * Sets the values of the heart rate chart for a passed activity
      * @param lineChart the heart rate over time line graph
      * @param series series storing all heart rate points for activity in an 2D format
      * @param activity currently selected activity
@@ -213,7 +210,7 @@ public class GraphsController{
 
 
     /**
-     * Sets total distance graph
+     * Sets the values of the total distance chart for all activities in the activities list
      * @param barChart the total distance over activities graph
      * @param series series storing distance points for each activity in the 2D format
      */
@@ -230,23 +227,7 @@ public class GraphsController{
 
 
     /**
-     * Sets vertical distance travelled graph
-     * @param lineChart the vertical distance over activities graph
-     * @param series series storing distance points for each activity in the 2D format
-     */
-    private void setVertDistChart(LineChart lineChart, XYChart.Series series) {
-        int i = 0;
-        for (Activity activity: activities) {
-            double verticalDistance = activity.getDataSet().getVerticalDistance();
-            series.getData().add(new XYChart.Data(i, verticalDistance));
-            i += 1;
-        }
-        lineChart.getData().add(series);
-    }
-
-
-    /**
-     * Sets vertical distance travelled graph
+     * Sets the values of the vertical distance chart for all activities in the activities list
      * @param barChart the vertical distance over activities graph
      * @param series series storing distance points for each activity in the 2D format
      */
@@ -263,7 +244,7 @@ public class GraphsController{
 
 
     /**
-     * Sets Average Heart Rate graph
+     * Sets the values of the average heart rate chart for all activities in the activities list
      * @param lineChart the Average Heart Rate over activities graph
      * @param series series storing heart rate points for each activity in the 2D format
      */
@@ -279,7 +260,7 @@ public class GraphsController{
 
 
     /**
-     * Sets calories burned graph
+     * Sets the values of the calories burned chart for all activities in the activities list
      * @param lineChart the calories burned over activities graph
      * @param series series storing calories points for each activity in the 2D format
      */
@@ -295,7 +276,7 @@ public class GraphsController{
 
 
     /**
-     * Sets average speed graph
+     * Sets the values of the average speed chart for all activities in the activities list
      * @param lineChart the average speed over activities graph
      * @param series series storing average speed for each activity in a 2D format
      */
@@ -310,7 +291,7 @@ public class GraphsController{
     }
 
     /**
-     * Sets running distance graph, which adds each activity's distance
+     * Sets running distance graph, which adds each activity's distance for all activities in the activities list
      * @param lineChart the running distance over activities graph
      * @param series series storing distance points for each activity in the 2D format
      */
@@ -327,7 +308,7 @@ public class GraphsController{
 
 
     /**
-     * Sets slope time graph, which adds each activity's slope time
+     * Sets the values of the slope time chart for all activities in the activities list
      * @param lineChart the slope time over activities graph
      * @param series series storing slope time points for each activity in the 2D format
      */
@@ -342,7 +323,7 @@ public class GraphsController{
 
 
     /**
-     * Sets slope time graph, which adds each activity's slope time
+     * Sets the values of thetop speed chart for all activities in the activities list
      * @param lineChart the slope time over activities graph
      * @param series series storing slope time points for each activity in the 2D format
      */
@@ -358,9 +339,10 @@ public class GraphsController{
 
 
     /**
+     * Sets the time scale for a passed chart also returning the time scale
      * @param startTime Point when the activity started
      * @param endTime Point when the activity ends
-     * @return the time of the current datapoint relative to the start of the activity
+     * @return the time of the current data point relative to the start of the activity
      */
     private double setTime(long startTime, long endTime, LineChart lineChart) {
         double totalTime = endTime - startTime;
@@ -472,7 +454,7 @@ public class GraphsController{
 
 
     /**
-     *
+     * This method sets the activities list to a passed list of activities
      * @param inputActivities
      */
     private void setActivities(ArrayList<Activity> inputActivities) {
@@ -481,6 +463,7 @@ public class GraphsController{
 
 
     /**
+     * This method creates and returns an observable list of data points from a passed activity
      * @param activity the currently selected activity in the choiceBox
      * @return a list of all dataPoints
      */
@@ -494,30 +477,46 @@ public class GraphsController{
 
 
     @FXML
+    /**
+     * This method is called by a press of the 'Last Week' button. it sets the scope of the overall graphs
+     * to be within the last week
+     */
     public void showWeek() {
-        Date date = parseDate(7);
+        Date date = alterDate(7);
         setActivities(getActivitiesAfter(date));
         fillCharts();
     }
 
 
     @FXML
+    /**
+     * This method is called by a press of the 'Last Month' button. it sets the scope of the overall graphs
+     * to be within the last month
+     */
     public void showMonth() {
-        Date date = parseDate(30);
+        Date date = alterDate(30);
         setActivities(getActivitiesAfter(date));
         fillCharts();
     }
 
 
     @FXML
+    /**
+     * This method is called by a press of the 'Last Year' button. it sets the scope of the overall graphs
+     * to be within the last year
+     */
     public void showYear() {
-        Date date = parseDate(365);
+        Date date = alterDate(365);
         setActivities(getActivitiesAfter(date));
         fillCharts();
     }
 
 
     @FXML
+    /**
+     * This method is called by a press of the 'All Time' button. it sets the scope of the overall graphs
+     * to be all of the users activities
+     */
     public void showAll() {
         ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
         setActivities(inputActivities);
@@ -525,10 +524,16 @@ public class GraphsController{
     }
 
 
-
-    private Date parseDate(int numDays) {
+    /**
+     * This method is used to minus a passed amount of days off of a date
+     * @param numDays The number of days to minus off
+     * @return The date corresponding to the current date minus the passed amount of days
+     */
+    private Date alterDate(int numDays) {
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+        // Minusing the days off the current date
         String dateString = dateTimeFormat.format(DateUtils.addDays(new Date(), -numDays));
+        // Parsing the string into a date to be returned
         try {
             Date date = dateTimeFormat.parse(dateString);
             return date;
@@ -538,10 +543,16 @@ public class GraphsController{
     }
 
 
-
+    /**
+     * This method gets a list of activities that are after a passed date
+     * @param date The date
+     * @return The list of activities
+     */
     private ArrayList<Activity> getActivitiesAfter(Date date) {
         ArrayList<Activity> acts = new ArrayList<>();
+        // Looping over all of the users activities
         for (Activity x : db.getActivities(HomeController.getCurrentUser().getId())) {
+            // Checking if the activity is after the passed date
             if (x.getDataSet().getDateTime(0).getTime() >= date.getTime()) {
                 acts.add(x);
             }
@@ -550,6 +561,9 @@ public class GraphsController{
     }
 
 
+    /**
+     * This method fills all of the overall graphs with the activities in the activities list
+     */
     private void fillCharts() {
         XYChart.Series totalDistSeries = createOverallGraph(totDistChart, "Total Distance (m)");
         setTotalDistChart(totDistChart, totalDistSeries);

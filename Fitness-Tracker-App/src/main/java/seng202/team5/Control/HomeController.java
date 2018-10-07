@@ -281,7 +281,7 @@ public class HomeController {
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().browse(new URI(url));
                 } else {
-                    ErrorController.displayError("Desktop integration no supported");
+                    DialogController.displayError("Desktop integration no supported");
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -669,7 +669,7 @@ public class HomeController {
             }
         } catch (Exception e) {
             // Showing error dialogue to user
-            ErrorController.displayError("Error updating user information");
+            DialogController.displayError("Error updating user information");
         }
     }
 

@@ -1,7 +1,6 @@
 package seng202.team5.Model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 
@@ -175,12 +174,10 @@ public class DataSet {
     }
 
 
-
     public String toLine() {
         return String.format("%f, %f, %f, %d, %f, %f", topSpeed, totalDistance, verticalDistance, avgHeartRate,
                 caloriesBurned, avgSpeed);
     }
-
 
 
     /**
@@ -204,6 +201,7 @@ public class DataSet {
         }
         return false;
     }
+
 
     /**
      * This method tests if the data the given dataset is a subset of
@@ -232,5 +230,6 @@ public class DataSet {
         }
         return true;
     }
+
 
 }

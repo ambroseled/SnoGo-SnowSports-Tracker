@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * This class is the controller for the calView.fxml file. It provides the calendar functionality
- * for the application. Giving the user tha ability to view alerts, goals and activity over a selected
+ * for the application. Giving the user the ability to view alerts, goals and activity over a selected
  * date range.
  */
 public class CalController {

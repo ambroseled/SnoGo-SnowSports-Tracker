@@ -1,5 +1,6 @@
 package seng202.team5.Model;
 
+
 import seng202.team5.DataManipulation.DataAnalyser;
 
 import java.text.DateFormat;
@@ -31,7 +32,6 @@ public class User {
 
     // The date format used to parse the birth date string
     private DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-
 
 
     /**
@@ -77,6 +77,7 @@ public class User {
         }
     }
 
+
     /**
      * Constructor used to create a new user without activities
      * @param name The name of the user
@@ -93,10 +94,12 @@ public class User {
         this.birthDate = birthDate;
     }
 
+
     @Override
     public String toString() {
         return this.name;
     }
+
 
     public String getName() {
         return name;
@@ -211,4 +214,6 @@ public class User {
     public void removeActivity(Activity activity) {
         activities.remove(activity);
     }
+
+
 }
