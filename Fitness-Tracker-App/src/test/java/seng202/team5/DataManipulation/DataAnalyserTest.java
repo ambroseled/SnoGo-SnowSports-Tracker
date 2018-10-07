@@ -231,9 +231,9 @@ public class DataAnalyserTest {
 
     @Test
     public void testCheckCardiovascularMortalityTrue() {
-        dataAnalyser.setCurrentUser(users.get(0));
+        dataAnalyser.setCurrentUser(users.get(5));
         Alert alert = dataAnalyser.checkCardiovascularMortality(activities.get(0));
-        assertEquals("Risk of cardiovascular mortalityHeart risk warning", alert.getMessage() + alert.getType());
+        assertEquals("Your heart rate is abnormally high.Heart risk warning", alert.getMessage() + alert.getType());
     }
 
 
