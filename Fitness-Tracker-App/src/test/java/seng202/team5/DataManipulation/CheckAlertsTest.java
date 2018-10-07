@@ -84,7 +84,7 @@ public class CheckAlertsTest {
      * Testing the activityAlert function with a user that has 4 activities.
      */
     public void testCountAlertNull() {
-        ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/dataAnalysisTests.csv");
+        ArrayList<Activity> activities = parser.parseCSVToActivities("src/main/resources/TestFiles/alertTestsLessThan5.csv");
         user.setActivities(activities);
         Alert countAlert = CheckAlerts.activityAlert(user);
         assertNull(countAlert);

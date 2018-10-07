@@ -3,10 +3,7 @@ package seng202.team5.DataManipulation;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seng202.team5.Model.Activity;
-import seng202.team5.Model.DataPoint;
-import seng202.team5.Model.DataSet;
-import seng202.team5.Model.User;
+import seng202.team5.Model.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +19,7 @@ public class DataAnalyserTest {
 
     private static ArrayList<Activity> activities;
     private static DataAnalyser dataAnalyser = new DataAnalyser();
+    private static ArrayList<User> users = new ArrayList<>();
 
 
     /**
@@ -38,6 +36,12 @@ public class DataAnalyserTest {
         for (Activity activity : activities) {
             dataAnalyser.analyseActivity(activity);
         }
+        users.add(new User("test", 1, 45, 1.7, new Date()));
+        users.add(new User("test", 3, 45, 1.7, new Date()));
+        users.add(new User("test", 6, 45, 1.7, new Date()));
+        users.add(new User("test", 10, 45, 1.7, new Date()));
+        users.add(new User("test", 14, 45, 1.7, new Date()));
+        users.add(new User("test", 70, 45, 1.7, new Date()));
     }
 
 
@@ -190,6 +194,94 @@ public class DataAnalyserTest {
      */
     public void testCalories() {
         assertEquals(3.25, activities.get(3).getDataSet().getCaloriesBurned(), 0.0);
+    }
+
+
+    @Test
+    public void testCheckBradycardiaFalseByAge() {
+        dataAnalyser.setCurrentUser(users.get(5));
+        Alert alert = dataAnalyser.checkBradycardia(activities.get(0));
+        assertNull(alert);
+    }
+
+
+    @Test
+    public void testCheckBradycardiaFalseByRate() {
+        dataAnalyser.setCurrentUser(users.get(0));
+        Alert alert = dataAnalyser.checkBradycardia(activities.get(0));
+        assertNull(alert);
+    }
+
+
+    @Test
+    public void testCheckBradycardiaTrue() {
+        dataAnalyser.setCurrentUser(users.get(5));
+        Alert alert = dataAnalyser.checkBradycardia(activities.get(4));
+        assertEquals("Risk of BradycardiaHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckCardiovascularMortalityFalse() {
+        dataAnalyser.setCurrentUser(users.get(0));
+        Alert alert = dataAnalyser.checkCardiovascularMortality(activities.get(1));
+        assertNull(alert);
+    }
+
+
+    @Test
+    public void testCheckCardiovascularMortalityTrue() {
+        dataAnalyser.setCurrentUser(users.get(0));
+        Alert alert = dataAnalyser.checkCardiovascularMortality(activities.get(0));
+        assertEquals("Risk of cardiovascular mortalityHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckTachycardiaFalse() {
+        dataAnalyser.setCurrentUser(users.get(0));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(1));
+        assertNull(alert);
+    }
+
+
+    @Test
+    public void testCheckTachycardiaUnder4() {
+        dataAnalyser.setCurrentUser(users.get(0));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(5));
+        assertEquals("Risk of TachycardiaHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckTachycardiaUnder7() {
+        dataAnalyser.setCurrentUser(users.get(1));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(5));
+        assertEquals("Risk of TachycardiaHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckTachycardiaUnder11() {
+        dataAnalyser.setCurrentUser(users.get(2));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(5));
+        assertEquals("Risk of TachycardiaHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckTachycardiaUnder15() {
+        dataAnalyser.setCurrentUser(users.get(3));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(5));
+        assertEquals("Risk of TachycardiaHeart risk warning", alert.getMessage() + alert.getType());
+    }
+
+
+    @Test
+    public void testCheckTachycardiaOver15() {
+        dataAnalyser.setCurrentUser(users.get(4));
+        Alert alert = dataAnalyser.checkTachycardia(activities.get(5));
+        assertEquals("Risk of TachycardiaHeart risk warning", alert.getMessage() + alert.getType());
     }
 
 

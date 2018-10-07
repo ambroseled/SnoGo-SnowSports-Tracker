@@ -118,10 +118,6 @@ public class DataAnalyser {
 
         int len = dataPoints.size();
         int endIndex = getEndIndex(index, dataPoints);
-        System.out.print("index = ");
-        System.out.println(index);
-        System.out.print("end index = ");
-        System.out.println(endIndex);
 
         double endAlt = dataPoints.get(endIndex).getElevation();
 
@@ -141,8 +137,6 @@ public class DataAnalyser {
 
         double averageSpeed = distance/timeDifferece;
 
-        System.out.println(dataPoints.get(index).getDistance());
-        System.out.println(dataPoints.get(endIndex).getDistance());
 
         if (endIndex == index) {
             if (dataPoints.get(index - 1).isActive()) {
@@ -153,7 +147,6 @@ public class DataAnalyser {
         }
 
         // Checking if the activity is active or not
-        System.out.println(averageSpeed);
         if (averageSpeed < STATIONARY_AVERAGE_SPEED) {
             return "Inactive";
         } else {
@@ -162,34 +155,6 @@ public class DataAnalyser {
             }
             return "Active";
         }
-/*
-
-        if ((index + endIndex) > len) {
-            endIndex = len - 1;
-            flag = true;
-        }
-        if (endIndex == index) {
-            if (dataPoints.get(index - 1).isActive()) {
-                return "Active";
-            } else {
-                return "Inactive";
-            }
-        } else {
-            // Getting the location information out of the dataPoint 60 seconds on
-            double endLat = dataPoints.get(endIndex).getLatitude();
-            double endLong = dataPoints.get(endIndex).getLongitude();
-            double endAlt = dataPoints.get(endIndex).getElevation();
-            double[] end = new double[] {endLong, endLat, endAlt};
-
-
-            // Getting the altitude change over the two points
-            double movement = oneDist(startLat, startLong, endLat, endLong);
-            double condition;
-            if (flag) {
-                condition = 0.2 * (dataPoints.size() - index);
-            } else{
-                condition = 1;
-            }*/
     }
 
 
@@ -263,11 +228,9 @@ public class DataAnalyser {
         double time = (time1 - time2)/1000;
         if (time == 0) {
             // The time change is zero so the speed is zero
-            System.out.println("time is zero");
             return 0;
         } else if (distance == 0) {
             // The distance change is zero so the speed is zero
-            System.out.println("distance is zero");
             return 0;
         } else {
             // The speed is above zero and will be calculated
@@ -450,6 +413,7 @@ public class DataAnalyser {
         return dataPoints.size()-1;
     }
 
+
     /**
      * Sets the current user to passed user.
      * @param user The new current user.
@@ -457,6 +421,7 @@ public class DataAnalyser {
     public void setCurrentUser(User user) {
         currentUser = user;
     }
+
 
     public Alert checkCardiovascularMortality(Activity activity) {
 
@@ -481,8 +446,8 @@ public class DataAnalyser {
         return null;
     }
 
-    public Alert checkTachycardia(Activity activity) {
 
+    public Alert checkTachycardia(Activity activity) {
         int index = 0;
         Alert alert = new Alert(activity.getDate(), "Risk of Tachycardia", "Heart risk warning");
 
@@ -566,7 +531,8 @@ public class DataAnalyser {
         }
     }
 
-    public boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
+
+    private boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
         int endIndex = getEndIndex(index, dataPoints);
         if (abs(dataPoints.get(index).getHeartRate() - dataPoints.get(endIndex).getHeartRate()) < HEART_RATE_STEADY) {
             return true;
@@ -577,6 +543,13 @@ public class DataAnalyser {
     }
 
 
+    /**
+     * This method calculates the distance traveled between two points passed by index
+     * @param index The index of the first point
+     * @param endIndex The index of the second point
+     * @param dataPoints The data points
+     * @return The distance moved
+     */
     private double calculateMovement(int index, int endIndex, ArrayList<DataPoint> dataPoints){
         // Getting the location information out of the dataPoint to check
         double startLat = dataPoints.get(index).getLatitude();
@@ -593,6 +566,13 @@ public class DataAnalyser {
     }
 
 
+    /**
+     * This method calculates the time traveled between two points passed by index
+     * @param index The index of the first point
+     * @param endIndex The index of the second point
+     * @param dataPoints The data points
+     * @return The time difference
+     */
     private double getTimeDifference(int index, int endIndex, ArrayList<DataPoint> dataPoints) {
         return (dataPoints.get(endIndex).getDateTime().getTime() - dataPoints.get(index).getDateTime().getTime()) / 1000;
     }

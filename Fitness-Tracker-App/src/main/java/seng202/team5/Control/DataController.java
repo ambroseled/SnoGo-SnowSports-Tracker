@@ -161,7 +161,6 @@ public class DataController {
             fillTable();
 
             for (Activity activity : activities) {
-                System.out.println(activity.getName());
                 checkHearthealth(dataAnalyser, activity);
             }
         }
@@ -181,20 +180,16 @@ public class DataController {
 
         Alert tachycardiaAlert = analyser.checkTachycardia(selectedAct);
 
-        System.out.println(tachycardiaAlert.getMessage());
 
         if (tachycardiaAlert != null) {
-            System.out.println("check heart health alert not null");
             db.storeAlert(tachycardiaAlert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(tachycardiaAlert);
             HomeController.addAlert(tachycardiaAlert);
         }
 
         Alert bradycardiaAlert = analyser.checkBradycardia(selectedAct);
-        System.out.println(bradycardiaAlert.getMessage());
 
         if (bradycardiaAlert != null) {
-            System.out.println("check heart health alert not null");
             db.storeAlert(bradycardiaAlert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(bradycardiaAlert);
             HomeController.addAlert(bradycardiaAlert);
@@ -203,7 +198,6 @@ public class DataController {
         Alert cardioMortalityAlert = analyser.checkCardiovascularMortality(selectedAct);
 
         if (cardioMortalityAlert != null) {
-            System.out.println("check heart health alert not null");
             db.storeAlert(cardioMortalityAlert, HomeController.getCurrentUser().getId());
             HomeController.getCurrentUser().addAlert(cardioMortalityAlert);
             HomeController.addAlert(cardioMortalityAlert);

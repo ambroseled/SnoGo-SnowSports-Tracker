@@ -6,6 +6,7 @@ public class WeatherField {
 
     private String field;
     private String url;
+    private String country;
 
 
     public WeatherField(String field, String url) {

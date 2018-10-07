@@ -193,7 +193,6 @@ public class DataSet {
         if (this.dataPoints.size() == otherDataSet.getDataPoints().size()) {
             for (int i = 0; i < this.dataPoints.size(); i++) {
                 if (!(this.dataPoints.get(i).equals(otherDataSet.getDataPoints().get(i)))) {
-//                    System.out.println(this.getDataPoints().get(i).getDateTime() +" vs "+otherDataSet.getDataPoints().get(i).getDateTime());
                     return false;
                 }
             }

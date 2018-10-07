@@ -109,9 +109,7 @@ public class CheckAlerts {
      * @return An alert if an unsafe bmi is found otherwise null
      */
     public static Alert bmiAlert(User user) {
-        //TODO she broke
         double bmi = user.getBmi();
-        System.out.println(bmi);
         String message = null;
         if (bmi >= 30.0) {
             message = "BMI Category: Obese";
