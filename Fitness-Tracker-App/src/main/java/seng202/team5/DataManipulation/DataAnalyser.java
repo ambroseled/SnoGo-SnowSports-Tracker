@@ -1,10 +1,12 @@
 package seng202.team5.DataManipulation;
 
 
+
 import seng202.team5.Model.*;
 import java.util.ArrayList;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
+import static java.lang.Math.sqrt;
 
 
 /**
@@ -19,7 +21,9 @@ public class DataAnalyser {
 
     private User currentUser;
 
-    int HEART_RATE_STEADY = 3;
+    int HEART_RATE_STEADY = 5;
+
+    Double STATIONARY_AVERAGE_SPEED = 0.8; //estimating 0.8 ms^-1 qualifies as resting.
 
     /**
      * This method sets the current user that is used for the analysis.
@@ -114,17 +118,31 @@ public class DataAnalyser {
 
         int len = dataPoints.size();
         int endIndex = getEndIndex(index, dataPoints);
+        System.out.print("index = ");
+        System.out.println(index);
+        System.out.print("end index = ");
+        System.out.println(endIndex);
 
         double endAlt = dataPoints.get(endIndex).getElevation();
+
+        double timeDifferece = getTimeDifference(index, endIndex, dataPoints);
+
         double movement = calculateMovement(index, endIndex, dataPoints);
 
+        double distance = oneDist(dataPoints.get(index).getLatitude(),
+                                    dataPoints.get(index).getLongitude(),
+                                    dataPoints.get(endIndex).getLatitude(),
+                                    dataPoints.get(endIndex).getLongitude());
 
-        double condition;
-        if (endIndex != index + 5) {
-            condition = 0.2 * (len - index);
-        } else {
-            condition = 1;
-        }
+        /* double averageSpeed = oneSpeed(dataPoints.get(index).getDistance(),
+                                dataPoints.get(endIndex).getDistance(),
+                                dataPoints.get(index).getDateTime().getTime(),
+                                dataPoints.get(endIndex).getDateTime().getTime()); */
+
+        double averageSpeed = distance/timeDifferece;
+
+        System.out.println(dataPoints.get(index).getDistance());
+        System.out.println(dataPoints.get(endIndex).getDistance());
 
         if (endIndex == index) {
             if (dataPoints.get(index - 1).isActive()) {
@@ -135,7 +153,8 @@ public class DataAnalyser {
         }
 
         // Checking if the activity is active or not
-        if (movement < condition) {
+        System.out.println(averageSpeed);
+        if (averageSpeed < STATIONARY_AVERAGE_SPEED) {
             return "Inactive";
         } else {
             if ((startAlt - endAlt) < 0) {
@@ -143,7 +162,34 @@ public class DataAnalyser {
             }
             return "Active";
         }
+/*
 
+        if ((index + endIndex) > len) {
+            endIndex = len - 1;
+            flag = true;
+        }
+        if (endIndex == index) {
+            if (dataPoints.get(index - 1).isActive()) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
+        } else {
+            // Getting the location information out of the dataPoint 60 seconds on
+            double endLat = dataPoints.get(endIndex).getLatitude();
+            double endLong = dataPoints.get(endIndex).getLongitude();
+            double endAlt = dataPoints.get(endIndex).getElevation();
+            double[] end = new double[] {endLong, endLat, endAlt};
+
+
+            // Getting the altitude change over the two points
+            double movement = oneDist(startLat, startLong, endLat, endLong);
+            double condition;
+            if (flag) {
+                condition = 0.2 * (dataPoints.size() - index);
+            } else{
+                condition = 1;
+            }*/
     }
 
 
@@ -199,13 +245,15 @@ public class DataAnalyser {
     }
 
 
+
+
     /**
      * Takes the distance and time values of two data points and calculates the current
      * speed.
      * @param dist1 The current distance of the first data point in meters.
      * @param dist2 The current distance of the second data point in meters.
-     * @param time1 The current time of the first data point in milli seconds.
-     * @param time2 The current time of the second data point in milli seconds.
+     * @param time1 The current time of the first data point in seconds.
+     * @param time2 The current time of the second data point in seconds.
      * @return A double holding the current speed in m/s.
      */
     private double oneSpeed(double dist1, double dist2, long time1, long time2) {
@@ -215,9 +263,11 @@ public class DataAnalyser {
         double time = (time1 - time2)/1000;
         if (time == 0) {
             // The time change is zero so the speed is zero
+            System.out.println("time is zero");
             return 0;
         } else if (distance == 0) {
             // The distance change is zero so the speed is zero
+            System.out.println("distance is zero");
             return 0;
         } else {
             // The speed is above zero and will be calculated
@@ -389,13 +439,15 @@ public class DataAnalyser {
     }
 
 
-    private int getEndIndex(int index, ArrayList<DataPoint> dataPoints) {
-        int endIndex = index + 5;
-        int len = dataPoints.size();
-        if ((endIndex) >= len) {
-            endIndex = len - 1;
+
+
+    private int getEndIndex(int startIndex, ArrayList<DataPoint> dataPoints) {
+        for (int i = startIndex; i < dataPoints.size(); i++) {
+            if ((dataPoints.get(i).getDateTime().getTime() - dataPoints.get(startIndex).getDateTime().getTime()) >= 1000 * 30) {
+                return i;
+            }
         }
-        return endIndex;
+        return dataPoints.size()-1;
     }
 
     /**
@@ -422,12 +474,9 @@ public class DataAnalyser {
 
     public Alert checkBradycardia(Activity activity){
         for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
-
             if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
-
                 return new Alert(activity.getDate(), "Risk of Bradycardia", "Heart risk warning");
             }
-
         }
         return null;
     }
@@ -507,18 +556,19 @@ public class DataAnalyser {
 
     private boolean checkResting(int index, ArrayList<DataPoint> dataPoints) {
         int endIndex = getEndIndex(index, dataPoints);
-        if (!dataPoints.get(index).isActive()) {
-            double movement = calculateMovement(index, endIndex, dataPoints);
-            if (movement < 0.2 * (dataPoints.size() - index) && checkHeartRateSteady(index, dataPoints)) {
+        double endAlt = dataPoints.get(endIndex).getElevation();
+        double startAlt = dataPoints.get(index).getElevation();
+
+        if (!dataPoints.get(index).isActive() && (startAlt >= endAlt) && checkHeartRateSteady(index, dataPoints)) {
                 return true;
-            }
+        } else {
+            return false;
         }
-        return false;
     }
 
     public boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
-        int previousIndex = max(0, index - 5);
-        if (abs(dataPoints.get(index).getHeartRate() - dataPoints.get(previousIndex).getHeartRate()) > HEART_RATE_STEADY) {
+        int endIndex = getEndIndex(index, dataPoints);
+        if (abs(dataPoints.get(index).getHeartRate() - dataPoints.get(endIndex).getHeartRate()) < HEART_RATE_STEADY) {
             return true;
         }
         else {
@@ -543,6 +593,8 @@ public class DataAnalyser {
     }
 
 
-
+    private double getTimeDifference(int index, int endIndex, ArrayList<DataPoint> dataPoints) {
+        return (dataPoints.get(endIndex).getDateTime().getTime() - dataPoints.get(index).getDateTime().getTime()) / 1000;
+    }
 
 }
