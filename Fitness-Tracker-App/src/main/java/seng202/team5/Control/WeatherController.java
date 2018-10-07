@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -23,6 +24,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -46,6 +48,8 @@ public class WeatherController {
     private TableView countryTable;
     @FXML
     private TableColumn<WeatherField, String> countryCol;
+    @FXML
+    private Pane coverView;
 
 
     private WebEngine webEngine;
@@ -120,7 +124,6 @@ public class WeatherController {
                   hideMessage();
               } else {
                   scriptLoaded = false;
-                  showMessage();
               }
           }
         });
@@ -188,11 +191,6 @@ public class WeatherController {
         // Grabbing the selected country
         WeatherField weatherField = (WeatherField) fieldTable.getSelectionModel().getSelectedItem();
         // Checking if the java script has been loaded
-        if (!scriptLoaded) {
-            showMessage();
-        } else {
-            hideMessage();
-        }
 
         if (weatherField != null && scriptLoaded) {
             hideMessage();
@@ -201,6 +199,9 @@ public class WeatherController {
             webEngine.executeScript("changeMt(" + "'" + url + "');");
             webView.setVisible(true);
         }
+
+        coverView.setVisible(false);
+
     }
 
 

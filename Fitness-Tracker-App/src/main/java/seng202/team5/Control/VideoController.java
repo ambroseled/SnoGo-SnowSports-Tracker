@@ -288,15 +288,18 @@ public class VideoController {
     }
 
     public void togglePlayback() {
-        if (playing) {
-            mediaPlayer.pause();
-            playing = false;
-            toggleButton.setText("Play");
-        } else {
-            mediaPlayer.play();
-            playing = true;
-            toggleButton.setText("Pause");
+        if (mediaPlayer != null) {
+            if (playing) {
+                mediaPlayer.pause();
+                playing = false;
+                toggleButton.setText("Play");
+            } else {
+                mediaPlayer.play();
+                playing = true;
+                toggleButton.setText("Pause");
+            }
         }
+
     }
 
     public void fillTable() {
