@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import javafx.util.Duration;
 import seng202.team5.Model.DataPoint;
@@ -40,6 +42,10 @@ import java.util.Observable;
 
 
 public class VideoController {
+
+    @FXML
+    private ChoiceBox activityChoice;
+
     @FXML
     private MediaView mediaView;
 
@@ -57,6 +63,10 @@ public class VideoController {
 
     @FXML
     private Text hRate;
+
+    private DataBaseController db = HomeController.getDb();
+
+    private ArrayList<Activity> activities;
 
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -240,6 +250,18 @@ public class VideoController {
         videosColumn.setCellValueFactory(new PropertyValueFactory("name"));
         videosTable.setItems(videoList);
 
+
+    }
+
+    public void setChoiceBox() {
+        ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
+        activities = inputActivities;
+
+        ObservableList<Activity> activityNames = FXCollections.observableArrayList();
+        for (Activity activity: activities) {
+            activityNames.add(activity);
+        }
+        activityChoice.setItems(activityNames);
 
     }
 }
