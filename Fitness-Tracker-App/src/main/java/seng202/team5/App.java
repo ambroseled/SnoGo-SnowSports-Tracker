@@ -42,12 +42,12 @@ public class App extends Application {
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.show();
 
-        try {
+        /*try {
             com.apple.eawt.Application macApp = com.apple.eawt.Application.getApplication();
             macApp.setDockIconImage(new ImageIcon(getClass().getResource("logo.png")).getImage());
         } catch (Exception e) {
             System.out.println("Can't change dock icon");
-        }
+        }*/
 
 
 
