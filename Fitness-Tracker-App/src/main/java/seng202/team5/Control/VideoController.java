@@ -3,6 +3,7 @@ package seng202.team5.Control;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -11,12 +12,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import seng202.team5.Model.Activity;
+import javafx.util.Duration;
+import seng202.team5.Model.DataPoint;
+import seng202.team5.Model.DataSet;
+import seng202.team5.Model.User;
+import sun.swing.AccumulativeRunnable;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -43,6 +54,9 @@ public class VideoController {
 
     @FXML
     private Button removeButton;
+
+    @FXML
+    private Text hRate;
 
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -77,8 +91,8 @@ public class VideoController {
         try {
             File video = (File) videosTable.getSelectionModel().getSelectedItem();
             playVideo(video.getAbsolutePath());
-            playing = true;
-            toggleButton.setText("Pause");
+            playing = false;
+            toggleButton.setText("Play");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -121,6 +135,74 @@ public class VideoController {
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
+
+        ObservableMap data = media.getMetadata();
+
+
+
+
+        Runnable myRunnable = new Runnable() {
+
+            public void run(){
+
+                try {
+                    Path file = new File(path).toPath();
+                    BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
+
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                    String dateCreated = df.format(attr.creationTime().toMillis());
+
+                    System.out.println(dateCreated);
+
+                    ArrayList<Activity> runs = HomeController.getCurrentUser().getActivities();
+                    Activity run2 = runs.get(7);
+                    System.out.println("Runnable running");
+
+                    ArrayList<DataPoint> dataSet = run2.getDataSet().getDataPoints();
+
+                    int startIndex = 0;
+
+                    for (DataPoint x : dataSet) {
+                        if (x.getDateTime().toString() == dateCreated) {
+                            startIndex = x.getId();
+                            hRate.setText(Integer.toString(x.getHeartRate()));
+                        }
+                    }
+
+
+                    int previous = (int) mediaPlayer.getCurrentTime().toSeconds();
+                    int current = (int) mediaPlayer.getCurrentTime().toSeconds();
+                    int loops = 0;
+                    while (true) {
+                        previous = (int) mediaPlayer.getCurrentTime().toSeconds();
+
+                        if ((int) mediaPlayer.getCurrentTime().toSeconds() != previous) {
+                            System.out.println((int) mediaPlayer.getCurrentTime().toSeconds());
+                            previous = (int) mediaPlayer.getCurrentTime().toSeconds();
+
+
+                            int currentRate = dataSet.get(startIndex + loops).getHeartRate();
+                            hRate.setText(Integer.toString(currentRate));
+                            loops += 1;
+                        }
+
+                    }
+
+                } catch (Exception e) {}
+
+
+            }
+        };
+
+        Thread thread = new Thread(myRunnable);
+        thread.start();
+
+
+
+
+
+
+
         //mediaPlayer.play();
     }
 
