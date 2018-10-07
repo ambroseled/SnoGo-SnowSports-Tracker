@@ -950,6 +950,7 @@ public class HomeController {
      */
     public void setUpVideo() {
         videoController.initialize();
+        videoController.setChoiceBox();
     }
 
 
