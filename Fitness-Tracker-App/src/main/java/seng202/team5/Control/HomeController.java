@@ -158,8 +158,6 @@ public class HomeController {
     private static boolean alert = false;
     private int count = 0;
 
-
-
     /**
      * A method used when an alert is created to add to the alerts list. This method also sets a flag to notify the
      * user that the have a new alert.
@@ -169,6 +167,8 @@ public class HomeController {
         alert = true;
         alerts.add(toAdd);
     }
+
+
 
 
     /**
@@ -252,7 +252,28 @@ public class HomeController {
         fillTable();
     }
 
+    /**
+     * This function is called when the researchButton is pressed.
+     * Calls the function openLink with the appropriate link to information on the
+     * given heart problem.
+     */
+    public void researchButtonClicked() {
+        Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+        String message = alert.getMessage();
+        if (message.contains("Tachycardia")) {
+            String url = "https://www.mayoclinic.org/diseases-conditions/tachycardia/symptoms-causes/syc-20355127";
+            openLink(url);
+        } else if (message.contains("Bradycardia")) {
+            String url = "https://www.mayoclinic.org/diseases-conditions/bradycardia/symptoms-causes/syc-20355474";
+            openLink(url);
+        }
+    }
 
+    /**
+     * If the user is running Linux, this function is called to open a link
+     * (since the regular method does not work for Linux).
+     * @param url The url of the web resource to be displayed.
+     */
     private void openLinuxLink(String url) {
         Runtime rt = Runtime.getRuntime();
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
@@ -264,7 +285,7 @@ public class HomeController {
                 cmd.append(String.format(    "%s \"%s\"", browsers[i], url));
             else
                 cmd.append(String.format(" || %s \"%s\"", browsers[i], url));
-        // If the first didn't work, try the next browser and so on
+        // Iterate through the browsers to find a working one.
 
         try {
             rt.exec(new String[] { "sh", "-c", cmd.toString() });
@@ -273,10 +294,16 @@ public class HomeController {
         }
     }
 
-    private void openLink(String url){
 
+    /**
+     * Opens the given url on the users browser. If the user is running Linux,
+     * the functions calls a separate function to handle opening the link.
+     * @param url The url of the web resource to be displayed.
+     */
+    private void openLink(String url){
         String os = System.getProperty("os.name").toLowerCase();
         if (os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
+            //User is running linux
             openLinuxLink(url);
         } else {
             try {
@@ -290,13 +317,15 @@ public class HomeController {
             } catch (URISyntaxException e1) {
                 e1.printStackTrace();
             }
-
         }
-
-
     }
 
 
+    /**
+     * This function is called when the user selects a new alert on the alerts table.
+     * The function checks if the alert is related to risk of heart disease, and if so,
+     * makes the button visible which links the user to relevant online web resources.
+     */
     private void indexChangeTable() {
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
         if (alert != null) {
@@ -306,7 +335,6 @@ public class HomeController {
                 researchButton.setVisible(true);
             } else {
                 researchButton.setVisible(false);
-
             }
         }
     }
@@ -325,7 +353,6 @@ public class HomeController {
         deleteButton.setDisable(false);
         deleteButton.setVisible(true);
 
-
         gridPane.setOpacity(0.5);
         gridPane.setDisable(true);
         alertTable.setVisible(true);
@@ -334,7 +361,6 @@ public class HomeController {
         alert = false;
         userTab.setStyle("-fx-background-color: #005e99;");
         alertsButton.setStyle("-fx-background-color: #005e99;");
-       // alertTable.getItems().clear();
         // Setting table columns
         // Configuring the columns of the alerts table
         nameCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -342,8 +368,6 @@ public class HomeController {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateString"));
         // Filling the alerts table
         alertTable.setItems(alerts);
-
-
 
         if (alertTable.getSelectionModel().getSelectedItem() != null) {
             Alert selectedAlert = (Alert) alertTable.getSelectionModel().getSelectedItem();
@@ -515,7 +539,7 @@ public class HomeController {
      * Checking if the users name is 'pingu' or 'Pingu'. Used for eater egg.
      */
     private void checkPingu() {
-        if (currentUser.getName().equals("pingu") | currentUser.getName().equals("Pingu")) {
+        if (currentUser.getName().toLowerCase().equals("pingu")) {
             pinguActivated = true;
             pingu.setVisible(true);
         } else {

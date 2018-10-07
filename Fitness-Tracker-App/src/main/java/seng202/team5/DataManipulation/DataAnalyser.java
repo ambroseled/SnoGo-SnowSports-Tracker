@@ -21,9 +21,9 @@ public class DataAnalyser {
 
     private User currentUser;
 
-    int HEART_RATE_STEADY = 5;
+    int HEART_RATE_STEADY = 5; //estimating heart rate change of 5 bpm is possible while resting
 
-    Double STATIONARY_AVERAGE_SPEED = 0.8; //estimating 0.8 ms^-1 qualifies as resting.
+    Double STATIONARY_AVERAGE_SPEED = 0.8; //estimating average speed of 0.8 ms^-1 qualifies as resting.
 
     /**
      * This method sets the current user that is used for the analysis.
@@ -102,10 +102,10 @@ public class DataAnalyser {
 
     /**
      * Checks if a passed DataPoint is active or not. The check is done by
-     * calculating the change in vertical distance over 5 dataPoints. If this change
+     * calculating the average speed over approximately 30 seconds. If this change
      * is negative then it is assumed the user is on a lift or hiking hence "Inactive"
-     * is returned. If the distance change is less than 1 it is also assumed that the user is
-     * inactive either being in a cafe or standing still so "Inactive is also returned.
+     * is returned. If the average speed is less than 0.8 ms^-1 it is also assumed that the user is
+     * inactive either being in a cafe or standing still so "Inactive" is also returned.
      * If neither of these conditions are meet then it is assumed the user is active and
      * hence "active" is returned.
      * @param index An index pointing to the DataPoint to check the activity of.
@@ -113,16 +113,12 @@ public class DataAnalyser {
      * @return A string holding if the passed DataPoint is active or not.
      */
     private String checkInactive(int index, ArrayList<DataPoint> dataPoints) {
-        // Getting the location information out of the dataPoint to check
-        double startAlt = dataPoints.get(index).getElevation();
 
+        double startAlt = dataPoints.get(index).getElevation();
         int len = dataPoints.size();
         int endIndex = getEndIndex(index, dataPoints);
-
         double endAlt = dataPoints.get(endIndex).getElevation();
-
         double timeDifferece = getTimeDifference(index, endIndex, dataPoints);
-
         double movement = calculateMovement(index, endIndex, dataPoints);
 
         double distance = oneDist(dataPoints.get(index).getLatitude(),
@@ -130,13 +126,7 @@ public class DataAnalyser {
                                     dataPoints.get(endIndex).getLatitude(),
                                     dataPoints.get(endIndex).getLongitude());
 
-        /* double averageSpeed = oneSpeed(dataPoints.get(index).getDistance(),
-                                dataPoints.get(endIndex).getDistance(),
-                                dataPoints.get(index).getDateTime().getTime(),
-                                dataPoints.get(endIndex).getDateTime().getTime()); */
-
         double averageSpeed = distance/timeDifferece;
-
 
         if (endIndex == index) {
             if (dataPoints.get(index - 1).isActive()) {
@@ -402,8 +392,16 @@ public class DataAnalyser {
     }
 
 
-
-
+    /**
+     * Looks for a data point that is approximately 30 seconds in the future of
+     * the passed index. If all data points are less than 30 seconds in the future,
+     * returns the last data point (point furthest in the future within the data set).
+     * @param startIndex Starting index of the segment of data points to be analysed.
+     *                   (will be approximately 30 seconds before the endIndex).
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return The index to the point in the data set approximately 30 seconds in the
+     * future of the data point at startIndex.
+     */
     private int getEndIndex(int startIndex, ArrayList<DataPoint> dataPoints) {
         for (int i = startIndex; i < dataPoints.size(); i++) {
             if ((dataPoints.get(i).getDateTime().getTime() - dataPoints.get(startIndex).getDateTime().getTime()) >= 1000 * 30) {
@@ -415,8 +413,10 @@ public class DataAnalyser {
 
 
     /**
-     * Sets the current user to passed user.
-     * @param user The new current user.
+     * Checks if the user is at least 40 years old, and has a resting heart rate greater
+     * than 83 bpm. If so, they may be at risk of cardiovascular mortality.
+     * @param activity The activity to be checked for risk of cardiovascular mortality.
+     * @return Alert describing the heart risk problem.
      */
     public void setCurrentUser(User user) {
         currentUser = user;
@@ -424,19 +424,25 @@ public class DataAnalyser {
 
 
     public Alert checkCardiovascularMortality(Activity activity) {
-
         int index = 0;
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
-        for (DataPoint dataPoint : dataPoints) {
-            if (checkResting(index, dataPoints) && dataPoint.getHeartRate() > 83) {
-                return new Alert(activity.getDate(), "Risk of cardiovascular mortality", "Heart risk warning");
+        if (currentUser.getAge() >= 40) {
+            for (DataPoint dataPoint : dataPoints) {
+                if (checkResting(index, dataPoints) && dataPoint.getHeartRate() > 83) {
+                    return new Alert(activity.getDate(), "Your heart rate is abnormally high.", "Heart risk warning");
+                }
+                index++;
             }
-            index++;
         }
         return null;
     }
 
-
+    /**
+     * Checks if the user is at least 65 years old, and has had a recorded heart rate
+     * below 50 bpm. If so, they may be at risk of bradycardia.
+     * @param activity The activity to be checked for risk of Bradycardia.
+     * @return Alert describing the bradycardia risk problem.
+     */
     public Alert checkBradycardia(Activity activity){
         for (DataPoint dataPoint : activity.getDataSet().getDataPoints()) {
             if (currentUser.getAge() >= 65 && dataPoint.getHeartRate() < 50) {
@@ -446,6 +452,13 @@ public class DataAnalyser {
         return null;
     }
 
+    /**
+     * Checks if the user has an abnormally high heart rate for their age.
+     * If so, they may be at risk of Tachycardia.
+     * @param activity The activity to be checked for risk of Tachycardia.
+     * @return Alert describing the Tachycardia risk problem.
+     */
+    public Alert checkTachycardia(Activity activity) {
 
     public Alert checkTachycardia(Activity activity) {
         int index = 0;
@@ -453,7 +466,6 @@ public class DataAnalyser {
 
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
         for (DataPoint dataPoint : dataPoints) {
-
             int heartRate = dataPoint.getHeartRate();
             if (checkResting(index, dataPoints)) {
                 if (currentUser.getAge() < 2) {
@@ -484,46 +496,24 @@ public class DataAnalyser {
             }
             index++;
         }
-
         return null;
-
-
     }
 
-    /*
-    private void checkHeartRateDecreaseProblem(Activity activity) {
-        ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
-        for (int i = 0; i < dataPoints.size(); i++) {
-            for (int j = i + 1; j < dataPoints.size(); j++) {
-                DataPoint start = dataPoints.get(i);
 
-                // checks that they're not moving.
-                if (calculateMovement(i, j, dataPoints) < 0.2 * (j - i)) {
-                    Long timeDifference = (dataPoints.get(j).getDateTime().getTime() -
-                            dataPoints.get(i).getDateTime().getTime()) * 1000 * 60;
-
-                    //checks time difference is greater than one minute.
-                    if (timeDifference >= 1) {
-                        int heartRateDifference = dataPoints.get(j).getHeartRate() -
-                                dataPoints.get(i).getHeartRate();
-                        if (heartRateDifference < 12 * timeDifference) {
-                            //add alert
-                        }
-                    }
-                } else {
-                    i = j;
-                    break;
-                }
-            }
-        }
-    } */
-
-
+    /**
+     * Checks if the user is resting (for heart rate analysis).
+     * @param index Starting index of the segment of data points to be analysed.
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return Boolean value based on if user was resting or not.
+     */
     private boolean checkResting(int index, ArrayList<DataPoint> dataPoints) {
         int endIndex = getEndIndex(index, dataPoints);
         double endAlt = dataPoints.get(endIndex).getElevation();
         double startAlt = dataPoints.get(index).getElevation();
 
+        /*Checks that the user was inactive, not going uphill (as this also qualifies as inactive),
+         and had a steady heart rate (resting).
+         */
         if (!dataPoints.get(index).isActive() && (startAlt >= endAlt) && checkHeartRateSteady(index, dataPoints)) {
                 return true;
         } else {
@@ -531,8 +521,15 @@ public class DataAnalyser {
         }
     }
 
-
-    private boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
+    /**
+     * Checks if the users heart rate was steady in an approximately 30 second long
+     * segment in the list of data points. This is to check that the users heart rate
+     * has stopped slowing down after exercise, and is at its resting bpm.
+     * @param index Starting index of the segment of data points to be analysed.
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return Boolean value indicating if the users heart is steady or not.
+     */
+    public boolean checkHeartRateSteady(int index, ArrayList<DataPoint> dataPoints) {
         int endIndex = getEndIndex(index, dataPoints);
         if (abs(dataPoints.get(index).getHeartRate() - dataPoints.get(endIndex).getHeartRate()) < HEART_RATE_STEADY) {
             return true;
@@ -542,39 +539,46 @@ public class DataAnalyser {
         }
     }
 
-
     /**
-     * This method calculates the distance traveled between two points passed by index
-     * @param index The index of the first point
-     * @param endIndex The index of the second point
-     * @param dataPoints The data points
-     * @return The distance moved
+     * Finds the latitude and longitude values of the data points at the passed indices
+     * in the list of data points, then calls the oneDist function with these values.
+     * Returns the distance between the two points in metres.
+     * @param index Starting index of path to calculate distance of.
+     * @param endIndex end index of path to calculate distance of.
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return Returns the distance of the path in metres.
      */
     private double calculateMovement(int index, int endIndex, ArrayList<DataPoint> dataPoints){
         // Getting the location information out of the dataPoint to check
         double startLat = dataPoints.get(index).getLatitude();
         double startLong = dataPoints.get(index).getLongitude();
 
-        // Getting the location information out of the dataPoint 60 seconds on
+        // Getting the location information out of the dataPoint 30 seconds on
         double endLat = dataPoints.get(endIndex).getLatitude();
         double endLong = dataPoints.get(endIndex).getLongitude();
 
         // Getting the distance change over the two points
         double movement = oneDist(startLat, startLong, endLat, endLong);
         return movement;
-
     }
 
-
     /**
-     * This method calculates the time traveled between two points passed by index
-     * @param index The index of the first point
-     * @param endIndex The index of the second point
-     * @param dataPoints The data points
-     * @return The time difference
+     * Calculates the time difference between two data points in seconds.
+     * @param index Index of first data point used in time comparison.
+     * @param endIndex Index of second data point used in time comparison.
+     * @param dataPoints An arrayList of all the DataPoints in the activity.
+     * @return The time difference between the two points in seconds.
      */
     private double getTimeDifference(int index, int endIndex, ArrayList<DataPoint> dataPoints) {
         return (dataPoints.get(endIndex).getDateTime().getTime() - dataPoints.get(index).getDateTime().getTime()) / 1000;
+    }
+
+    /**
+     * Sets the current user to passed user.
+     * @param user The new current user.
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
     }
 
 }
