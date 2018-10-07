@@ -174,9 +174,9 @@ public class CompController {
             showText(act1.getDataSet(), topSpeedText1, totDistText1, vertText1, heartText1, calText1, avgSpeedText1, slopeText1, timeText1);
             // Performing the comparison of the two activities
             compareActivities(act.getDataSet(), act1.getDataSet());
+            grid1.setVisible(true);
+            grid2.setVisible(true);
         }
-        grid1.setVisible(true);
-        grid2.setVisible(true);
     }
 
 
