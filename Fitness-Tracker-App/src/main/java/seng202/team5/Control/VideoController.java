@@ -44,6 +44,8 @@ import java.util.Observable;
 
 public class VideoController {
 
+    private boolean videoPlaying = false;
+
     private MapController mapController;
 
     @FXML
@@ -161,6 +163,8 @@ public class VideoController {
     }
 
     public void bindVideo() {
+
+        videoPlaying = false;
         Activity selectedActivity = (Activity) activityChoice.getValue();
         try {
 
@@ -184,7 +188,7 @@ public class VideoController {
 
                     if (x.getFormattedDate().equals(dateCreated)) {
 
-                        startIndex = dataSet.indexOf(x);
+                        startIndex = dataSet.indexOf(x) - 60;
                         hRate.setText(Integer.toString(x.getHeartRate()));
                         speed.setText(Double.toString(x.getSpeed()));
                         System.out.println(startIndex);
@@ -211,6 +215,7 @@ public class VideoController {
 
     public void playVideo(String path, ArrayList<DataPoint> dataSet, int startIndex) {
 
+        videoPlaying = true;
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -244,7 +249,7 @@ public class VideoController {
                     System.out.println(thing.getDateTime());
 
                     int loops = 0;
-                    while (true) {
+                    while (videoPlaying) {
                         if (((int) mediaPlayer.getCurrentTime().toSeconds()) != previous) {
                             System.out.println((int) mediaPlayer.getCurrentTime().toSeconds());
                             previous = (int) mediaPlayer.getCurrentTime().toSeconds();
@@ -279,14 +284,6 @@ public class VideoController {
 
         Thread thread = new Thread(videoThread);
         thread.start();
-
-
-
-
-
-
-
-        //mediaPlayer.play();
     }
 
     public void rotateVideo() {
