@@ -442,10 +442,9 @@ public class DataAnalyser {
 
 
     private int getEndIndex(int startIndex, ArrayList<DataPoint> dataPoints) {
-        int endIndex = startIndex;
         for (int i = startIndex; i < dataPoints.size(); i++) {
             if ((dataPoints.get(i).getDateTime().getTime() - dataPoints.get(startIndex).getDateTime().getTime()) >= 1000 * 30) {
-                return endIndex;
+                return i;
             }
         }
         return dataPoints.size()-1;
