@@ -25,9 +25,12 @@
       <Button fx:id="removeButton" layoutX="36.0" layoutY="591.0" mnemonicParsing="false" onAction="#removeSelectedVideo" onMouseReleased="#checkVideoSelected" prefHeight="27.0" prefWidth="200.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Video" />
       <Text layoutX="1154.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heart Rate" />
       <Text fx:id="hRate" layoutX="1173.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      
 
       <Button fx:id="selectButton" layoutX="908.0" layoutY="514.0" minHeight="24.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="129.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Attempt to Bind" />
       <ChoiceBox fx:id="activityChoice" layoutX="426.0" layoutY="514.0" minHeight="24.0" prefHeight="40.0" prefWidth="467.0" stylesheets="@../CSS/choiceBoxStyle.css" />
       <WebView fx:id="webView" layoutX="990.0" layoutY="163.0" prefHeight="203.0" prefWidth="276.0" />
+      <Text layoutX="1154.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed" />
+      <Text fx:id="speed" layoutX="1169.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
    </children>
 </AnchorPane>

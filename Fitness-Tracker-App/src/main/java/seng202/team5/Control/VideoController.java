@@ -72,6 +72,9 @@ public class VideoController {
     @FXML
     private Text hRate;
 
+    @FXML
+    private Text speed;
+
     private DataBaseController db = HomeController.getDb();
 
     private ArrayList<Activity> activities;
@@ -222,6 +225,8 @@ public class VideoController {
                         }
                     });
 
+                    DataPoint thing = dataSet.get(startIndex);
+                    System.out.println(thing.getDateTime());
 
                     int loops = 0;
                     while (true) {
@@ -232,6 +237,9 @@ public class VideoController {
 
                             int currentRate = dataSet.get(startIndex + loops).getHeartRate();
                             hRate.setText(Integer.toString(currentRate));
+                            double currentSpeed = dataSet.get(startIndex + loops).getSpeed();
+                            speed.setText(Double.toString(currentSpeed));
+
                             subList = dataSet.subList(startIndex, startIndex + loops);
                             subListArray.addAll(subList);
                             Route route2 = new Route(subListArray);
