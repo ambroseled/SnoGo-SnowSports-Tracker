@@ -55,7 +55,7 @@ public class MapController {
      * caught and a message displayed to the user
      * @param newRoute Route to be displayed
      */
-    private void displayRoute(Route newRoute) {
+    public void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);
     }

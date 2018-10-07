@@ -13,6 +13,11 @@ public class WeatherField {
         this.field = field;
         this.url = url;
     }
+    public WeatherField(String country, String field, String url) {
+        this.country = country;
+        this.field = field;
+        this.url = url;
+    }
 
 
     public String getField() {
@@ -25,4 +30,7 @@ public class WeatherField {
     }
 
 
+    public String getCountry() {
+        return country;
+    }
 }

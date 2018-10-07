@@ -5,8 +5,6 @@ package seng202.team5.DataManipulation;
 import seng202.team5.Model.*;
 import java.util.ArrayList;
 import static java.lang.Math.abs;
-import static java.lang.Math.max;
-import static java.lang.Math.sqrt;
 
 
 /**
@@ -113,14 +111,14 @@ public class DataAnalyser {
      * @return A string holding if the passed DataPoint is active or not.
      */
     private String checkInactive(int index, ArrayList<DataPoint> dataPoints) {
-
+        // Getting altitude values and the end index
         double startAlt = dataPoints.get(index).getElevation();
-        int len = dataPoints.size();
         int endIndex = getEndIndex(index, dataPoints);
         double endAlt = dataPoints.get(endIndex).getElevation();
+        // Getting the time difference between the two points
         double timeDifferece = getTimeDifference(index, endIndex, dataPoints);
-        double movement = calculateMovement(index, endIndex, dataPoints);
 
+        // Getting the distance moved between the two points
         double distance = oneDist(dataPoints.get(index).getLatitude(),
                                     dataPoints.get(index).getLongitude(),
                                     dataPoints.get(endIndex).getLatitude(),
@@ -128,6 +126,7 @@ public class DataAnalyser {
 
         double averageSpeed = distance/timeDifferece;
 
+        // Checking if the endindex found is equal to the current index
         if (endIndex == index) {
             if (dataPoints.get(index - 1).isActive()) {
                 return "Active";
@@ -362,10 +361,12 @@ public class DataAnalyser {
      */
     private double slopeTime(DataSet dataSet) {
         double time = 0.0;
+        // Getting the data points from the data set
         ArrayList<DataPoint> dataPoints = dataSet.getDataPoints();
-
+        // Looping over all data points and calculating slope time
         for (int i = 1; i < dataSet.getDataPoints().size(); i++) {
             if (dataPoints.get(i).isActive()) {
+                // Adding slope time if point is active
                 time += dataPoints.get(i).getDateTime().getTime() - dataPoints.get(i - 1).getDateTime().getTime();
             }
         }
@@ -418,11 +419,6 @@ public class DataAnalyser {
      * @param activity The activity to be checked for risk of cardiovascular mortality.
      * @return Alert describing the heart risk problem.
      */
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
-
-
     public Alert checkCardiovascularMortality(Activity activity) {
         int index = 0;
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
@@ -458,8 +454,6 @@ public class DataAnalyser {
      * @param activity The activity to be checked for risk of Tachycardia.
      * @return Alert describing the Tachycardia risk problem.
      */
-    public Alert checkTachycardia(Activity activity) {
-
     public Alert checkTachycardia(Activity activity) {
         int index = 0;
         Alert alert = new Alert(activity.getDate(), "Risk of Tachycardia", "Heart risk warning");

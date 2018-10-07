@@ -39,5 +39,5 @@
 
 
 .chart-line-symbol {
-    -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 70% , white, #3278fa);
+    -fx-background-color: transparent;
 }

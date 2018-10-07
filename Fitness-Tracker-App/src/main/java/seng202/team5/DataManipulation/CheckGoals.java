@@ -63,24 +63,28 @@ public class CheckGoals {
         double value = goal.getMetricGoal();
         if (!goal.isGlobal()) {
             if (metric.equals("Distance Traveled")) {
+                // Checking if distance goal is met
                 for (Activity x : activities) {
                     if ((value * 1000) <= x.getDataSet().getTotalDistance()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Top Speed")) {
+                // Checking if speed goal is met
                 for (Activity x : activities) {
                     if (value >= x.getDataSet().getTopSpeed()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Vertical Distance")) {
+                // Checking if vertical goal is met
                 for (Activity x : activities) {
                     if ((value * 1000) <= x.getDataSet().getVerticalDistance()) {
                         return true;
                     }
                 }
             } else if (metric.equals("Calories Burned")) {
+                // Checking if calories goal is met
                 for (Activity x : activities) {
                     if (value <= x.getDataSet().getCaloriesBurned()) {
                         return true;
@@ -95,6 +99,7 @@ public class CheckGoals {
             }
             return false;
         } else {
+            // Goal is global so is checked using this function
             return checkGlobal(goal, user);
         }
     }
@@ -109,12 +114,14 @@ public class CheckGoals {
     private static boolean checkGlobal(Goal goal, User user) {
         if (goal.getMetric().equals("Distance Traveled")) {
             double totalDist = 0.0;
+            // Checking distance goal over all activities
             for (Activity activity : user.getActivities()) {
                 totalDist += activity.getDataSet().getTotalDistance();
             }
             return (goal.getMetricGoal() * 1000) <= totalDist;
         } else if (goal.getMetric().equals("Top Speed")) {
             double topSpeed = 0.0;
+            // Checking speed goal over all activities
             for (Activity activity : user.getActivities()) {
                 if (activity.getDataSet().getTopSpeed() > topSpeed) {
                     topSpeed = activity.getDataSet().getTopSpeed();
@@ -123,12 +130,14 @@ public class CheckGoals {
             return goal.getMetricGoal() >= topSpeed;
         } else if (goal.getMetric().equals("Vertical Distance")) {
             double vertDist = 0.0;
+            // Checking if vertical goal is met
             for (Activity activity : user.getActivities()) {
                 vertDist += activity.getDataSet().getVerticalDistance();
             }
             return (goal.getMetricGoal() * 1000) <= vertDist;
         } else if (goal.getMetric().equals("Calories Burned")) {
             double cals = 0.0;
+            // Checking if calories goal is met
             for (Activity activity : user.getActivities()) {
                 cals += activity.getDataSet().getCaloriesBurned();
             }
@@ -151,6 +160,7 @@ public class CheckGoals {
      */
     public static boolean checkExpired(Goal goal) {
         Date current = new Date();
+        // Checking if the goal is expired
         if (goal.getCompletionDate().getTime() < current.getTime()) {
             return true;
         }
@@ -166,6 +176,7 @@ public class CheckGoals {
      */
     public static int[] convertDate(String[] date) {
         int[] values = new int[3];
+        // Getting int values of the date
         values[0] = Integer.parseInt(date[0]);
         values[1] = Integer.parseInt(date[1]);
         values[2] = Integer.parseInt(date[2]);

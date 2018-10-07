@@ -42,6 +42,7 @@ public class CheckAlerts {
         int actCount = user.getActivities().size();
         String date = dateTimeFormat.format(new Date());
         Alert actAlert = null;
+        // Checking if any of the activity counts are meet
         if (actCount >= 50) {
             actAlert = new Alert(date, "50+ activities uploaded", "Activity count");
         } else if (actCount >= 45) {
@@ -64,6 +65,7 @@ public class CheckAlerts {
             actAlert = new Alert(date, "5+ activities uploaded", "Activity count");
         }
         if (actAlert != null) {
+            // Checking if the alert already exists
             if (alertExists(user, actAlert.getMessage())) {
                 return null;
             }
@@ -80,6 +82,7 @@ public class CheckAlerts {
      * @return True if matching alert is found false otherwise
      */
     private static boolean alertExists(User user, String message) {
+        // Looping over all alerts to see if the passed one exists
         for (Alert alert : user.getAlerts()) {
             if (alert.getMessage().equals(message)) {
                 return true;
@@ -111,6 +114,7 @@ public class CheckAlerts {
     public static Alert bmiAlert(User user) {
         double bmi = user.getBmi();
         String message = null;
+        // Checking if any of the bmi categories are meet
         if (bmi >= 30.0) {
             message = "BMI Category: Obese";
         } else if (bmi >= 24.0) {
@@ -123,6 +127,7 @@ public class CheckAlerts {
             message = "BMI Category: Severely Underweight";
         }
         if (message != null) {
+            // Creating the alert
             String date = dateTimeFormat.format(new Date());
             Alert bmiAlert = new Alert(date, message, "Unsafe BMI");
             return bmiAlert;

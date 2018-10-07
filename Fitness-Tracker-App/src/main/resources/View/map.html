@@ -37,6 +37,13 @@
 
     }
 
+    function moveMarker(flightPath) {
+
+
+        marker2.setPosition(flightPath[flightPath.length - 1]);
+
+    }
+
     function displayRoute(flightPath) {
         // Clear existing markers of previously displayed routes.
         if (marker1 !== undefined && marker2 !== undefined && path !== undefined) {
