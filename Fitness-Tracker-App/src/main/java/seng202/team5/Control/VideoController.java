@@ -173,7 +173,7 @@ public class VideoController {
                     int startIndex = 0;
 
                     for (DataPoint x : dataSet) {
-                        if (x.getDateTime().toString() == dateCreated) {
+                        if (x.getDateTime().toString().equals(dateCreated)) {
                             startIndex = x.getId();
                             hRate.setText(Integer.toString(x.getHeartRate()));
                         }
