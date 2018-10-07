@@ -458,7 +458,9 @@ public class DataController {
         try {
             int newHeartRate = dataPointIntegerCellEditEvent.getNewValue();
             if (newHeartRate > 26 && newHeartRate < 480) {
+
                 DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
+
                 selectedPoint.setHeartRate(newHeartRate);
 
                 DataAnalyser analyser = new DataAnalyser();
@@ -488,6 +490,7 @@ public class DataController {
     public void changeLatitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
+            double oldLatitude = dataPointDoubleCellEditEvent.getOldValue();
             double newLatitude = dataPointDoubleCellEditEvent.getNewValue();
             if (newLatitude > -90 && newLatitude < 90) {
                 DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
@@ -497,7 +500,27 @@ public class DataController {
                 analyser.setCurrentUser(HomeController.getCurrentUser());
                 analyser.analyseActivity(activity);
 
-                db.updateDataSet(activity);
+                int i = activity.getDataSet().getDataPoints().indexOf(selectedPoint);
+                if (i == 0) {
+                    if (activity.getDataSet().getDataPoints().get(i + 1).getSpeed() > 70) {
+                        DialogController.displayError("We here at SnoGo do not believe you were going\n" +
+                                activity.getDataSet().getDataPoints().get(i + 1).getSpeed()+" m/s. Sorry.");
+
+                        selectedPoint.setLatitude(oldLatitude);
+                        analyser.analyseActivity(activity);
+                    }
+                }
+                else if (selectedPoint.getSpeed() > 70) {
+
+                    DialogController.displayError("We here at SnoGo do not believe you were going\n" +
+                            selectedPoint.getSpeed()+" m/s. Sorry.");
+
+                    selectedPoint.setLatitude(oldLatitude);
+                    analyser.analyseActivity(activity);
+                }
+                else {
+                    db.updateDataSet(activity);
+                }
 
             } else {
                 DialogController.displayError("Value must be between -90.0 and 90.0");
@@ -519,6 +542,7 @@ public class DataController {
     public void changeLongitude(TableColumn.CellEditEvent<DataPoint, Double> dataPointDoubleCellEditEvent) {
         Activity activity = (Activity) actTable.getSelectionModel().getSelectedItem();
         try {
+            double oldLongitude = dataPointDoubleCellEditEvent.getOldValue();
             double newLongitude = dataPointDoubleCellEditEvent.getNewValue();
             if (newLongitude > -180 && newLongitude < 180) {
                 DataPoint selectedPoint = (DataPoint) rawDataTable.getSelectionModel().getSelectedItem();
@@ -528,7 +552,28 @@ public class DataController {
                 analyser.setCurrentUser(HomeController.getCurrentUser());
                 analyser.analyseActivity(activity);
 
-                db.updateDataSet(activity);
+
+                int i = activity.getDataSet().getDataPoints().indexOf(selectedPoint);
+                if (i == 0) {
+                    if (activity.getDataSet().getDataPoints().get(i + 1).getSpeed() > 70) {
+                        DialogController.displayError("We here at SnoGo do not believe you were going\n" +
+                                activity.getDataSet().getDataPoints().get(i + 1).getSpeed()+" m/s. Sorry.");
+
+                        selectedPoint.setLongitude(oldLongitude);
+                        analyser.analyseActivity(activity);
+                    }
+                }
+                else if (selectedPoint.getSpeed() > 70) {
+
+                    DialogController.displayError("We here at SnoGo do not believe you were going\n" +
+                            selectedPoint.getSpeed()+" m/s. Sorry.");
+
+                    selectedPoint.setLongitude(oldLongitude);
+                    analyser.analyseActivity(activity);
+                }
+                else {
+                    db.updateDataSet(activity);
+                }
 
             } else {
                 DialogController.displayError("Value must be between -180.0 and 180.0");
