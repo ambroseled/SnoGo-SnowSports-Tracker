@@ -98,7 +98,7 @@ public class VideoController {
 
     }
 
-    public void selectVideo() {
+    /*public void selectVideo() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Video File");
         File f = fileChooser.showOpenDialog(null);
@@ -122,7 +122,7 @@ public class VideoController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
     public void addVideoToApp() {
         FileChooser fileChooser = new FileChooser();
@@ -160,55 +160,70 @@ public class VideoController {
         webEngine.executeScript(scriptToExecute);
     }
 
-    public void playVideo(String path) {
+    public void bindVideo() {
+        Activity selectedActivity = (Activity) activityChoice.getValue();
+        try {
+
+            File video = (File) videosTable.getSelectionModel().getSelectedItem();
+
+            try {
+                Path file = new File(video.getAbsolutePath()).toPath();
+                BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+                String dateCreated = df.format(attr.creationTime().toMillis());
+
+                System.out.println(dateCreated);
+
+
+                ArrayList<DataPoint> dataSet = selectedActivity.getDataSet().getDataPoints();
+
+                int startIndex = 0;
+                boolean found = false;
+                for (DataPoint x : dataSet) {
+
+                    if (x.getFormattedDate().equals(dateCreated)) {
+
+                        startIndex = dataSet.indexOf(x);
+                        hRate.setText(Integer.toString(x.getHeartRate()));
+                        speed.setText(Double.toString(x.getSpeed()));
+                        System.out.println(startIndex);
+                        found = true;
+                    }
+
+                }
+
+                if (!found) {
+                    DialogController.displayError("Start time of video not found within selected activity");
+                    return;
+                }
+
+                playVideo(video.getAbsolutePath(), dataSet, startIndex);
+
+            } catch (Exception e) {
+                DialogController.displayError("Unable to retrieve data from video and activity");
+            }
+
+        } catch (Exception e) {
+            DialogController.displayError("No video selected");
+        }
+    }
+
+    public void playVideo(String path, ArrayList<DataPoint> dataSet, int startIndex) {
 
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
 
-        ObservableMap data = media.getMetadata();
-
-
-
-
-        Runnable myRunnable = new Runnable() {
+        Runnable videoThread = new Runnable() {
 
             public void run(){
 
 
                 try {
-                    Path file = new File(path).toPath();
-                    BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
-                    DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-                    String dateCreated = df.format(attr.creationTime().toMillis());
-
-                    System.out.println(dateCreated);
-
-                    ArrayList<Activity> runs = HomeController.getCurrentUser().getActivities();
-                    Activity run2 = runs.get(7);
-                    System.out.println("Runnable running");
-
-                    ArrayList<DataPoint> dataSet = run2.getDataSet().getDataPoints();
-
-                    int startIndex = 0;
-
-                    for (DataPoint x : dataSet) {
-                        //System.out.println("Point Time = " + x.getFormattedDate());
-                        //System.out.println("Creation Time = " + dateCreated);
-                        //System.out.println("");
-                        if (x.getFormattedDate().equals(dateCreated)) {
-
-                            startIndex = dataSet.indexOf(x);
-                            hRate.setText(Integer.toString(x.getHeartRate()));
-                        }
-                    }
 
                     int endIndex = dataSet.indexOf(dataSet.get(dataSet.size() - 1));
-                    System.out.println("Start Index = " + startIndex);
-                    System.out.println("End Index = " + endIndex);
-
-
                     int previous = (int) mediaPlayer.getCurrentTime().toSeconds();
 
 
@@ -262,7 +277,7 @@ public class VideoController {
             }
         };
 
-        Thread thread = new Thread(myRunnable);
+        Thread thread = new Thread(videoThread);
         thread.start();
 
 
