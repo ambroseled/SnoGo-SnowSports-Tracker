@@ -157,13 +157,17 @@ public class GoalController {
         Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         // Converting the string to a date, if successful then the date is valid, marking the date check box accordingly
         Date current = new Date();
-        if (current.getTime() > date.getTime()) {
-            dateCheck.setSelected(false);
+        if (date != null) {
+            if (current.getTime() > date.getTime()) {
+                dateCheck.setSelected(false);
+            } else {
+                dateCheck.setSelected(true);
+            }
+            // Checking if all fields are now valid
+            checkChecks();
         } else {
             dateCheck.setSelected(true);
         }
-        // Checking if all fields are now valid
-        checkChecks();
     }
 
 

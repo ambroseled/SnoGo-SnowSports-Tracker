@@ -165,12 +165,10 @@ public class HomeController {
      * user that the have a new alert.
      * @param toAdd The alert to add
      */
-    public static void addAlert(seng202.team5.Model.Alert toAdd) {
+    public static void addAlert(Alert toAdd) {
         alert = true;
         alerts.add(toAdd);
     }
-
-
 
 
     /**
@@ -192,6 +190,9 @@ public class HomeController {
                     openLink(url);
                 } else if (message.contains("Bradycardia")) {
                     String url = "https://www.mayoclinic.org/diseases-conditions/bradycardia/symptoms-causes/syc-20355474";
+                    openLink(url);
+                } else if (message.contains("BMI")) {
+                    String url = "https://www.kiwicover.co.nz/your-health/bmi";
                     openLink(url);
                 }
 
@@ -251,6 +252,7 @@ public class HomeController {
         fillTable();
     }
 
+
     private void openLinuxLink(String url) {
         Runtime rt = Runtime.getRuntime();
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
@@ -294,23 +296,20 @@ public class HomeController {
 
     }
 
+
     private void indexChangeTable() {
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
         if (alert != null) {
             String type = alert.getType();
 
-            if (type.contains("Heart")) {
+            if (type.contains("Heart") || type.contains("BMI")) {
                 researchButton.setVisible(true);
-                System.out.println(type);
-
             } else {
                 researchButton.setVisible(false);
 
             }
         }
-
     }
-
 
 
     /**
@@ -665,7 +664,7 @@ public class HomeController {
             if (bmiAlert != null) {
                 db.storeAlert(bmiAlert, currentUser.getId());
                 currentUser.addAlert(bmiAlert);
-                alerts.add(bmiAlert);
+                addAlert(bmiAlert);
             }
         } catch (Exception e) {
             // Showing error dialogue to user
@@ -774,11 +773,13 @@ public class HomeController {
         refreshTable();
         clearChecks();
         clearFields();
+        userTable.getSelectionModel().selectLast();
+        setSelectedUser();
         Alert bmiAlert = CheckAlerts.bmiAlert(currentUser);
         if (bmiAlert != null) {
             db.storeAlert(bmiAlert, currentUser.getId());
             currentUser.addAlert(bmiAlert);
-            alerts.add(bmiAlert);
+            addAlert(bmiAlert);
         }
     }
 

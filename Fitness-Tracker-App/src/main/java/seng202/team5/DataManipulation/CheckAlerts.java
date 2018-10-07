@@ -114,15 +114,15 @@ public class CheckAlerts {
         System.out.println(bmi);
         String message = null;
         if (bmi >= 30.0) {
-            message = "BMI Category: Obese, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+            message = "BMI Category: Obese";
         } else if (bmi >= 24.0) {
-            message = "BMI Category: Overweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+            message = "BMI Category: Overweight";
         } else if (bmi >= 18.5) {
             message = null;
         } else if (bmi >= 16.0) {
-            message = "BMI Category: Under weight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+            message = "BMI Category: Under weight";
         } else {
-            message = "BMI Category: Severely Underweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi";
+            message = "BMI Category: Severely Underweight";
         }
         if (message != null) {
             String date = dateTimeFormat.format(new Date());
