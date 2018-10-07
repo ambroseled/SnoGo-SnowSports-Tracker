@@ -218,45 +218,6 @@ public class WeatherController {
     }
 
 
-
-    /**
-     * Making an observable list of all ski fields that the weather can be viewed for.
-     * @return An ObservableList holding WeatherFields for all fields.
-     */
-    private ObservableList<WeatherField> makeFields() {
-        ObservableList<WeatherField> fieldsNames = FXCollections.observableArrayList();
-        fieldsNames.add(new WeatherField("Alpure Peaks", "AlpurePeaks"));
-        fieldsNames.add(new WeatherField("Awakino Ski Area", "AwakinoSkiArea"));
-        fieldsNames.add(new WeatherField("Broken River", "Broken-River"));
-        fieldsNames.add(new WeatherField("Cardrona", "Cardrona"));
-        fieldsNames.add(new WeatherField("Coronet Peak", "Coronet-Peak"));
-        fieldsNames.add(new WeatherField("Craigieburn", "Craigieburn"));
-        fieldsNames.add(new WeatherField("Fox Peak", "FoxPeak"));
-        fieldsNames.add(new WeatherField("HeliPark NZ", "Mt-Potts"));
-        fieldsNames.add(new WeatherField("Mount Cheeseman", "Mount-Cheeseman"));
-        fieldsNames.add(new WeatherField("Mount Cook", "Mount-Cook"));
-        fieldsNames.add(new WeatherField("Mount Dobson", "Mount-Dobson"));
-        fieldsNames.add(new WeatherField("Mount Hutt", "Mount-Hutt"));
-        fieldsNames.add(new WeatherField("Mount Lyford", "Mount-Lyford"));
-        fieldsNames.add(new WeatherField("Mount Olympus", "Mount-Olympus"));
-        fieldsNames.add(new WeatherField("Mount Roon", "MountRoon"));
-        fieldsNames.add(new WeatherField("Ohau", "Ohau"));
-        fieldsNames.add(new WeatherField("Porter Heights", "Porters-Heights"));
-        fieldsNames.add(new WeatherField("Rainbow", "Rainbow"));
-        fieldsNames.add(new WeatherField("Remarkables", "Remarkables"));
-        fieldsNames.add(new WeatherField("Round Hill", "Round-Hill"));
-        fieldsNames.add(new WeatherField("Soho Basin", "Soho-Basin"));
-        fieldsNames.add(new WeatherField("Snow Farm", "Snow-Farm"));
-        fieldsNames.add(new WeatherField("Snow Park", "SnowPark"));
-        fieldsNames.add(new WeatherField("Temple Basin", "Temple-Basin"));
-        fieldsNames.add(new WeatherField("Treble Cone", "Treble-Cone"));
-        fieldsNames.add(new WeatherField("Tukino", "Tukino"));
-        fieldsNames.add(new WeatherField("Turoa", "Turoa"));
-        fieldsNames.add(new WeatherField("Whakapapa", "Whakapapa"));
-        return fieldsNames;
-    }
-
-
     /**
      * This method parses the csv file of weather fields into and observable list. It also builds an observable list
      * of weather fields where all country names are unique
