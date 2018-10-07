@@ -116,7 +116,7 @@ public class CheckAlertsTest {
     public void testBmiObese() {
         User user = new User("Test", 25, 1.3, 105, new Date());
         Alert alert = CheckAlerts.bmiAlert(user);
-        assertEquals("BMI Category: Obese, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+        assertEquals("BMI Category: Obese", alert.getMessage());
     }
 
 
@@ -124,7 +124,7 @@ public class CheckAlertsTest {
     public void testBmiOverWeight() {
         User user = new User("Test", 25, 1.8, 90, new Date());
         Alert alert = CheckAlerts.bmiAlert(user);
-        assertEquals("BMI Category: Overweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+        assertEquals("BMI Category: Overweight", alert.getMessage());
     }
 
 
@@ -132,7 +132,7 @@ public class CheckAlertsTest {
     public void testBmiUnderWeight() {
         User user = new User("Test", 25, 1.7, 50, new Date());
         Alert alert = CheckAlerts.bmiAlert(user);
-        assertEquals("BMI Category: Under weight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+        assertEquals("BMI Category: Under weight", alert.getMessage());
     }
 
 
@@ -141,7 +141,7 @@ public class CheckAlertsTest {
     public void testBmiSeverelyUnderWeight() {
         User user = new User("Test", 25, 1.7, 30, new Date());
         Alert alert = CheckAlerts.bmiAlert(user);
-        assertEquals("BMI Category: Severely Underweight, seek info at: https://www.kiwicover.co.nz/your-health/bmi", alert.getMessage());
+        assertEquals("BMI Category: Severely Underweight", alert.getMessage());
     }
 
 }
