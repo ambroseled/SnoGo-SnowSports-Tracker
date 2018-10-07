@@ -313,20 +313,27 @@ public class CompController {
      * @return The formatted time string
      */
     public static String formatTime(double timeMilli) {
+        // Getting number of seconds and hours
         double seconds = timeMilli / 1000;
         int hours = (int) seconds / 3600;
         if (hours < 1) {
+            // Formatting to only minutes and seconds as less than an hour of time
             int minutes = (int) seconds / 60;
             if (minutes < 1) {
+
+                // Formatting to only seconds as time is less than a minute
                 return DataAnalyser.roundNum(seconds) + " s";
             }
+            // Getting seconds to format
             int sec = (int) seconds - (minutes * 60);
             return minutes + "m " + sec + " s";
         } else {
+            // Formatting to hours, minutes and seconds
             int minutes = (int) seconds - (hours * 3600);
             int sec = (int) seconds - (minutes * 60 + hours * 3600);
             return hours + "h " + minutes + "m " + sec + " s";
         }
     }
+
 
 }

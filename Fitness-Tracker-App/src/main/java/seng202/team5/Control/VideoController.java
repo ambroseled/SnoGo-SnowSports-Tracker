@@ -1,10 +1,9 @@
 package seng202.team5.Control;
 
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -20,9 +19,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.*;
-import javafx.util.Duration;
-import sun.swing.AccumulativeRunnable;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,13 +28,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-
-
-
-//TODO Do we want to build a map in the corner at the same time as the video plays??  Yep
-
-
 
 
 

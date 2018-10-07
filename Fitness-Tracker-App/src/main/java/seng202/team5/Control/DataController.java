@@ -164,9 +164,7 @@ public class DataController {
                 checkHearthealth(dataAnalyser, activity);
             }
         }
-
         activities = db.getActivities(HomeController.getCurrentUser().getId());
-
     }
 
 
@@ -249,7 +247,6 @@ public class DataController {
      */
     private ObservableList<DataPoint> getDataPointsList(Activity activity) {
         ObservableList<DataPoint> dataPointsList = FXCollections.observableArrayList();
-
         DataSet dataSet = activity.getDataSet();
         dataPointsList.addAll(dataSet.getDataPoints());
         return dataPointsList;
@@ -658,7 +655,7 @@ public class DataController {
             String filename = makeFilename(selectedAct.getName());
             // Exporting the file
             boolean status = DataExporter.exportData(activities, filename);
-            // Displaying the result of the file export to the user
+    // Displaying the result of the file export to the user
             if (status) {
                 DialogController.displayExportMessage("File exported as " + filename + ".csv");
             } else {

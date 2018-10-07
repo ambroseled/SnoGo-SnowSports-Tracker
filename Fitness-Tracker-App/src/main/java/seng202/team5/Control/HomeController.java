@@ -104,6 +104,7 @@ public class HomeController {
     private ImageView logo;
     @FXML
     private GridPane gridPane;
+    // These controllers are used for the set up of tabs when they are selected
     @FXML
     private GoalController goalsController;
     @FXML
@@ -176,10 +177,7 @@ public class HomeController {
      * and to notify the user of an unseen alert.
      */
     public void initialize() {
-
-        researchButton.setVisible(false);
-        researchButton.setStyle("-fx-background-color: #005e99;");
-
+        /*
         researchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -197,13 +195,15 @@ public class HomeController {
                 }
 
             }
-        });
+        });*/
 
         Object object =  alertTable.getSelectionModel().selectedItemProperty().get();
         int index = alertTable.getSelectionModel().selectedIndexProperty().get();
 
         alertTable.getSelectionModel().selectedIndexProperty().addListener((num) -> indexChangeTable());
 
+
+        // Timer used for eater egg and to show alert notification
         AnimationTimer timer = new AnimationTimer(){
             @Override 
             public void handle(long now) {
@@ -252,19 +252,26 @@ public class HomeController {
         fillTable();
     }
 
+
+    @FXML
     /**
      * This function is called when the researchButton is pressed.
      * Calls the function openLink with the appropriate link to information on the
      * given heart problem.
      */
     public void researchButtonClicked() {
+        // Getting the selected alert
         Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
         String message = alert.getMessage();
+        // Checking the contents of the alert message to find the correct link to open
         if (message.contains("Tachycardia")) {
             String url = "https://www.mayoclinic.org/diseases-conditions/tachycardia/symptoms-causes/syc-20355127";
             openLink(url);
         } else if (message.contains("Bradycardia")) {
             String url = "https://www.mayoclinic.org/diseases-conditions/bradycardia/symptoms-causes/syc-20355474";
+            openLink(url);
+        } else if (message.contains("BMI")) {
+            String url = "http://diet.mayoclinic.org/diet/eat/what-is-your-bmi?xid=nl_MayoClinicDiet_20160426";
             openLink(url);
         }
     }
@@ -276,9 +283,10 @@ public class HomeController {
      */
     private void openLinuxLink(String url) {
         Runtime rt = Runtime.getRuntime();
+        // Setting a list of possible browsers
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
                 "netscape", "opera", "links", "lynx" };
-
+        // formatting browsers with th eurl
         StringBuffer cmd = new StringBuffer();
         for (int i = 0; i < browsers.length; i++)
             if(i == 0)
@@ -302,11 +310,13 @@ public class HomeController {
      */
     private void openLink(String url){
         String os = System.getProperty("os.name").toLowerCase();
+        // Checking if the os is linux based
         if (os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
             //User is running linux
             openLinuxLink(url);
         } else {
             try {
+                // Opening the link
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().browse(new URI(url));
                 } else {

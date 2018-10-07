@@ -23,11 +23,14 @@ public class DataExporter {
      */
     public static boolean exportData(ArrayList<Activity> activities, String filename) {
         try {
+            // Making the CSVWriter
             CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("user.home") + "/" + filename
                     + ".csv"), ',', CSVWriter.NO_QUOTE_CHARACTER);
+            // Looping over activities and exporting each one
             for (Activity activity : activities) {
                 exportActivity(activity, writer);
             }
+            // Closing writer
             writer.close();
             return true;
         } catch (IOException e) {
@@ -44,6 +47,7 @@ public class DataExporter {
     private static void exportActivity(Activity activity, CSVWriter writer) {
         writer.writeNext(String.format("#start, %s,,,,", activity.getName()).split(","));
         writer.writeNext(activity.getDataSet().toLine().split(","));
+        // Looping over each data point and writing each one
         for (DataPoint x : activity.getDataSet().getDataPoints()) {
             writer.writeNext(x.toLine().split(","));
         }

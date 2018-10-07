@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,7 +23,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Set;
 
 
 /**
@@ -62,6 +60,7 @@ public class WeatherController {
      * for which the user can select fields to view the weather for
      */
     public void showTables() {
+        // Setting up the column of the table
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
 
         countryTable.setItems(countries);
@@ -75,8 +74,10 @@ public class WeatherController {
      * that relate to the selected country.
      */
     public void showFields() {
+        // Getting the selected weather field
         WeatherField weather = (WeatherField) countryTable.getSelectionModel().getSelectedItem();
         if (weather != null) {
+            // Filling the field column if the weather field is not null
             ObservableList<WeatherField> forCountry = findFields(weather.getCountry());
             fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
             fieldTable.setItems(forCountry);
@@ -94,6 +95,7 @@ public class WeatherController {
         // Looping over all fields to find those who have the passed country
         for (WeatherField x : fields) {
             if (x.getCountry().equals(country)) {
+                // Adding the field to the list
                 forCountry.add(x);
             }
         }
@@ -134,10 +136,12 @@ public class WeatherController {
      * takes the user to the full website from which the weather widget is provided
      */
     public void openSnowForecast() {
+        // Checking if the os is linux based
         String os = System.getProperty("os.name").toLowerCase();
         if (os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
             openLinux();
         } else {
+            // Trying to open the browser
             try {
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().browse(new URI("https://www.snow-forecast.com"));
@@ -160,7 +164,7 @@ public class WeatherController {
         Runtime rt = Runtime.getRuntime();
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
                 "netscape", "opera", "links", "lynx" };
-
+        // Trying to open the browser
         StringBuffer cmd = new StringBuffer();
         for (int i = 0; i < browsers.length; i++)
             if(i == 0)
