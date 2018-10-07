@@ -418,11 +418,6 @@ public class DataAnalyser {
      * @param activity The activity to be checked for risk of cardiovascular mortality.
      * @return Alert describing the heart risk problem.
      */
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
-
-
     public Alert checkCardiovascularMortality(Activity activity) {
         int index = 0;
         ArrayList<DataPoint> dataPoints = activity.getDataSet().getDataPoints();
@@ -458,8 +453,6 @@ public class DataAnalyser {
      * @param activity The activity to be checked for risk of Tachycardia.
      * @return Alert describing the Tachycardia risk problem.
      */
-    public Alert checkTachycardia(Activity activity) {
-
     public Alert checkTachycardia(Activity activity) {
         int index = 0;
         Alert alert = new Alert(activity.getDate(), "Risk of Tachycardia", "Heart risk warning");

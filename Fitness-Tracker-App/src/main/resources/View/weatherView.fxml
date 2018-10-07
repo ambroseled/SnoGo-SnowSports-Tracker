@@ -41,12 +41,12 @@
           <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="fieldTable" maxWidth="200.0" onMouseReleased="#showWeather" prefHeight="508.0" prefWidth="0.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <TableView fx:id="fieldTable" maxWidth="200.0" onMouseReleased="#showWeather" prefHeight="508.0" prefWidth="0.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <columns>
-                <TableColumn fx:id="fieldCol" prefWidth="200.0" text="Ski Field" />
+                <TableColumn fx:id="fieldCol" prefWidth="199.0" resizable="false" text="Ski Field" />
               </columns>
                <GridPane.margin>
-                  <Insets left="10.0" right="20.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
             </TableView>
             <WebView fx:id="webView" prefHeight="310.0" prefWidth="123.0" stylesheets="@../CSS/webViewStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowSpan="4" GridPane.valignment="CENTER">
@@ -76,6 +76,22 @@
                </font>
                <GridPane.margin>
                   <Insets bottom="15.0" left="20.0" />
+               </GridPane.margin>
+            </Text>
+            <TableView fx:id="countryTable" layoutX="228.0" layoutY="172.0" maxWidth="200.0" onMouseReleased="#showFields" prefHeight="508.0" prefWidth="0.0" stylesheets="@../CSS/tableStyle.css" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <columns>
+                  <TableColumn fx:id="countryCol" prefWidth="199.0" resizable="false" text="Country" />
+               </columns>
+               <GridPane.margin>
+                  <Insets left="20.0" right="10.0" />
+               </GridPane.margin>
+            </TableView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Ski Field to View">
+               <font>
+                  <Font size="33.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
                </GridPane.margin>
             </Text>
          </children>

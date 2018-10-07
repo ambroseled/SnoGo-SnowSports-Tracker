@@ -1,5 +1,6 @@
 package seng202.team5.Control;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,16 +12,11 @@ import seng202.team5.DataManipulation.DataBaseController;
 import seng202.team5.Model.Activity;
 import seng202.team5.Model.DataPoint;
 import seng202.team5.Model.DataSet;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-
-//TODO Altitude over time graph for activity
-//TODO Style graphs/scroll panes
 
 
 /**
