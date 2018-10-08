@@ -259,25 +259,28 @@ public class VideoController {
                             System.out.println((int) mediaPlayer.getCurrentTime().toSeconds());
                             previous = (int) mediaPlayer.getCurrentTime().toSeconds();
 
+                            if (startIndex + loops <= endIndex) {
+                                int currentRate = dataSet.get(startIndex + loops).getHeartRate();
+                                hRate.setText(Integer.toString(currentRate));
+                                double currentSpeed = dataSet.get(startIndex + loops).getSpeed();
+                                speed.setText(Double.toString(currentSpeed));
 
-                            int currentRate = dataSet.get(startIndex + loops).getHeartRate();
-                            hRate.setText(Integer.toString(currentRate));
-                            double currentSpeed = dataSet.get(startIndex + loops).getSpeed();
-                            speed.setText(Double.toString(currentSpeed));
-
-                            subList = dataSet.subList(startIndex, startIndex + loops);
-                            subListArray.addAll(subList);
-                            Route route2 = new Route(subListArray);
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        map(route2);
-                                    } catch (Exception e) {
+                                subList = dataSet.subList(startIndex, startIndex + loops);
+                                subListArray.addAll(subList);
+                                Route route2 = new Route(subListArray);
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            map(route2);
+                                        } catch (Exception e) {
+                                        }
                                     }
-                                }
-                            });
-                            loops += 1;
+                                });
+                                loops += 1;
+                            } else {
+                                videoPlaying = false; // effectively end the thread
+                            }
                         }
 
                     }
