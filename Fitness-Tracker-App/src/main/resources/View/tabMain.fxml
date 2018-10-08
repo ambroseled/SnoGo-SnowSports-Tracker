@@ -100,7 +100,7 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="datePicker" onAction="#checkProfile" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
