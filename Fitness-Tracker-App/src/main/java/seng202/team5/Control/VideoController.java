@@ -35,8 +35,6 @@ public class VideoController {
 
     private boolean videoPlaying = false;
 
-    private MapController mapController;
-
     @FXML
     private WebView webView;
 
@@ -89,35 +87,13 @@ public class VideoController {
 
     }
 
-    /*public void selectVideo() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Video File");
-        File f = fileChooser.showOpenDialog(null);
-        try {
-            playVideo(f.getAbsolutePath());
-            playing = true;
-            toggleButton.setText("Pause");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    public void displayVideo() {
-        try {
-            File video = (File) videosTable.getSelectionModel().getSelectedItem();
-            playVideo(video.getAbsolutePath());
-            playing = false;
-            toggleButton.setText("Play");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }*/
 
     public void addVideoToApp() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Video File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("MP4", "*.mp4")
+        );
         File f = fileChooser.showOpenDialog(null);
         File dest = new File(System.getProperty("user.home") + "/SnoGo/Videos/" + f.getName());
         try {
