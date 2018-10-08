@@ -89,25 +89,35 @@ public class VideoController {
 
 
     public void addVideoToApp() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Video File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("MP4", "*.mp4")
-        );
-        File f = fileChooser.showOpenDialog(null);
-        File dest = new File(System.getProperty("user.home") + "/SnoGo/Videos/" + f.getName());
         try {
-            Files.copy(f.toPath(), dest.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Video File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("MP4", "*.mp4")
+            );
+            File f = fileChooser.showOpenDialog(null);
+            File dest = new File(System.getProperty("user.home") + "/SnoGo/Videos/" + f.getName());
+            try {
+                Files.copy(f.toPath(), dest.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            fillTable();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            DialogController.displayError("Unable to add video");
         }
-        fillTable();
+
     }
 
     public void removeSelectedVideo() {
-        File selectedFile = (File) videosTable.getSelectionModel().getSelectedItem();
-        selectedFile.delete();
-        fillTable();
+
+        try {
+            File selectedFile = (File) videosTable.getSelectionModel().getSelectedItem();
+            selectedFile.delete();
+            fillTable();
+        } catch (Exception e) {
+            DialogController.displayError("Unable to remove video");
+        }
     }
 
     @FXML
@@ -249,18 +259,6 @@ public class VideoController {
 
         Thread thread = new Thread(videoThread);
         thread.start();
-    }
-
-    public void rotateVideo() {
-        mediaView.setRotate(mediaView.getRotate() + 90);
-    }
-
-    public void toggleStretch() {
-        if (mediaView.isPreserveRatio()) {
-            mediaView.setPreserveRatio(false);
-        } else {
-            mediaView.setPreserveRatio(true);
-        }
     }
 
     public void togglePlayback() {
