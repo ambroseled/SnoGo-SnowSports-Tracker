@@ -1100,6 +1100,10 @@ public class DataController {
         }
     }
 
+    public void abortEntry() {
+        dataPoints.clear();
+        hideManual();
+    }
 
     @FXML
     /**

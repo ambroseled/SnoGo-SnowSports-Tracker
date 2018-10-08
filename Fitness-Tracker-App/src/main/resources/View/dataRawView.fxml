@@ -97,6 +97,6 @@
       <CheckBox fx:id="latCheck" disable="true" layoutX="683.0" layoutY="473.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" visible="false" />
       <CheckBox fx:id="longCheck" disable="true" layoutX="833.0" layoutY="473.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" visible="false" />
       <CheckBox fx:id="eleCheck" disable="true" layoutX="983.0" layoutY="473.0" mnemonicParsing="false" stylesheets="@../CSS/checkBoxStyle.css" visible="false" />
-      <Button fx:id="abortButton" disable="true" layoutX="566.0" layoutY="621.0" mnemonicParsing="false" onAction="#hideManual" prefHeight="25.0" prefWidth="140.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Entry" visible="false" />
+      <Button fx:id="abortButton" disable="true" layoutX="566.0" layoutY="621.0" mnemonicParsing="false" onAction="#abortEntry" prefHeight="25.0" prefWidth="140.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Abort Entry" visible="false" />
     </children>
 </AnchorPane>
