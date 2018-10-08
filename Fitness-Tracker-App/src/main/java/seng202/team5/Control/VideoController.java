@@ -229,7 +229,7 @@ public class VideoController {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            String scriptToExecute = "displayRoute(" + route.toJSONArray() + ");";
+                            String scriptToExecute = "displayMiniRoute(" + route.toJSONArray() + ");";
                             webEngine.executeScript(scriptToExecute);
                         }
                     });
