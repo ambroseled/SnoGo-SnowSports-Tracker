@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="670" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
+<AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="670" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
    <children>
       <MediaView fx:id="mediaView" fitHeight="480.0" fitWidth="640.0" layoutX="321.0" layoutY="54.0" />
       <Button fx:id="toggleButton" layoutX="591.0" layoutY="474.0" mnemonicParsing="false" onAction="#togglePlayback" prefHeight="27.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Play" />
