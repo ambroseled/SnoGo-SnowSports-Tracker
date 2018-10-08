@@ -73,6 +73,10 @@ public class VideoController {
     private boolean playing = false;
     private ObservableList<File> videoList = FXCollections.observableArrayList();
 
+
+    /**
+     * Function called when the tab is first selected to initialize the controller
+     */
     public void initialize() {
         String path = System.getProperty("user.home");
         new File(path + "/SnoGo/Videos").mkdirs();
@@ -87,7 +91,9 @@ public class VideoController {
 
     }
 
-
+    /**
+     * Function that creates a file chooser, and copies the contents of the selected file into the local storage folder
+     */
     public void addVideoToApp() {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -109,6 +115,9 @@ public class VideoController {
 
     }
 
+    /**
+     * Gets the selected file from the videos table and removes it from the local storage folder
+     */
     public void removeSelectedVideo() {
 
         try {
@@ -132,11 +141,18 @@ public class VideoController {
         }
     }
 
+    /**
+     * Moves the marker on the minimap to the end of the current route of the user
+     * @param route current Route the user has taken up until the current point in the video
+     */
     public void map(Route route) {
         String scriptToExecute = "moveMarker(" + route.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);
     }
 
+    /**
+     * Function that searches for the start time of the video within an activity to see if it can be successfully synced to the video
+     */
     public void bindVideo() {
 
         videoPlaying = false;
@@ -188,6 +204,15 @@ public class VideoController {
         }
     }
 
+
+    /**
+     * Given a path to a video, a set of data, and a starting index, this function begins a thread to loop through the data
+     * from the starting index based on the time of the video, and updates the heart rate and speed values, and also updates the map
+     * using nested threads.
+     * @param path
+     * @param dataSet
+     * @param startIndex
+     */
     public void playVideo(String path, ArrayList<DataPoint> dataSet, int startIndex) {
 
         videoPlaying = true;
@@ -215,8 +240,13 @@ public class VideoController {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            String scriptToExecute = "displayMiniRoute(" + route.toJSONArray() + ");";
-                            webEngine.executeScript(scriptToExecute);
+                            try {
+                                String scriptToExecute = "displayMiniRoute(" + route.toJSONArray() + ");";
+                                webEngine.executeScript(scriptToExecute);
+                            } catch (Exception e) {
+                                DialogController.displayError("Unable to show map, check your internet connection");
+                            }
+
                         }
                     });
 
@@ -241,7 +271,10 @@ public class VideoController {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    map(route2);
+                                    try {
+                                        map(route2);
+                                    } catch (Exception e) {
+                                    }
                                 }
                             });
                             loops += 1;
@@ -261,6 +294,9 @@ public class VideoController {
         thread.start();
     }
 
+    /**
+     * Toggles the mediaPlayer to playing or paused and also switch the text on the control button
+     */
     public void togglePlayback() {
         if (mediaPlayer != null) {
             if (playing) {
@@ -276,6 +312,9 @@ public class VideoController {
 
     }
 
+    /**
+     * Populates the videos table with all the filenames of videos found in the local storage directory
+     */
     public void fillTable() {
         videosTable.getItems().clear();
         File[] fileList = new File(System.getProperty("user.home") + "/SnoGo/Videos").listFiles();
@@ -289,6 +328,9 @@ public class VideoController {
 
     }
 
+    /**
+     * Populate the choice box with the activities of the current user
+     */
     public void setChoiceBox() {
         ArrayList<Activity> inputActivities = db.getActivities(HomeController.getCurrentUser().getId());
         activities = inputActivities;
