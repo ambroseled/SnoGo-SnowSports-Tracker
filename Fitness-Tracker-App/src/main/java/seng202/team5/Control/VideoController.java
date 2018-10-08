@@ -261,18 +261,6 @@ public class VideoController {
         thread.start();
     }
 
-    public void rotateVideo() {
-        mediaView.setRotate(mediaView.getRotate() + 90);
-    }
-
-    public void toggleStretch() {
-        if (mediaView.isPreserveRatio()) {
-            mediaView.setPreserveRatio(false);
-        } else {
-            mediaView.setPreserveRatio(true);
-        }
-    }
-
     public void togglePlayback() {
         if (mediaPlayer != null) {
             if (playing) {
