@@ -1,5 +1,6 @@
 package seng202.team5.Control;
 
+
 import com.opencsv.CSVReader;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -24,12 +25,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 
 /**
- * This class provides functionality for the user to view the weather forecast for multiple ski fields over
- * New Zealand. The weather functionality is provided through the use of the free weather widget provided by
+ * This class provides functionality for the user to view the weather forecast 3100 ski fields over
+ * world. The weather functionality is provided through the use of the free weather widget provided by
  * www.snow-forecast.com.
  */
 public class WeatherController {
@@ -124,6 +124,7 @@ public class WeatherController {
                   hideMessage();
               } else {
                   scriptLoaded = false;
+
               }
           }
         });
@@ -198,6 +199,10 @@ public class WeatherController {
             String url = weatherField.getUrl();
             webEngine.executeScript("changeMt(" + "'" + url + "');");
             webView.setVisible(true);
+        }
+
+        if (!scriptLoaded) {
+            showMessage();
         }
 
         coverView.setVisible(false);

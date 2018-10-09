@@ -5,8 +5,6 @@ package seng202.team5.Control;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -31,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-
 
 
 /**
@@ -732,9 +729,9 @@ public class HomeController {
 
         try {
             // Checking if all entry fields are valid
+            String dateText = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             boolean name = checkName(nameText.getText());
             boolean weight = checkWeight(weightText.getText());
-            String dateText = dateTimeFormat.format(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             boolean date = checkDate(dateText);
             boolean height = checkHeight(heightText.getText());
             // Checking all entry fields values are valid
