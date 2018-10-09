@@ -33,6 +33,7 @@ public class DialogController {
      */
     public static void displayExportMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        // Setting messages to be displayed on the dialogue
         alert.setTitle("Info Dialog");
         alert.setHeaderText("File Export Successful");
         alert.setContentText(message + " to your home directory");

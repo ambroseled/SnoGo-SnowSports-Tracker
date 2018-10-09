@@ -1,16 +1,17 @@
 package seng202.team5.Control;
 
+
 import com.opencsv.CSVReader;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -24,12 +25,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Set;
 
 
 /**
- * This class provides functionality for the user to view the weather forecast for multiple ski fields over
- * New Zealand. The weather functionality is provided through the use of the free weather widget provided by
+ * This class provides functionality for the user to view the weather forecast 3100 ski fields over
+ * world. The weather functionality is provided through the use of the free weather widget provided by
  * www.snow-forecast.com.
  */
 public class WeatherController {
@@ -48,6 +48,8 @@ public class WeatherController {
     private TableView countryTable;
     @FXML
     private TableColumn<WeatherField, String> countryCol;
+    @FXML
+    private Pane coverView;
 
 
     private WebEngine webEngine;
@@ -62,6 +64,7 @@ public class WeatherController {
      * for which the user can select fields to view the weather for
      */
     public void showTables() {
+        // Setting up the column of the table
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
 
         countryTable.setItems(countries);
@@ -75,8 +78,10 @@ public class WeatherController {
      * that relate to the selected country.
      */
     public void showFields() {
+        // Getting the selected weather field
         WeatherField weather = (WeatherField) countryTable.getSelectionModel().getSelectedItem();
         if (weather != null) {
+            // Filling the field column if the weather field is not null
             ObservableList<WeatherField> forCountry = findFields(weather.getCountry());
             fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
             fieldTable.setItems(forCountry);
@@ -94,6 +99,7 @@ public class WeatherController {
         // Looping over all fields to find those who have the passed country
         for (WeatherField x : fields) {
             if (x.getCountry().equals(country)) {
+                // Adding the field to the list
                 forCountry.add(x);
             }
         }
@@ -118,7 +124,7 @@ public class WeatherController {
                   hideMessage();
               } else {
                   scriptLoaded = false;
-                  showMessage();
+
               }
           }
         });
@@ -134,10 +140,12 @@ public class WeatherController {
      * takes the user to the full website from which the weather widget is provided
      */
     public void openSnowForecast() {
+        // Checking if the os is linux based
         String os = System.getProperty("os.name").toLowerCase();
         if (os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
             openLinux();
         } else {
+            // Trying to open the browser
             try {
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().browse(new URI("https://www.snow-forecast.com"));
@@ -160,7 +168,7 @@ public class WeatherController {
         Runtime rt = Runtime.getRuntime();
         String[] browsers = { "epiphany", "firefox", "mozilla", "konqueror",
                 "netscape", "opera", "links", "lynx" };
-
+        // Trying to open the browser
         StringBuffer cmd = new StringBuffer();
         for (int i = 0; i < browsers.length; i++)
             if(i == 0)
@@ -184,11 +192,6 @@ public class WeatherController {
         // Grabbing the selected country
         WeatherField weatherField = (WeatherField) fieldTable.getSelectionModel().getSelectedItem();
         // Checking if the java script has been loaded
-        if (!scriptLoaded) {
-            showMessage();
-        } else {
-            hideMessage();
-        }
 
         if (weatherField != null && scriptLoaded) {
             hideMessage();
@@ -197,6 +200,13 @@ public class WeatherController {
             webEngine.executeScript("changeMt(" + "'" + url + "');");
             webView.setVisible(true);
         }
+
+        if (!scriptLoaded) {
+            showMessage();
+        }
+
+        coverView.setVisible(false);
+
     }
 
 

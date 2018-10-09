@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -8,21 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.web.WebView?>
+
 
 <AnchorPane prefHeight="670.0" prefWidth="1280.0" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.WeatherController">
    <children>
@@ -94,6 +80,11 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Text>
+            <Pane fx:id="coverView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="4">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="5.0" right="5.0" top="50.0" />
+               </GridPane.margin>
+            </Pane>
          </children>
       </GridPane>
       <Text fx:id="warningText" fill="RED" layoutX="560.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An internet connection is needed to view the weather" visible="false" />

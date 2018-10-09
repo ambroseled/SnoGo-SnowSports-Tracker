@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="670" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
+<AnchorPane onMouseReleased="#checkVideoSelected" prefHeight="670" prefWidth="1280" styleClass="root" stylesheets="@../CSS/paneStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team5.Control.VideoController">
    <children>
       <MediaView fx:id="mediaView" fitHeight="480.0" fitWidth="640.0" layoutX="321.0" layoutY="54.0" />
-      <Button styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="612.0" layoutY="604.0" mnemonicParsing="false" onAction="#selectVideo" text="Select Video" />
-      <Button fx:id="toggleButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="630.0" layoutY="567.0" mnemonicParsing="false" onAction="#togglePlayback" text="Pause" />
-      <Button fx:id="rotateButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="727.0" layoutY="604.0" mnemonicParsing="false" onAction="#rotateVideo" text="Rotate" />
-      <Button fx:id="stretchButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="543.0" layoutY="604.0" mnemonicParsing="false" onAction="#toggleStretch" text="Stretch" />
-      <TableView fx:id="videosTable" layoutX="36.0" layoutY="44.0" onMouseClicked="#displayVideo" onMouseReleased="#checkVideoSelected" prefHeight="493.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
+      <Button fx:id="toggleButton" layoutX="591.0" layoutY="474.0" mnemonicParsing="false" onAction="#togglePlayback" prefHeight="27.0" prefWidth="101.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Play" />
+      <TableView fx:id="videosTable" layoutX="36.0" layoutY="57.0" onMouseReleased="#checkVideoSelected" prefHeight="480.0" prefWidth="200.0" stylesheets="@../CSS/tableStyle.css">
         <columns>
           <TableColumn fx:id="videosColumn" prefWidth="199.0" text="Videos" />
         </columns>
       </TableView>
-      <Button styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="36.0" layoutY="554.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" text="Add Video" />
-      <Button fx:id="removeButton" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" layoutX="36.0" layoutY="591.0" mnemonicParsing="false" onAction="#removeSelectedVideo" onMouseReleased="#checkVideoSelected" prefHeight="27.0" prefWidth="200.0" text="Remove Video" />
+      <Button layoutX="36.0" layoutY="554.0" mnemonicParsing="false" onAction="#addVideoToApp" prefHeight="27.0" prefWidth="200.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Add Video" />
+      <Button fx:id="removeButton" layoutX="36.0" layoutY="591.0" mnemonicParsing="false" onAction="#removeSelectedVideo" onMouseReleased="#checkVideoSelected" prefHeight="27.0" prefWidth="200.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Remove Video" />
+      <Text fill="WHITE" layoutX="1069.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heart Rate">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text fx:id="hRate" fill="WHITE" layoutX="1106.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="40.0" />
+         </font></Text>
+      
+
+      <Button fx:id="selectButton" layoutX="733.0" layoutY="548.0" minHeight="24.0" mnemonicParsing="false" onAction="#bindVideo" prefHeight="40.0" prefWidth="228.0" styleClass="round-blue" stylesheets="@../CSS/buttonStyle.css" text="Attempt to Bind" />
+      <ChoiceBox fx:id="activityChoice" layoutX="321.0" layoutY="548.0" minHeight="24.0" prefHeight="40.0" prefWidth="400.0" stylesheets="@../CSS/choiceBoxStyle.css" />
+      <WebView fx:id="webView" layoutX="981.0" layoutY="54.0" prefHeight="203.0" prefWidth="276.0" />
+      <Text fill="WHITE" layoutX="1088.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text fx:id="speed" fill="WHITE" layoutX="1106.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="40.0" />
+         </font></Text>
    </children>
 </AnchorPane>
