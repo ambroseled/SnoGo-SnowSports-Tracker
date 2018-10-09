@@ -238,7 +238,7 @@ public class WeatherController {
         ObservableList<WeatherField> weatherFields = FXCollections.observableArrayList();
         try {
             // making the csv reader to read the fields
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/snow-forecast.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get("snow-forecast.csv"));
             CSVReader csvReader = new CSVReader(reader);
             String[] nextField;
             // Reading all weather fields from the file
