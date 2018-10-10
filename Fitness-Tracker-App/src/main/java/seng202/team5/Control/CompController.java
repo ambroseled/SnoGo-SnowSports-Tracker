@@ -283,7 +283,7 @@ public class CompController {
         cal.setText(Double.toString(set.getCaloriesBurned()));
         avgSpeed.setText(set.getAvgSpeed() + " m/s");
         slope.setText(formatTime(set.getSlopeTime()));
-        time.setText(formatTime(getTime(set)) + " m");
+        time.setText(formatTime(getTime(set)));
     }
 
 
