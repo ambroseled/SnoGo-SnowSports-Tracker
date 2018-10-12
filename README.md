@@ -1,16 +1,16 @@
 # SENG202-Project
 
-SnoGo is a snowsports tracking application amied at recreational skiers and snowboarders. It provides graphical views of uploaded location data in the form og tables, graphs and a map.
+SnoGo is a snowsports tracking application amied at recreational skiers and snowboarders. It provides graphical views of uploaded location data in the form of tables, graphs and a map.
 
 ## Running SnoGo from a .jar file
   - Open terminal 
-  - Navigate to the directory where Fitness-Tracker-App-1.0-SNAPSHOT.jar is located
-  - Execute the command "java -jar Fitness-Tracker-App-1.0-SNAPSHOT.jar"
+  - Navigate to the directory where `Fitness-Tracker-App-1.0-SNAPSHOT.jar` is located
+  - Execute the command `java -jar Fitness-Tracker-App-1.0-SNAPSHOT.jar`
   
 ## Buliding SnoGo
   - Open terminal
   - Navigate to the root directory of the project
-  - Run "mvn clean package"
+  - Run `mvn clean package`
   - Note: you must have maven installed
   
 ## Importing the project
