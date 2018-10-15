@@ -17,5 +17,5 @@ SnoGo is a snowsports tracking application amied at recreational skiers and snow
   - Make sure you have Apache Maven installed on your computer
   - Unzip the .zip file within the folder
   - Open IntelliJ Idea
-  - Import a project and locate the unzipped folder Fitness-Tracker-App
+  - Import a project and locate the unzipped folder `Fitness-Tracker-App`
   - Follow the instructions, clicking next and leaving everything as default
