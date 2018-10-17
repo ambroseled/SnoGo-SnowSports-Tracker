@@ -19,3 +19,6 @@ SnoGo is a snowsports tracking application amied at recreational skiers and snow
   - Open IntelliJ Idea
   - Import a project and locate the unzipped folder `Fitness-Tracker-App`
   - Follow the instructions, clicking next and leaving everything as default
+  
+## Usage
+- Refer to `User Manual.pdf` for specific details on application usage
