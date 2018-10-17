@@ -21,4 +21,4 @@ SnoGo is a snowsports tracking application amied at recreational skiers and snow
   - Follow the instructions, clicking next and leaving everything as default
   
 ## Usage
-- Refer to `User Manual.pdf` for specific details on application usage
+- Refer to the `User Manual.pdf` file for specific details on application usage
