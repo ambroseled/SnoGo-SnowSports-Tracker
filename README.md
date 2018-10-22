@@ -1,6 +1,6 @@
 # SENG202-Project
 
-SnoGo is a snowsports tracking application amied at recreational skiers and snowboarders. It provides graphical views of uploaded location data in the form of tables, graphs and a map.
+SnoGo is a snowsports tracking application amied at recreational skiers and snowboarders. It provides graphical views of uploaded location data in the form of tables, graphs and a map. SnoGo was developed for the University of Canterbury's course SENG202:Software Engineering Project Workshop.
 
 ## Running SnoGo from a .jar file
   - Open terminal 
